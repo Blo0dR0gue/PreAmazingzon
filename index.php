@@ -49,7 +49,6 @@ ini_set('display_errors', 'On');
     </div>
 </header>
 
-
 <section class="container" id="products">
     <div class="row">
         <div class="col">
