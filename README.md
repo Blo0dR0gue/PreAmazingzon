@@ -15,4 +15,9 @@ The project is designed to be executed in a local xampp installation or via GitP
 
 ## Libraries/APIs
 The following libraries or APIs are used in the project:
-* 
+*
+
+## Technical Details
+### Database 
+Following the design of the database:
+![](../../10_WebProjekt/database.png)
