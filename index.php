@@ -1,7 +1,4 @@
-<?php
-error_reporting(-1);
-ini_set('display_errors', 'On');
-?>
+<?php require_once "include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="de">
