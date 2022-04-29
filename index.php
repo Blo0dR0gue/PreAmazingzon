@@ -1,5 +1,7 @@
 <?php require_once "include/site_php_head.inc.php" ?>
 
+<!-- TODO favicon-->
+
 <!DOCTYPE html>
 <html class="h-100" lang="de">
 <head>
@@ -8,6 +10,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+<!--header -->
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -37,6 +40,7 @@
     </div>
 </header>
 
+<!-- main body -->
 <main class="flex-shrink-0">
     <section class="container" id="products">
         <div class="row">

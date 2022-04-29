@@ -1,5 +1,6 @@
 <!-- site footer reused all over the website -->
 
+<!-- footer -->
 <footer class="bg-light border-top mt-auto">
     <div class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-3">
         <!-- footer left -->
@@ -19,7 +20,7 @@
             </a>
 
             <!-- company copy right -->
-            <p class="text-muted mb-0">© 2022 Amazingzon, Inc</p>
+            <p class="text-muted mb-0">© 2022 Amazingzon, Inc. All rights reserved.</p>
         </div>
 
         <!-- footer right -->
@@ -33,4 +34,7 @@
         </ul>
     </div>
 </footer>
+
+<!-- load cookie consent modal on ever site, after the page has loaded -->
+<?php require "include/modal_cookie_consent.inc.php" ?>
 
