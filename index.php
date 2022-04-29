@@ -69,7 +69,8 @@ ini_set('display_errors', 'On');
 </main>
 
 <!-- footer -->
-<?php require "./include/basic_footer.php" // TODO change to path ?>
+<?php require "./include/site_footer.php" ?>
+<!--TODO change to path-->
 
 </body>
 </html>
