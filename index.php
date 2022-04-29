@@ -41,24 +41,24 @@
     <section class="container" id="products">
         <div class="row">
             <div class="col">
-                <?php include "include/itemCard.php"; ?>
+                <?php include "include/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include "include/itemCard.php"; ?>
+                <?php include "include/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include "include/itemCard.php"; ?>
+                <?php include "include/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include "include/itemCard.php"; ?>
+                <?php include "include/itemCard.inc.php"; ?>
             </div>
         </div>
     </section>
 </main>
 
 <!-- footer -->
-<?php require "./include/site_footer.php" ?>
-<!--TODO change to path-->
+<?php require "include/site_footer.inc.php" ?>
+<!--TODO change to path references to organisation ?-->
 
 </body>
 </html>
