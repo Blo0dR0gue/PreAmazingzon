@@ -16,16 +16,16 @@
     <section class="container" id="products">
         <div class="row">
             <div class="col">
-                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/elem_item_card.inc.php"; ?>
             </div>
             <div class="col">
-                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/elem_item_card.inc.php"; ?>
             </div>
             <div class="col">
-                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/elem_item_card.inc.php"; ?>
             </div>
             <div class="col">
-                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/elem_item_card.inc.php"; ?>
             </div>
         </div>
     </section>
