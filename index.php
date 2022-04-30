@@ -1,7 +1,5 @@
 <?php require_once "include/site_php_head.inc.php" ?>
 
-<!-- TODO favicon-->
-
 <!DOCTYPE html>
 <html class="h-100" lang="de">
 <head>
