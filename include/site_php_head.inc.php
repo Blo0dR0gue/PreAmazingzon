@@ -9,6 +9,7 @@ error_reporting(-1);
 
 // default includes
 // TODO
+require_once "pathes.php"
 
 // session
 //TODO
