@@ -20,6 +20,6 @@
     </div>
 
     <!-- load js managing modal -->
-    <script src="../assets/scripts/modal_cookie_consent.js"></script>
+    <script src="<?= SCRIPT_DIR."/modal_cookie_consent.js"?>"></script>
 
 <?php } ?>
