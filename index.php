@@ -9,23 +9,23 @@
 
 <body class="d-flex flex-column h-100">
 <!--header -->
-<?php require "include/site_header.php"; ?>
+<?php require INCLUDE_DIR."/site_header.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
     <section class="container" id="products">
         <div class="row">
             <div class="col">
-                <?php include INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
             </div>
             <div class="col">
-                <?php include INCLUDE_DIR."/itemCard.inc.php"; ?>
+                <?php require INCLUDE_DIR."/itemCard.inc.php"; ?>
             </div>
         </div>
     </section>

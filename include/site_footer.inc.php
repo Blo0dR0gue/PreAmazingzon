@@ -21,7 +21,7 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="<?=PAGE_DIR."/page_about.php"?>" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item"><a href="<?=PAGES_DIR."/page_about.php"?>" class="nav-link px-2 text-muted">About</a></li>
         </ul>
     </div>
 </footer>

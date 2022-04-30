@@ -19,4 +19,4 @@ define("INCLUDE_DIR", $ROOT_DIR . 'include');
 
 define("MODEL_DIR", $ROOT_DIR . 'model');
 
-define("PAGE_DIR", $ROOT_DIR . 'pages');
+define("PAGES_DIR", $ROOT_DIR . 'pages');

@@ -9,7 +9,7 @@ error_reporting(-1);
 
 // default includes
 // TODO
-require_once $_SERVER['DOCUMENT_ROOT']."/pathes.php"
+require_once $_SERVER['DOCUMENT_ROOT'] . "/paths.php"
 
 // session
 //TODO
