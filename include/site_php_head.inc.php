@@ -10,9 +10,12 @@ error_reporting(-1);
 
 // includes
 // TODO
-$dirs = explode("/", substr($_SERVER['PHP_SELF'], 1));
-$path = str_repeat("../", (count($dirs) - 1) > 1 ? (count($dirs) - 1) : 0);
-require_once $path . "paths.php"
+// in this var you will get the absolute file path of the current file
+$current_file_path = dirname(__FILE__);
+$root_file_path = $current_file_path .DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+
+//Load Pahts
+require_once $root_file_path . "paths.php";
 
 // session
 //TODO
