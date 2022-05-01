@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html class="h-100" lang="de">
 <head>
-    <?php require_once INCLUDE_DIR."/site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "/site_html_head.inc.php"; ?>
     <title>Amazingzon - Login</title>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
-<!-- TODO make the login work-->
+    <!-- TODO make the login work-->
     <form>
-        <img class="mb-4" src="<?=IMAGE_DIR."/logo/logo_long.svg"?>" alt="Company Logo" width="" height="64">
+        <img class="mb-4" src="<?= IMAGE_DIR . "/logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
         <h1 class="h3 mb-3 fw-normal">Please login</h1>
 
         <div class="form-floating">

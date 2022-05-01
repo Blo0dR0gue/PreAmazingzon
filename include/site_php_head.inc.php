@@ -12,7 +12,7 @@ error_reporting(-1);
 // TODO
 // in this var you will get the absolute file path of the current file
 $current_file_path = dirname(__FILE__);
-$root_file_path = $current_file_path .DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+$root_file_path = $current_file_path . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
 //Load Pahts
 require_once $root_file_path . "paths.php";

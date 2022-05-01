@@ -27,5 +27,5 @@
 </footer>
 
 <!-- load cookie consent modal on ever site, after the page has loaded -->
-<?php require INCLUDE_DIR."/modal_cookie_consent.inc.php" ?>
+<?php require INCLUDE_DIR . "/modal_cookie_consent.inc.php" ?>
 

@@ -4,20 +4,17 @@
 const cookieModal = new bootstrap.Modal(document.getElementById('modalCookie'), {
     backdrop: 'static',
     keyboard: false,
-    focus:    true
+    focus: true
 });
 cookieModal.show();
 
-/**
- * Hide the modal with the remark of cookies
- */
 // region button handler
 /**
  * Button handler for "accept"-button.
  * Hides modal and saves consent.
  */
 function acceptCookies() {
-    document.cookie = "cookie_consent=1; max-age=" + 60*60*24*365 + "; path=/; SameSite=Lax";
+    document.cookie = "cookie_consent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/; SameSite=Lax";
     cookieModal.hide();
 }
 
@@ -28,4 +25,5 @@ function acceptCookies() {
 function declineCookies() {
     window.location.href = 'https://www.amazon.de/';    // redirections user to competition
 }
+
 // endregion
