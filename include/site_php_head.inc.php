@@ -18,5 +18,6 @@ $root_file_path = $current_file_path . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SE
 require_once $root_file_path . "paths.php";
 
 // session
-//TODO
+session_start()
+// TODO implement session use
 ?>
