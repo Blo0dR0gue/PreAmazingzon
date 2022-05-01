@@ -9,7 +9,9 @@ error_reporting(-1);
 
 // default includes
 // TODO
-require_once $_SERVER['DOCUMENT_ROOT'] . "/paths.php"
+$dirs = explode("/", substr($_SERVER['PHP_SELF'], 1));
+$path = str_repeat("../", (count($dirs) - 1) > 1 ? (count($dirs) - 1) : 0);
+require_once $path . "paths.php"
 
 // session
 //TODO

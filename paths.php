@@ -1,6 +1,6 @@
 <?php
 $dirs = explode("/", substr($_SERVER['PHP_SELF'], 1));
-$path = str_repeat("../", count($dirs) - 1);
+$path = str_repeat("../", (count($dirs) - 1) > 1 ? (count($dirs) - 1) : 0);
 
 $ROOT_DIR = $path;
 
