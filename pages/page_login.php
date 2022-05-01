@@ -26,7 +26,7 @@
                    style="border-top-left-radius: 0; border-top-right-radius: 0">
             <label for="floatingPassword">Password</label>
         </div>
-        <p class="text-muted">By logging in, you accept the terms of use.</p>
+        <p class="text-muted"><small>By logging in, you accept the terms of use.</small></p>
 
         <!-- TODO do we need remember me?-->
         <div class="checkbox mb-3">
@@ -35,9 +35,11 @@
             </label>
         </div>
 
-        <!--  TODO link register page-->
-        <a href="#" class="mb-3 link-primary">Create an account</a>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+
+        <p class="my-1">or</p>
+
+        <a href="#" class="w-100 btn btn-lg btn-secondary">Create an account</a><!--  TODO link register page-->
 
         <p class="mt-5 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
     </form>
