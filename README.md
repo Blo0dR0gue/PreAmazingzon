@@ -19,5 +19,7 @@ The following libraries or APIs are used in the project:
 
 ## Technical Details
 ### Database 
-Following the design of the database:
+Following the design of the database using [MySQL Workbench](https://www.mysql.com/de/products/workbench/):
 ![](assets/images/database_design.png)
+
+### Dir-Structure

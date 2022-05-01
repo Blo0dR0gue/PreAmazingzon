@@ -1,3 +1,6 @@
+<!-- TODO COMMENT-->
+<!-- TODO remove file from root?-->
+
 <?php
 $dirs = explode("/", substr($_SERVER['PHP_SELF'], 1));
 $path = str_repeat("../", (count($dirs) - 1) > 1 ? (count($dirs) - 1) : 0);
@@ -20,3 +23,5 @@ define("INCLUDE_DIR", $ROOT_DIR . 'include');
 define("MODEL_DIR", $ROOT_DIR . 'model');
 
 define("PAGES_DIR", $ROOT_DIR . 'pages');
+
+?>
