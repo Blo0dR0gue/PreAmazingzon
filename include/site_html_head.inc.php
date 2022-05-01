@@ -1,8 +1,9 @@
-<!-- html head file included in html head section -->
+<!-- html head file included in html head section --> <!-- TODO COMMENT -->
 
 <!-- default meta tags -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="author" content="Daniel Czeschner, Frederik Wolter">
 
 <link rel="icon" type="image" href="../assets/images/logo/logo.svg">
 

@@ -1,4 +1,5 @@
 <!-- php head file included in all necessary files at the beginning -->
+<!-- TODO COMMENT -->
 
 <?php
 // php error display
