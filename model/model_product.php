@@ -1,33 +1,34 @@
+<!-- TODO COMMENT -->
+
 <?php
 
 require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php";
 
 class Product
 {
-
-    //Database Variables
+    // region fields
     private int $id;
     private string $title;
     private string $description;
     private float $price;
     private int $stock;
     private float $shippingCost;
+    // endregion
 
-    //Extra Vars
+    // Extra Vars
     //TODO
 
-    //region Static Functions
+    // region Static Functions
     /**
-     * @return array AN Array with all Products in the Database
+     * @return array an array with all Products in the Database
      */
     public static function getAllProducts(): array
     {
         try {
             $products = [];
-            $sql = "SELECT * FROM Product";
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query($sql);
+            $result = getDB()->query("SELECT * FROM Product");
 
             if (!$result) {
                 return [];
@@ -60,9 +61,9 @@ class Product
         return $mainImages[0];
     }
 
-    //endregion
+    // endregion
 
-    //region Database Var Getters
+    // region getter
     /**
      * @return int The ID of the modelProduct
      */
