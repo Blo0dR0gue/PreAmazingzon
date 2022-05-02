@@ -24,43 +24,39 @@
     <form class="needs-validation text-start" novalidate>
         <!-- region name row -->
         <div class="form-row row">
-            <div class="col-md-6 mb-3 px-2">
+            <div class="col-md-6 mb-3 px-2" style="position: relative">
                 <label for="first_name">First Name</label>
-                <input type="text" class="form-control" id="first_name" placeholder="First Name" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+                <input type="text" class="form-control" id="first_name" placeholder="First Name" required
+                       pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
+                <div class="invalid-tooltip opacity-75">Please enter a valid Name!</div>
             </div>
-            <div class="col-md-6 mb-3 px-2">
+            <div class="col-md-6 mb-3 px-2" style="position: relative">
                 <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" id="last_name" placeholder="Last Name" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+                <input type="text" class="form-control" id="last_name" placeholder="Last Name" required
+                       pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
+                <div class="invalid-tooltip opacity-75">Please enter a valid Name!</div>
             </div>
         </div>
         <!-- endregion -->
 
         <!-- region email row -->
         <div class="form-row row">
-            <div class="col-md mb-3 px-2">
+            <div class="col-md mb-3 px-2" style="position: relative">
                 <label for="email">Email Address</label>
                 <input type="email" class="form-control" id="email" placeholder="Email" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+                <div class="invalid-tooltip opacity-75">Please enter a valid Email Address!</div>
             </div>
         </div>
         <!-- endregion -->
 
         <!-- region password row -->
         <div class="form-row row">
-            <div class="col-md mb-3 px-2">
+            <div class="col-md mb-3 px-2" style="position: relative" data-toggle="tooltip" data-placement="top"
+                 title="At least one digit, lowercase-, uppercase-, special-char. At least 8, but no more than 32 char.">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+                <input type="password" class="form-control" id="password" placeholder="Password" required
+                       pattern="(?=.*[0-9])(?=.*[a-zäöü])(?=.*[A-ZÄÖÜ])(?=.*[*.!@$%^&(){}[\]:;<>,.?\/~_+\-=|]).{8,32}">
+                <div class="invalid-tooltip opacity-75">Please enter a valid Password!</div>
             </div>
         </div>
         <!-- endregion -->
@@ -69,38 +65,34 @@
 
         <!-- region address 1 row -->
         <div class="form-row row">
-            <div class="col-md-4 mb-3 px-2">
+            <div class="col-md-4 mb-3 px-2" style="position: relative">
                 <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="Zip" required>
-                <div class="invalid-feedback">
-                    Please provide a valid zip.
-                </div>
+                <input type="text" class="form-control" id="zip" placeholder="Zip" required
+                       pattern="\d{5}">
+                <div class="invalid-tooltip opacity-75">Please enter a valid ZIP!</div>
             </div>
-            <div class="col-md-8 mb-3 px-2">
+            <div class="col-md-8 mb-3 px-2" style="position: relative">
                 <label for="city">City</label>
-                <input type="text" class="form-control" id="city" placeholder="City" required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
-                </div>
+                <input type="text" class="form-control" id="city" placeholder="City" required
+                       pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*">
+                <div class="invalid-tooltip opacity-75">Please enter a valid City!</div>
             </div>
         </div>
         <!-- endregion -->
 
         <!-- region address 2 row -->
         <div class="form-row row">
-            <div class="col-md-8 mb-3 px-2">
+            <div class="col-md-8 mb-3 px-2" style="position: relative">
                 <label for="street">Street</label>
-                <input type="text" class="form-control" id="street" placeholder="Street" required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
-                </div>
+                <input type="text" class="form-control" id="street" placeholder="Street" required
+                       pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*">
+                <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
             </div>
-            <div class="col-md-4 mb-4 px-2">
+            <div class="col-md-4 mb-4 px-2" style="position: relative">
                 <label for="number">No.</label>
-                <input type="text" class="form-control" id="number" placeholder="Number" required>
-                <div class="invalid-feedback">
-                    Please provide a valid zip.
-                </div>
+                <input type="text" class="form-control" id="number" placeholder="Number" required
+                       pattern="[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?">
+                <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
             </div>
         </div>
         <!-- endregion -->
@@ -110,9 +102,6 @@
             <div class="form-check text-muted">
                 <input class="form-check-input" type="checkbox" value="" id="conditions" required>
                 <label class="form-check-label" for="conditions">Agree to terms and conditions</label>
-                <div class="invalid-feedback">
-                    You must agree before submitting.
-                </div>
             </div>
         </div>
         <!-- endregion -->
@@ -125,6 +114,8 @@
 
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . "/form_validation.js" ?>"></script>
+<!-- enable tooltips on this page (by default disabled for performance)-->
+<script src="<?= SCRIPT_DIR . "/tooltip_enable.js" ?>"></script>
 
 </body>
 </html>
