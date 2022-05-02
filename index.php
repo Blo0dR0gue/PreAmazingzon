@@ -16,24 +16,22 @@
 <main class="flex-shrink-0">
     <section class="container" id="products">
         <div class="row">
-            <div class="col">
+            <?php
+                require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
+                $controller = new ProductController();
+                foreach($controller->getAllProducts() as $product):
+            ?>
+            <div class="col-3">
                 <?php require INCLUDE_DIR . "/elem_item_card.inc.php"; ?>
             </div>
-            <div class="col">
-                <?php require INCLUDE_DIR . "/elem_item_card.inc.php"; ?>
-            </div>
-            <div class="col">
-                <?php require INCLUDE_DIR . "/elem_item_card.inc.php"; ?>
-            </div>
-            <div class="col">
-                <?php require INCLUDE_DIR . "/elem_item_card.inc.php"; ?>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 </main>
 
 <!-- footer -->
 <?php require INCLUDE_DIR . "/site_footer.inc.php" ?>
+
 <!--TODO change to path references to organisation ?-->
 
 </body>
