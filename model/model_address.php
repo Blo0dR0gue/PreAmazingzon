@@ -2,7 +2,7 @@
 
 <?php
 // load required files
-require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.php");
+require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php");
 
 
 class Address
@@ -35,7 +35,7 @@ class Address
         $this->user_id = $user_id;
     }
 
-    // region getter & setter
+    // region getter
     /**
      * @return int
      */
@@ -86,17 +86,32 @@ class Address
 
     // endregion
 
+    public function insert(): void
+    {
+        // TODO
+    }
+
+    public function update(): void
+    {
+        // TODO
+    }
+
+    public function delete(): void
+    {
+        // TODO
+    }
+
     /**
-     * Get an address by its id.
+     * Get an existing address by its id.
      *
      * @param int $id ID of an address
      * @return Address new address
      */
     public static function getById(int $id): Address
     {
-//        TODO ERROR handling
-        $stmt = getDB()->prepare("SELECT * from Address where id = :id;");
-        $stmt->bind_param(':id', $id);
+        // TODO ERROR handling
+        $stmt = getDB()->prepare("SELECT * from address where id = ?;");
+        $stmt->bind_param("i", $id);
         $stmt->execute();
 
         $res = $stmt->get_result()->fetch_assoc();
@@ -106,5 +121,45 @@ class Address
         return new Address($id, $res['street'], $res['streetNumber'], $res['zipCode'], $res['city'], $res['user']);
     }
 
+    /**
+     * Get all existing addresses related to one user.
+     * @param int $user_id user of interest
+     * @return array<Address> array if addresses
+     */
+    public static function getAllByUser(int $user_id): array
+    {
+        // TODO ERROR handling
+        $stmt = getDB()->prepare("SELECT * from address where user = ?;");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
 
+        $res = $stmt->get_result();
+
+        $arr = Array();
+        while ($r = $res->fetch_assoc()){
+            $arr[] = new Address($r['id'], $r['street'], $r['streetNumber'], $r['zipCode'], $r['city'], $r['user']);
+        }
+        $stmt->close();
+
+        return $arr;
+    }
+
+    /**
+     * Get default excisting default address related to one user.
+     * @param int $user_id user of interest
+     * @return Address default address
+     */
+    public static function getDefaultByUser(int $user_id): Address
+    {
+        // TODO ERROR handling
+        $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+
+        $res = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+
+        return Address::getById($res['defaultAddress']);
+    }
 }
