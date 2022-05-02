@@ -47,7 +47,7 @@ class Product
         return [];
     }
 
-    public static function getProductMainImage($id): string{
+    public static function getProductMainImage($id): string{    //TODO maybe save mainImg name in db?
         $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . '*-main*');
 
         if (count($mainImages) === 0) {
