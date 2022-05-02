@@ -9,7 +9,7 @@ if (isset($product) && $product instanceof Product):
         <div class="card-body">
             <?= $product->getDescription(); ?>
             <hr>
-            <strong><?= $product->getPrice(); ?> €</strong>
+            <strong><?= $product->getPriceFormatted(); ?> €</strong>
         </div>
         <div class="card-footer">
             <a href="#" class="btn btn-primary btn-sm">Details</a>
