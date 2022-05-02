@@ -10,7 +10,7 @@
 
 <body class="d-flex flex-column h-100">
 <!--header -->
-<?php require INCLUDE_DIR . "/site_header.php"; ?>
+<?php require INCLUDE_DIR . "/site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
