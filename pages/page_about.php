@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>
-<html class="h-100" lang="de">
+<html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . "/site_html_head.inc.php"; ?>
     <title>Amazingzon</title>
