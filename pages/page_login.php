@@ -15,8 +15,10 @@
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <!-- TODO make the login work-->
     <form>
-        <img class="mb-4" src="<?= IMAGE_DIR . "/logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
-        <h1 class="h3 mb-3 fw-normal">Please login</h1>
+        <a href="/" class="mb-0">
+            <img class="mb-4" src="<?= IMAGE_DIR . "/logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+        </a>
+        <h3 class="mb-3 fw-normal">Please login</h3>
 
         <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
