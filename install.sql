@@ -104,7 +104,6 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
-  `imgSource` VARCHAR(255) NOT NULL,
   `parent` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_categorie_categorie1`
@@ -113,25 +112,6 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Category` (
     ON DELETE RESTRICT
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `amazingzon`.`ProductImage`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`ProductImage` ;
-
-CREATE TABLE IF NOT EXISTS `amazingzon`.`ProductImage` (
-  `id` INT NOT NULL,
-  `Product_id` INT NOT NULL,
-  `source` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_ProductImage_Product1`
-    FOREIGN KEY (`Product_id`)
-    REFERENCES `amazingzon`.`Product` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Review`
