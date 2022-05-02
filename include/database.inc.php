@@ -3,7 +3,7 @@
 <?php
 function getDB(): mysqli
 {
-    static $db;
+    static $db;     // single instance of a db connection
     if ($db instanceof MYSQLI) {
         return $db;
     }
@@ -12,5 +12,7 @@ function getDB(): mysqli
     $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
     return $db;
 }
+
+// TODO close DB?
 
 ?>
