@@ -1,6 +1,6 @@
 <?php
 
-class Product
+class product
 {
 
     //Database Variables
@@ -16,7 +16,7 @@ class Product
 
     //region Database Var Getters
     /**
-     * @return int
+     * @return int The ID of the product
      */
     public function getId(): int
     {
@@ -24,7 +24,7 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string The Title of the product
      */
     public function getTitle(): string
     {
@@ -32,7 +32,7 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string The Description of the product
      */
     public function getDescription(): string
     {
@@ -40,7 +40,7 @@ class Product
     }
 
     /**
-     * @return float
+     * @return float The Price for this product
      */
     public function getPrice(): float
     {
@@ -48,7 +48,7 @@ class Product
     }
 
     /**
-     * @return int
+     * @return int The Amount of Items in Stock
      */
     public function getStock(): int
     {
@@ -56,7 +56,7 @@ class Product
     }
 
     /**
-     * @return float
+     * @return float The Cost for Shipping this product
      */
     public function getShippingCost(): float
     {
