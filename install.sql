@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`User` (
   `userRole` INT NOT NULL,
   `firstname` VARCHAR(255) NOT NULL,
   `lastname` VARCHAR(255) NOT NULL,
-  `defaultAddress` INT NOT NULL,
+  `defaultAddress` INT,
   `active` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_User_UserRight`
@@ -261,3 +261,38 @@ GRANT ALL ON `amazingzon`.* TO 'amazingzon';
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- Data for table `amazingzon`.`UserRole`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `amazingzon`;
+INSERT INTO `amazingzon`.`UserRole` (`id`, `name`) VALUES (DEFAULT, 'admin');
+INSERT INTO `amazingzon`.`UserRole` (`id`, `name`) VALUES (DEFAULT, 'user');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `amazingzon`.`Product`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `amazingzon`;
+INSERT INTO `amazingzon`.`Product` (`id`, `title`, `description`, `price`, `stock`, `shippingCost`) VALUES (DEFAULT, 'Katze', 'Super flauschig yeah', 6.50, 2, 7);
+INSERT INTO `amazingzon`.`Product` (`id`, `title`, `description`, `price`, `stock`, `shippingCost`) VALUES (DEFAULT, 'Test', 'Testprodukt', 160.27, 1, 3.50);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `amazingzon`.`OrderState`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `amazingzon`;
+INSERT INTO `amazingzon`.`OrderState` (`id`, `label`) VALUES (DEFAULT, 'new');
+INSERT INTO `amazingzon`.`OrderState` (`id`, `label`) VALUES (DEFAULT, 'canceled');
+INSERT INTO `amazingzon`.`OrderState` (`id`, `label`) VALUES (DEFAULT, 'sent');
+INSERT INTO `amazingzon`.`OrderState` (`id`, `label`) VALUES (DEFAULT, 'delivered');
+
+COMMIT;
