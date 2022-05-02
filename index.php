@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . "/site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title>Amazingzon</title>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!--header -->
-<?php require INCLUDE_DIR . "/site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -22,7 +22,7 @@
                 foreach($controller->getAllProducts() as $product):
             ?>
             <div class="col-3">
-                <?php require INCLUDE_DIR . "/elem_item_card.inc.php"; ?>
+                <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_item_card.inc.php"; ?>
             </div>
             <?php endforeach; ?>
         </div>
@@ -30,7 +30,7 @@
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . "/site_footer.inc.php" ?>
+<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
 
 <!--TODO change to path references to organisation ?-->
 

@@ -7,7 +7,7 @@
         <div class="col-md-6 d-flex align-items-center">
             <!-- company logo -->
             <a href="/" class="mb-0">
-                <img src="<?=IMAGE_DIR."/logo/logo.svg"?>" class="bi me-2" width="40" height="40" alt="Company Logo">
+                <img src="<?=IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo.svg"?>" class="bi me-2" width="40" height="40" alt="Company Logo">
             </a>
 
             <!-- company copy right -->
@@ -27,5 +27,5 @@
 </footer>
 
 <!-- load cookie consent modal on ever site, after the page has loaded -->
-<?php require INCLUDE_DIR . "/modal_cookie_consent.inc.php" ?>
+<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_cookie_consent.inc.php" ?>
 

@@ -2,8 +2,7 @@
 
 <?php
 // load required files
-require_once "../include/site_php_head.inc.php";
-require_once(INCLUDE_DIR . "/database.php");
+require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.php");
 
 
 class Address

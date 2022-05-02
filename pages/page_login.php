@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . "/site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title>Amazingzon - Login</title>
 </head>
 
@@ -14,9 +14,9 @@
 
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <!-- TODO make the login work-->
-    <form>
+    <form novalidate>
         <a href="/" class="mb-0">
-            <img class="mb-4" src="<?= IMAGE_DIR . "/logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+            <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
 

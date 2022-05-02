@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . "/site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title>Amazingzon - Register</title>
 </head>
 
@@ -16,7 +16,7 @@
     <!-- TODO make the register work-->
 
     <a href="/" class="mb-0">
-        <img class="mb-4" src="<?= IMAGE_DIR . "/logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+        <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
     </a>
     <h3 class="mb-2">Create an Account</h3>
     <p class="text-muted mb-4">Give us some more information about you, so we can get to know you.</p>
@@ -113,9 +113,9 @@
 </main>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . "/form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
 <!-- enable tooltips on this page (by default disabled for performance)-->
-<script src="<?= SCRIPT_DIR . "/tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "tooltip_enable.js" ?>"></script>
 
 </body>
 </html>
