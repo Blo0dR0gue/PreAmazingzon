@@ -21,7 +21,8 @@ The project is designed to be executed in a local xampp installation or via GitP
 
 The following libraries or APIs are used in the project:
 
-* [Bootstrap](https://getbootstrap.com/)
+* [Bootstrap](https://getbootstrap.com/) CSS & (JS): for styling and GUI related things
+* [Popper](https://popper.js.org/): for better tooltips (recommended by Bootstrap)
 
 ## Technical Details
 
