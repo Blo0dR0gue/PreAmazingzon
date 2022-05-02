@@ -17,8 +17,26 @@ class Product
 
     // Extra Vars
     //TODO
+    private string $mainImg;
 
-    // region Static Functions
+    /**
+     * @param int $id
+     * @param string $title
+     * @param string $description
+     * @param float $price
+     * @param int $stock
+     * @param float $shippingCost
+     */
+    public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost)
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->price = $price;
+        $this->stock = $stock;
+        $this->shippingCost = $shippingCost;
+    }
+
     /**
      * @return array an array with all Products in the Database
      */
@@ -37,8 +55,9 @@ class Product
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach($rows as $row){
-                $row['mainImg'] = self::getProductMainImage($row['id']);    //TODO in controller?
-                $products[] = $row;
+                $product = new Product($row['id'], $row['title'], $row['description'], $row['price'], $row['stock'], $row['shippingCost']);
+                $product->setMainImg();
+                $products[] = $product;
             }
 
             return $products;
@@ -48,22 +67,9 @@ class Product
         return [];
     }
 
-    public static function getProductMainImage($id): string{    //TODO maybe save mainImg name in db?
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . '*-main*');
-
-        if (count($mainImages) === 0) {
-            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . '1.*');
-        }
-
-        if (count($mainImages) === 0) {
-            return IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg';
-        }
-        return $mainImages[0];
-    }
-
     // endregion
 
-    // region getter
+    // region getter & setter
     /**
      * @return int The ID of the modelProduct
      */
@@ -111,6 +117,39 @@ class Product
     {
         return $this->shippingCost;
     }
+
+    //region extra vars
+    /**
+     * @return string
+     */
+    public function getMainImg(): string
+    {
+        if(!isset($this->mainImg)){
+            $this->setMainImg();
+        }
+        return $this->mainImg;
+    }
+
+    /**
+     * Sets the mainImg Variable.
+     */
+    public function setMainImg(): void
+    {
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . '*-main*');
+
+        if (count($mainImages) === 0) {
+            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . '1.*');
+        }
+
+        if (count($mainImages) === 0) {
+            $this->mainImg = IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg';
+            return;
+        }
+
+        $this->mainImg = $mainImages[0];
+    }
+    //endregion
+
 
     //endregion
 

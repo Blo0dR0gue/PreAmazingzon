@@ -1,15 +1,15 @@
 <?php
-if (isset($product)):
+if (isset($product) && $product instanceof Product):
 ?>
     <div class="card">
         <div class="card-title">
-            <?= $product['title'] ?>
+            <?= $product->getTitle(); ?>
         </div>
-        <img src="<?= $product['mainImg'] ?>" class="card-img-top" alt="product">
+        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="product">
         <div class="card-body">
-            <?= $product['description'] ?>
+            <?= $product->getDescription(); ?>
             <hr>
-            <strong><?= $product['price'] ?> €</strong>
+            <strong><?= $product->getPrice(); ?> €</strong>
         </div>
         <div class="card-footer">
             <a href="#" class="btn btn-primary btn-sm">Details</a>
