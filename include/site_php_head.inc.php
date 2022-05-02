@@ -3,7 +3,7 @@
 
 <?php
 // php error display
-// TODO work out how reporting works
+// TODO work out how reporting works; disable for prod?
 ini_set('display_errors', 'On');
 ini_set('display_startup_errors', 'On');
 error_reporting(-1);

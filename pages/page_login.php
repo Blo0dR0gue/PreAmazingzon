@@ -1,6 +1,8 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
+<!-- TODO if already logged in redirect to e.g. profile -->
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>

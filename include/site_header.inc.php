@@ -1,5 +1,7 @@
 <!-- site header resumed all over the website -->
 
+<!-- TODO make links wor-->
+
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -20,8 +22,8 @@
             </form>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <a href="/pages/page_login.php" class="btn btn-warning me-2">Login</a>
+                <a href="/pages/page_register.php" class="btn btn-outline-light">Sign-up</a>
             </div>
         </div>
     </div>
