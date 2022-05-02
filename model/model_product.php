@@ -102,6 +102,11 @@ class Product
         return $this->price;
     }
 
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 2, '.', '');
+    }
+
     /**
      * @return int The Amount of Items in Stock
      */

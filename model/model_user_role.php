@@ -59,4 +59,4 @@ class UserRole
         return new UserRole($id, $res['name']);
     }
 }
-?>
+
