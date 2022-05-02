@@ -3,7 +3,7 @@ if (isset($product)):
 ?>
     <div class="card">
         <div class="card-title"><?= $product['title'] ?></div>
-        <img src="https://placekitten.com/286/180" class="card-img-top" alt="...">
+        <img src="<?= $product['mainImg'] ?>" class="card-img-top" alt="product">
         <div class="card-body">
             <?= $product['description'] ?>
             <hr>

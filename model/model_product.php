@@ -23,6 +23,7 @@ class Product
     public static function getAllProducts(): array
     {
         try {
+            $products = [];
             $sql = "SELECT * FROM Product";
 
             //No need for prepared statement, because we do not use inputs.
@@ -32,11 +33,31 @@ class Product
                 return [];
             }
 
-            return $result->fetch_all(MYSQLI_ASSOC);
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+            foreach($rows as $row){
+                $row['mainImg'] = self::getProductMainImage($row['id']);    //TODO in controller?
+                $products[] = $row;
+            }
+
+            return $products;
         }catch (Exception $e){
             echo $e; //TODO Error Handling
         }
         return [];
+    }
+
+    public static function getProductMainImage($id): string{
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . '*-main*');
+
+        if (count($mainImages) === 0) {
+            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . '1.*');
+        }
+
+        if (count($mainImages) === 0) {
+            return IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg';
+        }
+        return $mainImages[0];
     }
 
     //endregion
