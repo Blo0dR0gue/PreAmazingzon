@@ -2,7 +2,7 @@
 <!-- TODO remove file from root?-->
 
 <?php
-$dirs = explode(DIRECTORY_SEPARATOR, substr($_SERVER['PHP_SELF'], 1));
+$dirs = explode("/", substr($_SERVER['PHP_SELF'], 1));
 $path = str_repeat("..".DIRECTORY_SEPARATOR, count($dirs) - 1);
 
 $ROOT_DIR = $path;
