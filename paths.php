@@ -10,6 +10,7 @@ $ROOT_DIR = $path;
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 define("ASSETS_DIR", $ROOT_DIR . "assets");
+// TODO diffrence const / def?
 const CONFIG_DIR = ASSETS_DIR . '/config';
 const FILE_DIR = ASSETS_DIR . '/files';
 const IMAGE_DIR = ASSETS_DIR . '/images';
