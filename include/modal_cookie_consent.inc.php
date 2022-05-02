@@ -22,6 +22,6 @@
 </div>
 
 <!-- load js managing modal -->
-<script src="<?= SCRIPT_DIR . "/modal_cookie_consent.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "modal_cookie_consent.js" ?>"></script>
 
 <?php } ?>
