@@ -41,11 +41,11 @@
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
 
-        <p class="my-1">or</p>
+        <p class="my-1 text-muted">or</p>
 
-        <a href="#" class="w-100 btn btn-lg btn-secondary">Create an account</a><!--  TODO link register page-->
+        <a href="/pages/page_register.php" class="w-100 btn btn-lg btn-secondary">Create an account</a>
 
-        <p class="mt-5 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
+        <p class="mt-4 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
     </form>
 </main>
 

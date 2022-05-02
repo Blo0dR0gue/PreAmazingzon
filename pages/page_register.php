@@ -108,8 +108,8 @@
 
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Register</button>
     </form>
-
-    <p class="mt-4 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
+    <p class="mt-4 mb-1 text-muted">Already registered? <a class="text-muted" href="/pages/page_login.php">Login</a></p>
+    <p class="mb-3 text-muted">© 2022 Amazingzon Inc.</p>
 </main>
 
 <!-- load custom form validation script -->
