@@ -56,7 +56,7 @@ class OrderState
 
         $stmt->close();
 
-        return new OrderState($id, $res['label']);
+        return new OrderState($id, $res["label"]);
     }
 
 }

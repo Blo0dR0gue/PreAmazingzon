@@ -55,7 +55,7 @@ class Product
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach($rows as $row){
-                $product = new Product($row['id'], $row['title'], $row['description'], $row['price'], $row['stock'], $row['shippingCost']);
+                $product = new Product($row["id"], $row["title"], $row["description"], $row["price"], $row["stock"], $row["shippingCost"]);
                 $product->setMainImg();
                 $products[] = $product;
             }
@@ -104,7 +104,7 @@ class Product
 
     public function getPriceFormatted(): string
     {
-        return number_format($this->getPrice(), 2, '.', '');
+        return number_format($this->getPrice(), 2, ".", "");
     }
 
     /**
@@ -140,21 +140,20 @@ class Product
      */
     public function setMainImg(): void
     {
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . '*-main*');
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*-main*");
 
         if (count($mainImages) === 0) {
-            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . '1.*');
+            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "1.*");
         }
 
         if (count($mainImages) === 0) {
-            $this->mainImg = IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg';
+            $this->mainImg = IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg";
             return;
         }
 
         $this->mainImg = $mainImages[0];
     }
     //endregion
-
 
     //endregion
 

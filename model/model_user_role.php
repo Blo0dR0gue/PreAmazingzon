@@ -56,7 +56,7 @@ class UserRole
 
         $stmt->close();
 
-        return new UserRole($id, $res['name']);
+        return new UserRole($id, $res["name"]);
     }
 }
 

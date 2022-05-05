@@ -1,8 +1,8 @@
 // script for handling the cookie consent modal
 
 // display modal
-const cookieModal = new bootstrap.Modal(document.getElementById('modalCookie'), {
-    backdrop: 'static',
+const cookieModal = new bootstrap.Modal(document.getElementById("modalCookie"), {
+    backdrop: "static",
     keyboard: false,
     focus: true
 });
@@ -23,7 +23,7 @@ function acceptCookies() {
  * Leaves the website due to no consent using cookies.
  */
 function declineCookies() {
-    window.location.href = 'https://www.amazon.de/';    // redirections user to competition
+    window.location.href = "https://www.amazon.de/";    // redirections user to competition
 }
 
 // endregion

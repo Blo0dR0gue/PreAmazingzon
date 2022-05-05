@@ -118,7 +118,7 @@ class Address
 
         $stmt->close();
 
-        return new Address($id, $res['street'], $res['streetNumber'], $res['zipCode'], $res['city'], $res['user']);
+        return new Address($id, $res["street"], $res["streetNumber"], $res["zipCode"], $res["city"], $res["user"]);
     }
 
     /**
@@ -130,14 +130,14 @@ class Address
     {
         // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT * from address where user = ?;");
-        $stmt->bind_param('i', $user_id);
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
 
         $res = $stmt->get_result();
 
         $arr = Array();
         while ($r = $res->fetch_assoc()){
-            $arr[] = new Address($r['id'], $r['street'], $r['streetNumber'], $r['zipCode'], $r['city'], $r['user']);
+            $arr[] = new Address($r["id"], $r["street"], $r["streetNumber"], $r["zipCode"], $r["city"], $r["user"]);
         }
         $stmt->close();
 
@@ -153,14 +153,14 @@ class Address
     {
         // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
-        $stmt->bind_param('i', $user_id);
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
 
         $res = $stmt->get_result()->fetch_assoc();
 
         $stmt->close();
 
-        return Address::getById($res['defaultAddress']);
+        return Address::getById($res["defaultAddress"]);
     }
 }
 ?>
