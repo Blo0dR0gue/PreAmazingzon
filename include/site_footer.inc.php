@@ -11,7 +11,7 @@
             </a>
 
             <!-- company copy right -->
-            <p class="text-muted mb-0">© 2022 Amazingzon, Inc. All rights reserved.</p>
+            <p class="text-muted mb-0">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc. All rights reserved.</p>
         </div>
 
         <!-- footer right -->

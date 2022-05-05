@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title>Amazingzon - Login</title>
+    <title><?=PAGE_NAME?> - Login</title>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
@@ -39,13 +39,14 @@
             </label>
         </div>
 
+        <!-- buttons -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
 
         <p class="my-1 text-muted">or</p>
 
-        <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_register.php'?>" class="w-100 btn btn-lg btn-secondary">Create an account</a>
+        <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR ."page_register.php"?>" class="w-100 btn btn-lg btn-secondary">Create an account</a>
 
-        <p class="mt-4 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
+        <p class="mt-4 mb-3 text-muted">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc.</p>
     </form>
 </main>
 

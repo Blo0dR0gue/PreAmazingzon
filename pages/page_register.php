@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title>Amazingzon - Register</title>
+    <title><?=PAGE_NAME?> - Register</title>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
@@ -109,7 +109,7 @@
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Register</button>
     </form>
     <p class="mt-4 mb-1 text-muted">Already registered? <a class="text-muted" href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_login.php'?>">Login</a></p>
-    <p class="mb-3 text-muted">© 2022 Amazingzon Inc.</p>
+    <p class="mb-3 text-muted">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc.</p>
 </main>
 
 <!-- load custom form validation script -->

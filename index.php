@@ -5,7 +5,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title>Amazingzon</title>
+    <title><?=PAGE_NAME?></title>
 </head>
 
 <body class="d-flex flex-column h-100">
