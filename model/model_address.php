@@ -145,7 +145,7 @@ class Address
     }
 
     /**
-     * Get default excisting default address related to one user.
+     * Get default existing default address related to one user.
      * @param int $user_id user of interest
      * @return Address default address
      */
