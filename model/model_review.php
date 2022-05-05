@@ -15,6 +15,7 @@ class Review
     private int $userId;
     private int $productId;
     // endregion
+
     /**
      * @param int $id
      * @param string $title
@@ -31,6 +32,29 @@ class Review
         $this->stars = $stars;
         $this->userId = $userId;
         $this->productId = $productId;
+    }
+
+    public static function getAvgRating(int $productId): ?float
+    {
+        $sql = "SELECT AVG(stars) as rating
+                FROM Review
+                WHERE product = ?
+                GROUP BY product;";
+        $stmt = getDb()->prepare($sql);
+        $stmt->bind_param("s", $productId);
+
+        if(!$stmt->execute()) return null;    //TODO Error Handling
+
+        $res = $stmt->get_result();
+
+        if($res->num_rows === 0) return 0;
+
+        $stmt->bind_result($rating);
+        $stmt->fetch();
+
+        $stmt->close();
+
+        return $rating;
     }
 
     // region getter
@@ -82,7 +106,6 @@ class Review
     {
         return $this->productId;
     }
-
 
 
     // endregion

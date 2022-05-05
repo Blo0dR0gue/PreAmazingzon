@@ -87,6 +87,8 @@ class Product
                 $products[] = $product;
             }
 
+            $stmt->close();
+
             return $products;
         } catch (Exception $e) {
             echo $e; //TODO Error Handling
