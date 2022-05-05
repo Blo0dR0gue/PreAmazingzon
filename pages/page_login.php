@@ -15,7 +15,7 @@
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <!-- TODO make the login work-->
     <form novalidate>
-        <a href="/" class="mb-0">
+        <a href="<?php global $ROOT_DIR; echo $ROOT_DIR?>" class="mb-0">
             <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
@@ -43,7 +43,7 @@
 
         <p class="my-1 text-muted">or</p>
 
-        <a href="/pages/page_register.php" class="w-100 btn btn-lg btn-secondary">Create an account</a>
+        <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_register.php'?>" class="w-100 btn btn-lg btn-secondary">Create an account</a>
 
         <p class="mt-4 mb-3 text-muted">© 2022 Amazingzon Inc.</p>
     </form>

@@ -11,11 +11,13 @@ error_reporting(-1);
 // includes
 // TODO
 // in this var you will get the absolute file path of the current file
-$current_file_path = dirname(__FILE__);
+$current_file_path = __DIR__;
 $root_file_path = $current_file_path . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
+//Load default config
+require_once $root_file_path . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
 //Load paths
-require_once $root_file_path . "paths.php";
+require_once $root_file_path . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . "paths.inc.php";
 
 // session
 session_start()
