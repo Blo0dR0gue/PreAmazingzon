@@ -1,4 +1,5 @@
 // script for handling the cookie consent modal
+// TODO COMMENT
 
 // display modal
 const cookieModal = new bootstrap.Modal(document.getElementById("modalCookie"), {
@@ -16,9 +17,6 @@ cookieModal.show();
 function acceptCookies() {
     document.cookie = "cookie_consent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/; SameSite=Lax";
     cookieModal.hide();
-    // remove remaining back-drop 
-    $('#modalCookie').remove()
-    $(document.body).removeClass("modal-open");
 }
 
 /**
@@ -29,4 +27,10 @@ function declineCookies() {
     window.location.href = "https://www.amazon.de/";    // redirections user to competition
 }
 
+
+$('#modalCookie').on('hidden.bs.modal', function () {
+    // remove remaining back-drop
+    $('#modalCookie').remove()
+    $(document.body).removeClass("modal-open");
+})
 // endregion
