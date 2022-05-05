@@ -16,6 +16,9 @@ cookieModal.show();
 function acceptCookies() {
     document.cookie = "cookie_consent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/; SameSite=Lax";
     cookieModal.hide();
+    // remove remaining back-drop 
+    $('#modalCookie').remove()
+    $(document.body).removeClass("modal-open");
 }
 
 /**
