@@ -14,7 +14,8 @@ cookieModal.show();
  * Button handler for "accept"-button.
  * Hides modal and saves consent.
  */
-function acceptCookies() {
+function acceptCookies()
+{
     document.cookie = "cookie_consent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/; SameSite=Lax";
     cookieModal.hide();
 }
@@ -23,12 +24,14 @@ function acceptCookies() {
  * Button handler for "decline"-button.
  * Leaves the website due to no consent using cookies.
  */
-function declineCookies() {
+function declineCookies()
+{
     window.location.href = "https://www.amazon.de/";    // redirections user to competition
 }
 
 
-$('#modalCookie').on('hidden.bs.modal', function () {
+$('#modalCookie').on('hidden.bs.modal', function ()
+{
     // remove remaining back-drop
     $('#modalCookie').remove()
     $(document.body).removeClass("modal-open");

@@ -48,7 +48,8 @@ class Product
             //No need for prepared statement, because we do not use inputs.
             $result = getDB()->query("SELECT * FROM Product");
 
-            if (!$result) {
+            if (!$result)
+            {
                 return [];
             }
 
