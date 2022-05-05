@@ -15,7 +15,8 @@ class UserController
     public static function login(User $user, string $password): bool
     {   // TODO validate
 
-        if ($user->isActive()){     // only login active users
+        if ($user->isActive())  // only login active users
+        {
             if (password_verify($password, $user->getPasswordHash()))   // valid credentials?
             {
                 // save the login state

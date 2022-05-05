@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?=PAGE_NAME?> - Login</title>
+    <title><?= PAGE_NAME ?> - Login</title>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
@@ -15,8 +15,9 @@
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <!-- TODO make the login work-->
     <form action="" method="post" class="needs-validation" novalidate>
-        <a href="<?php global $ROOT_DIR; echo $ROOT_DIR?>" class="mb-0">
-            <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+        <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="mb-0">
+            <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo"
+                 width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
 
@@ -44,10 +45,11 @@
         <!-- buttons -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         <p class="my-1 text-muted">or</p>
-        <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR ."page_register.php"?>" class="w-100 btn btn-lg btn-secondary">Create an account</a>
+        <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
+            Create an account</a>
 
         <!-- custom footer -->
-        <p class="mt-4 mb-3 text-muted">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc.</p>
+        <p class="mt-4 mb-3 text-muted">© <?= PAGE_COPYRIGHT . " " . PAGE_NAME ?> Inc.</p>
     </form>
 
     <!-- load custom form validation script -->

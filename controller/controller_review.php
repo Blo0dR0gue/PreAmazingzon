@@ -5,11 +5,12 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
 class ReviewController
 {
 
-    public static function getAvgRating(int $productId): float {
-
+    public static function getAvgRating(int $productId): float
+    {
         $avgRating = Review::getAvgRating($productId);
 
-        if(!$avgRating){
+        if (!$avgRating)
+        {
             //TODO Error Handling
             return 0;
         }

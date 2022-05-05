@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?=PAGE_NAME?> - Register</title>
+    <title><?= PAGE_NAME ?> - Register</title>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
@@ -15,8 +15,9 @@
 <main class="m-auto w-100 px-3" style="max-width: 600px">
     <!-- TODO make the register work-->
 
-    <a href="<?php global $ROOT_DIR; echo $ROOT_DIR?>" class="mb-0">
-        <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+    <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="mb-0">
+        <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo"
+             width="" height="64">
     </a>
     <h3 class="mb-2">Create an Account</h3>
     <p class="text-muted mb-4">Give us some more information about you, so we can get to know you.</p>
@@ -108,8 +109,10 @@
 
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Register</button>
     </form>
-    <p class="mt-4 mb-1 text-muted">Already registered? <a class="text-muted" href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_login.php'?>">Login</a></p>
-    <p class="mb-3 text-muted">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc.</p>
+    <p class="mt-4 mb-1 text-muted">Already registered?
+        <a class="text-muted" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_login.php' ?>">Login</a>
+    </p>
+    <p class="mb-3 text-muted">© <?= PAGE_COPYRIGHT . " " . PAGE_NAME ?> Inc.</p>
 </main>
 
 <!-- load custom form validation script -->

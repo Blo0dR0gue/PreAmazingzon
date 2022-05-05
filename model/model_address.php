@@ -137,8 +137,9 @@ class Address
         $res = $stmt->get_result();
         if ($res->num_rows === 0) return null;
 
-        $arr = Array();
-        while ($r = $res->fetch_assoc()){
+        $arr = array();
+        while ($r = $res->fetch_assoc())
+        {
             $arr[] = new Address($r["id"], $r["street"], $r["streetNumber"], $r["zipCode"], $r["city"], $r["user"]);
         }
         $stmt->close();

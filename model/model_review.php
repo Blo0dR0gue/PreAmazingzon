@@ -43,11 +43,11 @@ class Review
         $stmt = getDb()->prepare($sql);
         $stmt->bind_param("s", $productId);
 
-        if(!$stmt->execute()) return null;    //TODO Error Handling
+        if (!$stmt->execute()) return null;    //TODO Error Handling
 
         $res = $stmt->get_result();
 
-        if($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) return 0;
 
         $stmt->bind_result($rating);
         $stmt->fetch();
