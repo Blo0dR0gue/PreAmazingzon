@@ -15,7 +15,7 @@
 <main class="m-auto w-100 px-3" style="max-width: 600px">
     <!-- TODO make the register work-->
 
-    <a href="/" class="mb-0">
+    <a href="<?php global $ROOT_DIR; echo $ROOT_DIR?>" class="mb-0">
         <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
     </a>
     <h3 class="mb-2">Create an Account</h3>
@@ -108,7 +108,7 @@
 
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Register</button>
     </form>
-    <p class="mt-4 mb-1 text-muted">Already registered? <a class="text-muted" href="/pages/page_login.php">Login</a></p>
+    <p class="mt-4 mb-1 text-muted">Already registered? <a class="text-muted" href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_login.php'?>">Login</a></p>
     <p class="mb-3 text-muted">© 2022 Amazingzon Inc.</p>
 </main>
 

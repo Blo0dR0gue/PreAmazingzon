@@ -5,7 +5,7 @@
 $dirs = explode("/", substr($_SERVER["PHP_SELF"], 1));
 $path = str_repeat("..".DIRECTORY_SEPARATOR, count($dirs) - 1);
 
-$ROOT_DIR = $path;
+$ROOT_DIR = empty(ROOT_PATH_OFFSET) ? $path : $path . ROOT_PATH_OFFSET . DIRECTORY_SEPARATOR;
 
 define("SERVER_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
