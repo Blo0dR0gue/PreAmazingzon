@@ -38,8 +38,8 @@
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle" width="32" height="32">
-                        <!-- TODO Change img -->
+                        <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "user_orange.svg" ?>" alt="mdo"
+                             class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
                         <li><a class="dropdown-item" href="#">New project...</a></li>
