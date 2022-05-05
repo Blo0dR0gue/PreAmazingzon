@@ -13,7 +13,6 @@
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
-    <!-- TODO make the login work-->
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="mb-0">
             <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo"
@@ -51,10 +50,10 @@
         <!-- custom footer -->
         <p class="mt-4 mb-3 text-muted">© <?= PAGE_COPYRIGHT . " " . PAGE_NAME ?> Inc.</p>
     </form>
-
-    <!-- load custom form validation script -->
-    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
 </main>
+
+<!-- load custom form validation script -->
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
 
 <?php
 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
