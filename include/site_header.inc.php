@@ -21,10 +21,29 @@
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>
 
+            <!-- defendant on login state-->
+            <?php if (!isset($_SESSION["login"])) { session_abort() ?>
+            <!-- show login and register buttons -->
             <div class="text-end">
                 <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_login.php'?>" class="btn btn-warning me-2">Login</a>
                 <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR .'page_register.php'?>" class="btn btn-outline-light">Sign-up</a>
             </div>
+            <?php } else {?>
+            <!-- show profile action -->
+            <!-- TODO add links-->
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle" width="32" height="32">  <!-- TODO Change img -->
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+            <?php } ?>
         </div>
     </div>
 </header>
