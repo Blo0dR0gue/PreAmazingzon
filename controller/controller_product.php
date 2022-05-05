@@ -10,4 +10,9 @@ class ProductController
         return Product::getAllProducts();
     }
 
+    public function getRandomProducts(int $amount = 4): array
+    {
+        return Product::getRandomProducts($amount);
+    }
+
 }
