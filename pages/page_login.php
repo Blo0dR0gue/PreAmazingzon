@@ -14,21 +14,23 @@
 
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <!-- TODO make the login work-->
-    <form novalidate>
+    <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?php global $ROOT_DIR; echo $ROOT_DIR?>" class="mb-0">
             <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo" width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
 
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                   style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: -1px">
-            <label for="floatingInput">Email address</label>
+            <input type="email" name="email" class="form-control" id="emailInput" placeholder="name@example.com"
+                   style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: -1px" required>
+            <label for="emailInput">Email address</label>
+            <div class="invalid-tooltip opacity-75">Please enter a valid Email!</div>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                   style="border-top-left-radius: 0; border-top-right-radius: 0">
-            <label for="floatingPassword">Password</label>
+            <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password"
+                   style="border-top-left-radius: 0; border-top-right-radius: 0" required>
+            <label for="passwordInput">Password</label>
+            <div class="invalid-tooltip opacity-75">Please enter a password!</div>
         </div>
         <p class="text-muted"><small>By logging in, you accept the terms of use.</small></p>
 
@@ -41,14 +43,37 @@
 
         <!-- buttons -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-
         <p class="my-1 text-muted">or</p>
-
         <a href="<?=PAGES_DIR. DIRECTORY_SEPARATOR ."page_register.php"?>" class="w-100 btn btn-lg btn-secondary">Create an account</a>
 
+        <!-- custom footer -->
         <p class="mt-4 mb-3 text-muted">© <?=PAGE_COPYRIGHT . " " . PAGE_NAME?> Inc.</p>
     </form>
+
+    <!-- load custom form validation script -->
+    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
 </main>
+
+<?php
+require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
+require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
+
+if (!empty($_REQUEST["email"]) and !empty($_REQUEST["password"]))   // data set?
+{
+    if ($user = UserController::getByEmail($_REQUEST["email"]))     // get user
+    {
+        if (UserController::login($user, $_REQUEST["password"]))    // login user
+        {
+            header("LOCATION: /");  // go back to home site
+        }
+    }
+    // show error popup
+    show_popup(
+        "Login Error",
+        "Your Email or Password is wrong, please retry with the correct credentials!"
+    );
+}
+?>
 
 </body>
 </html>
