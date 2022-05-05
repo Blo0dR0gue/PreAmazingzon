@@ -54,14 +54,41 @@ class Product
 
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-            foreach($rows as $row){
+            foreach ($rows as $row) {
                 $product = new Product($row["id"], $row["title"], $row["description"], $row["price"], $row["stock"], $row["shippingCost"]);
                 $product->setMainImg();
                 $products[] = $product;
             }
 
             return $products;
-        }catch (Exception $e){
+        } catch (Exception $e) {
+            echo $e; //TODO Error Handling
+        }
+        return [];
+    }
+
+    /**
+     * Selects random products from the Database and returns them.
+     * @param int $amount The amount of random products, which are selected from the database.
+     * @return array An Array of these random products.
+     */
+    public static function getRandomProducts(int $amount): array
+    {
+        try {
+            $products = [];
+
+            $stmt = getDB()->prepare("SELECT * FROM Product ORDER BY RAND() LIMIT ?;");
+            $stmt->bind_param("i", $amount);
+            $stmt->execute();
+
+            foreach ($stmt->get_result() as $article) {
+                $product = new Product($article["id"], $article["title"], $article["description"], $article["price"], $article["stock"], $article["shippingCost"]);
+                $product->setMainImg();
+                $products[] = $product;
+            }
+
+            return $products;
+        } catch (Exception $e) {
             echo $e; //TODO Error Handling
         }
         return [];
@@ -124,19 +151,22 @@ class Product
     }
 
     //region extra vars
+
     /**
-     * @return string
+     * @return string The Path to the main image.
      */
     public function getMainImg(): string
     {
-        if(!isset($this->mainImg)){
+        if (!isset($this->mainImg)) {
             $this->setMainImg();
         }
         return $this->mainImg;
     }
 
     /**
-     * Sets the mainImg Variable.
+     * Sets the meanIn variable.
+     * First checks whether an image of the product contains -main in the name. If that image does not exist,
+     * the first picture is checked afterwords. If this does not exist either, the default notFound image is selected.
      */
     public function setMainImg(): void
     {

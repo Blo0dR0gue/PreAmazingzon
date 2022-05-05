@@ -2,18 +2,15 @@
 if (isset($product) && $product instanceof Product):
 ?>
     <div class="card">
-        <div class="card-title">
-            <?= $product->getTitle(); ?>
-        </div>
         <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="product">
         <div class="card-body">
-            <?= $product->getDescription(); ?>
+            <?= $product->getTitle(); ?>
             <hr>
             <strong><?= $product->getPriceFormatted(); ?> €</strong>
         </div>
         <div class="card-footer">
             <a href="#" class="btn btn-primary btn-sm">Details</a>
-            <a href="#" class="btn btn-success btn-sm">In den Warenkorb</a>
+            <a href="#" class="btn btn-success btn-sm">Add to cart</a>
         </div>
     </div>
 <?php
