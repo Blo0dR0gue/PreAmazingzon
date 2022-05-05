@@ -83,8 +83,6 @@ class Review
         return $this->productId;
     }
 
-
-
     // endregion
 
     public function insert(): void

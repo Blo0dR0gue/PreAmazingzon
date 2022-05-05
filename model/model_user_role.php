@@ -43,17 +43,18 @@ class UserRole
     /**
      * Get an existing UserRole by its id.
      * @param int $id ID of UserRole
-     * @return UserRole found UserRole
+     * @return UserRole|null found UserRole
      */
-    public static function getById(int $id): UserRole
+    public static function getById(int $id): ?UserRole
     {
-        // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT * from userrole where id = ?;");
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
 
-        $res = $stmt->get_result()->fetch_assoc();
-
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
         $stmt->close();
 
         return new UserRole($id, $res["name"]);

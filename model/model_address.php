@@ -105,17 +105,18 @@ class Address
      * Get an existing address by its id.
      *
      * @param int $id ID of an address
-     * @return Address new address
+     * @return Address|null new address
      */
-    public static function getById(int $id): Address
+    public static function getById(int $id): ?Address
     {
-        // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT * from address where id = ?;");
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
 
-        $res = $stmt->get_result()->fetch_assoc();
-
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
         $stmt->close();
 
         return new Address($id, $res["street"], $res["streetNumber"], $res["zipCode"], $res["city"], $res["user"]);
@@ -124,16 +125,17 @@ class Address
     /**
      * Get all existing addresses related to one user.
      * @param int $user_id user of interest
-     * @return array<Address> array if addresses
+     * @return array<Address>|null array if addresses
      */
-    public static function getAllByUser(int $user_id): array
+    public static function getAllByUser(int $user_id): ?array
     {
-        // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT * from address where user = ?;");
         $stmt->bind_param("i", $user_id);
-        $stmt->execute();
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
 
+        // get result
         $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
 
         $arr = Array();
         while ($r = $res->fetch_assoc()){
@@ -147,17 +149,18 @@ class Address
     /**
      * Get default existing default address related to one user.
      * @param int $user_id user of interest
-     * @return Address default address
+     * @return Address|null default address
      */
-    public static function getDefaultByUser(int $user_id): Address
+    public static function getDefaultByUser(int $user_id): ?Address
     {
-        // TODO ERROR handling
         $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
         $stmt->bind_param("i", $user_id);
-        $stmt->execute();
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
 
-        $res = $stmt->get_result()->fetch_assoc();
-
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
         $stmt->close();
 
         return Address::getById($res["defaultAddress"]);
