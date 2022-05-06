@@ -15,7 +15,7 @@ class User
     private string $password_hash;
     private bool $active;
     private int $role_id;
-    private int $default_address_id;
+    private ?int $default_address_id;   //Default Address can be null
     // endregion
 
     /**
@@ -26,9 +26,9 @@ class User
      * @param string $password_hash
      * @param bool $active
      * @param int $role_id
-     * @param int $default_address_id
+     * @param int|null $default_address_id
      */
-    public function __construct(int $id, string $first_name, string $last_name, string $email, string $password_hash, bool $active, int $role_id, int $default_address_id)
+    public function __construct(int $id, string $first_name, string $last_name, string $email, string $password_hash, bool $active, int $role_id, ?int $default_address_id)
     {
         $this->id = $id;
         $this->first_name = $first_name;
