@@ -26,8 +26,17 @@ class UserController
                 return true;    // success
             }
         }
-
         return false;   // failure
     }
 
+
+    public static function emailAvailable(string $email): bool
+    {   // TODO validate
+
+        if (UserController::getByEmail($email))  // user with mail exists?
+        {
+            return false;   // user exists
+        }
+        return true;    // user not exists
+    }
 }
