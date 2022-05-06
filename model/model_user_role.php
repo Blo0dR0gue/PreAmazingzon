@@ -59,5 +59,25 @@ class UserRole
 
         return new UserRole($id, $res["name"]);
     }
+
+    /**
+     * Get an existing UserRole by its name.
+     * @param string $name Name of Role
+     * @return UserRole|null found UserRole
+     */
+    public static function getByName(string $name): ?UserRole
+    {
+        $stmt = getDB()->prepare("SELECT * from userrole where name = ?;");
+        $stmt->bind_param("s", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new UserRole($res["id"], $res["name"]);
+    }
 }
 
