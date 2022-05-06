@@ -23,6 +23,7 @@ const STYLE_DIR = ASSETS_DIR . DIRECTORY_SEPARATOR . "style";
 const CONTROLLER_DIR = ROOT_DIR . "controller";
 
 const INCLUDE_DIR = ROOT_DIR . "include";
+const INCLUDE_HELPER_DIR = INCLUDE_DIR . DIRECTORY_SEPARATOR . "helper";
 
 const MODEL_DIR = ROOT_DIR . "model";
 
