@@ -68,7 +68,7 @@ class UserRole
     public static function getByName(string $name): ?UserRole
     {
         $stmt = getDB()->prepare("SELECT * from userrole where name = ?;");
-        $stmt->bind_param("s", $id);
+        $stmt->bind_param("s", $name);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
