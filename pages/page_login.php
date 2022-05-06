@@ -59,11 +59,11 @@
 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
 require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
 
-if (!empty($_REQUEST["email"]) and !empty($_REQUEST["password"]))   // data set?
+if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set?
 {
-    if ($user = UserController::getByEmail($_REQUEST["email"]))     // get user
+    if ($user = UserController::getByEmail($_POST["email"]))     // get user
     {
-        if (UserController::login($user, $_REQUEST["password"]))    // login user
+        if (UserController::login($user, $_POST["password"]))    // login user
         {
             header("LOCATION: /");  // go back to home site
         }
