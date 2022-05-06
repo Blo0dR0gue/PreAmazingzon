@@ -20,8 +20,8 @@ class UserController
             if (password_verify($password, $user->getPasswordHash()))   // valid credentials?
             {
                 // save the login state
-                $_SESSION['login'] = true;
-                $_SESSION['user'] = $user;
+                $_SESSION["login"] = true;
+                $_SESSION["user"] = $user;
 
                 return true;    // success
             }

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img src="<?= IMAGE_DIR . "/logo/logo_long_inv.svg" ?>" class="bi me-2" width="150" height="40"
+                <img src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long_inv.svg" ?>" class="bi me-2" width="150" height="40"
                      alt="Company Logo">
             </a>
 
@@ -15,7 +15,7 @@
                 <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_about.php' ?>"
+                <li><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>"
                        class="nav-link px-2 text-white">About</a></li>
             </ul>
 
@@ -27,9 +27,9 @@
             <?php if (!isset($_SESSION["login"])) { ?>
                 <!-- show login and register buttons -->
                 <div class="text-end">
-                    <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_login.php' ?>"
+                    <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_login.php" ?>"
                        class="btn btn-warning me-2">Login</a>
-                    <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_register.php' ?>"
+                    <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_register.php" ?>"
                        class="btn btn-outline-light">Sign-up</a>
                 </div>
             <?php } else { ?>

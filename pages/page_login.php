@@ -15,7 +15,7 @@
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="mb-0">
-            <img class="mb-4" src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo_long.svg" ?>" alt="Company Logo"
+            <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long.svg" ?>" alt="Company Logo"
                  width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>

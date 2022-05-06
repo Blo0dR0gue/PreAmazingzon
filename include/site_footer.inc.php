@@ -7,7 +7,7 @@
         <div class="col-md-6 d-flex align-items-center">
             <!-- company logo -->
             <a href="<?php global $ROOT_DIR; echo $ROOT_DIR ?>" class="mb-0">
-                <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "logo/logo.svg" ?>" class="bi me-2" width="40"
+                <img src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo.svg" ?>" class="bi me-2" width="40"
                      height="40" alt="Company Logo">
             </a>
 
@@ -24,7 +24,7 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
             <li class="nav-item">
-                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_about.php' ?>" class="nav-link px-2 text-muted">About</a></li>
+                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a></li>
         </ul>
     </div>
 </footer>

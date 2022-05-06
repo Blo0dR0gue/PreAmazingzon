@@ -15,9 +15,9 @@ $current_file_path = __DIR__;
 $root_file_path = $current_file_path . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR;
 
 //Load default config
-require_once $root_file_path . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+require_once $root_file_path . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "config.php";
 //Load paths
-require_once $root_file_path . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . "paths.inc.php";
+require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR . "paths.inc.php";
 
 // session
 session_start()

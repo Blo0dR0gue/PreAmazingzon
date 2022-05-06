@@ -9,7 +9,7 @@ function getDB(): mysqli
         return $db;
     }
 
-    require_once CONFIG_DIR . "/database_config.php";
+    require_once CONFIG_DIR . DIRECTORY_SEPARATOR . "database_config.php";
 
     $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
 

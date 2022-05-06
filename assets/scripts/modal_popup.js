@@ -18,10 +18,10 @@ function closePopup()
     popupModal.hide();
 }
 
-$('#modalPopup').on('hidden.bs.modal', function ()
+$("#modalPopup").on("hidden.bs.modal", function ()
 {
     // remove remaining back-drop
-    $('#modalPopup').remove()
+    $("#modalPopup").remove()
     $(document.body).removeClass("modal-open");
 })
 // endregion

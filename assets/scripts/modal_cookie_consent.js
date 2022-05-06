@@ -30,10 +30,10 @@ function declineCookies()
 }
 
 
-$('#modalCookie').on('hidden.bs.modal', function ()
+$("#modalCookie").on("hidden.bs.modal", function ()
 {
     // remove remaining back-drop
-    $('#modalCookie').remove()
+    $("#modalCookie").remove()
     $(document.body).removeClass("modal-open");
 })
 // endregion
