@@ -37,7 +37,7 @@
         <!-- TODO do we need remember me?-->
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me" name="remember"> Remember me
             </label>
         </div>
 
@@ -58,7 +58,7 @@
 <?php
 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
 require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
-
+    //TODO Remember me cookies?
 if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set?
 {
     if ($user = UserController::getByEmail($_POST["email"]))     // get user
