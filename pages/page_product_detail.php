@@ -6,17 +6,22 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 
 $productID = $_GET["id"];   //TODO htmlspecialchars?
-if(isset($productID) && is_numeric($productID))
+if(isset($productID) && is_numeric($productID)){
     $product = ProductController::getProductById(intval($productID));
-else
+
+    if(!isset($product)) header("LOCATION: " . ROOT_DIR );   //Redirect, if no product is found.
+
+}else{
     header("LOCATION: " . ROOT_DIR );   //Redirect, if no number is passed.
+}
+
 ?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - About</title>
+    <title><?= PAGE_NAME ?> - Product Details - <?=$product->getTitle();?></title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -39,7 +44,8 @@ else
 
                     </div>
                     <div class="col-8">
-                        <?=ReviewController::getAvgRating($product->getId())?> Sterne <a href="#">Produkt Bewerten</a>
+                        <?=ReviewController::getAvgRating($product->getId())?> Stars
+                        <?=ReviewController::calcAndIncAvgProductStars($product->getId())?> <a href="#">Produkt Bewerten</a>
                         <hr/>
                         <div>Preis: <b><?= $product->getPriceFormatted(); ?> €</b></div>
                         <hr/>
