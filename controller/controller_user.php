@@ -4,6 +4,9 @@
 
 require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_user.php";
 
+require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user_role.php";
+require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
+
 class UserController
 {
 
@@ -29,6 +32,34 @@ class UserController
         return false;   // failure
     }
 
+    public static function register(string $first_name, string $last_name, string $email, string $password, string $zip, string $city, string $street, string $number): ?User
+    {   // TODO validate
+
+        if (self::emailAvailable($email))  // email unique
+        {
+            // hash password
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            // get userRole
+            $role_id = UserRoleController::getDefaultUserRole()->getId();
+
+            // create user
+            $user = new User(0, $first_name, $last_name, $email, $password_hash, true, $role_id, null);
+            $user = $user->insert();
+            if (!$user) return null;
+
+            // create address
+            $address = AddressController::insertAddress($street, $number, $zip, $city, $user->getId());
+            if (!$address) return null;
+
+            // save address to user
+            $user->setDefaultAddressId($address->getId());
+            $user->update();
+
+            return $user;
+        }
+        return null; // email not unique
+    }
 
     public static function emailAvailable(string $email): bool
     {   // TODO validate
