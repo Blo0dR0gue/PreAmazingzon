@@ -98,9 +98,9 @@ class User
     }
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getDefaultAddressId(): int
+    public function getDefaultAddressId(): ?int
     {
         return $this->default_address_id;
     }

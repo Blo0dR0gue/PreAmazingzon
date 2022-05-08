@@ -141,8 +141,8 @@
         </div>
         <!-- endregion -->
 
+        <?php if(isset($address)): ?>   <!--Is the default address available?-->
         <h4 class="mb-2 mt-3">Default Address Information</h4>
-
         <!-- region address 1 row -->
         <div class="form-row row">
             <div class="col-md-4 mb-3 px-2" style="position: relative">
@@ -175,6 +175,7 @@
                 <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
             </div>
         </div>
+        <?php endif?>
         <!-- endregion -->
 
         <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Save</button>
@@ -183,7 +184,6 @@
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
-
 
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
