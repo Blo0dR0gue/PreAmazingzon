@@ -297,6 +297,9 @@ INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('delivered');
 
 COMMIT;
 
+-- -----------------------------------------------------
+-- Data for table `amazingzon`.`User`
+-- -----------------------------------------------------
 START TRANSACTION;
 USE amazingzon;
 INSERT INTO amazingzon.User (password, email, userRole, firstname, lastname, defaultAddress, active)
