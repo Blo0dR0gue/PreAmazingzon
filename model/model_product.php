@@ -48,8 +48,7 @@ class Product
             //No need for prepared statement, because we do not use inputs.
             $result = getDB()->query("SELECT * FROM Product");
 
-            if (!$result)
-            {
+            if (!$result) {
                 return [];
             }
 
@@ -97,7 +96,8 @@ class Product
         return [];
     }
 
-    public static function getProductById(int $id): ?Product {
+    public static function getProductById(int $id): ?Product
+    {
         $stmt = getDB()->prepare("SELECT * from product where id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
@@ -165,6 +165,11 @@ class Product
     public function getShippingCost(): float
     {
         return $this->shippingCost;
+    }
+
+    public function getShippingCostFormatted(): string
+    {
+        return number_format($this->getShippingCost(), 2, ".", "");
     }
 
     //region extra vars
