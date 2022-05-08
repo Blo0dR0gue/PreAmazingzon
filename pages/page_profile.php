@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - Register</title>
+    <title><?= PAGE_NAME ?> - Profile</title>
 
     <!-- form preload script -->
     <?php
