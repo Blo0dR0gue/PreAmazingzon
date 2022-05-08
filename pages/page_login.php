@@ -8,6 +8,28 @@
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Login</title>
+
+    <!-- form processing script -->
+    <?php
+    require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
+    require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
+    //TODO Remember me cookies?
+    if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set?
+    {
+        if ($user = UserController::getByEmail($_POST["email"]))     // get user
+        {
+            if (UserController::login($user, $_POST["password"]))    // login user
+            {
+                header("LOCATION: /");  // go back to home site
+            }
+        }
+        // show error popup
+        show_popup(
+            "Login Error",
+            "Your Email or Password is wrong, please retry with the correct credentials!"
+        );
+    }
+    ?>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
@@ -54,27 +76,6 @@
 
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
-
-<?php
-require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
-require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
-    //TODO Remember me cookies?
-if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set?
-{
-    if ($user = UserController::getByEmail($_POST["email"]))     // get user
-    {
-        if (UserController::login($user, $_POST["password"]))    // login user
-        {
-            header("LOCATION: /");  // go back to home site
-        }
-    }
-    // show error popup
-    show_popup(
-        "Login Error",
-        "Your Email or Password is wrong, please retry with the correct credentials!"
-    );
-}
-?>
 
 </body>
 </html>
