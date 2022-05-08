@@ -25,6 +25,8 @@
         );
     }
 
+    //TODO redirect, if user not found?
+
     // get address
     $address = AddressController::getById($user->getDefaultAddressId());
     if (!$address)  // user could be found?
@@ -34,6 +36,10 @@
             "An error occurred loading your default address. Please try again later and excuse the inconvenience."
         );
     }
+
+    //TODO add/edit multiple addresses
+
+
     ?>
 
     <!-- form processing script -->
