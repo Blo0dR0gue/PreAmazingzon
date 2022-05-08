@@ -50,15 +50,18 @@ if(isset($productID) && is_numeric($productID)){
                         <?=ReviewController::getAvgRating($product->getId())?> Stars
                         <?=ReviewController::calcAndIncAvgProductStars($product->getId())?>
                         <hr/>
-                        <div>Preis: <b><?= $product->getPriceFormatted(); ?> €</b></div>
+                        <div>Price: <b><?= $product->getPriceFormatted(); ?> €</b></div>
+                        <div>Shipping Cost: <b><?= $product->getShippingCostFormatted(); ?> €</b></div>
                         <hr/>
                         <div><?= $product->getDescription() ?></div>
+                        <hr/>
+                        <div><?= $product->getStock() ?> Items in Stock</div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <a href="<?=ROOT_DIR?>" class="btn btn-primary btn-sm">Zurück zum Schop</a>
-                <a href="#" class="btn btn-success btn-sm">In den Warenkorb</a>
+                <a href="<?=ROOT_DIR?>" class="btn btn-primary btn-sm">Back to the Shop</a>
+                <a href="#" class="btn btn-success btn-sm">Add to Card</a> <!--TODO amount?-->
             </div>
             <!--TODO Reviews-->
         </div>
