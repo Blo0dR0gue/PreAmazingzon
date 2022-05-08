@@ -42,6 +42,7 @@
                              class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
+                        <li><p class="dropdown-item-text mb-1 text-muted"><?=$_SESSION["first_name"] . " " . $_SESSION["last_name"]?></p></li>
                         <li><a class="dropdown-item" href="#">New project...</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>

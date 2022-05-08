@@ -24,7 +24,8 @@ class UserController
             {
                 // save the login state
                 $_SESSION["login"] = true;
-                $_SESSION["user"] = $user;
+                $_SESSION["first_name"] = $user->getFirstName();
+                $_SESSION["last_name"] = $user->getLastName();
 
                 return true;    // success
             }
