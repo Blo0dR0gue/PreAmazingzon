@@ -37,24 +37,20 @@ class Review
     public static function getAvgRating(int $productId): ?float
     {
         $sql = "SELECT AVG(stars) as rating
-                FROM Review
+                FROM review
                 WHERE product = ?
                 GROUP BY product;";
         $stmt = getDb()->prepare($sql);
-        $stmt->bind_param("s", $productId);
-
+        $stmt->bind_param("i", $productId);
         if (!$stmt->execute()) return null;    //TODO Error Handling
 
+        // get result
         $res = $stmt->get_result();
-
         if ($res->num_rows === 0) return 0;
-
-        $stmt->bind_result($rating);
-        $stmt->fetch();
-
+        $res = $res->fetch_assoc();
         $stmt->close();
 
-        return $rating;
+        return $res["rating"];
     }
 
     // region getter
