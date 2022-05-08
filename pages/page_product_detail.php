@@ -39,8 +39,7 @@ if(isset($productID) && is_numeric($productID)){
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="produkt">
-
+                        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="produkt"> <!--TODO show all images-->
 
                     </div>
                     <div class="col-8">
