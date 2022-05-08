@@ -95,7 +95,7 @@
 <main class="m-auto w-100 px-3" style="max-width: 800px">
     <!-- title -->
     <h2 class="mb-2 mt-4">Update your Information</h2>
-    <p class="text-muted mb-4">You want to change ord update some of your information? Let us know.</p>
+    <p class="text-muted mb-4">You want to change or update some of your information? Let us know.</p>
 
     <form action="" method="post" class="needs-validation text-start" novalidate>
         <h4 class="mb-2">Personal Information</h4>
