@@ -17,20 +17,7 @@ if (isset($product) && $product instanceof Product): ?>
             $avgRating = ReviewController::getAvgRating($product->getId());
             echo $avgRating . " Stars ";
 
-            //Calculate and set the star rating using full and half stars.  //TODO move into review controller?
-            for ($i = 1; $i <= 5; $i++)
-            {
-                $difference = $avgRating - $i;
-                if ($difference >= 0)
-                {
-                    echo "<i class='fa fa-star rating-color'></i>";     // full star
-                } elseif (-0.25 > $difference && $difference > -0.75)
-                {
-                    echo "<i class='fa fa-star-half-full rating-color'></i>";   // half star
-                } else {
-                    echo "<i class='fa fa-star-o rating-color'></i>";      // empty star
-                }
-            }
+            ReviewController::calcAndIncAvgProductStars($product->getId());
             ?>
 
         </div>
