@@ -86,9 +86,23 @@ class Address
 
     // endregion
 
-    public function insert(): void
+    public function insert(): ?Address
     {
-        // TODO
+        $stmt = getDB()->prepare("INSERT INTO address(street, zipCode, streetNumber, city, user) 
+                                        VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssi",
+            $this->street,
+             $this->zip,
+                  $this->number,
+                  $this->city,
+                  $this->user_id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $newId = $stmt->insert_id;
+        $stmt->close();
+
+        return self::getById($newId);
     }
 
     public function update(): void
