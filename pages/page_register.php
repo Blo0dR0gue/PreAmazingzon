@@ -26,7 +26,8 @@
                 $_POST["zip"],
                 $_POST["city"],
                 $_POST["street"],
-                $_POST["number"]
+                $_POST["number"],
+                UserRoleController::getDefaultUserRole()->getId()
             );
 
             if ($user)  // user could be inserted?
@@ -53,6 +54,7 @@
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
+<!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 600px">
     <!-- title -->
     <a href="<?= ROOT_DIR ?>" class="mb-0">

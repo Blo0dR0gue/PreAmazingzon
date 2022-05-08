@@ -115,6 +115,54 @@ class User
     {
         $this->default_address_id = $default_address_id;
     }
+
+    /**
+     * @param string $first_name
+     */
+    public function setFirstName(string $first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @param string $last_name
+     */
+    public function setLastName(string $last_name): void
+    {
+        $this->last_name = $last_name;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $password_hash
+     */
+    public function setPasswordHash(string $password_hash): void
+    {
+        $this->password_hash = $password_hash;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @param int $role_id
+     */
+    public function setRoleId(int $role_id): void
+    {
+        $this->role_id = $role_id;
+    }
     // endregion
 
     public function insert(): ?User
@@ -140,7 +188,6 @@ class User
 
     public function update(): ?User
     {
-        // TODO
         $stmt = getDB()->prepare("UPDATE user 
                                     SET password = ?,
                                         email = ?,

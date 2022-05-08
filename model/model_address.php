@@ -86,6 +86,49 @@ class Address
 
     // endregion
 
+    // region setter
+    /**
+     * @param string $street
+     */
+    public function setStreet(string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @param string $number
+     */
+    public function setNumber(string $number): void
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @param string $zip
+     */
+    public function setZip(string $zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @param int $user_id
+     */
+    public function setUserId(int $user_id): void
+    {
+        $this->user_id = $user_id;
+    }
+
+    // endregion
+
     public function insert(): ?Address
     {
         $stmt = getDB()->prepare("INSERT INTO address(street, zipCode, streetNumber, city, user) 
@@ -105,9 +148,27 @@ class Address
         return self::getById($newId);
     }
 
-    public function update(): void
+    public function update(): ?Address
     {
-        // TODO
+        $stmt = getDB()->prepare("UPDATE address 
+                                    SET street = ?,
+                                        zipCode = ?,
+                                        streetNumber = ?,
+                                        city = ?,
+                                        user = ?
+                                    WHERE id = ?;");
+        $stmt->bind_param("ssssii",
+            $this->street,
+            $this->zip,
+            $this->number,
+            $this->city,
+            $this->user_id,
+            $this->id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return self::getById($this->id);
     }
 
     public function delete(): void

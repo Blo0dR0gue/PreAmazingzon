@@ -11,8 +11,13 @@ class UserController
 {
 
     public static function getByEmail(string $email): ?User
-    {   // TODO validate
+    {   // TODO validate?
         return User::getByEmail($email);
+    }
+
+    public static function getById(int $id): ?User
+    {
+        return User::getById($id);
     }
 
     public static function login(User $user, string $password): bool
@@ -26,6 +31,7 @@ class UserController
                 $_SESSION["login"] = true;
                 $_SESSION["first_name"] = $user->getFirstName();
                 $_SESSION["last_name"] = $user->getLastName();
+                $_SESSION["uid"] = $user->getId();
 
                 return true;    // success
             }
@@ -33,16 +39,13 @@ class UserController
         return false;   // failure
     }
 
-    public static function register(string $first_name, string $last_name, string $email, string $password, string $zip, string $city, string $street, string $number): ?User
+    public static function register(string $first_name, string $last_name, string $email, string $password, string $zip, string $city, string $street, string $number, int $role_id): ?User
     {   // TODO validate
 
         if (self::emailAvailable($email))  // email unique
         {
             // hash password
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-            // get userRole
-            $role_id = UserRoleController::getDefaultUserRole()->getId();
 
             // create user
             $user = new User(0, $first_name, $last_name, $email, $password_hash, true, $role_id, null);
@@ -58,6 +61,24 @@ class UserController
             $user->update();
 
             return $user;
+        }
+        return null; // email not unique
+    }
+
+    public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
+    { // TODO validate?
+        if ($user->getEmail() === $email or self::emailAvailable($email))  // email unique?
+        {
+            // update user
+            $user->setFirstName($first_name);
+            $user->setLastName($last_name);
+            $user->setEmail($email);
+            $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
+            $user->setActive(true);
+            if($role_id != null) $user->setRoleId($role_id);
+            if($defaultAddressId != null) $user->setDefaultAddressId($defaultAddressId);
+
+            return $user->update();
         }
         return null; // email not unique
     }

@@ -13,4 +13,19 @@ class AddressController
         return $address->insert();
     }
 
+    public static function getById(int $id): ?Address
+    {
+        return Address::getById($id);
+    }
+
+    public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address
+    { // TODO validate?
+        $address->setStreet($street);
+        $address->setZip($zipCode);
+        $address->setNumber($streetNumber);
+        $address->setCity($city);
+        if($userId != null) $address->setUserId($userId);
+
+        return $address->update();
+    }
 }

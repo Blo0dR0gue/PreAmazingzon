@@ -34,6 +34,7 @@
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
+<!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 370px;">
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?= ROOT_DIR ?>" class="mb-0">
