@@ -170,13 +170,13 @@ class User
         $stmt = getDB()->prepare("INSERT INTO user(password, email, userRole, firstname, lastname, defaultAddress, active) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssissii",
-                    $this->password_hash,
-                     $this->email,
-                          $this->role_id,
-                          $this->first_name,
-                          $this->last_name,
-                          $this->default_address_id,
-                          $this->active);
+            $this->password_hash,
+            $this->email,
+            $this->role_id,
+            $this->first_name,
+            $this->last_name,
+            $this->default_address_id,
+            $this->active);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result

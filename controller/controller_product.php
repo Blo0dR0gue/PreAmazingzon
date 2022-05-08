@@ -15,4 +15,13 @@ class ProductController
         return Product::getRandomProducts($amount);
     }
 
+    public static function getProductById(int $productID): ?Product {
+
+        if($productID == null || $productID == 0)
+            return null;
+
+        return Product::getProductById($productID);
+
+    }
+
 }
