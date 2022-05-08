@@ -6,16 +6,16 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 
 $productID = $_GET["id"];   //TODO htmlspecialchars?
-if(isset($productID) && is_numeric($productID)){
+if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getProductById(intval($productID));
 
-    if(!isset($product)){
-        header("LOCATION: " . ROOT_DIR );   //Redirect, if no product is found.
+    if (!isset($product)) {
+        header("LOCATION: " . ROOT_DIR);   //Redirect, if no product is found.
         die();
     }
 
-}else{
-    header("LOCATION: " . ROOT_DIR );   //Redirect, if no number is passed.
+} else {
+    header("LOCATION: " . ROOT_DIR);   //Redirect, if no number is passed.
     die();
 }
 
@@ -25,7 +25,7 @@ if(isset($productID) && is_numeric($productID)){
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - Product Details - <?=$product->getTitle();?></title>
+    <title><?= PAGE_NAME ?> - Product Details - <?= $product->getTitle(); ?></title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -43,12 +43,13 @@ if(isset($productID) && is_numeric($productID)){
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="produkt"> <!--TODO show all images-->
+                        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="produkt">
+                        <!--TODO show all images-->
 
                     </div>
                     <div class="col-8">
-                        <?=ReviewController::getAvgRating($product->getId())?> Stars
-                        <?=ReviewController::calcAndIncAvgProductStars($product->getId())?>
+                        <?= ReviewController::getAvgRating($product->getId()) ?> Stars
+                        <?= ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
                         <hr/>
                         <div>Price: <b><?= $product->getPriceFormatted(); ?> €</b></div>
                         <div>Shipping Cost: <b><?= $product->getShippingCostFormatted(); ?> €</b></div>
@@ -60,7 +61,7 @@ if(isset($productID) && is_numeric($productID)){
                 </div>
             </div>
             <div class="card-footer">
-                <a href="<?=ROOT_DIR?>" class="btn btn-primary btn-sm">Back to the Shop</a>
+                <a href="<?= ROOT_DIR ?>" class="btn btn-primary btn-sm">Back to the Shop</a>
                 <a href="#" class="btn btn-success btn-sm">Add to Card</a> <!--TODO amount?-->
             </div>
             <!--TODO Reviews-->

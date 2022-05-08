@@ -36,6 +36,7 @@ class Address
     }
 
     // region getter
+
     /**
      * @return int
      */
@@ -92,10 +93,10 @@ class Address
                                         VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssi",
             $this->street,
-             $this->zip,
-                  $this->number,
-                  $this->city,
-                  $this->user_id);
+            $this->zip,
+            $this->number,
+            $this->city,
+            $this->user_id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
@@ -152,8 +153,7 @@ class Address
         if ($res->num_rows === 0) return null;
 
         $arr = array();
-        while ($r = $res->fetch_assoc())
-        {
+        while ($r = $res->fetch_assoc()) {
             $arr[] = new Address($r["id"], $r["street"], $r["streetNumber"], $r["zipCode"], $r["city"], $r["user"]);
         }
         $stmt->close();
@@ -181,4 +181,5 @@ class Address
         return Address::getById($res["defaultAddress"]);
     }
 }
+
 ?>
