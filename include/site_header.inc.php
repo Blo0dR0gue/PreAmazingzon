@@ -44,9 +44,8 @@
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
                         <li><p class="dropdown-item-text mb-1 text-muted"><?=$_SESSION["first_name"] . " " . $_SESSION["last_name"]?></p></li>
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">###</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a></li>
                     </ul>
