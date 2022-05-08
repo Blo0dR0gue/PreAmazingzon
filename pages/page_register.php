@@ -8,13 +8,53 @@
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Register</title>
+
+    <!-- form processing script -->
+    <?php
+    require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
+    require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
+
+    if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set (e.g. tested with email and password)?
+    {
+        if (UserController::emailAvailable($_POST["email"]))     // email available?
+        {
+            $user = UserController::register(
+                $_POST["first_name"],
+                $_POST["last_name"],
+                $_POST["email"],
+                $_POST["password"],
+                $_POST["zip"],
+                $_POST["city"],
+                $_POST["street"],
+                $_POST["number"]
+            );
+
+            if ($user)  // user could be inserted?
+            {
+                UserController::login($user, $_POST["password"]);   // login user
+                header("LOCATION: /");  // go back to home site
+            } else
+            {
+                show_popup(
+                    "Error while Registration",
+                    "An error occurred during the registration. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
+                );
+            }
+        } else
+        {
+            show_popup(
+                "Email unavailable",
+                "The given email address is already connected with an account. Please use a different email for creating a new account. Or login with the existing account."
+            );
+        }
+    }
+    ?>
 </head>
 
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
 <main class="m-auto w-100 px-3" style="max-width: 600px">
-    <!-- TODO make the register work-->
-
+    <!-- title -->
     <a href="<?= ROOT_DIR ?>" class="mb-0">
         <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long.svg" ?>" alt="Company Logo"
              width="" height="64">
@@ -22,19 +62,19 @@
     <h3 class="mb-2">Create an Account</h3>
     <p class="text-muted mb-4">Give us some more information about you, so we can get to know you.</p>
 
-    <form class="needs-validation text-start" novalidate>
+    <form action="" method="post" class="needs-validation text-start" novalidate>
         <!-- region name row -->
         <div class="form-row row">
             <div class="col-md-6 mb-3 px-2" style="position: relative">
                 <label for="first_name">First Name</label>
-                <input type="text" class="form-control" id="first_name" placeholder="First Name" required
-                       pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+                       required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Name!</div>
             </div>
             <div class="col-md-6 mb-3 px-2" style="position: relative">
                 <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" id="last_name" placeholder="Last Name" required
-                       pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                       required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Name!</div>
             </div>
         </div>
@@ -44,7 +84,7 @@
         <div class="form-row row">
             <div class="col-md mb-3 px-2" style="position: relative">
                 <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 <div class="invalid-tooltip opacity-75">Please enter a valid Email Address!</div>
             </div>
         </div>
@@ -55,7 +95,7 @@
             <div class="col-md mb-3 px-2" style="position: relative" data-toggle="tooltip" data-placement="top"
                  title="At least one digit, lowercase-, uppercase-, special-char. At least 8, but no more than 32 char.">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" required
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
                        pattern="(?=.*[0-9])(?=.*[a-zäöü])(?=.*[A-ZÄÖÜ])(?=.*[*.!@$%^&(){}[\]:;<>,.?\/~_+\-=|]).{8,32}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Password!</div>
             </div>
@@ -68,13 +108,13 @@
         <div class="form-row row">
             <div class="col-md-4 mb-3 px-2" style="position: relative">
                 <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="Zip" required
+                <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required
                        pattern="\d{5}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid ZIP!</div>
             </div>
             <div class="col-md-8 mb-3 px-2" style="position: relative">
                 <label for="city">City</label>
-                <input type="text" class="form-control" id="city" placeholder="City" required
+                <input type="text" class="form-control" id="city" name="city" placeholder="City" required
                        pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*">
                 <div class="invalid-tooltip opacity-75">Please enter a valid City!</div>
             </div>
@@ -85,13 +125,13 @@
         <div class="form-row row">
             <div class="col-md-8 mb-3 px-2" style="position: relative">
                 <label for="street">Street</label>
-                <input type="text" class="form-control" id="street" placeholder="Street" required
+                <input type="text" class="form-control" id="street" name="street" placeholder="Street" required
                        pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
             </div>
             <div class="col-md-4 mb-4 px-2" style="position: relative">
                 <label for="number">No.</label>
-                <input type="text" class="form-control" id="number" placeholder="Number" required
+                <input type="text" class="form-control" id="number" name="number" placeholder="Number" required
                        pattern="[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?">
                 <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
             </div>
@@ -101,7 +141,7 @@
         <!-- region legal stuff-->
         <div class="form-group">
             <div class="form-check text-muted">
-                <input class="form-check-input" type="checkbox" value="" id="conditions" required>
+                <input class="form-check-input" type="checkbox" name="checkbox" id="conditions" required>
                 <label class="form-check-label" for="conditions">Agree to terms and conditions</label>
             </div>
         </div>
@@ -109,6 +149,7 @@
 
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Register</button>
     </form>
+
     <p class="mt-4 mb-1 text-muted">Already registered?
         <a class="text-muted" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_login.php" ?>">Login</a>
     </p>
