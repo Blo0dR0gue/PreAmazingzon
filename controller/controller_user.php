@@ -15,9 +15,12 @@ class UserController
         return User::getByEmail($email);
     }
 
-    public static function getById(int $id): ?User
+    public static function getById(?int $id): ?User
     {
-        return User::getById($id);
+        if(isset($id))
+            return User::getById($id);
+        else
+            return null;
     }
 
     public static function login(User $user, string $password): bool
