@@ -296,3 +296,13 @@ INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('sent');
 INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('delivered');
 
 COMMIT;
+
+START TRANSACTION;
+USE amazingzon;
+INSERT INTO amazingzon.User (password, email, userRole, firstname, lastname, defaultAddress, active)
+VALUES  ('$2y$10$6Hcfffp14MOnyfzjoYlWm.RGSMxQF.kRE.mY7Jer51X.LVc8pFhZG', 'user@user.de', 2, 'Max', 'Musteruser', null, 1);
+
+INSERT INTO amazingzon.User (password, email, userRole, firstname, lastname, defaultAddress, active)
+VALUES  ('$2y$10$Cvg4eJICZcIhH9cNyYfRu.EZSqpLAXOCQx5kHo3quLT1S9rCCeMnK', 'admin@admin.de', 1, 'Armin', 'Musteradmin', null, 1);
+
+COMMIT;
