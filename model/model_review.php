@@ -36,7 +36,7 @@ class Review
 
     public static function getAvgRating(int $productId): ?float
     {
-        $sql = "SELECT AVG(stars) as rating
+        $sql = "SELECT ROUND(AVG(stars), 1) as rating
                 FROM review
                 WHERE product = ?
                 GROUP BY product;";

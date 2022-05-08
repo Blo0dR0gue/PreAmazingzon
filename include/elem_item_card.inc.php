@@ -23,12 +23,12 @@ if (isset($product) && $product instanceof Product): ?>
                 $difference = $avgRating - $i;
                 if ($difference >= 0)
                 {
-                    echo "<i class='fa fa-star rating-color'></i>";
-                } elseif (0.25 < abs($difference) && abs($difference) < 0.75)
+                    echo "<i class='fa fa-star rating-color'></i>";     // full star
+                } elseif (-0.25 > $difference && $difference > -0.75)
                 {
-                    echo "<i class='fa fa-star-half-full rating-color'></i>";
+                    echo "<i class='fa fa-star-half-full rating-color'></i>";   // half star
                 } else {
-                    echo "<i class='fa fa-star'></i>";
+                    echo "<i class='fa fa-star-o rating-color'></i>";      // empty star
                 }
             }
             ?>
