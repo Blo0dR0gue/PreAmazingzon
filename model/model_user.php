@@ -107,14 +107,64 @@ class User
 
     // endregion
 
-    public function insert(): void
+    // region setter
+    /**
+     * @param int|null $default_address_id
+     */
+    public function setDefaultAddressId(?int $default_address_id): void
     {
-        // TODO
+        $this->default_address_id = $default_address_id;
+    }
+    // endregion
+
+    public function insert(): ?User
+    {
+        $stmt = getDB()->prepare("INSERT INTO user(password, email, userRole, firstname, lastname, defaultAddress, active) 
+                                        VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssissii",
+                    $this->password_hash,
+                     $this->email,
+                          $this->role_id,
+                          $this->first_name,
+                          $this->last_name,
+                          $this->default_address_id,
+                          $this->active);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $newId = $stmt->insert_id;
+        $stmt->close();
+
+        return self::getById($newId);
     }
 
-    public function update(): void
+    public function update(): ?User
     {
         // TODO
+        $stmt = getDB()->prepare("UPDATE user 
+                                    SET password = ?,
+                                        email = ?,
+                                        userRole = ?,
+                                        firstname = ?,
+                                        lastname = ?,
+                                        defaultAddress = ?,
+                                        active = ?
+                                    WHERE id = ?;");
+        $stmt->bind_param("ssissiii",
+            $this->password_hash,
+            $this->email,
+            $this->role_id,
+            $this->first_name,
+            $this->last_name,
+            $this->default_address_id,
+            $this->active,
+            $this->id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $stmt->close();
+
+        return self::getById($this->id);
     }
 
     public function delete(): void
