@@ -65,6 +65,7 @@ if (isset($productID) && is_numeric($productID)) {
                 <a href="#" class="btn btn-success btn-sm">Add to Card</a> <!--TODO amount?-->
             </div>
             <!--TODO Reviews-->
+            <!--TODO Tags/Categories-->
         </div>
     </section>
 
