@@ -44,7 +44,7 @@ if(isset($productID) && is_numeric($productID)){
                     </div>
                     <div class="col-8">
                         <?=ReviewController::getAvgRating($product->getId())?> Stars
-                        <?=ReviewController::calcAndIncAvgProductStars($product->getId())?> <a href="#">Produkt Bewerten</a>
+                        <?=ReviewController::calcAndIncAvgProductStars($product->getId())?>
                         <hr/>
                         <div>Preis: <b><?= $product->getPriceFormatted(); ?> €</b></div>
                         <hr/>
