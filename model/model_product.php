@@ -97,6 +97,20 @@ class Product
         return [];
     }
 
+    public static function getProductById(int $id): ?Product {
+        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"]);
+    }
+
     // endregion
 
     // region getter & setter
@@ -170,6 +184,7 @@ class Product
      * Sets the meanIn variable.
      * First checks whether an image of the product contains -main in the name. If that image does not exist,
      * the first picture is checked afterwords. If this does not exist either, the default notFound image is selected.
+     * TODO prüfen, ob man set löscht und nur get nutzt und daüfr die locale var sparen kann.
      */
     public function setMainImg(): void
     {
