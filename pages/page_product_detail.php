@@ -9,10 +9,14 @@ $productID = $_GET["id"];   //TODO htmlspecialchars?
 if(isset($productID) && is_numeric($productID)){
     $product = ProductController::getProductById(intval($productID));
 
-    if(!isset($product)) header("LOCATION: " . ROOT_DIR );   //Redirect, if no product is found.
+    if(!isset($product)){
+        header("LOCATION: " . ROOT_DIR );   //Redirect, if no product is found.
+        die();
+    }
 
 }else{
     header("LOCATION: " . ROOT_DIR );   //Redirect, if no number is passed.
+    die();
 }
 
 ?>
