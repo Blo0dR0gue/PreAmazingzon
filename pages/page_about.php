@@ -19,7 +19,6 @@
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php"; ?>
-<!--TODO change to path references to organisation ?-->
 
 </body>
 </html>

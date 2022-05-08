@@ -30,4 +30,4 @@ if (ini_get("session.use_cookies"))
 // Finally, delete the session.
 session_destroy();
 
-header("Location: " . ROOT_DIR );
+header("LOCATION: " . ROOT_DIR );

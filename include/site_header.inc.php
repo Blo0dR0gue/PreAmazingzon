@@ -1,6 +1,6 @@
 <!-- site header resumed all over the website -->
 
-<!-- TODO make links wor-->
+<!-- TODO make links work -->
 
 <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -19,6 +19,7 @@
                        class="nav-link px-2 text-white">About</a></li>
             </ul>
 
+<!--            TODO make search work -->
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>

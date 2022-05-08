@@ -1,5 +1,4 @@
 <!-- TODO COMMENT-->
-<!-- TODO remove file from root?-->
 
 <?php
 $dirs = explode("/", substr($_SERVER["PHP_SELF"], 1));
