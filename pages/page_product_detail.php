@@ -44,9 +44,11 @@ if (isset($productID) && is_numeric($productID)) {
             <!-- LEFT -->
             <div class="col-lg-6 border-end">
                 <div class="d-flex flex-column justify-content-center">
+                    <!-- main img -->
                     <div class="main_image">
                         <img src="<?= $product->getMainImg() ?>" id="main_product_image"  alt="main product image">
                     </div>
+                    <!-- sub img -->
                     <div class="thumbnail_images d-flex align-content-center justify-content-center flex-wrap">
                         <!--TODO show all images-->
                         <img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" alt="">
@@ -60,6 +62,9 @@ if (isset($productID) && is_numeric($productID)) {
             </div>
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
+                <!-- category -->
+                <p class="small mb-2"><a href="#" class="text-muted">Electronics > Laptops</a></p>
+                <!-- TODO insert category -->
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
                 <!-- description -->
