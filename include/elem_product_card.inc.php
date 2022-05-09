@@ -16,7 +16,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <p class="small mb-2"><a href="#" class="text-muted">Laptops</a></p>
                     <!-- TODO insert category -->
                     <p class="small text-danger mb-2"><s>$1099</s></p>
-                    <!-- TODO insert "discount", random? -->
+                    <!-- TODO insert "discount", random? database!! -->
                 </div>
 
                 <div class="d-flex justify-content-between mb-3">
