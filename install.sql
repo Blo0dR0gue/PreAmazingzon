@@ -263,8 +263,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `amazingzon`;
-INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`) VALUES ('Katze', 'Super flauschig yeah', 6.50, 2, 7);
-INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`) VALUES ('Test', 'Testprodukt', 160.27, 1, 3.50);
+INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`) VALUES ('Katze', 'Super flauschig yeah', 6.50, 2, 7, null);
+INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`) VALUES ('Test', 'Testprodukt', 160.27, 1, 3.50, null);
 
 COMMIT;
 

@@ -13,6 +13,7 @@ class Product
     private float $price;
     private int $stock;
     private float $shippingCost;
+    private ?int $categoryID;
     // endregion
 
 
@@ -24,7 +25,7 @@ class Product
      * @param int $stock
      * @param float $shippingCost
      */
-    public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost)
+    public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost, ?int $categoryID)
     {
         $this->id = $id;
         $this->title = $title;
@@ -32,6 +33,7 @@ class Product
         $this->price = $price;
         $this->stock = $stock;
         $this->shippingCost = $shippingCost;
+        $this->categoryID = $categoryID;
     }
 
     /**
@@ -98,7 +100,7 @@ class Product
         $res = $res->fetch_assoc();
         $stmt->close();
 
-        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"]);
+        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"], $res["category"]);
     }
 
     // region getter & setter
@@ -165,6 +167,16 @@ class Product
     {
         return number_format($this->getShippingCost(), 2, ".", "");
     }
+
+    /**
+     * @return int|null
+     */
+    public function getCategoryID(): ?int
+    {
+        return $this->categoryID;
+    }
+
+
 
     //endregion
 
