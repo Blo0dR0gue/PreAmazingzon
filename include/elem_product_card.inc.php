@@ -26,8 +26,7 @@ if (isset($product) && $product instanceof Product): ?>
                 </div>
 
                 <div class="d-flex justify-content-between align-content-end mb-2">
-                    <p class="text-muted mb-0"><span class="fw-bold">6</span> in Stock</p>
-                    <!-- TODO insert stock -->
+                    <p class="text-muted mb-0"><span class="fw-bold"><?=$product->getStock()?></span> in Stock</p>
                     <div>
                         <?php
                         echo ReviewController::getAvgRating($product->getId());
