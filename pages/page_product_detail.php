@@ -7,7 +7,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 
 $productID = $_GET["id"];   //TODO html special chars?
 if (isset($productID) && is_numeric($productID)) {
-    $product = ProductController::getProductById(intval($productID));
+    $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
         header("LOCATION: " . ROOT_DIR);   //Redirect, if no product is found.

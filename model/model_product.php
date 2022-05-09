@@ -96,7 +96,7 @@ class Product
         return [];
     }
 
-    public static function getProductById(int $id): ?Product
+    public static function getByID(int $id): ?Product
     {
         $stmt = getDB()->prepare("SELECT * from product where id = ?;");
         $stmt->bind_param("i", $id);
