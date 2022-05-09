@@ -5,7 +5,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_review.php";
 if (isset($product) && $product instanceof Product): ?>
     <div class="col-xl-3 col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
         <!-- PRODUCT -->
-        <div class="card">
+        <div class="card border-0 shadow">
             <!-- main image -->
             <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); ?>"
                class="border-bottom d-flex justify-content-center align-items-center"

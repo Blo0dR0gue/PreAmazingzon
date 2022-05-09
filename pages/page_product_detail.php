@@ -39,7 +39,7 @@ if (isset($productID) && is_numeric($productID)) {
     <!-- back button -->
     <a href="<?= ROOT_DIR ?>" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2" style="font-size:36px"></a>
 
-    <div class="container mt-1 mb-5 card">
+    <div class="container mt-1 mb-5 card shadow">
         <div class="row g-0">
             <!-- LEFT -->
             <div class="col-lg-6 border-end">
