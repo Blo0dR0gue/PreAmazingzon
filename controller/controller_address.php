@@ -13,9 +13,12 @@ class AddressController
         return $address->insert();
     }
 
-    public static function getById(int $id): ?Address
+    public static function getById(?int $id): ?Address
     {
-        return Address::getById($id);
+        if($id != null)
+            return Address::getById($id);
+        else
+            return null;
     }
 
     public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address
