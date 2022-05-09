@@ -20,7 +20,8 @@
         {
             if (UserController::login($user, $_POST["password"]))    // login user
             {
-                header("LOCATION: /");  // go back to home site
+                header("LOCATION: " . ROOT_DIR);  // go back to home site
+                die();
             }
         }
         // show error popup

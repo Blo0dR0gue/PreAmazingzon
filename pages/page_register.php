@@ -33,7 +33,8 @@
             if ($user)  // user could be inserted?
             {
                 UserController::login($user, $_POST["password"]);   // login user
-                header("LOCATION: /");  // go back to home site
+                header("LOCATION: " . ROOT_DIR);  // go back to home site
+                die();
             } else
             {
                 show_popup(
