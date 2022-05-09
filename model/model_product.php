@@ -216,4 +216,20 @@ class Product
 
     //endregion
 
+
+    public function insert(): void
+    {
+        // TODO
+    }
+
+    public function update(): void
+    {
+        // TODO
+    }
+
+    public function delete(): void
+    {
+        // TODO
+    }
+
 }
