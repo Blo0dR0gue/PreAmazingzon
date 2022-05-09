@@ -1,7 +1,9 @@
 // script for handling the cookie consent modal
-// TODO COMMENT
 
-// display modal
+/**
+ * By default, show the modal if it was loaded on the page.
+ * @type {Modal}
+ */
 const cookieModal = new bootstrap.Modal(document.getElementById("modalCookie"), {
     backdrop: "static",
     keyboard: false,
@@ -29,7 +31,10 @@ function declineCookies()
     window.location.href = "https://www.amazon.de/";    // redirections user to competition
 }
 
-
+/**
+ * Event-Listener for removing the modal backdrop onClose.
+ * In its default state this stays and prevents the user from interacting with the page.
+ */
 $("#modalCookie").on("hidden.bs.modal", function ()
 {
     // remove remaining back-drop

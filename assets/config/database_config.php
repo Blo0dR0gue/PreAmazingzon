@@ -1,4 +1,4 @@
-<!-- TODO Comment -->
+<!-- config file for database related stuff -->
 
 <?php
 const DB_DATABASE = "amazingzon";

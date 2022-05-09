@@ -1,6 +1,9 @@
-// TODO COMMENT
+// script for handling the popup modal
 
-// display modal
+/**
+ * By default, show the modal if it was loaded on the page.
+ * @type {Modal}
+ */
 const popupModal = new bootstrap.Modal(document.getElementById("modalPopup"), {
     backdrop: true,
     keyboard: false,
@@ -18,6 +21,10 @@ function closePopup()
     popupModal.hide();
 }
 
+/**
+ * Event-Listener for removing the modal backdrop onClose.
+ * In its default state this stays and prevents the user from interacting with the page.
+ */
 $("#modalPopup").on("hidden.bs.modal", function ()
 {
     // remove remaining back-drop
