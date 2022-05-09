@@ -78,7 +78,7 @@ if (isset($productID) && is_numeric($productID)) {
                 </div>
                 <!-- stock & buttons-->
                 <div class="buttons d-flex flex-row gap-3">
-                    <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1">
+                    <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1" max="<?=$product->getStock()?>">
                     <button class="btn btn-dark">Add to Cart</button>
                 <!-- TODO make add to cart work-->
                 </div>
