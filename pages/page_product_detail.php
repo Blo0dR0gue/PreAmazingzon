@@ -27,7 +27,7 @@ if (isset($productID) && is_numeric($productID)) {
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_product_detail.css"; ?>">
-    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "page_product_details.js"; ?>"></script>
+    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "page_product_detail.js"; ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">

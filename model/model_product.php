@@ -189,8 +189,8 @@ class Product
      * Sets the meanIn variable.
      * First checks whether an image of the product contains -main in the name. If that image does not exist,
      * the first picture is checked afterwords. If this does not exist either, the default notFound image is selected.
-     * TODO prüfen, ob man set löscht und nur get nutzt und daüfr die locale var sparen kann.
      */
+    // TODO prüfen, ob man set löscht und nur get nutzt und dafür die locale var sparen kann.
     public function setMainImg(): void
     {
         $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*-main*");

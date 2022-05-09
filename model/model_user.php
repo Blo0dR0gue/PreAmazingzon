@@ -222,7 +222,7 @@ class User
     /**
      * Get an existing user by its id.
      *
-     * @param int $id ID of an user
+     * @param int $id ID of a user
      * @return User|null new address
      */
     public static function getById(int $id): ?User
