@@ -23,7 +23,7 @@ if (isset($productID) && is_numeric($productID)) {
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - Product Details - <?= $product->getTitle(); ?></title>
+    <title><?= PAGE_NAME ?> - <?= $product->getTitle(); ?></title>
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_product_detail.css"; ?>">
@@ -59,24 +59,28 @@ if (isset($productID) && is_numeric($productID)) {
                 </div>
             </div>
             <!-- RIGHT -->
-            <div class="col-lg-6 p-3 right-side h-100">
+            <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
                 <!-- description -->
                 <p class="mt-1 pr-3 content"><?= $product->getDescription() ?></p>
                 <!-- price -->
-                <h2 class="mb-0"><?= $product->getPriceFormatted(); ?>€</h2>
-                <h6>+ <?= $product->getShippingCostFormatted(); ?>€ Shipping</h6>
+                <h6 class="text-danger mb-0 pb-0"><s><?= $product->getOriginalPriceFormatted() ?>€</s></h6>
+                <div class="d-flex align-items-start">
+                    <h2 class="mb-0 col-auto me-2"><?= $product->getPriceFormatted(); ?>€</h2>
+                    <h6 class="col-auto mt-auto mb-1">+ <?= $product->getShippingCostFormatted(); ?>€ Shipping</h6>
+                </div>
+
                 <!-- stars -->
                 <div class="ratings d-flex flex-row align-items-center mt-3">
                     <p>
                         <?= ReviewController::getAvgRating($product->getId()) ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        xyz Reviews
+                        (xyz reviews)
                     </p>
                 <!-- TODO add review count-->
                 </div>
-                <!-- stock & buttons-->
+                <!-- stock & buttons -->
                 <div class="buttons d-flex flex-row gap-3">
                     <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1">
                     <button class="btn btn-dark">Add to Cart</button>
