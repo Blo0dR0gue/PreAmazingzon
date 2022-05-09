@@ -20,7 +20,7 @@ class ProductController
         if($productID == null || $productID == 0)
             return null;
 
-        return Product::getProductById($productID);
+        return Product::getById($productID);
 
     }
 
