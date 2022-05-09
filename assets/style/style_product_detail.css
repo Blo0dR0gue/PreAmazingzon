@@ -35,7 +35,7 @@ body {
 }
 
 .main_image img {
-    width: 95%;
+    max-width: 95%;
     max-height: 95%;
 }
 
