@@ -20,7 +20,7 @@
             require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
             foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product): ?>
                 <div class="col-3">
-                    <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_item_card.inc.php"; ?>
+                    <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_product_card.inc.php"; ?>
                 </div>
             <?php endforeach; ?>
         </div>
