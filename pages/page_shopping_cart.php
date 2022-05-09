@@ -33,9 +33,9 @@
                         </thead>
 
                         <tbody>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_card_entry.php"?>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_card_entry.php"?>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_card_entry.php"?>
+                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php"?>
+                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php"?>
+                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php"?>
                         </tbody>
                     </table>
 
