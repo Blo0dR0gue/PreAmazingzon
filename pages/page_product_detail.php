@@ -81,15 +81,14 @@ if (isset($productID) && is_numeric($productID)) {
                     <p>
                         <?= ReviewController::getAvgRating($product->getId()) ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        (xyz reviews)
+                        (<?= ReviewController::getNumberOfReviews($product->getId()) ?> reviews)
                     </p>
-                <!-- TODO add review count-->
                 </div>
                 <!-- stock & buttons -->
                 <div class="buttons d-flex flex-row gap-3">
                     <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1" max="<?=$product->getStock()?>">
                     <button class="btn btn-dark">Add to Cart</button>
-                <!-- TODO make add to cart work-->
+                    <label for="quantity"></label>                <!-- TODO make add to cart work-->
                 </div>
                 <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
             </div>

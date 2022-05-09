@@ -4,7 +4,6 @@
 // load required files
 require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php");
 
-// TODO implement
 class Review
 {
     // region fields
@@ -51,6 +50,25 @@ class Review
         $stmt->close();
 
         return $res["rating"];
+    }
+
+    public static function getNumberOfReviews(int $productId): ?int
+    {
+        $sql = "SELECT COUNT(*) as reviews
+                FROM review
+                WHERE product = ?
+                GROUP BY product";
+        $stmt = getDb()->prepare($sql);
+        $stmt->bind_param("i", $productId);
+        if (!$stmt->execute()) return null;    //TODO Error Handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["reviews"];
     }
 
     // region getter

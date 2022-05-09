@@ -1,3 +1,5 @@
+<!-- TODO Comment-->
+
 <?php
 
 require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
@@ -16,6 +18,20 @@ class ReviewController
         }
 
         return $avgRating;
+
+    }
+
+    public static function getNumberOfReviews(int $productId): int
+    {
+        $number = Review::getNumberOfReviews($productId);
+
+        if (!$number)
+        {
+            //TODO Error Handling
+            return 0;
+        }
+
+        return $number;
 
     }
 
