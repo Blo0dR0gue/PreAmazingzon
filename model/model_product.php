@@ -15,9 +15,6 @@ class Product
     private float $shippingCost;
     // endregion
 
-    // Extra Vars
-    //TODO
-    private string $mainImg;
 
     /**
      * @param int $id
@@ -46,18 +43,14 @@ class Product
             $products = [];
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT * FROM Product");
+            $result = getDB()->query("SELECT id FROM Product");
 
-            if (!$result) {
-                return [];
-            }
+            if (!$result) return [];
 
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach ($rows as $row) {
-                $product = new Product($row["id"], $row["title"], $row["description"], $row["price"], $row["stock"], $row["shippingCost"]);
-                $product->setMainImg();
-                $products[] = $product;
+                $products[] = self::getByID($row["id"]);
             }
 
             return $products;
@@ -77,16 +70,13 @@ class Product
         try {
             $products = [];
 
-            $stmt = getDB()->prepare("SELECT * FROM Product ORDER BY RAND() LIMIT ?;");
+            $stmt = getDB()->prepare("SELECT id FROM Product ORDER BY RAND() LIMIT ?;");
             $stmt->bind_param("i", $amount);
             $stmt->execute();
 
             foreach ($stmt->get_result() as $article) {
-                $product = new Product($article["id"], $article["title"], $article["description"], $article["price"], $article["stock"], $article["shippingCost"]);
-                $product->setMainImg();
-                $products[] = $product;
+                $products[] = self::getByID($article["id"]);
             }
-
             $stmt->close();
 
             return $products;
@@ -110,8 +100,6 @@ class Product
 
         return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"]);
     }
-
-    // endregion
 
     // region getter & setter
     /**
@@ -178,41 +166,37 @@ class Product
         return number_format($this->getShippingCost(), 2, ".", "");
     }
 
-    //region extra vars
+    //endregion
+
+
+    //region extra attributes
 
     /**
+     * Gets the mainImg.
+     *
+     * First checks whether an image of the product contains 'main.' in the name. If that image does not exist,
+     * the first picture is checked afterwords. If this does not exist either, the default notFound image is selected.
+     *
      * @return string The Path to the main image.
      */
     public function getMainImg(): string
     {
-        if (!isset($this->mainImg)) {
-            $this->setMainImg();
-        }
-        return $this->mainImg;
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*main.*");
+        if (count($mainImages) !== 0) return $mainImages[0];
+
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "1.*");
+        if (count($mainImages) !== 0) return $mainImages[0];
+
+        return IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg";
     }
 
-    /**
-     * Sets the meanIn variable.
-     * First checks whether an image of the product contains -main in the name. If that image does not exist,
-     * the first picture is checked afterwords. If this does not exist either, the default notFound image is selected.
-     */
-    // TODO prüfen, ob man set löscht und nur get nutzt und dafür die locale var sparen kann.
-    public function setMainImg(): void
+    public function getAllImgs(): array
     {
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*-main*");
+        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*");
+        if (count($mainImages) !== 0) return $mainImages[0];
 
-        if (count($mainImages) === 0) {
-            $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "1.*");
-        }
-
-        if (count($mainImages) === 0) {
-            $this->mainImg = IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg";
-            return;
-        }
-
-        $this->mainImg = $mainImages[0];
+        return [IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg"];
     }
-    //endregion
 
     //endregion
 
