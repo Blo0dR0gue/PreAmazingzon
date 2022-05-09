@@ -25,7 +25,9 @@ if (isset($productID) && is_numeric($productID)) {
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Product Details - <?= $product->getTitle(); ?></title>
 
+    <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_product_detail.css"; ?>">
+    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "page_product_details.js"; ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -34,13 +36,7 @@ if (isset($productID) && is_numeric($productID)) {
 
 <!-- main body -->
 <main class="flex-shrink-0">
-    <script>
-        function changeImage(element) {
-            const main_product_image = document.getElementById('main_product_image');
-            main_product_image.src = element.src;
-        }
-    </script>
-
+    <!-- back button -->
     <a href="<?= ROOT_DIR ?>" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2" style="font-size:36px"></a>
 
     <div class="container mt-1 mb-5 card">
