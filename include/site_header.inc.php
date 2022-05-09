@@ -37,6 +37,11 @@
                        class="btn btn-outline-light">Sign-up</a>
                 </div>
             <?php } else { ?>
+                <!-- shopping card -->
+                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_shopping_card.php" ?>"
+                   class="d-flex align-items-center text-decoration-none me-3">
+                    <i class='fa fa-shopping-cart link-warning' style='font-size:38px'></i>
+                </a>
                 <!-- show profile action -->
                 <!-- TODO add links-->
                 <div class="dropdown text-end">
