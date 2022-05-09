@@ -5,7 +5,7 @@ require_once "../include/site_php_head.inc.php";
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 
-$productID = $_GET["id"];   //TODO htmlspecialchars?
+$productID = $_GET["id"];   //TODO html special chars?
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getProductById(intval($productID));
 
@@ -34,44 +34,6 @@ if (isset($productID) && is_numeric($productID)) {
 
 <!-- main body -->
 <main class="flex-shrink-0">
-
-    <section class="container" id="productDetails">
-        <div class="card">
-            <div class="card-header">
-                <h2><?= $product->getTitle(); ?></h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">
-                        <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="produkt">
-                        <!--TODO show all images-->
-
-                    </div>
-                    <div class="col-8">
-                        <?= ReviewController::getAvgRating($product->getId()) ?> Stars
-                        <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        <hr/>
-                        <div>Price: <b><?= $product->getPriceFormatted(); ?> €</b></div>
-                        <div>Shipping Cost: <b><?= $product->getShippingCostFormatted(); ?> €</b></div>
-                        <hr/>
-                        <div><?= $product->getDescription() ?></div>
-                        <hr/>
-                        <div><?= $product->getStock() ?> Items in Stock</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="<?= ROOT_DIR ?>" class="btn btn-primary btn-sm">Back to the Shop</a>
-                <a href="#" class="btn btn-success btn-sm">Add to Card</a> <!--TODO amount?-->
-            </div>
-
-            <!--TODO Reviews-->
-            <!--TODO Tags/Categories-->
-<!--            TODO show categories? -->
-        </div>
-    </section>
-
-
     <script>
         function changeImage(element) {
             const main_product_image = document.getElementById('main_product_image');
@@ -79,53 +41,58 @@ if (isset($productID) && is_numeric($productID)) {
         }
     </script>
 
+    <a href="<?= ROOT_DIR ?>" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2" style="font-size:36px"></a>
 
-    <div class="container mt-5 mb-5">
-        <div class="card">
-            <div class="row g-0">
-                <div class="col-lg-6 border-end">
-                    <div class="d-flex flex-column justify-content-center">
-                        <div class="main_image">
-                            <img src="https://i.imgur.com/TAzli1U.jpg" id="main_product_image" width="350">
-                        </div>
-                        <div class="thumbnail_images">
-                            <ul id="thumbnail">
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" width="70"></li>
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/w6kEctd.jpg" width="70"></li>
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/L7hFD8X.jpg" width="70"></li>
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" width="70"></li>
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" width="70"></li>
-                                <li><img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" width="70"></li>
-                            </ul>
-                        </div>
+    <div class="container mt-1 mb-5 card">
+        <div class="row g-0">
+            <!-- LEFT -->
+            <div class="col-lg-6 border-end">
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="main_image">
+                        <img src="<?= $product->getMainImg() ?>" id="main_product_image"  alt="main product image">
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="p-3 right-side h-100">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2>IIana</h2>
-                        </div>
-                        <p class="mt-2 pr-3 content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                        <h3>$430.99</h3>
-                        <h6>+ $430.99 Shipping</h6>
-                        <div class="ratings d-flex flex-row align-items-center">
-                            <p>
-                                <?= ReviewController::getAvgRating($product->getId()) ?> Stars
-                                <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                                xyz Reviews
-                            </p>
-
-                        </div>
-                        <p>xzy in stock</p>
-                        <div class="buttons d-flex flex-row gap-3">
-                            <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1">
-                            <button class="btn btn-dark">Add to Basket</button>
-                        </div>
+                    <div class="thumbnail_images d-flex align-content-center justify-content-center flex-wrap">
+                        <!--TODO show all images-->
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" alt="">
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/w6kEctd.jpg" alt="">
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/L7hFD8X.jpg" alt="">
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
+                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
                     </div>
                 </div>
             </div>
+            <!-- RIGHT -->
+            <div class="col-lg-6 p-3 right-side h-100">
+                <!-- title -->
+                <h2><?= $product->getTitle() ?></h2>
+                <!-- description -->
+                <p class="mt-1 pr-3 content"><?= $product->getDescription() ?></p>
+                <!-- price -->
+                <h2 class="mb-0"><?= $product->getPriceFormatted(); ?>€</h2>
+                <h6>+ <?= $product->getShippingCostFormatted(); ?>€ Shipping</h6>
+                <!-- stars -->
+                <div class="ratings d-flex flex-row align-items-center mt-3">
+                    <p>
+                        <?= ReviewController::getAvgRating($product->getId()) ?> Stars
+                        <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
+                        xyz Reviews
+                    </p>
+<!--                            TODO add review count-->
+                </div>
+                <!-- stock & buttons-->
+                <div class="buttons d-flex flex-row gap-3">
+                    <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1">
+                    <button class="btn btn-dark">Add to Card</button>
+<!--                            TODO make add to card work-->
+                </div>
+                <p class="mb-0 ms-2 text-muted"><?= $product->getStock() ?> in Stock</p>
+            </div>
         </div>
     </div>
+
+    <!--TODO Reviews-->
+    <!--TODO Tags/Categories-->
 </main>
 
 <!-- footer -->
