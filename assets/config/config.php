@@ -8,14 +8,21 @@
  */
 const ROOT_PATH_OFFSET = "";
 
-// Central Numbers
+// region Central Numbers
 /**
  * Amount of random products which are displayed on the index.php.
  * Its recommender to set the value to multiples of four.
  */
 const INDEX_PRODUCTS_AMOUNT = 4;
 
-// Central Strings
+/**
+ * Amount the highly complex algorithm can vary the original price to motivate the
+ * user to buy the product for the current price.
+ */
+const DISCOUNT_VARIATION = 50;
+// endregion
+
+// region Central Strings
 /**
  * Name of the website.
  */
@@ -25,3 +32,4 @@ const PAGE_NAME = "Amazingzon";
  * Date of copyright.
  */
 const PAGE_COPYRIGHT = "2022";
+// endregion

@@ -20,8 +20,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <p class="small mb-2"><a href="#" class="text-muted">Laptops</a></p>
                     <!-- TODO insert category -->
                     <!-- 'discount' -->
-                    <p class="small text-danger mb-2"><s>$1099</s></p>
-                    <!-- TODO insert "discount", random? -->
+                    <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?>€</s></p>
                 </div>
 
                 <!-- second row-->
