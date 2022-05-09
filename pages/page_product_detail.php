@@ -82,7 +82,7 @@ if (isset($productID) && is_numeric($productID)) {
                     <button class="btn btn-dark">Add to Cart</button>
                 <!-- TODO make add to cart work-->
                 </div>
-                <p class="mb-0 ms-2 text-muted"><?= $product->getStock() ?> in Stock</p>
+                <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
             </div>
         </div>
     </div>

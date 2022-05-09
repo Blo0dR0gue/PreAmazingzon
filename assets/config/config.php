@@ -11,6 +11,7 @@ const ROOT_PATH_OFFSET = "";
 // Central Numbers
 /**
  * Amount of random products which are displayed on the index.php.
+ * Its recommender to set the value to multiples of four.
  */
 const INDEX_PRODUCTS_AMOUNT = 4;
 
