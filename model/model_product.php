@@ -151,6 +151,12 @@ class Product
         return number_format($this->getPrice(), 2, ".", "");
     }
 
+    public function getOriginalPriceFormatted(): string
+    {
+        $originalPrice = $this->getPrice() + rand(1, DISCOUNT_VARIATION);
+        return number_format($originalPrice, 0, ".", "");
+    }
+
     /**
      * @return int The Amount of Items in Stock
      */
