@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Product` (
   `price` DECIMAL(15,2) UNSIGNED NOT NULL,
   `stock` INT NOT NULL DEFAULT 0,
   `shippingCost` DECIMAL(15,2) NOT NULL,
-  `category` INT NOT NULL,
+  `category` INT,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Product_Category1`
     FOREIGN KEY (`category`)
