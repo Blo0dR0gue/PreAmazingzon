@@ -1,7 +1,7 @@
 <!-- TODO COMMENT -->
-<?php
-require_once "../include/site_php_head.inc.php";
+<?php require_once "../include/site_php_head.inc.php" ?>
 
+<?php
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 
@@ -74,13 +74,13 @@ if (isset($productID) && is_numeric($productID)) {
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
                         xyz Reviews
                     </p>
-<!--                            TODO add review count-->
+                <!-- TODO add review count-->
                 </div>
                 <!-- stock & buttons-->
                 <div class="buttons d-flex flex-row gap-3">
                     <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1">
                     <button class="btn btn-dark">Add to Cart</button>
-<!--                            TODO make add to cart work-->
+                <!-- TODO make add to cart work-->
                 </div>
                 <p class="mb-0 ms-2 text-muted"><?= $product->getStock() ?> in Stock</p>
             </div>

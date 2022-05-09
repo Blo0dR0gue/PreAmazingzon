@@ -1,7 +1,13 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
-<!-- TODO if not logged in redirect to index -->
+<?php
+if(!isset($_SESSION["login"]))   // if not logged in redirect to home
+{
+    header("LOCATION: " . ROOT_DIR);
+    die();
+}
+?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">

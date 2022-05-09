@@ -1,6 +1,14 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
+<?php
+if(!isset($_SESSION["login"]))   // if not logged in redirect to home
+{
+    header("LOCATION: " . ROOT_DIR);
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
@@ -14,6 +22,7 @@
 
 <!-- main body -->
 <main class="">
+<!-- TODO make shopping cart work-->
 
     <section class="pt-5 pb-5">
         <div class="container">

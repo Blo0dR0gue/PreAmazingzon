@@ -1,7 +1,13 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
-<!-- TODO if already logged in redirect to e.g. profile -->
+<?php
+if(isset($_SESSION["login"]))   // if already logged in redirect to home
+{
+    header("LOCATION: " . ROOT_DIR);
+    die();
+}
+?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
