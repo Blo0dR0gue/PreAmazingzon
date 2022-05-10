@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
-  `parent` INT NOT NULL,
+  `parent` INT,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_categorie_categorie1`
     FOREIGN KEY (`parent`)
