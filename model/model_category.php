@@ -20,7 +20,7 @@ class Category
      * @param int $id
      * @param string $name
      * @param string $description
-     * @param int $parentID
+     * @param null|int $parentID
      */
     public function __construct(int $id, string $name, string $description, ?int $parentID)
     {
