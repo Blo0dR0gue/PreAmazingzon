@@ -4,6 +4,7 @@
 <?php
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
+require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 
 $productID = $_GET["id"];   //TODO html special chars?
 if (isset($productID) && is_numeric($productID)) {
@@ -63,7 +64,7 @@ if (isset($productID) && is_numeric($productID)) {
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
-                <p class="small mb-2"><a href="#" class="text-muted">Electronics > Laptops</a></p>
+                <p class="small mb-2"><a href="#" class="text-muted"><?=CategoryController::getCategoryPathAsString($product)?></a></p>
                 <!-- TODO insert category -->
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>

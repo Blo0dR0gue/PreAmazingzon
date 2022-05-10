@@ -11,7 +11,7 @@ class Category
     private int $id;
     private string $name;
     private string $description;
-    private int $parentID;
+    private ?int $parentID;
 
     // endregion
 
@@ -22,7 +22,7 @@ class Category
      * @param string $description
      * @param int $parentID
      */
-    public function __construct(int $id, string $name, string $description, int $parentID)
+    public function __construct(int $id, string $name, string $description, ?int $parentID)
     {
         $this->id = $id;
         $this->name = $name;
@@ -30,7 +30,9 @@ class Category
         $this->parentID = $parentID;
     }
 
-    public static function getById(int $id): ?Category{
+    public static function getById(?int $id): ?Category{
+        if($id == null) return null;
+
         $stmt = getDB()->prepare("SELECT * from category where id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
@@ -42,6 +44,20 @@ class Category
         $stmt->close();
 
         return new Category($id, $res["name"], $res["description"], $res["parent"]);
+    }
+
+    public static function getByName(string $name): ?Category{
+        $stmt = getDB()->prepare("SELECT * from category where name = ?;");
+        $stmt->bind_param("s", $name);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Category($res["id"], $name, $res["description"], $res["parent"]);
     }
 
     // region getter
@@ -71,9 +87,9 @@ class Category
     }
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getParentID(): int
+    public function getParentID(): ?int
     {
         return $this->parentID;
     }
