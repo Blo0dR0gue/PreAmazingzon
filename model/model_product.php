@@ -144,16 +144,18 @@ class Product
     }
 
     /**
-     * Selects all products containing the passed string in either the description or the title
+     * Selects all products containing the passed string in either the description, the title or in the name of the category.
      * @param string $searchString The string which should be in the defined texts.
      * @return array|null An array with the found products or null, if an error occurred.
      */
-    public static function getProductsContainingString(string $searchString): ?array
+    public static function searchProducts(string $searchString): ?array
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT DISTINCT id from Product where description LIKE '%?%' OR title LIKE '%?%';");
-        $stmt->bind_param("s", $searchString);
+        $searchString = "%$searchString%";
+
+        $stmt = getDB()->prepare("SELECT DISTINCT p.id from Product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;");
+        $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
