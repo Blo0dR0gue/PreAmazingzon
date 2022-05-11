@@ -23,8 +23,14 @@
 
             <!-- search -->
             <!-- TODO make search work -->
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="<?=PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php'?>">
+                <div class="input-group rounded">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                           aria-describedby="search-addon"/>
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
             </form>
 
             <!-- dependant on login state-->
@@ -51,11 +57,18 @@
                              class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
-                        <li><p class="dropdown-item-text mb-1 text-muted"><?=$_SESSION["first_name"] . " " . $_SESSION["last_name"]?></p></li>
-                        <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile Info</a></li>
+                        <li>
+                            <p class="dropdown-item-text mb-1 text-muted"><?= $_SESSION["first_name"] . " " . $_SESSION["last_name"] ?></p>
+                        </li>
+                        <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile
+                                Info</a></li>
                         <li><a class="dropdown-item" href="#">###</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                               href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a>
+                        </li>
                     </ul>
                 </div>
             <?php } ?>
