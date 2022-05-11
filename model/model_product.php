@@ -45,14 +45,14 @@ class Product
             $products = [];
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT id FROM Product");
+            $result = getDB()->query("SELECT id FROM Product;");
 
             if (!$result) return [];
 
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-            foreach ($rows as $row) {
-                $products[] = self::getByID($row["id"]);
+            foreach ($rows as $product) {
+                $products[] = self::getByID($product["id"]);
             }
 
             return $products;
@@ -64,7 +64,7 @@ class Product
 
     public static function getByID(int $id): ?Product
     {
-        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
+        $stmt = getDB()->prepare("SELECT * from Product where id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -80,27 +80,66 @@ class Product
     /**
      * Selects random products from the Database and returns them.
      * @param int $amount The amount of random products, which are selected from the database.
-     * @return array An Array of these random products.
+     * @return null|array An Array of these random products or null, if an error occurred.
      */
-    public static function getRandomProducts(int $amount): array
+    public static function getRandomProducts(int $amount): ?array
     {
-        try {
-            $products = [];
+        $products = [];
 
-            $stmt = getDB()->prepare("SELECT id FROM Product ORDER BY RAND() LIMIT ?;");
-            $stmt->bind_param("i", $amount);
-            $stmt->execute();
+        $stmt = getDB()->prepare("SELECT id FROM Product ORDER BY RAND() LIMIT ?;");
+        $stmt->bind_param("i", $amount);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
 
-            foreach ($stmt->get_result() as $article) {
-                $products[] = self::getByID($article["id"]);
-            }
-            $stmt->close();
-
-            return $products;
-        } catch (Exception $e) {
-            echo $e; //TODO Error Handling
+        foreach ($stmt->get_result() as $product) {
+            $products[] = self::getByID($product["id"]);
         }
-        return [];
+        $stmt->close();
+
+        return $products;
+    }
+
+    /**
+     * Selects all products with the passed category id.
+     * @param int $categoryID The id of the category.
+     * @return array|null An Array of the found products or null, if an error occurred.
+     */
+    public static function getProductsByCategoryID(int $categoryID): ?array
+    {
+        $products = [];
+
+        $stmt = getDB()->prepare("SELECT id from Product where category = ?;");
+        $stmt->bind_param("i", $categoryID);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+
+        foreach ($stmt->get_result() as $product) {
+            $products[] = self::getByID($product["id"]);
+        }
+        $stmt->close();
+        return $products;
+    }
+
+    /**
+     * Selects all products containing the passed string in either the description or the title
+     * @param string $searchString The string which should be in the defined texts.
+     * @return array|null An array with the found products or null, if an error occurred.
+     */
+    public static function getProductsContainingString(string $searchString): ?array
+    {
+        $products = [];
+
+        $stmt = getDB()->prepare("SELECT DISTINCT id from Product where description LIKE '%?%' OR title LIKE '%?%';");
+        $stmt->bind_param("s", $searchString);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+
+        foreach ($stmt->get_result() as $product) {
+            $products[] = self::getByID($product["id"]);
+        }
+        $stmt->close();
+        return $products;
     }
 
     // region getter & setter
