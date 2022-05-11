@@ -10,17 +10,10 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
 class UserController
 {
 
-    public static function getByEmail(string $email): ?User
-    {   // TODO validate?
-        return User::getByEmail($email);
-    }
-
     public static function getById(?int $id): ?User
     {
-        if(isset($id))
-            return User::getById($id);
-        else
-            return null;
+        if (isset($id)) return User::getById($id);
+        else return null;
     }
 
     public static function login(User $user, string $password): bool
@@ -68,6 +61,21 @@ class UserController
         return null; // email not unique
     }
 
+    public static function emailAvailable(string $email): bool
+    {   // TODO validate
+
+        if (UserController::getByEmail($email))  // user with mail exists?
+        {
+            return false;   // user exists
+        }
+        return true;    // user not exists
+    }
+
+    public static function getByEmail(string $email): ?User
+    {   // TODO validate?
+        return User::getByEmail($email);
+    }
+
     public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
     { // TODO validate?
         if ($user->getEmail() === $email or self::emailAvailable($email))  // email unique?
@@ -78,21 +86,11 @@ class UserController
             $user->setEmail($email);
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
             $user->setActive(true);
-            if($role_id != null) $user->setRoleId($role_id);
-            if($defaultAddressId != null) $user->setDefaultAddressId($defaultAddressId);
+            if ($role_id != null) $user->setRoleId($role_id);
+            if ($defaultAddressId != null) $user->setDefaultAddressId($defaultAddressId);
 
             return $user->update();
         }
         return null; // email not unique
-    }
-
-    public static function emailAvailable(string $email): bool
-    {   // TODO validate
-
-        if (UserController::getByEmail($email))  // user with mail exists?
-        {
-            return false;   // user exists
-        }
-        return true;    // user not exists
     }
 }

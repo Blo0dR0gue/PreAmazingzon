@@ -62,6 +62,21 @@ class Product
         return [];
     }
 
+    public static function getByID(int $id): ?Product
+    {
+        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"], $res["category"]);
+    }
+
     /**
      * Selects random products from the Database and returns them.
      * @param int $amount The amount of random products, which are selected from the database.
@@ -88,22 +103,8 @@ class Product
         return [];
     }
 
-    public static function getByID(int $id): ?Product
-    {
-        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"], $res["category"]);
-    }
-
     // region getter & setter
+
     /**
      * @return int The ID of the modelProduct
      */
@@ -128,17 +129,17 @@ class Product
         return $this->description;
     }
 
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 2, ".", "");
+    }
+
     /**
      * @return float The Price for this modelProduct
      */
     public function getPrice(): float
     {
         return $this->price;
-    }
-
-    public function getPriceFormatted(): string
-    {
-        return number_format($this->getPrice(), 2, ".", "");
     }
 
     public function getOriginalPriceFormatted(): string
@@ -155,17 +156,17 @@ class Product
         return $this->stock;
     }
 
+    public function getShippingCostFormatted(): string
+    {
+        return number_format($this->getShippingCost(), 2, ".", "");
+    }
+
     /**
      * @return float The Cost for Shipping this modelProduct
      */
     public function getShippingCost(): float
     {
         return $this->shippingCost;
-    }
-
-    public function getShippingCostFormatted(): string
-    {
-        return number_format($this->getShippingCost(), 2, ".", "");
     }
 
     /**

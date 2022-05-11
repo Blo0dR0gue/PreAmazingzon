@@ -30,8 +30,9 @@ class Category
         $this->parentID = $parentID;
     }
 
-    public static function getById(?int $id): ?Category{
-        if($id == null) return null;
+    public static function getById(?int $id): ?Category
+    {
+        if ($id == null) return null;
 
         $stmt = getDB()->prepare("SELECT * from category where id = ?;");
         $stmt->bind_param("i", $id);
@@ -46,7 +47,8 @@ class Category
         return new Category($id, $res["name"], $res["description"], $res["parent"]);
     }
 
-    public static function getByName(string $name): ?Category{
+    public static function getByName(string $name): ?Category
+    {
         $stmt = getDB()->prepare("SELECT * from category where name = ?;");
         $stmt->bind_param("s", $name);
         if (!$stmt->execute()) return null;     // TODO ERROR handling

@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if(isset($_SESSION["login"]))   // if already logged in redirect to home
+if (isset($_SESSION["login"]))   // if already logged in redirect to home
 {
     header("LOCATION: " . ROOT_DIR);
     die();

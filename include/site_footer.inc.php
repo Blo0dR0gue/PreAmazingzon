@@ -19,12 +19,14 @@
         <!-- TODO edit footer navigation -->
         <ul class="nav col-md-6 justify-content-end d-flex">
             <li class="nav-item">
-                <a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-muted">Home</a></li>
+                <a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-muted">Home</a>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
             <li class="nav-item">
-                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a></li>
+                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>
+            </li>
         </ul>
     </div>
 </footer>

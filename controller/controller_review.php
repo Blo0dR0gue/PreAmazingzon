@@ -7,20 +7,6 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
 class ReviewController
 {
 
-    public static function getAvgRating(int $productId): float
-    {
-        $avgRating = Review::getAvgRating($productId);
-
-        if (!$avgRating)
-        {
-            //TODO Error Handling
-            return 0;
-        }
-
-        return $avgRating;
-
-    }
-
     public static function getNumberOfReviews(int $productId): int
     {
         $number = Review::getNumberOfReviews($productId);
@@ -57,6 +43,19 @@ class ReviewController
                 echo "<i class='fa fa-star-o rating-color ms-1'></i>";      // empty star
             }
         }
+    }
+
+    public static function getAvgRating(int $productId): float
+    {
+        $avgRating = Review::getAvgRating($productId);
+
+        if (!$avgRating) {
+            //TODO Error Handling
+            return 0;
+        }
+
+        return $avgRating;
+
     }
 
 }

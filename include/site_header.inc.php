@@ -7,8 +7,8 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <!-- logo -->
             <a href="<?= ROOT_DIR ?>" class="d-flex align-items-center mb-2 mb-lg-0">
-                <img src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long_inv.svg" ?>" class="bi me-2" width="150" height="40"
-                     alt="Company Logo">
+                <img src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long_inv.svg" ?>" class="bi me-2" width="150"
+                     height="40" alt="Company Logo">
             </a>
 
             <!-- nav -->
@@ -22,7 +22,7 @@
             </ul>
 
             <!-- search -->
-<!--            TODO make search work -->
+            <!-- TODO make search work -->
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>

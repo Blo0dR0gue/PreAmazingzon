@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if(!isset($_SESSION["login"]))   // if not logged in redirect to home
+if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 {
     header("LOCATION: " . ROOT_DIR);
     die();
@@ -136,42 +136,42 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
 
         <h4 class="mb-2 mt-3">Default Address Information</h4>
-        <?php if(isset($address)) { //Is the default address available? ?>
-        <!-- region address 1 row -->
-        <div class="form-row row">
-            <div class="col-md-4 mb-3 px-2 position-relative">
-                <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required
-                       pattern="\d{5}" value="<?= $address->getZip() ?>">
-                <div class="invalid-tooltip opacity-75">Please enter a valid ZIP!</div>
+        <?php if (isset($address)) { //Is the default address available? ?>
+            <!-- region address 1 row -->
+            <div class="form-row row">
+                <div class="col-md-4 mb-3 px-2 position-relative">
+                    <label for="zip">Zip</label>
+                    <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required
+                           pattern="\d{5}" value="<?= $address->getZip() ?>">
+                    <div class="invalid-tooltip opacity-75">Please enter a valid ZIP!</div>
+                </div>
+                <div class="col-md-8 mb-3 px-2 position-relative">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="City" required
+                           pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getCity() ?>">
+                    <div class="invalid-tooltip opacity-75">Please enter a valid City!</div>
+                </div>
             </div>
-            <div class="col-md-8 mb-3 px-2 position-relative">
-                <label for="city">City</label>
-                <input type="text" class="form-control" id="city" name="city" placeholder="City" required
-                       pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getCity() ?>">
-                <div class="invalid-tooltip opacity-75">Please enter a valid City!</div>
-            </div>
-        </div>
-        <!-- endregion -->
+            <!-- endregion -->
 
-        <!-- region address 2 row -->
-        <div class="form-row row">
-            <div class="col-md-8 mb-3 px-2 position-relative">
-                <label for="street">Street</label>
-                <input type="text" class="form-control" id="street" name="street" placeholder="Street" required
-                       pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getStreet() ?>">
-                <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
+            <!-- region address 2 row -->
+            <div class="form-row row">
+                <div class="col-md-8 mb-3 px-2 position-relative">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" id="street" name="street" placeholder="Street" required
+                           pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getStreet() ?>">
+                    <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
+                </div>
+                <div class="col-md-4 mb-4 px-2 position-relative">
+                    <label for="number">No.</label>
+                    <input type="text" class="form-control" id="number" name="number" placeholder="Number" required
+                           pattern="[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?" value="<?= $address->getNumber() ?>">
+                    <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
+                </div>
             </div>
-            <div class="col-md-4 mb-4 px-2 position-relative">
-                <label for="number">No.</label>
-                <input type="text" class="form-control" id="number" name="number" placeholder="Number" required
-                       pattern="[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?" value="<?= $address->getNumber() ?>">
-                <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
-            </div>
-        </div>
-        <!-- endregion -->
-        <?php } else {?>
-        <p><i class="mb-3">No Information about your default address available.</i></p>
+            <!-- endregion -->
+        <?php } else { ?>
+            <p><i class="mb-3">No Information about your default address available.</i></p>
         <?php } ?>
 
         <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Save</button>

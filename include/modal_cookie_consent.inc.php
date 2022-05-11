@@ -15,9 +15,11 @@
                 </div>
                 <div class="modal-footer flex-column border-top-0">
                     <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2" data-dismiss="modal"
-                            onclick="acceptCookies()">Accept</button>
+                            onclick="acceptCookies()">Accept
+                    </button>
                     <button type="button" class="btn btn-lg btn-light w-100 mx-0"
-                            onclick="declineCookies()">Decline</button>
+                            onclick="declineCookies()">Decline
+                    </button>
                 </div>
             </div>
         </div>

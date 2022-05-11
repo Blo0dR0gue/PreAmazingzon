@@ -18,8 +18,8 @@ Project developed by:
 
 The project is designed to be executed in a local xampp installation or via GitPot.
 
-
 ## Technical Details
+
 This project is based on HTML, CSS, PHP, Javascript
 
 ### Libraries/APIs
