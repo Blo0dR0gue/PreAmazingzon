@@ -21,9 +21,8 @@
             <li class="nav-item">
                 <a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-muted">Home</a>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php' ?>" class="nav-link px-2 text-muted">Products</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Categories</a></li>
             <li class="nav-item">
                 <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>
             </li>
