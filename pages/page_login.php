@@ -38,7 +38,7 @@ if(isset($_SESSION["login"]))   // if already logged in redirect to home
 <body class="text-center bg-light align-items-center h-100 d-flex">
 
 <!-- main body -->
-<main class="m-auto w-100 px-3" style="max-width: 370px;">
+<main class="m-auto w-100 px-3" style="max-width: 370px">
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?= ROOT_DIR ?>" class="mb-0">
             <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long.svg" ?>" alt="Company Logo"

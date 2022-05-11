@@ -96,13 +96,13 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
         <!-- region name row -->
         <div class="form-row row">
-            <div class="col-md-6 mb-3 px-2" style="position: relative">
+            <div class="col-md-6 mb-3 px-2 position-relative">
                 <label for="first_name">First Name</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
                        required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+" value="<?= $user->getFirstName() ?>">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Name!</div>
             </div>
-            <div class="col-md-6 mb-3 px-2" style="position: relative">
+            <div class="col-md-6 mb-3 px-2 position-relative">
                 <label for="last_name">Last Name</label>
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
                        required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+" value="<?= $user->getLastName() ?>">
@@ -113,7 +113,7 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
         <!-- region email row -->
         <div class="form-row row">
-            <div class="col-md mb-3 px-2" style="position: relative">
+            <div class="col-md mb-3 px-2 position-relative">
                 <label for="email">Email Address</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" required
                        value="<?= $user->getEmail() ?>">
@@ -124,7 +124,7 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
         <!-- region password row -->
         <div class="form-row row">
-            <div class="col-md mb-3 px-2" style="position: relative" data-toggle="tooltip" data-placement="top"
+            <div class="col-md mb-3 px-2 position-relative" data-toggle="tooltip" data-placement="top"
                  title="At least one digit, lowercase-, uppercase-, special-char. At least 8, but no more than 32 char.">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
@@ -139,13 +139,13 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
         <?php if(isset($address)) { //Is the default address available? ?>
         <!-- region address 1 row -->
         <div class="form-row row">
-            <div class="col-md-4 mb-3 px-2" style="position: relative">
+            <div class="col-md-4 mb-3 px-2 position-relative">
                 <label for="zip">Zip</label>
                 <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required
                        pattern="\d{5}" value="<?= $address->getZip() ?>">
                 <div class="invalid-tooltip opacity-75">Please enter a valid ZIP!</div>
             </div>
-            <div class="col-md-8 mb-3 px-2" style="position: relative">
+            <div class="col-md-8 mb-3 px-2 position-relative">
                 <label for="city">City</label>
                 <input type="text" class="form-control" id="city" name="city" placeholder="City" required
                        pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getCity() ?>">
@@ -156,13 +156,13 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
         <!-- region address 2 row -->
         <div class="form-row row">
-            <div class="col-md-8 mb-3 px-2" style="position: relative">
+            <div class="col-md-8 mb-3 px-2 position-relative">
                 <label for="street">Street</label>
                 <input type="text" class="form-control" id="street" name="street" placeholder="Street" required
                        pattern="[a-zöäüA-ZÄÖÜ]+(?:[\s-][a-zöäüA-ZÖÄÜ]+)*" value="<?= $address->getStreet() ?>">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
             </div>
-            <div class="col-md-4 mb-4 px-2" style="position: relative">
+            <div class="col-md-4 mb-4 px-2 position-relative">
                 <label for="number">No.</label>
                 <input type="text" class="form-control" id="number" name="number" placeholder="Number" required
                        pattern="[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?" value="<?= $address->getNumber() ?>">

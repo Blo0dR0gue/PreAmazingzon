@@ -8,8 +8,7 @@ if (isset($product) && $product instanceof Product): ?>
         <div class="card border-0 shadow">
             <!-- main image -->
             <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); ?>"
-               class="border-bottom d-flex justify-content-center align-items-center"
-               style="height: 250px; overflow: hidden">
+               class="border-bottom d-flex justify-content-center align-items-center overflow-hidden" style="height: 250px">
                 <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="main image"/>
             </a>
 

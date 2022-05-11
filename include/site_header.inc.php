@@ -50,7 +50,7 @@
                         <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "user_orange.svg" ?>" alt="mdo"
                              class="rounded-circle" width="40" height="40">
                     </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
                         <li><p class="dropdown-item-text mb-1 text-muted"><?=$_SESSION["first_name"] . " " . $_SESSION["last_name"]?></p></li>
                         <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile Info</a></li>
                         <li><a class="dropdown-item" href="#">###</a></li>
