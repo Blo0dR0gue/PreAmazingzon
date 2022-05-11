@@ -23,15 +23,21 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
     // get user
     $user = UserController::getById($_SESSION["uid"]);
-    if (!$user) $userError = 1;   // user could be found?
-
-    //TODO redirect, if user not found?
+    if (!$user)     // user could be found?
+    {
+        show_popup(
+            "Error",
+            "An error occurred loading your data. Please try again later and excuse the inconvenience."
+        );
+        header("LOCATION: " . ROOT_DIR);    // redirect to home page if user not found.
+        die();
+    }
 
     // get address
     $address = AddressController::getById($user->getDefaultAddressId());
-    if (!$address) $addressError = 1;     // user address could be found?
+    if (!$address) $addressInfo = 1;     // user address could be found?
 
-    //TODO add/edit multiple addresses
+    //TODO add/edit multiple addresses -> separate setting? for overview and complexity reasons?
     ?>
 
     <!-- form processing script -->
@@ -128,8 +134,9 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
         </div>
         <!-- endregion -->
 
-        <?php if(isset($address)): ?>   <!--Is the default address available?-->
+
         <h4 class="mb-2 mt-3">Default Address Information</h4>
+        <?php if(isset($address)) { //Is the default address available? ?>
         <!-- region address 1 row -->
         <div class="form-row row">
             <div class="col-md-4 mb-3 px-2" style="position: relative">
@@ -162,8 +169,10 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
                 <div class="invalid-tooltip opacity-75">Please enter a Number!</div>
             </div>
         </div>
-        <?php endif?>
         <!-- endregion -->
+        <?php } else {?>
+        <p><i class="mb-3">No Information about your default address available.</i></p>
+        <?php } ?>
 
         <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Save</button>
     </form>
@@ -180,19 +189,11 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
 <!-- show error popup -->
 <?php
-if (isset($userError))
+if (isset($addressInfo))
 {
     show_popup(
-        "Error",
-        "An error occurred loading your data. Please try again later and excuse the inconvenience."
-    );
-}
-
-if (isset($addressError))
-{
-    show_popup(
-        "Error",
-        "An error occurred loading your default address. Please try again later and excuse the inconvenience."
+        "Information",
+        "We could not find any information about your default address. Go to the corresponding settings to set your default address."  // TODO
     );
 }
 
