@@ -23,29 +23,15 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 
     // get user
     $user = UserController::getById($_SESSION["uid"]);
-    if (!$user)  // user could be found?
-    {
-        show_popup(
-            "Error",
-            "An error occurred loading your data. Please try again later and excuse the inconvenience."
-        );
-    }
+    if (!$user) $userError = 1;   // user could be found?
 
     //TODO redirect, if user not found?
 
     // get address
     $address = AddressController::getById($user->getDefaultAddressId());
-    if (!$address)  // user could be found?
-    {
-        show_popup(
-            "Error",
-            "An error occurred loading your default address. Please try again later and excuse the inconvenience."
-        );
-    }
+    if (!$address) $addressError = 1;     // user address could be found?
 
     //TODO add/edit multiple addresses
-
-
     ?>
 
     <!-- form processing script -->
@@ -82,20 +68,8 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
-            } else
-            {
-                show_popup(
-                    "Error while Update",
-                    "An error occurred during the update. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
-                );
-            }
-        } else
-        {
-            show_popup(
-                "Email unavailable",
-                "The given email address is already connected with an account. Please use a different email or login with the existing account."
-            );
-        }
+            } else $updateError = 1;
+        } else $emailError = 1;
     }
     ?>
 </head>
@@ -203,5 +177,40 @@ if(!isset($_SESSION["login"]))   // if not logged in redirect to home
 <!-- enable tooltips on this page (by default disabled for performance)-->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "tooltip_enable.js" ?>"></script>
 
+
+<!-- show error popup -->
+<?php
+if (isset($userError))
+{
+    show_popup(
+        "Error",
+        "An error occurred loading your data. Please try again later and excuse the inconvenience."
+    );
+}
+
+if (isset($addressError))
+{
+    show_popup(
+        "Error",
+        "An error occurred loading your default address. Please try again later and excuse the inconvenience."
+    );
+}
+
+if (isset($updateError))
+{
+    show_popup(
+        "Error while Update",
+        "An error occurred during the update. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
+    );
+}
+
+if (isset($emailError))
+{
+    show_popup(
+        "Email unavailable",
+        "The given email address is already connected with an account. Please use a different email or login with the existing account."
+    );
+}
+?>
 </body>
 </html>

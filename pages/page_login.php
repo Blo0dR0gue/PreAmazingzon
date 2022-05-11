@@ -30,11 +30,7 @@ if(isset($_SESSION["login"]))   // if already logged in redirect to home
                 die();
             }
         }
-        // show error popup
-        show_popup(
-            "Login Error",
-            "Your Email or Password is wrong, please retry with the correct credentials!"
-        );
+        $loginError = 1;    // show error msg later, to prevent errors displaying page
     }
     ?>
 </head>
@@ -85,6 +81,16 @@ if(isset($_SESSION["login"]))   // if already logged in redirect to home
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
 
+<!-- show error popup -->
+<?php
+if (isset($loginError)) // login error
+{
+    show_popup(
+        "Login Error",
+        "Your Email or Password is wrong, please retry with the correct credentials!"
+    );
+}
+?>
 </body>
 </html>
 

@@ -41,20 +41,8 @@ if(isset($_SESSION["login"]))   // if already logged in redirect to home
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
-            } else
-            {
-                show_popup(
-                    "Error while Registration",
-                    "An error occurred during the registration. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
-                );
-            }
-        } else
-        {
-            show_popup(
-                "Email unavailable",
-                "The given email address is already connected with an account. Please use a different email for creating a new account. Or login with the existing account."
-            );
-        }
+            } else $registerError = 1;
+        } else $emailError = 1;
     }
     ?>
 </head>
@@ -170,5 +158,23 @@ if(isset($_SESSION["login"]))   // if already logged in redirect to home
 <!-- enable tooltips on this page (by default disabled for performance)-->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "tooltip_enable.js" ?>"></script>
 
+<!-- show error popup -->
+<?php
+if (isset($registerError))
+{
+    show_popup(
+        "Error while Registration",
+        "An error occurred during the registration. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
+    );
+}
+
+if (isset($emailError))
+{
+    show_popup(
+        "Email unavailable",
+        "The given email address is already connected with an account. Please use a different email for creating a new account. Or login with the existing account."
+    );
+}
+?>
 </body>
 </html>
