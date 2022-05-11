@@ -24,6 +24,7 @@ class Product
      * @param float $price
      * @param int $stock
      * @param float $shippingCost
+     * @param int|null $categoryID
      */
     public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost, ?int $categoryID)
     {
