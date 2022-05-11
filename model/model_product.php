@@ -62,6 +62,28 @@ class Product
         return [];
     }
 
+    /**
+     * Select a specified amount of products starting at an offset.
+     * @param int $offset The first row, which should be selected.
+     * @param int $amount The amount of rows, which should be selected.
+     * @return array|null An array with the found products or null, if an error occurred.
+     */
+    public static function getProductsInRange(int $offset, int $amount): ?array {
+        $products = [];
+
+        $stmt = getDB()->prepare("SELECT id from Product limit ? offset ?;");
+        $stmt->bind_param("ii", $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+
+        foreach ($stmt->get_result() as $product) {
+            $products[] = self::getByID($product["id"]);
+        }
+        $stmt->close();
+        return $products;
+    }
+
     public static function getByID(int $id): ?Product
     {
         $stmt = getDB()->prepare("SELECT * from Product where id = ?;");
