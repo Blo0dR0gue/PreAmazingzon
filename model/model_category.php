@@ -30,6 +30,24 @@ class Category
         $this->parentID = $parentID;
     }
 
+    public static function getAll(): array
+    {
+        $categories = [];
+
+        //No need for prepared statement, because we do not use inputs.
+        $result = getDB()->query("SELECT id FROM Category;");
+
+        if (!$result) return [];
+
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rows as $product) {
+            $categories[] = self::getById($product["id"]);
+        }
+
+        return $categories;
+    }
+
     public static function getById(?int $id): ?Category
     {
         if ($id == null) return null;
