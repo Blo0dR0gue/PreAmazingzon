@@ -69,7 +69,8 @@ class Product
      * @param int $amount The amount of rows, which should be selected.
      * @return array|null An array with the found products or null, if an error occurred.
      */
-    public static function getProductsInRange(int $offset, int $amount): ?array {
+    public static function getProductsInRange(int $offset, int $amount): ?array
+    {
         $products = [];
 
         $stmt = getDB()->prepare("SELECT id from product limit ? offset ?;");
@@ -276,9 +277,25 @@ class Product
     //endregion
 
 
-    public function insert(): void
+    public function insert(): ?Product
     {
-        // TODO
+        $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category) 
+                                        VALUES (?, ?, ?, ?, ?, ?);");
+        $stmt->bind_param("ssdidi",
+            $this->title,
+            $this->description,
+            $this->price,
+            $this->stock,
+            $this->shippingCost,
+            $this->categoryID,
+        );
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $newId = $stmt->insert_id;
+        $stmt->close();
+
+        return self::getById($newId);
     }
 
     public function update(): void

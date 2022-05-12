@@ -10,6 +10,27 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 
+if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["description"]) && !empty($_POST["price"])
+    && !empty($_POST["shipping"]) && !empty($_POST["stock"])) {
+
+    //TODO validation
+
+    $product = ProductController::addNew(
+        $_POST["title"],
+        $_POST["cat"],
+        $_POST["description"],
+        $_POST["price"],
+        $_POST["shipping"],
+        $_POST["stock"]
+    );
+
+    if (isset($product)) {
+        header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
+        die();
+    }
+
+    $processingError = true;
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +48,8 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 <main class="m-auto w-100 px-3" style="max-width: 800px">
 
 
-    <form action="#" method="POST">
+    <!--TODO validation-->
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
                 <!-- title -->
@@ -36,10 +58,10 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
             <div class="card-body">
 
                 <div class="form-group">
-                    <label for="name">Product Title</label>
-                    <input type="text" value="" name="name" id="name" class="form-control" placeholder="A New Product Title">
+                    <label for="title">Product Title</label>
+                    <input type="text" value="" name="title" id="title" class="form-control"
+                           placeholder="A New Product Title">
                 </div>
-
 
                 <div class="form-group">
 
@@ -56,11 +78,12 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
                                     <li>
                                         <div class="dropdown-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="cat[]"
+                                                <input class="form-check-input" type="radio" name="cat"
                                                        id="categoryRadios<?php echo $category->getId() ?>"
                                                        value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>>
-                                                <div class="p-0"><label class="form-check-label"
-                                                                        for="categoryRadios<?php echo $category->getId() ?>">
+                                                <div class="p-0">
+                                                    <label class="form-check-label"
+                                                           for="categoryRadios<?php echo $category->getId() ?>">
                                                         <?= $category->getName(); ?>
                                                     </label>
                                                 </div>
@@ -77,7 +100,8 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 
                 <div class="form-group">
                     <label for="description">Product Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="My New Cool Product"></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                              placeholder="My New Cool Product"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -88,38 +112,60 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
                     </div>
 
 
-                <div class="form-group">
-                    <label for="price">Shipping Cost</label>
-                    <div class="input-group p-0">
-                        <input type="number" id="price" name="price" value="0.00" step='0.01' class="form-control">
-                        <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="price">Stock</label>
-                    <div class="input-group p-0">
+                    <div class="form-group">
+                        <label for="shipping">Shipping Cost</label>
                         <div class="input-group p-0">
-                            <input type="number" id="stock" name="stock" class="form-control" value="0">
-                            <span class="input-group-text">Pcs.</span>
+                            <input type="number" id="shipping" name="shipping" value="0.00" step='0.01'
+                                   class="form-control">
+                            <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="price">Stock</label>
+                        <div class="input-group p-0">
+                            <div class="input-group p-0">
+                                <input type="number" id="stock" name="stock" class="form-control" value="0">
+                                <span class="input-group-text">Pcs.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="pictures" class="form-label fs-4">Product Images</label>
+                        <!--TODO-->
+
+                    </div>
+
+                    <br>
+
+                    <div class="card-footer">
+                        <a href="index.php" class="btn btn-danger">Abort</a>
+                        <button class="btn btn-success">Save</button>
+                    </div>
                 </div>
 
-                <br>
-
-                <div class="card-footer">
-                    <a href="index.php" class="btn btn-danger">Abort</a>
-                    <button class="btn btn-success">Save</button>
-                </div>
-            </div>
+                <div>
     </form>
 
 </main>
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+
+<!-- show error popup -->
+<?php
+if (isset($processingError)) // processing error
+{
+    show_popup(
+        "Add Product Error",
+        "ALARM" //TODO
+    );
+}
+?>
+
 </body>
 </html>
 

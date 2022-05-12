@@ -6,6 +6,17 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_category.php";
 class ProductController
 {
 
+    public static function addNew(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
+    {
+        $product = new Product(0, $title, $description, $price, $stock, $shippingCost, $categoryID);
+
+        $product = $product->insert();
+
+        if (!$product) return null;
+
+        return $product;
+    }
+
     public static function searchProducts(string $search): array
     {
         return Product::searchProducts($search);
