@@ -14,7 +14,8 @@
             <!-- nav -->
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-white">Home</a></li>
-                <li><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php' ?>" class="nav-link px-2 text-white">Products</a></li>
+                <li><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php' ?>"
+                       class="nav-link px-2 text-white">Products</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Categories</a></li>
                 <li><a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>"
                        class="nav-link px-2 text-white">About</a></li>
@@ -22,9 +23,11 @@
 
             <!-- search -->
             <!-- TODO make search work -->
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="<?=PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php'?>">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get"
+                  action="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php' ?>">
                 <div class="input-group rounded">
-                    <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                    <input type="search" name="search" class="form-control rounded" placeholder="Search"
+                           aria-label="Search"
                            aria-describedby="search-addon" value="<?= $_GET["search"] ?? "" ?>" minlength="3"/>
                     <button type="submit" class="input-group-text border-0" id="search-addon">
                         <i class="fa fa-search"></i>
@@ -61,6 +64,14 @@
                         </li>
                         <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile
                                 Info</a></li>
+                        <?php
+                        if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true):
+                            ?>
+                        <!--TODO Maybe add Dashboard?-->
+                            <li><a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php'?>">Show and Edit Products</a></li>
+                        <?php
+                        endif;
+                        ?>
                         <li><a class="dropdown-item" href="#">###</a></li>
                         <li>
                             <hr class="dropdown-divider">

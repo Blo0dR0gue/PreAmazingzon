@@ -241,8 +241,6 @@ class Product
         return $this->categoryID;
     }
 
-
-
     //endregion
 
 
