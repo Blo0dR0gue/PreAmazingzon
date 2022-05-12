@@ -8,7 +8,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 $products = [];
 
 $offset = $_GET["offset"] ?? 0;
-$amount = $_GET["amount"] ?? 8;
+$amount = $_GET["amount"] ?? 8; // TODO remove hardcoded value?
 
 if(isset($_GET["search"])){
     $products = ProductController::searchProducts($_GET["search"]);

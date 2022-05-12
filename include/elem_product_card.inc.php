@@ -16,8 +16,19 @@ if (isset($product) && $product instanceof Product): ?>
                 <!-- first row-->
                 <div class="d-flex justify-content-between">
                     <!-- category -->
-                    <p class="small mb-2"><a href="#" class="text-muted">Laptops</a></p>
-                    <!-- TODO insert category -->
+                    <p class="small mb-2">
+                        <?php
+                        $cat = CategoryController::getNameById($product->getCategoryID());
+
+                        if ($cat !== "No Category")
+                        {
+                            echo "<a href='#' class='text-muted'>{$cat}</a>";   // TODO insert cat link
+                        } else
+                        {
+                            echo "<a href='' class='text-decoration-none'><i class='text-muted'>{$cat}</i></a>";
+                        }
+                        ?>
+                    </p>
                     <!-- 'discount' -->
                     <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?>€</s></p>
                 </div>

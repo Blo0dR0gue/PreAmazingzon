@@ -5,16 +5,19 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . 'model_category.php';
 class CategoryController
 {
 
-    public static function getById(?int $id): ?Category {
+    public static function getById(?int $id): ?Category
+    {
         return Category::getById($id);  //TODO error handling; validation
     }
 
-    public static function getNameById(?int $id): string {
+    public static function getNameById(?int $id): string
+    {
         if(!isset($id)) return "No Category";
-        return self::getById($id);
+        return self::getById($id)->getName();
     }
 
-    public static function getByName(string $name): ?Category {
+    public static function getByName(string $name): ?Category
+    {
         return Category::getByName($name); //TODO error handling; validation
     }
 
