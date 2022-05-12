@@ -73,10 +73,10 @@ if (isset($productID) && is_numeric($productID)) {
                 <!-- description -->
                 <p class="mt-1 pr-3 content"><?= $product->getDescription() ?></p>
                 <!-- price -->
-                <h6 class="text-danger mb-0 pb-0"><s><?= $product->getOriginalPriceFormatted() ?>€</s></h6>
+                <h6 class="text-danger mb-0 pb-0"><s><?= $product->getOriginalPriceFormatted() ?></s></h6>
                 <div class="d-flex align-items-start">
-                    <h2 class="mb-0 col-auto me-2"><?= $product->getPriceFormatted(); ?>€</h2>
-                    <h6 class="col-auto mt-auto mb-1">+ <?= $product->getShippingCostFormatted(); ?>€ Shipping</h6>
+                    <h2 class="mb-0 col-auto me-2"><?= $product->getPriceFormatted(); ?></h2>
+                    <h6 class="col-auto mt-auto mb-1">+ <?= $product->getShippingCostFormatted(); ?> Shipping</h6>
                 </div>
 
                 <!-- stars -->

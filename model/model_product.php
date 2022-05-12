@@ -195,7 +195,7 @@ class Product
 
     public function getPriceFormatted(): string
     {
-        return number_format($this->getPrice(), 2, ".", "");
+        return number_format($this->getPrice(), 2, ".", "") . "€";
     }
 
     /**
@@ -209,7 +209,7 @@ class Product
     public function getOriginalPriceFormatted(): string
     {
         $originalPrice = $this->getPrice() + rand(1, DISCOUNT_VARIATION);
-        return number_format($originalPrice, 0, ".", "");
+        return number_format($originalPrice, 0, ".", "") . "€";
     }
 
     /**
@@ -222,7 +222,7 @@ class Product
 
     public function getShippingCostFormatted(): string
     {
-        return number_format($this->getShippingCost(), 2, ".", "");
+        return number_format($this->getShippingCost(), 2, ".", "") . "€";
     }
 
     /**
