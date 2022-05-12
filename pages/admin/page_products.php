@@ -65,12 +65,12 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
             ?>
             <tr>
                 <td style="vertical-align: middle;">
-                    <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left"
+                    <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_add_product.php" ?>" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Add a new product">
                         <i class="fa fa-plus"></i>
                     </a>
                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
-                       title="Add a new product">
+                       title="Delete product">
                         <i class="fa fa-trash "></i>
                     </a>
                 </td>
