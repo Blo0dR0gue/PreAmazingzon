@@ -8,6 +8,8 @@
  */
 const ROOT_PATH_OFFSET = "";
 
+const CURRENCY_SYMBOL = "€";
+
 // region Central Numbers
 /**
  * Amount of random products which are displayed on the index.php.

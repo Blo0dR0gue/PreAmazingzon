@@ -27,5 +27,6 @@ const INCLUDE_HELPER_DIR = INCLUDE_DIR . DIRECTORY_SEPARATOR . "helper";
 const MODEL_DIR = ROOT_DIR . "model";
 
 const PAGES_DIR = ROOT_DIR . "pages";
+const ADMIN_PAGES_DIR = PAGES_DIR . DIRECTORY_SEPARATOR . 'admin';
 
 ?>

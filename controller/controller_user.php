@@ -28,6 +28,7 @@ class UserController
                 $_SESSION["first_name"] = $user->getFirstName();
                 $_SESSION["last_name"] = $user->getLastName();
                 $_SESSION["uid"] = $user->getId();
+                $_SESSION["isAdmin"] = $user->getRoleId() === UserRoleController::getAdminUserRole()->getId();
 
                 return true;    // success
             }

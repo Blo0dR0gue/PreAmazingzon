@@ -28,7 +28,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-black"><?= $product->getTitle() ?></a>
                     <!-- price-->
-                    <h5 class="text-dark mb-0 ms-2"><?= $product->getPriceFormatted() ?>€</h5>
+                    <h5 class="text-dark mb-0 ms-2"><?= $product->getPriceFormatted() ?></h5>
                 </div>
 
                 <!-- third row-->
