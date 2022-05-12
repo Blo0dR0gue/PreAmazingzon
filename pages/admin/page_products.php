@@ -37,9 +37,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
     <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3" id="filter">
 
         <!-- Apply Filters/Sorting -->
-        <div class="py-2 px-1">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> Add New Product</button>
-        </div>
+
 
     </div>
 
