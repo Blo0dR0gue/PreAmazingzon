@@ -1,6 +1,7 @@
 <?php
 
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_review.php";
+require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_category.php";
 
 if (isset($product) && $product instanceof Product): ?>
     <div class="col-xl-3 col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
