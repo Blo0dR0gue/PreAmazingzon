@@ -8,8 +8,6 @@
  */
 const ROOT_PATH_OFFSET = "";
 
-const CURRENCY_SYMBOL = "€";
-
 // region ########## Central Numbers ##########
 /**
  * Amount of random products which are displayed on the index.php.
@@ -39,4 +37,10 @@ const PAGE_NAME = "Amazingzon";
  * Date of copyright.
  */
 const PAGE_COPYRIGHT = "2022";
+
+/**
+ * Symbol placed after price.
+ */
+const CURRENCY_SYMBOL = "€";
+
 // endregion
