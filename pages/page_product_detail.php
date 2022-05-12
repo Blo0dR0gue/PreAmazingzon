@@ -5,7 +5,9 @@
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
+?>
 
+<?php // get product
 $productID = $_GET["id"];   //TODO html special chars?
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
@@ -32,7 +34,7 @@ if (isset($productID) && is_numeric($productID)) {
 </head>
 
 <body class="d-flex flex-column h-100">
-<!--header -->
+<!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->

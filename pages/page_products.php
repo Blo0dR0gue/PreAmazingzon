@@ -26,7 +26,7 @@ if(isset($_GET["search"])){
 </head>
 
 <body class="d-flex flex-column h-100">
-<!--header -->
+<!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->

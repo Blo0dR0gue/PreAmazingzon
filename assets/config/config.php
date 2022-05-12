@@ -10,7 +10,7 @@ const ROOT_PATH_OFFSET = "";
 
 const CURRENCY_SYMBOL = "€";
 
-// region Central Numbers
+// region ########## Central Numbers ##########
 /**
  * Amount of random products which are displayed on the index.php.
  * Its recommender to set the value to multiples of four.
@@ -24,7 +24,7 @@ const INDEX_PRODUCTS_AMOUNT = 4;
 const DISCOUNT_VARIATION = 50;
 // endregion
 
-// region Central Strings
+// region ########## Central Strings ##########
 /**
  * Name of the website.
  */

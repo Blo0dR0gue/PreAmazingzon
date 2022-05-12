@@ -9,7 +9,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-<!--header -->
+<!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->
@@ -28,7 +28,7 @@
     </section>
 
     <section class="container py-4" id="products">
-        <h2>Products of the Second</h2>
+        <h2>Products of the Second . . .</h2>
         <div class="row">
             <?php
             require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
