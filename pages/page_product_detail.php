@@ -53,13 +53,14 @@ if (isset($productID) && is_numeric($productID)) {
                     </div>
                     <!-- sub img -->
                     <div class="thumbnail_images d-flex align-content-center justify-content-center flex-wrap">
-                        <!--TODO show all images-->
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" alt="">
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/w6kEctd.jpg" alt="">
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/L7hFD8X.jpg" alt="">
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
-                        <img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" alt="">
+                        <?php
+                        $allIMGs = array_slice($product->getAllImgs(), 0, MAX_IMAGE_PER_PRODUCT);
+
+                        foreach ($allIMGs as $img)
+                        {
+                            echo "<div class='thumbnail_image'><img onclick='changeImage(this)' src='{$img}' alt=''></div>";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

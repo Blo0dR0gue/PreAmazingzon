@@ -1,3 +1,4 @@
+/* General */
 body {
     background-color: #ecedee;
 }
@@ -7,23 +8,35 @@ body {
     overflow: hidden
 }
 
+/* Mini Images */
 .thumbnail_images {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.thumbnail_images img {
+.thumbnail_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 5px;
-    padding: 6px;
-    width: 110px;
+    padding: 3px;
+    width: 80px;
+    height: 80px;
     border: 2px solid #eee;
     cursor: pointer;
-    transition: all 0.5s
+    transition: all 0.5s;
 }
 
-.thumbnail_images img:hover {
+.thumbnail_image:hover {
     border: 2px solid #000
 }
 
+.thumbnail_image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* Main Image */
 .main_image {
     display: flex;
     justify-content: center;
@@ -39,6 +52,7 @@ body {
     max-height: 95%;
 }
 
+/* right side */
 .right-side {
     position: relative
 }

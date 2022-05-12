@@ -72,7 +72,7 @@ class Product
     public static function getProductsInRange(int $offset, int $amount): ?array {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id from Product limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT id from product limit ? offset ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -87,7 +87,7 @@ class Product
 
     public static function getByID(int $id): ?Product
     {
-        $stmt = getDB()->prepare("SELECT * from Product where id = ?;");
+        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -130,7 +130,7 @@ class Product
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id from Product where category = ?;");
+        $stmt = getDB()->prepare("SELECT id from product where category = ?;");
         $stmt->bind_param("i", $categoryID);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -154,7 +154,7 @@ class Product
 
         $searchString = "%$searchString%";
 
-        $stmt = getDB()->prepare("SELECT DISTINCT p.id from Product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;");
+        $stmt = getDB()->prepare("SELECT DISTINCT p.id from product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;");
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -267,8 +267,8 @@ class Product
 
     public function getAllImgs(): array
     {
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*");
-        if (count($mainImages) !== 0) return $mainImages[0];
+        $images = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*");
+        if (count($images) !== 0) return $images;
 
         return [IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg"];
     }

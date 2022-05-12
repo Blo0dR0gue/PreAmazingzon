@@ -22,6 +22,11 @@ const INDEX_PRODUCTS_AMOUNT = 4;
  * user to buy the product for the current price.
  */
 const DISCOUNT_VARIATION = 50;
+
+/**
+ * Max number of images per product shown on product detail page, inclusive the main image.
+ */
+const MAX_IMAGE_PER_PRODUCT = 6;
 // endregion
 
 // region ########## Central Strings ##########
