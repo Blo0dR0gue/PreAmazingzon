@@ -34,9 +34,10 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
     <h3>All products</h3>
     <hr>
 
+    <!--Toolbar-->
     <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3" id="filter">
 
-        <!-- Apply Filters/Sorting -->
+
 
 
     </div>
