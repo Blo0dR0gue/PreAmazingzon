@@ -60,16 +60,19 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
             );
 
             // update default address
-            $address = AddressController::getById($user->getDefaultAddressId());
-            $address = AddressController::update(
-                $address,
-                $_POST["street"],
-                $_POST["zip"],
-                $_POST["number"],
-                $_POST["city"]
-            );
+            if ($user and !isset($addressInfo))
+            {
+                $address = AddressController::getById($user->getDefaultAddressId());
+                $address = AddressController::update(
+                    $address,
+                    $_POST["street"],
+                    $_POST["zip"],
+                    $_POST["number"],
+                    $_POST["city"]
+                );
+            }
 
-            if ($user and $address)  // user could be inserted?
+            if ($user)  // user could be updated?
             {
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
