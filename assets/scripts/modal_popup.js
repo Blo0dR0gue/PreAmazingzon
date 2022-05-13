@@ -4,7 +4,7 @@
  * By default, show the modal if it was loaded on the page.
  * @type {Modal}
  */
-const popupModal = new bootstrap.Modal(document.getElementById("modalPopup"), {
+popupModal = new bootstrap.Modal(document.getElementById("modalPopup"), {
     backdrop: true,
     keyboard: false,
     focus: true
