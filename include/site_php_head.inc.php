@@ -20,6 +20,4 @@ require_once $root_file_path . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARA
 require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR . "paths.inc.php";
 
 // session
-session_start()
-// TODO implement session use
-?>
+session_start();

@@ -20,7 +20,3 @@ function getDB(): mysqli
 
     return $db;
 }
-
-// TODO close DB?
-
-?>
