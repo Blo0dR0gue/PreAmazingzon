@@ -39,6 +39,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                 <div class="col-lg-12 col-md-12 col-12 px-0">
                     <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
                     <p class="mb-4 text-center font-weight-bold">3 items in your cart</p>
+                    <!-- TODO dynamic count -->
                     <table id="shoppingCart" class="table table-condensed table-responsive">
                         <thead>
                         <tr>
@@ -67,7 +68,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
                     <div class="float-end text-end">
                         <h4>Subtotal:</h4>
-                        <h1>99.00€</h1>
+                        <h1>99.00€</h1> <!-- TODO make subtotal dynamic -->
                     </div>
                 </div>
             </div>
@@ -75,7 +76,8 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
             <!-- bottom navigation  -->
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-end">
-                    <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a><!-- TODO make checkout -->
+
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                     <a href="<?= ROOT_DIR ?>" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
