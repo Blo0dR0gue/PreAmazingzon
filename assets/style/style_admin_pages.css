@@ -1,0 +1,35 @@
+.drop-zone {
+    position: relative;
+    width: 100%;
+    border: 1px black dashed;
+    padding: 10px;
+    min-height: 250px;
+}
+
+.drop-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-zone:hover {
+    cursor: pointer;
+}
+
+.text {
+
+}
+
+.file-input {
+    display: none;
+}
+
+.tbl-img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 120px;
+}

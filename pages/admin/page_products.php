@@ -21,7 +21,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
     <title><?= PAGE_NAME ?> - Admin - Products</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_products.css"; ?>">
+    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_pages.css"; ?>">
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -77,7 +77,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
                 <td style="text-align: center">
                     <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_edit.php?id=" . $product->getId(); ?>">
                         <img src="<?= $product->getMainImg(); ?>"
-                             class="tbl-img" alt="main img"/>
+                             class="tbl-img" alt="main img" data-id="1"/>
                     </a>
                 </td>
                 <td>

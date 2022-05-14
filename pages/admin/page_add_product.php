@@ -10,8 +10,10 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 
+$isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
+
 if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["description"]) && !empty($_POST["price"])
-    && !empty($_POST["shipping"]) && !empty($_POST["stock"])) {
+    && !empty($_POST["shipping"]) && !empty($_POST["stock"]) && $isPost) {
 
     //TODO validation
 
@@ -25,8 +27,12 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
     );
 
     if (isset($product)) {
-        header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
-        die();
+        $successful = ProductController::uploadImages($product->getId(), $_FILES["files"]);
+        if ($successful) {
+            header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
+            //TODO success msg?
+            die();
+        }
     }
 
     $processingError = true;
@@ -36,8 +42,15 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - About</title>
+    <?php
+    require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php";
+    require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
+    ?>
+    <title><?= PAGE_NAME ?> - Admin - Product - Add</title>
+
+    <!-- file specific includes-->
+    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_pages.css"; ?>">
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -49,7 +62,7 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
 
 
     <!--TODO validation-->
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class="card">
             <div class="card-header">
                 <!-- title -->
@@ -57,76 +70,93 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
             </div>
             <div class="card-body">
 
-                <div class="form-group">
+                <div class="form-group position-relative">
                     <label for="title">Product Title</label>
                     <input type="text" value="" name="title" id="title" class="form-control"
-                           placeholder="A New Product Title">
+                           placeholder="A New Product Title"
+                           required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
+                    <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
                 </div>
 
-                <div class="form-group">
+
+                <div class="form-group position-relative">
 
                     <label for="category">Category</label>
-                    <div class="col-12 col-md-4 p-0">
-                        <div class="p-0 dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="priceFilter"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="priceFilter">
-                                <!--TODO Rework -> tree like?; Replace button next with selected-->
-                                <?php foreach (CategoryController::getAll() as $category) { ?>
-                                    <li>
-                                        <div class="dropdown-item">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="cat"
-                                                       id="categoryRadios<?php echo $category->getId() ?>"
-                                                       value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>>
-                                                <div class="p-0">
-                                                    <label class="form-check-label"
-                                                           for="categoryRadios<?php echo $category->getId() ?>">
-                                                        <?= $category->getName(); ?>
-                                                    </label>
+                    <div class="row">
+                        <div class="col-md-7" style="display: flex">
+                            <input type="text" style="width: 450px" required disabled>
+                            <div class="invalid-tooltip opacity-75">Please select a Category!
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-0 dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="priceFilter"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categories
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="priceFilter">
+                                    <!--TODO Rework -> tree like?; Replace button next with selected-->
+                                    <?php foreach (CategoryController::getAll() as $category) { ?>
+                                        <li>
+                                            <div class="dropdown-item">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="cat"
+                                                           id="categoryRadios<?php echo $category->getId() ?>"
+                                                           value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>
+                                                           required onclick="handleClick(this)">
+                                                    <div class="p-0">
+                                                        <label class="form-check-label"
+                                                               for="categoryRadios<?php echo $category->getId() ?>">
+                                                            <?= $category->getName(); ?>
+                                                        </label>
+                                                    </div>
+                                                    </input>
                                                 </div>
-                                                </input>
                                             </div>
-                                        </div>
-                                    </li>
-                                <?php } ?>
-
-                            </ul>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
-                <div class="form-group">
+                <div class="form-group position-relative">
                     <label for="description">Product Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3"
-                              placeholder="My New Cool Product"></textarea>
+                              placeholder="My New Cool Product" required></textarea>
+                    <div class="invalid-tooltip opacity-75">Please add a Product text!</div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group position-relative">
                     <label for="price">Price</label>
                     <div class="input-group p-0">
-                        <input type="number" id="price" name="price" value="0.00" step='0.01' class="form-control">
+                        <input type="number" id="price" name="price" value="0.00" step='0.01' class="form-control"
+                               required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$">
                         <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
+                        <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group position-relative">
                         <label for="shipping">Shipping Cost</label>
                         <div class="input-group p-0">
                             <input type="number" id="shipping" name="shipping" value="0.00" step='0.01'
-                                   class="form-control">
+                                   class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$">
                             <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
+                            <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group position-relative">
                         <label for="price">Stock</label>
                         <div class="input-group p-0">
                             <div class="input-group p-0">
-                                <input type="number" id="stock" name="stock" class="form-control" value="0">
+                                <input type="number" id="stock" name="stock" class="form-control" value="0" required
+                                       pattern="[1-9][0-9]*|0">
                                 <span class="input-group-text">Pcs.</span>
+                                <div class="invalid-tooltip opacity-75">Please choose a correct stock amount!</div>
                             </div>
                         </div>
 
@@ -135,8 +165,19 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                     <div class="form-group">
 
                         <label for="pictures" class="form-label fs-4">Product Images</label>
-                        <!--TODO-->
+                        <div id="dropZone" class="drop-zone" ondrop="dropHandler(event)"
+                             ondragover="dragOverHandler(event)">
+                            <div class="drop-texts" id="dropTexts">
+                                <span class="drop-text">Click here or drag and drop file</span>
+                            </div>
+                            <input class="file-input" type="file" id="files" name="files[]" multiple
+                                   onchange="filesChanged(this)">
 
+                            <section class="container py-4" id="imgContainer">
+                                <div id="imgRow" class="row">
+                                </div>
+                            </section>
+                        </div>
                     </div>
 
                     <br>
@@ -152,8 +193,22 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
 
 </main>
 
+
+<template id="imgBoxTemplate">
+    <div style="width: 130px; height: 110px; text-align: center; margin: 5px;">
+        <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg' ?>"
+             class="tbl-img" alt="product_img">
+        <button type="button" class="btn btn-warning" onclick="deleteImg(this)" data-id="1">delete</button>
+    </div>
+</template>
+
 <!-- footer -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+
+<!-- load custom form validation script -->
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
+<!-- enable tooltips on this page (by default disabled for performance)-->
+<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "tooltip_enable.js" ?>"></script>
 
 <!-- show error popup -->
 <?php
@@ -165,6 +220,98 @@ if (isset($processingError)) // processing error
     );
 }
 ?>
+
+<script>
+    $(function () {
+        $("#dropZone").click(e => {
+            if (e.target === $("#dropZone")[0] || e.target === $("#imgRow")[0])   //Only, if we click the div and not a sub element.
+                $("#files").click();    //Open the file explorer
+        });
+    });
+
+    function dropHandler(ev) {
+        ev.preventDefault();
+
+        if (ev.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            for (let i = 0; i < ev.dataTransfer.items.length; i++) {
+                // If dropped items aren't files, reject them
+                if (ev.dataTransfer.items[i].kind === 'file') {
+                    var file = ev.dataTransfer.items[i].getAsFile();
+                    addImg(file);
+                }
+            }
+        } else {
+            // Use DataTransfer interface to access the file(s)
+            for (let i = 0; i < ev.dataTransfer.files.length; i++) {
+                addImg(ev.dataTransfer.files[i]);
+            }
+        }
+    }
+
+    function dragOverHandler(ev) {
+        ev.preventDefault();
+    }
+
+    function getTemplate(templateSelector) {
+        return document.querySelector(templateSelector).content;
+    }
+
+    const FILES = new Map();
+    let imgID = 0;
+    const main = getTemplate("#imgBoxTemplate");
+
+    //JQuery does not have a formdata event :(
+    document.getElementById("prodForm").addEventListener('formdata', (e) => {
+        const formData = e.formData;
+
+        formData.delete('files[]');
+
+        FILES.forEach(function (value) {
+            formData.append("files[]", value, value.name);
+        });
+    })
+
+    function addImg(file) {
+        if (!file || file['type'].split('/')[0] !== 'image') return;
+        $("#dropTexts")[0].style.display = "none";
+        let template = main.cloneNode(true);
+
+        template.querySelector('div img').src = URL.createObjectURL(file);
+        template.querySelector('div button').dataset.id = imgID.toString();
+
+        FILES.set(imgID, file);
+        imgID++;
+
+        $("#imgRow")[0].appendChild(template)
+    }
+
+    function filesChanged(fileElem) {
+        for (let i = 0; i < fileElem.files.length; i++) {
+            let file = fileElem.files[i];
+            addImg(file);
+        }
+    }
+
+    function deleteImg(imgElem) {
+        const _imgID = parseInt(imgElem.dataset.id);
+
+        const imgBox = imgElem.parentElement;
+        const imgContainer = imgBox.parentElement;
+        imgContainer.removeChild(imgBox);
+
+        FILES.delete(_imgID);
+
+        if (FILES.size === 0)
+            $("#dropTexts")[0].style.display = "block";
+    }
+
+    function handleClick(myRadio) {
+        alert('Old value: ' + currentValue);
+        alert('New value: ' + myRadio.value);
+    }
+
+</script>
 
 </body>
 </html>
