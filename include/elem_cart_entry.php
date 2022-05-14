@@ -37,7 +37,8 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct){
         </td>
         <td data-th="Total"><?= $product->getPriceFormatted($cartProduct->getAmount()) ?></td>
         <td data-th="" class="actions">
-            <button class="btn btn-close btn-md mb-2"></button>
+            <a href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
+               class="btn btn-close btn-md mb-2"></a>
         </td>
     </tr>
 <?php } ?>
