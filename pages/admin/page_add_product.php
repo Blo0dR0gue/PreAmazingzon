@@ -110,7 +110,6 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                                                             <?= $category->getName(); ?>
                                                         </label>
                                                     </div>
-                                                    </input>
                                                 </div>
                                             </div>
                                         </li>
