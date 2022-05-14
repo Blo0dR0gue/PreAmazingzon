@@ -34,7 +34,9 @@ function getTemplate(templateSelector) {
 }
 
 const FILES = new Map();
-let imgID = 0;
+let lastMainImgElem = null;
+let mainImgID = 0;
+let nextImgID = 0;
 const main = getTemplate("#imgBoxTemplate");
 
 //JQuery does not have a formdata event :(
@@ -43,8 +45,16 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     formData.delete('files[]');
 
-    FILES.forEach(function (value) {
+    if(mainImgID == null){
+        formData.set("mainImgID", Number(0).toString());
+    }
+    let index = 0;
+    FILES.forEach(function (value, key) {
+        if(mainImgID != null && key === parseInt(mainImgID)){
+            formData.set("mainImgID", index.toString());
+        }
         formData.append("files[]", value, value.name);
+        index++;
     });
 })
 
@@ -55,10 +65,15 @@ function addImg(file, maxFileAmount) {
     let template = main.cloneNode(true);
 
     template.querySelector('div img').src = URL.createObjectURL(file);
-    template.querySelector('div button').dataset.id = imgID.toString();
+    template.querySelectorAll('div button').forEach(function (elem){
+        elem.dataset.id = nextImgID.toString();
+        if(elem.name === "setMainBtn" && FILES.size <= 0){
+            setMainImg(elem);
+        }
+    });
 
-    FILES.set(imgID, file);
-    imgID++;
+    FILES.set(nextImgID, file);
+    nextImgID++;
 
     $("#imgRow")[0].appendChild(template)
 }
@@ -70,17 +85,51 @@ function filesChanged(fileElem, maxFileAmount) {
     }
 }
 
-function deleteImg(imgElem) {
-    const _imgID = parseInt(imgElem.dataset.id);
+function deleteImg(btnElem) {
+    const _imgID = parseInt(btnElem.dataset.id);
 
-    const imgBox = imgElem.parentElement;
+    const imgBox = btnElem.parentElement;
     const imgContainer = imgBox.parentElement;
     imgContainer.removeChild(imgBox);
 
     FILES.delete(_imgID);
 
+    //If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
+    if(_imgID === parseInt(lastMainImgElem.dataset.id)){
+        if(FILES.size > 0){
+            setMainImg(document.getElementsByName("setMainBtn")[0]);
+        }else{
+            document.getElementById("mainImgID").value = "";
+            lastMainImgElem = null;
+            mainImgID = null;
+        }
+    }
+
     if (FILES.size === 0)
         $("#dropTexts")[0].style.display = "block";
+}
+
+/**
+ * Sets the main-img
+ * @param btnElem The button element, which is clicked.
+ */
+function setMainImg(btnElem) {
+    if(lastMainImgElem === btnElem) return;
+
+    //Change the button of the new main img
+    btnElem.innerHTML = "Main";
+    btnElem.classList.remove("btn-danger");
+    btnElem.classList.add("btn-success");
+
+    //Change old texts and css classes
+    if(lastMainImgElem){
+        lastMainImgElem.classList.remove("btn-success");
+        lastMainImgElem.classList.add("btn-danger");
+        lastMainImgElem.innerHTML = "Set Main";
+    }
+    //Update references
+    lastMainImgElem = btnElem;
+    mainImgID = btnElem.dataset.id;
 }
 
 function handleRadioUpdate(myRadio) {

@@ -17,35 +17,37 @@ class ProductController
         return $product;
     }
 
-    public static function uploadImages(?int $productID, ?array $files): bool{
+    public static function uploadImages(?int $productID, ?array $files, ?int $mainImgID): bool
+    {
 
-        if(!isset($files) || !count($files) > 0 || !isset($productID)) return true;
+        if (!isset($files) || !count($files) > 0 || !isset($productID)) return true;
 
         $targetUploadDir = IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID;
 
         $errors = false;
 
-        foreach ($files["tmp_name"] as $tmpFile){
-            $suc = self::uploadImage($tmpFile, $targetUploadDir, $productID);
-            if(!$suc && !$errors) $errors = true;
+        for ($i = 0; $i < count($files["tmp_name"]); $i++) {
+            $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, $i == $mainImgID);
+            if (!$suc && !$errors) $errors = true;
         }
         return $errors;
     }
 
-    private static function uploadImage($tmpFile, $targetUploadDir, $productID): bool {
+    private static function uploadImage(string $tmpFile, string $targetUploadDir, int $productID, bool $isMainImg): bool
+    {
         $fileSize = filesize($tmpFile);
 
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
         $type = finfo_file($fInfo, $tmpFile);
 
-        if($fileSize === 0) return false;
+        if ($fileSize === 0) return false;
 
         $allowed = [
             "image/png" => "png",
             "image/jpg" => "jpg"
         ];
 
-        if(!in_array($type, array_keys($allowed))) return false;
+        if (!in_array($type, array_keys($allowed))) return false;
 
         if (!file_exists($targetUploadDir)) {
             mkdir($targetUploadDir, 0777, true);
@@ -53,20 +55,31 @@ class ProductController
 
         $expand = $allowed[$type];
 
-        $imagesAmount = count(glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $productID. DIRECTORY_SEPARATOR . "*"));
+        $imageCounter = count(glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*"));
 
-        $mainImagesCount = count(glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*"));
+        if($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
+
+        $mainImages = glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*");
 
         $pictureID = "";
-        if($mainImagesCount <= 0){
-            $pictureID = ($imagesAmount + 1) . "main";
-        }else{
-            $pictureID = $imagesAmount + 1;
+        if ($isMainImg) {
+
+            if (count($mainImages) > 0) {
+                foreach ($mainImages as $mainImage) {
+                    $newName = str_replace("main", "", $mainImages);
+                    //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
+                    rename($mainImage, $newName[0]);
+                }
+            }
+
+            $pictureID = ($imageCounter + 1) . "main";
+        } else {
+            $pictureID = $imageCounter + 1;
         }
 
         $filePath = $targetUploadDir . DIRECTORY_SEPARATOR . $pictureID . '.' . $expand;
 
-        if(!copy($tmpFile, $filePath)) return false;
+        if (!copy($tmpFile, $filePath)) return false;
 
         unlink($tmpFile);
 

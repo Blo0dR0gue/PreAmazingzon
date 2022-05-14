@@ -23,6 +23,13 @@
 
 }
 
+.img-box {
+    width: 200px;
+    height: 110px;
+    text-align: center;
+    margin: 5px;
+}
+
 .file-input {
     display: none;
 }

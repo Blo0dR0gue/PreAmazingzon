@@ -27,7 +27,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     );
 
     if (isset($product)) {
-        $errors = ProductController::uploadImages($product->getId(), $_FILES["files"]);
+        $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
         if (!$errors) {
             header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
             //TODO success msg?
@@ -174,17 +174,19 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                             <input class="file-input" type="file" id="files" name="files[]" multiple
                                    onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
-                            <section class="container py-4" id="imgContainer">
+                            <section class="container py-3" id="imgContainer">
                                 <div id="imgRow" class="row">
                                 </div>
                             </section>
                         </div>
+
+                        <input name="mainImgID" id="mainImgID" type="hidden" value="0">
                     </div>
 
                     <br>
 
                     <div class="card-footer">
-                        <a href="<?=ROOT_DIR?>" class="btn btn-danger">Abort</a>
+                        <a href="<?= ROOT_DIR ?>" class="btn btn-danger">Abort</a>
                         <button class="btn btn-success">Save</button>
                     </div>
                 </div>
@@ -194,12 +196,12 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 </main>
 
-
 <template id="imgBoxTemplate">
-    <div style="width: 130px; height: 110px; text-align: center; margin: 5px;">
+    <div class="img-box">
         <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg' ?>"
              class="tbl-img" alt="product_img">
-        <button type="button" class="btn btn-warning" onclick="deleteImg(this)" data-id="1">delete</button>
+        <button type="button" class="btn btn-warning btn-sm" onclick="deleteImg(this)" data-id="-1">Delete</button>
+        <button type="button" name="setMainBtn" class="btn btn-danger btn-sm" onclick="setMainImg(this)" data-id="-1">Set Main</button>
     </div>
 </template>
 
