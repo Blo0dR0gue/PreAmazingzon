@@ -10,11 +10,16 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct){
     <tr>
         <td data-th="Product">
             <div class="row">
-                <div class="col-md-3 d-flex justify-content-center">
+                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
+                   class="col-md-3 d-flex justify-content-center">
                     <img src="<?= $product->getMainImg() ?>" alt="Image" class="img-fluid d-none d-md-block rounded shadow align-self-center">
-                </div>
+                </a>
                 <div class="col-md-9 text-left mt-sm-2">
-                    <h4><?= $product->getTitle() ?></h4>
+                    <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
+                       class="text-decoration-none text-black">
+                        <h4><?= $product->getTitle() ?></h4>
+                    </a>
+
                     <p class="font-weight-light mb-2 overflow-hidden small">
                         <?= substr($product->getDescription(), 0, 250) . " ..." ?>
                     </p>
@@ -24,12 +29,12 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct){
         <td data-th="Price"><?= $product->getPriceFormatted() ?></td>
         <td data-th="Quantity">
             <div class="d-flex justify-content-center">
-                <a href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_cart_amount.inc.php?" . http_build_query(["step" => "dec", "productId" => $product->getId()]) ?>"
+                <a href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
                     <i class="fa fa-minus link-warning"></i>
                 </a>
                 <p class="border px-2 rounded text-muted"><?= $cartProduct->getAmount() ?></p>
-                <a href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_cart_amount.inc.php?" . http_build_query(["step" => "inc", "productId" => $product->getId()]) ?>"
+                <a href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "inc", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
                     <i class="fa fa-plus link-warning"></i>
                 </a>
