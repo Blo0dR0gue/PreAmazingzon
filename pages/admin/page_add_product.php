@@ -84,7 +84,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                     <label for="category">Category</label>
                     <div class="row">
                         <div class="col-md-7" style="display: flex">
-                            <input id="selectedRadio" type="text" style="width: 450px" required disabled placeholder="Please select a category!">
+                            <input id="selectedRadio" type="text" style="width: 450px" required disabled
+                                   placeholder="Please select a category!">
                             <div class="invalid-tooltip opacity-75">Please select a Category!
                             </div>
                         </div>
@@ -103,7 +104,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                                                     <input class="form-check-input" type="radio" name="cat"
                                                            id="categoryRadios<?php echo $category->getId() ?>"
                                                            value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>
-                                                           required onclick="handleRadioUpdate(this)" data-name="<?=$category->getName()?>">
+                                                           required onclick="handleRadioUpdate(this)"
+                                                           data-name="<?= $category->getName() ?>">
                                                     <div class="p-0">
                                                         <label class="form-check-label"
                                                                for="categoryRadios<?php echo $category->getId() ?>">
@@ -164,13 +166,13 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                     <div class="form-group">
 
                         <label for="pictures" class="form-label fs-4">Product Images</label>
-                        <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?=MAX_IMAGE_PER_PRODUCT?>)"
+                        <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
                              ondragover="dragOverHandler(event)">
                             <div class="drop-texts" id="dropTexts">
                                 <span class="drop-text">Click here or drag and drop file</span>
                             </div>
                             <input class="file-input" type="file" id="files" name="files[]" multiple
-                                   onchange="filesChanged(this, <?=MAX_IMAGE_PER_PRODUCT?>)">
+                                   onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
                             <section class="container py-4" id="imgContainer">
                                 <div id="imgRow" class="row">
@@ -182,7 +184,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                     <br>
 
                     <div class="card-footer">
-                        <a href="index.php" class="btn btn-danger">Abort</a>
+                        <a href="<?=ROOT_DIR?>" class="btn btn-danger">Abort</a>
                         <button class="btn btn-success">Save</button>
                     </div>
                 </div>
