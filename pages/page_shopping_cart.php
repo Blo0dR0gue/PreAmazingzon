@@ -52,13 +52,18 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
                         <tbody>
                         <?php
-                        foreach ($cartProducts as $cartProduct)
+                        if ($cartProducts)
                         {
-                            require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
+                            foreach ($cartProducts as $cartProduct)
+                            {
+                                require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
+                            }
                         }
                         ?>
                         </tbody>
                     </table>
+                    <h5 class="text-center text-muted mb-5"><i><?php if(!$cartProducts) echo "empty"; ?></i></h5>
+
 
                     <div class="float-end text-end">
                         <h4>Subtotal:</h4>
