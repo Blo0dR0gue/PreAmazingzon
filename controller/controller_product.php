@@ -21,19 +21,18 @@ class ProductController
 
         if(!isset($files) || !count($files) > 0 || !isset($productID)) return true;
 
-        $targetUploadDir = IMAGE_DIR . DIRECTORY_SEPARATOR . $productID;
+        $targetUploadDir = IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID;
 
         $errors = false;
 
-        foreach ($files as $file){
-            $suc = self::uploadImage($files, $targetUploadDir);
+        foreach ($files["tmp_name"] as $tmpFile){
+            $suc = self::uploadImage($tmpFile, $targetUploadDir, $productID);
             if(!$suc && !$errors) $errors = true;
         }
         return $errors;
     }
 
-    private static function uploadImage($file, $targetUploadDir): bool {
-        $tmpFile = $file["tmp_name"];;
+    private static function uploadImage($tmpFile, $targetUploadDir, $productID): bool {
         $fileSize = filesize($tmpFile);
 
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -54,7 +53,18 @@ class ProductController
 
         $expand = $allowed[$type];
 
-        $filePath = $targetUploadDir . DIRECTORY_SEPARATOR . time() . '.' . $expand;
+        $imagesAmount = count(glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $productID. DIRECTORY_SEPARATOR . "*"));
+
+        $mainImagesCount = count(glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*"));
+
+        $pictureID = "";
+        if($mainImagesCount <= 0){
+            $pictureID = ($imagesAmount + 1) . "main";
+        }else{
+            $pictureID = $imagesAmount + 1;
+        }
+
+        $filePath = $targetUploadDir . DIRECTORY_SEPARATOR . $pictureID . '.' . $expand;
 
         if(!copy($tmpFile, $filePath)) return false;
 

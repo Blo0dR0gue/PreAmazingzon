@@ -12,8 +12,8 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
-if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["description"]) && !empty($_POST["price"])
-    && !empty($_POST["shipping"]) && !empty($_POST["stock"]) && $isPost) {
+if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"])
+    && isset($_POST["shipping"]) && isset($_POST["stock"]) && $isPost) {
 
     //TODO validation
 
@@ -27,8 +27,8 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
     );
 
     if (isset($product)) {
-        $successful = ProductController::uploadImages($product->getId(), $_FILES["files"]);
-        if ($successful) {
+        $errors = ProductController::uploadImages($product->getId(), $_FILES["files"]);
+        if (!$errors) {
             header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
             //TODO success msg?
             die();
@@ -84,7 +84,7 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                     <label for="category">Category</label>
                     <div class="row">
                         <div class="col-md-7" style="display: flex">
-                            <input type="text" style="width: 450px" required disabled>
+                            <input id="selectedRadio" type="text" style="width: 450px" required disabled placeholder="Please select a category!">
                             <div class="invalid-tooltip opacity-75">Please select a Category!
                             </div>
                         </div>
@@ -103,7 +103,7 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                                                     <input class="form-check-input" type="radio" name="cat"
                                                            id="categoryRadios<?php echo $category->getId() ?>"
                                                            value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>
-                                                           required onclick="handleClick(this)">
+                                                           required onclick="handleRadioUpdate(this)" data-name="<?=$category->getName()?>">
                                                     <div class="p-0">
                                                         <label class="form-check-label"
                                                                for="categoryRadios<?php echo $category->getId() ?>">
@@ -165,13 +165,13 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                     <div class="form-group">
 
                         <label for="pictures" class="form-label fs-4">Product Images</label>
-                        <div id="dropZone" class="drop-zone" ondrop="dropHandler(event)"
+                        <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?=MAX_IMAGE_PER_PRODUCT?>)"
                              ondragover="dragOverHandler(event)">
                             <div class="drop-texts" id="dropTexts">
                                 <span class="drop-text">Click here or drag and drop file</span>
                             </div>
                             <input class="file-input" type="file" id="files" name="files[]" multiple
-                                   onchange="filesChanged(this)">
+                                   onchange="filesChanged(this, <?=MAX_IMAGE_PER_PRODUCT?>)">
 
                             <section class="container py-4" id="imgContainer">
                                 <div id="imgRow" class="row">
@@ -229,7 +229,7 @@ if (isset($processingError)) // processing error
         });
     });
 
-    function dropHandler(ev) {
+    function dropHandler(ev, maxFileAmount) {
         ev.preventDefault();
 
         if (ev.dataTransfer.items) {
@@ -238,13 +238,13 @@ if (isset($processingError)) // processing error
                 // If dropped items aren't files, reject them
                 if (ev.dataTransfer.items[i].kind === 'file') {
                     var file = ev.dataTransfer.items[i].getAsFile();
-                    addImg(file);
+                    addImg(file, maxFileAmount);
                 }
             }
         } else {
             // Use DataTransfer interface to access the file(s)
             for (let i = 0; i < ev.dataTransfer.files.length; i++) {
-                addImg(ev.dataTransfer.files[i]);
+                addImg(ev.dataTransfer.files[i], maxFileAmount);
             }
         }
     }
@@ -272,8 +272,9 @@ if (isset($processingError)) // processing error
         });
     })
 
-    function addImg(file) {
+    function addImg(file, maxFileAmount) {
         if (!file || file['type'].split('/')[0] !== 'image') return;
+        if(FILES.size >= maxFileAmount) return;
         $("#dropTexts")[0].style.display = "none";
         let template = main.cloneNode(true);
 
@@ -286,10 +287,10 @@ if (isset($processingError)) // processing error
         $("#imgRow")[0].appendChild(template)
     }
 
-    function filesChanged(fileElem) {
+    function filesChanged(fileElem, maxFileAmount) {
         for (let i = 0; i < fileElem.files.length; i++) {
             let file = fileElem.files[i];
-            addImg(file);
+            addImg(file, maxFileAmount);
         }
     }
 
@@ -306,9 +307,8 @@ if (isset($processingError)) // processing error
             $("#dropTexts")[0].style.display = "block";
     }
 
-    function handleClick(myRadio) {
-        alert('Old value: ' + currentValue);
-        alert('New value: ' + myRadio.value);
+    function handleRadioUpdate(myRadio) {
+        document.getElementById("selectedRadio").value = myRadio.dataset.name;
     }
 
 </script>
