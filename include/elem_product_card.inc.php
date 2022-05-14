@@ -31,7 +31,7 @@ if (isset($product) && $product instanceof Product): ?>
                         ?>
                     </p>
                     <!-- 'discount' -->
-                    <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?>€</s></p>
+                    <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?></s></p>
                 </div>
 
                 <!-- second row-->
