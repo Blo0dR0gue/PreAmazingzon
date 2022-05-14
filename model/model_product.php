@@ -46,7 +46,7 @@ class Product
             $products = [];
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT id FROM Product;");
+            $result = getDB()->query("SELECT id  FROM Product ORDER BY id;");
 
             if (!$result) return [];
 
@@ -73,7 +73,7 @@ class Product
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id from product limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT id from product ORDER BY id limit ? offset ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
