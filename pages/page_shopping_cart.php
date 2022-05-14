@@ -13,7 +13,16 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - Card</title>
+    <title><?= PAGE_NAME ?> - Cart</title>
+
+    <!-- file specific includes -->
+    <?php require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_cart_product.php"; ?>
+    <?php require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php"; ?>
+
+    <!-- load data for shopping cart -->
+    <?php
+    $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]);
+    ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -42,9 +51,12 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                         </thead>
 
                         <tbody>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php" ?>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php" ?>
-                        <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php" ?>
+                        <?php
+                        foreach ($cartProducts as $cartProduct)
+                        {
+                            require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
+                        }
+                        ?>
                         </tbody>
                     </table>
 
