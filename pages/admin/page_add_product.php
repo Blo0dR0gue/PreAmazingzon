@@ -81,7 +81,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
                 <div class="form-group position-relative">
 
-                    <label for="category">Category</label>
+                    <label for="selectedRadio">Category</label>
                     <div class="row">
                         <div class="col-md-7" style="display: flex">
                             <input id="selectedRadio" type="text" style="width: 450px" required disabled
@@ -151,7 +151,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                     </div>
 
                     <div class="form-group position-relative">
-                        <label for="price">Stock</label>
+                        <label for="stock">Stock</label>
                         <div class="input-group p-0">
                             <div class="input-group p-0">
                                 <input type="number" id="stock" name="stock" class="form-control" value="0" required
