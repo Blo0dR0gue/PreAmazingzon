@@ -135,7 +135,7 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
         </div>
         <!-- endregion -->
 
-        <!-- region legal stuff-->
+        <!-- region legal stuff -->
         <div class="form-group">
             <div class="form-check text-muted">
                 <input class="form-check-input" type="checkbox" name="checkbox" id="conditions" required>

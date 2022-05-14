@@ -181,7 +181,7 @@ class Address
      * Get an existing address by its id.
      *
      * @param int $id ID of an address
-     * @return Address|null new address
+     * @return Address|null corresponding address
      */
     public static function getById(int $id): ?Address
     {
@@ -201,7 +201,7 @@ class Address
     /**
      * Get all existing addresses related to one user.
      * @param int $user_id user of interest
-     * @return array<Address>|null array if addresses
+     * @return array<Address>|null array of addresses
      */
     public static function getAllByUser(int $user_id): ?array
     {

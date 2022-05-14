@@ -194,17 +194,17 @@ class Product
         return $this->description;
     }
 
-    public function getPriceFormatted(): string
+    public function getPriceFormatted(int $amount = 1): string
     {
-        return number_format($this->getPrice(), 2, ".", "") . CURRENCY_SYMBOL;
+        return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
     /**
      * @return float The Price for this modelProduct
      */
-    public function getPrice(): float
+    public function getPrice(int $amount = 1): float
     {
-        return $this->price;
+        return $this->price * $amount;
     }
 
     public function getOriginalPriceFormatted(): string
@@ -242,10 +242,10 @@ class Product
         return $this->categoryID;
     }
 
-    //endregion
+    // endregion
 
 
-    //region extra attributes
+    // region extra attributes
 
     /**
      * Gets the mainImg.
@@ -274,7 +274,7 @@ class Product
         return [IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg"];
     }
 
-    //endregion
+    // endregion
 
 
     public function insert(): ?Product

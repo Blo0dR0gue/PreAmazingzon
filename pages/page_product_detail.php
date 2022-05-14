@@ -1,6 +1,7 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
+<!-- TODO do includes uniformly? in head? -->
 <?php
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
@@ -28,7 +29,7 @@ if (isset($productID) && is_numeric($productID)) {
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - <?= $product->getTitle(); ?></title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_product_detail.css"; ?>">
     <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "page_product_detail.js"; ?>"></script>
 </head>
@@ -81,8 +82,8 @@ if (isset($productID) && is_numeric($productID)) {
                 <!-- price -->
                 <h6 class="text-danger mb-0 pb-0"><s><?= $product->getOriginalPriceFormatted() ?></s></h6>
                 <div class="d-flex align-items-start">
-                    <h2 class="mb-0 col-auto me-2"><?= $product->getPriceFormatted(); ?></h2>
-                    <h6 class="col-auto mt-auto mb-1">+ <?= $product->getShippingCostFormatted(); ?> Shipping</h6>
+                    <h2 class="mb-0 col-auto me-2"><?= $product->getPriceFormatted() ?></h2>
+                    <h6 class="col-auto mt-auto mb-1">+ <?= $product->getShippingCostFormatted() ?> Shipping</h6>
                 </div>
 
                 <!-- stars -->
@@ -100,14 +101,14 @@ if (isset($productID) && is_numeric($productID)) {
                            max="<?= $product->getStock() ?>">
                     <button class="btn btn-dark">Add to Cart</button>
                     <label for="quantity"></label>
-                    <!-- TODO make add to cart work-->
+                    <!-- TODO make add to cart work -->
                 </div>
                 <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
             </div>
         </div>
     </div>
 
-    <!--TODO Reviews-->
+    <!--TODO Reviews -->
 </main>
 
 <!-- footer -->

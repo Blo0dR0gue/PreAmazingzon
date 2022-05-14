@@ -1,7 +1,6 @@
-<!-- TODO Comment-->
+<!-- TODO Comment -->
 
-<?php
-// inspired by https://www.php.net/session_destroy
+<?php // inspired by https://www.php.net/session_destroy
 
 require_once "../site_php_head.inc.php";
 
