@@ -68,13 +68,16 @@ if (isset($productID) && is_numeric($productID)) {
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
                 <p class="small mb-2"><a href="#" class="text-muted"><?= CategoryController::getCategoryPathAsString($product) ?></a>
-                <!--  TODO make link work -->
+                <!-- TODO make link work -->
+                <!-- TODO no category string? -->
                 </p>
-                <!-- TODO insert category -->
+
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
+
                 <!-- description -->
                 <p class="mt-1 pr-3 content"><?= $product->getDescription() ?></p>
+
                 <!-- price -->
                 <h6 class="text-danger mb-0 pb-0"><s><?= $product->getOriginalPriceFormatted() ?></s></h6>
                 <div class="d-flex align-items-start">
@@ -90,12 +93,14 @@ if (isset($productID) && is_numeric($productID)) {
                         (<?= ReviewController::getNumberOfReviews($product->getId()) ?> reviews)
                     </p>
                 </div>
+
                 <!-- stock & buttons -->
                 <div class="buttons d-flex flex-row gap-3">
                     <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
                            max="<?= $product->getStock() ?>">
                     <button class="btn btn-dark">Add to Cart</button>
-                    <label for="quantity"></label>                <!-- TODO make add to cart work-->
+                    <label for="quantity"></label>
+                    <!-- TODO make add to cart work-->
                 </div>
                 <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
             </div>
@@ -103,7 +108,6 @@ if (isset($productID) && is_numeric($productID)) {
     </div>
 
     <!--TODO Reviews-->
-    <!--TODO Tags/Categories-->
 </main>
 
 <!-- footer -->

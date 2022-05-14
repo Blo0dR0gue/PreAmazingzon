@@ -26,7 +26,7 @@ if (isset($product) && $product instanceof Product): ?>
                             echo "<a href='#' class='text-muted'>{$cat}</a>";   // TODO insert cat link
                         } else
                         {
-                            echo "<a href='' class='text-decoration-none'><i class='text-muted'>{$cat}</i></a>";
+                            echo "<a class='text-decoration-none'><i class='text-muted'>{$cat}</i></a>";
                         }
                         ?>
                     </p>

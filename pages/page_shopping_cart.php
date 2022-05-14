@@ -61,7 +61,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                     <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a>
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                    <a href="#" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
+                    <a href="<?= ROOT_DIR ?>" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
                 </div>
             </div>
         </div>
