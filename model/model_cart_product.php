@@ -85,9 +85,18 @@ class CartProduct
         return self::getById($this->prodId, $this->userId);
     }
 
-    public function delete(): void
+    public function delete(): bool
     {
-        // TODO
+        $stmt = getDB()->prepare("DELETE FROM shoppingcart_product 
+                                        WHERE user = ? AND product = ?;");
+        $stmt->bind_param("ii",
+            $this->userId,
+            $this->prodId);
+        if (!$stmt->execute()) return false;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return true;
     }
 
     /**

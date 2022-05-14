@@ -18,6 +18,11 @@ class CartProductController
         return CartProduct::getById($productId, $userId);
     }
 
+    public static function delete(CartProduct $cartProduct): bool
+    {   // TODO validate?
+        return $cartProduct->delete();
+    }
+
     public static function incAmount(CartProduct $cartProduct): void
     {   // TODO validate?
         $product = ProductController::getByID($cartProduct->getProdId());
@@ -33,7 +38,7 @@ class CartProductController
     {   // TODO validate?
         $product = ProductController::getByID($cartProduct->getProdId());
 
-        if($cartProduct->getAmount() > 0)     // amount can not go sub-zero
+        if($cartProduct->getAmount() > 1)     // can not sell less than one
         {
             $cartProduct->setAmount($cartProduct->getAmount() - 1);
             $cartProduct->update();
