@@ -22,7 +22,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
 <!-- main body -->
 <main class="">
-    <!-- TODO make shopping cart work-->
+    <!-- TODO make shopping cart work -->
 
     <section class="pt-5 pb-5">
         <div class="container">

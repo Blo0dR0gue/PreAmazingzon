@@ -242,10 +242,10 @@ class Product
         return $this->categoryID;
     }
 
-    //endregion
+    // endregion
 
 
-    //region extra attributes
+    // region extra attributes
 
     /**
      * Gets the mainImg.
@@ -274,7 +274,7 @@ class Product
         return [IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg"];
     }
 
-    //endregion
+    // endregion
 
 
     public function insert(): ?Product

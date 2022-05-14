@@ -20,12 +20,12 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
     <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Products</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_products.css"; ?>">
 </head>
 
 <body class="d-flex flex-column h-100">
-<!--header -->
+<!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->
@@ -34,13 +34,8 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
     <h3>All products</h3>
     <hr>
 
-    <!--Toolbar-->
-    <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3" id="filter">
-
-
-
-
-    </div>
+    <!--Toolbar -->
+    <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3" id="filter"></div>
 
     <hr>
 

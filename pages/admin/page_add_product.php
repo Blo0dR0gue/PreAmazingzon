@@ -41,14 +41,14 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
 </head>
 
 <body class="d-flex flex-column h-100">
-<!--header -->
+<!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
 
 
-    <!--TODO validation-->
+    <!--TODO validation -->
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
@@ -73,7 +73,7 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                                 Categories
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="priceFilter">
-                                <!--TODO Rework -> tree like?; Replace button next with selected-->
+                                <!--TODO Rework -> tree like?; Replace button next with selected -->
                                 <?php foreach (CategoryController::getAll() as $category) { ?>
                                     <li>
                                         <div class="dropdown-item">
@@ -88,6 +88,7 @@ if (!empty($_POST["title"]) && !empty($_POST["cat"]) && !empty($_POST["descripti
                                                     </label>
                                                 </div>
                                                 </input>
+                                                <!-- FIXME Warning:(90, 49) Closing tag matches nothing-->
                                             </div>
                                         </div>
                                     </li>

@@ -35,7 +35,7 @@
                 </div>
             </form>
 
-            <!-- dependant on login state-->
+            <!-- dependant on login state -->
             <?php if (!isset($_SESSION["login"])) { ?>
                 <!-- show login and register buttons -->
                 <div class="text-end">
@@ -51,7 +51,7 @@
                     <i class='fa fa-shopping-cart link-warning' style='font-size:38px'></i>
                 </a>
                 <!-- show profile action -->
-                <!-- TODO add links-->
+                <!-- TODO add links -->
                 <div class="dropdown text-end">
                     <a href="" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
                        data-bs-toggle="dropdown" aria-expanded="false">

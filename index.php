@@ -8,6 +8,9 @@
     <title><?= PAGE_NAME ?></title>
 </head>
 
+<!-- TODO project wide camel or snake case refactor? -->
+<!-- TODO project wide introduce short form of directory_divider -->
+
 <body class="d-flex flex-column h-100">
 <!-- header -->
 <?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>

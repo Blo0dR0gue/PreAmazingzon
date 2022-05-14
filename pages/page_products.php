@@ -1,4 +1,4 @@
-<!--Page to show all products and searched products-->
+<!--Page to show all products and searched products -->
 <?php
 require_once "../include/site_php_head.inc.php";
 require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';

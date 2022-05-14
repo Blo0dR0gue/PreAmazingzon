@@ -1,4 +1,4 @@
-<!-- config file for general stuff-->
+<!-- config file for general stuff -->
 
 <?php
 /**

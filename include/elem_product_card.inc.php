@@ -14,7 +14,7 @@ if (isset($product) && $product instanceof Product): ?>
             </a>
 
             <div class="card-body border-top pb-1 px-3">
-                <!-- first row-->
+                <!-- first row -->
                 <div class="d-flex justify-content-between">
                     <!-- category -->
                     <p class="small mb-2">
@@ -34,16 +34,16 @@ if (isset($product) && $product instanceof Product): ?>
                     <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?>€</s></p>
                 </div>
 
-                <!-- second row-->
+                <!-- second row -->
                 <div class="d-flex justify-content-between mb-3">
-                    <!-- title-->
+                    <!-- title -->
                     <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-black"><?= $product->getTitle() ?></a>
-                    <!-- price-->
+                    <!-- price -->
                     <h5 class="text-dark mb-0 ms-2"><?= $product->getPriceFormatted() ?></h5>
                 </div>
 
-                <!-- third row-->
+                <!-- third row -->
                 <div class="d-flex justify-content-between align-content-end mb-2">
                     <!-- stock -->
                     <p class="text-muted mb-0"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
@@ -51,7 +51,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <div>
                         <?php
                         echo ReviewController::getAvgRating($product->getId());
-                        ReviewController::calcAndIncAvgProductStars($product->getId());
+                        ReviewController::calcAndIncAvgProductStars($product->getId());     // TODO change to echo too for better overview
                         ?>
                     </div>
                 </div>
