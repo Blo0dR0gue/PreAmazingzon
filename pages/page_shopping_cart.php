@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (!isset($_SESSION["login"]))   // if not logged in redirect to home
+if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged in redirect to home
 {
     header("LOCATION: " . ROOT_DIR);
     die();
@@ -20,9 +20,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
     <?php require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php"; ?>
 
     <!-- load data for shopping cart -->
-    <?php
-    $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]);
-    ?>
+    <?php $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]); ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -37,6 +35,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
         <div class="container">
             <div class="w-100 row">
                 <div class="col-lg-12 col-md-12 col-12 px-0">
+                    <!-- heading -->
                     <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
                     <p class="mb-4 text-center font-weight-bold">
                         <i><?= CartProductController::getCountByUser($_SESSION["uid"]) ?> items in your cart</i>
@@ -70,7 +69,6 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                         </tbody>
                     </table>
                     <h5 class="text-center text-muted mb-5"><i><?php if(!$cartProducts) echo "empty"; ?></i></h5>
-
 
                     <div class="float-end text-end">
                         <h4>Total:</h4>

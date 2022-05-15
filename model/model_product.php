@@ -46,7 +46,7 @@ class Product
             $products = [];
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT id  FROM Product ORDER BY id;");
+            $result = getDB()->query("SELECT id FROM Product ORDER BY id;");
 
             if (!$result) return [];
 
@@ -199,6 +199,7 @@ class Product
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
+// TODO deal with sipping cost? per amount or add after?
     /**
      * @return float The Price for this modelProduct
      */
