@@ -2,8 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (isset($_SESSION["login"]))   // if already logged in redirect to home
-{
+if (isset($_SESSION["login"])) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -20,10 +19,8 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
     require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
     require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
 
-    if (!empty($_POST["email"]) && !empty($_POST["password"]))   // data set (e.g. tested with email and password)?
-    {
-        if (UserController::emailAvailable($_POST["email"]))     // email available?
-        {
+    if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set (e.g. tested with email and password)?
+        if (UserController::emailAvailable($_POST["email"])) {      // email available?
             $user = UserController::register(
                 $_POST["first_name"],
                 $_POST["last_name"],
@@ -36,8 +33,7 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
                 UserRoleController::getDefaultUserRole()->getId()
             );
 
-            if ($user)  // user could be inserted?
-            {
+            if ($user) {    // user could be inserted?
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();

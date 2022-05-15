@@ -2,8 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"]))   // if not logged in redirect to home
-{
+if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -54,8 +53,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"]))   // if not logged i
                         <tbody>
                         <?php
                         $total = 0.0;
-                        if ($cartProducts)  // if exist load cart entries into table rows
-                        {
+                        if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
                                 $subtotal = 0;
                                 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";

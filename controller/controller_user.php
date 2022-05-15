@@ -19,10 +19,8 @@ class UserController
     public static function login(User $user, string $password): bool
     {   // TODO validate
 
-        if ($user->isActive())  // only login active users
-        {
-            if (password_verify($password, $user->getPasswordHash()))   // valid credentials?
-            {
+        if ($user->isActive()) {    // only login active users
+            if (password_verify($password, $user->getPasswordHash())) {     // valid credentials?
                 // save the login state
                 $_SESSION["login"] = true;
                 $_SESSION["first_name"] = $user->getFirstName();
@@ -39,8 +37,7 @@ class UserController
     public static function register(string $first_name, string $last_name, string $email, string $password, string $zip, string $city, string $street, string $number, int $role_id): ?User
     {   // TODO validate
 
-        if (self::emailAvailable($email))  // email unique
-        {
+        if (self::emailAvailable($email)) {     // email unique
             // hash password
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -64,11 +61,8 @@ class UserController
 
     public static function emailAvailable(string $email): bool
     {   // TODO validate
-
-        if (UserController::getByEmail($email))  // user with mail exists?
-        {
-            return false;   // user exists
-        }
+        // user with mail exists?
+        if (UserController::getByEmail($email)) return false;   // user exists
         return true;    // user not exists
     }
 
@@ -79,8 +73,7 @@ class UserController
 
     public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
     { // TODO validate?
-        if ($user->getEmail() === $email || self::emailAvailable($email))  // email unique?
-        {
+        if ($user->getEmail() === $email || self::emailAvailable($email)) {     // email unique?
             // update user
             $user->setFirstName($first_name);
             $user->setLastName($last_name);

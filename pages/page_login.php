@@ -2,8 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (isset($_SESSION["login"]))   // if already logged in redirect to home
-{
+if (isset($_SESSION["login"])) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -20,12 +19,9 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
     require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
     require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
     //TODO Remember me cookies?
-    if (!empty($_POST["email"]) && !empty($_POST["password"]))   // data set?
-    {
-        if ($user = UserController::getByEmail($_POST["email"]))     // get user
-        {
-            if (UserController::login($user, $_POST["password"]))    // login user
-            {
+    if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set?
+        if ($user = UserController::getByEmail($_POST["email"])) {  // get user
+            if (UserController::login($user, $_POST["password"])) { // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
             }
@@ -83,8 +79,7 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
 
 <!-- show error popup -->
 <?php
-if (isset($loginError)) // login error
-{
+if (isset($loginError)) {   // login error
     show_popup(
         "Login Error",
         "Your Email or Password is wrong, please retry with the correct credentials!"

@@ -217,8 +217,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <!-- show error popup -->
 <?php
-if (isset($processingError)) // processing error
-{
+if (isset($processingError)) {   // processing error
     show_popup(
         "Add Product Error",
         "ALARM" //TODO

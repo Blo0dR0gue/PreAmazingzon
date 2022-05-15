@@ -42,12 +42,10 @@ class CartProductController
     {
         $product = ProductController::getByID($cartProduct->getProdId());   // get product related to cartProduct
 
-        if ($product->getStock() >= $cartProduct->getAmount() + $by)   // can not sell more than in stock
-        {
+        if ($product->getStock() >= $cartProduct->getAmount() + $by) {  // can not sell more than in stock
             $cartProduct->setAmount($cartProduct->getAmount() + $by);
             return $cartProduct->update();
-        } elseif ($product->getStock() > $cartProduct->getAmount())   // else fill up to stock
-        {
+        } elseif ($product->getStock() > $cartProduct->getAmount()) {   // else fill up to stock
             $cartProduct->setAmount($product->getStock());
             return $cartProduct->update();
         }
@@ -56,10 +54,7 @@ class CartProductController
 
     public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
     {
-        $product = ProductController::getByID($cartProduct->getProdId());   // get product related to cartProduct
-
-        if ($cartProduct->getAmount() - $by > 1)     // can not sell less than one
-        {
+        if ($cartProduct->getAmount() - $by > 1) {  // can not sell less than one
             $cartProduct->setAmount($cartProduct->getAmount() - $by);
             return $cartProduct->update();
         }

@@ -2,8 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (!isset($_SESSION["login"]))   // if not logged in redirect to home
-{
+if (!isset($_SESSION["login"])) {   // if not logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -23,8 +22,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
     // get user
     $user = UserController::getById($_SESSION["uid"]);
-    if (!$user)     // user could be found?
-    {
+    if (!$user) {   // user could be found?
         show_popup(
             "Error",
             "An error occurred loading your data. Please try again later and excuse the inconvenience."
@@ -46,10 +44,8 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
     require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
     require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
 
-    if (!empty($_POST["type"]))   // data set?
-    {
-        if ($_POST["email"] === $user->getEmail() || UserController::emailAvailable($_POST["email"]))     // email available?
-        {
+    if (!empty($_POST["type"])) {   // data set?
+        if ($_POST["email"] === $user->getEmail() || UserController::emailAvailable($_POST["email"])) { // email available?
             // update user
             $user = UserController::update(
                 $user,
@@ -71,8 +67,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                 );
             }
 
-            if ($user)  // user could be updated?
-            {
+            if ($user) {    // user could be updated?
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
