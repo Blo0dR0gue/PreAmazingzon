@@ -28,25 +28,31 @@ class CartProductController
         return $cartProduct->delete();
     }
 
-    public static function incAmount(CartProduct $cartProduct): void
+    public static function incAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
     {   // TODO validate?
         $product = ProductController::getByID($cartProduct->getProdId());
 
-        if($product->getStock() > $cartProduct->getAmount())   // can not sell more than in stock
+        if($product->getStock() >= $cartProduct->getAmount() + $by)   // can not sell more than in stock
         {
-            $cartProduct->setAmount($cartProduct->getAmount() + 1);
-            $cartProduct->update();
+            $cartProduct->setAmount($cartProduct->getAmount() + $by);
+            return $cartProduct->update();
+        }elseif ($product->getStock() > $cartProduct->getAmount())   // fill up to stock
+        {
+            $cartProduct->setAmount($product->getStock());
+            return $cartProduct->update();
         }
+        return null;
     }
 
-    public static function decAmount(CartProduct $cartProduct): void
+    public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
     {   // TODO validate?
         $product = ProductController::getByID($cartProduct->getProdId());
 
-        if($cartProduct->getAmount() > 1)     // can not sell less than one
+        if($cartProduct->getAmount() - $by > 1)     // can not sell less than one
         {
-            $cartProduct->setAmount($cartProduct->getAmount() - 1);
-            $cartProduct->update();
+            $cartProduct->setAmount($cartProduct->getAmount() - $by);
+            return $cartProduct->update();
         }
+        return null;
     }
 }
