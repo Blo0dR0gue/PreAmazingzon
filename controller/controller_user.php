@@ -50,7 +50,7 @@ class UserController
             if (!$user) return null;
 
             // create address
-            $address = AddressController::insertAddress($street, $number, $zip, $city, $user->getId());
+            $address = AddressController::insert($street, $number, $zip, $city, $user->getId());
             if (!$address) return null;
 
             // save address to user
@@ -79,7 +79,7 @@ class UserController
 
     public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
     { // TODO validate?
-        if ($user->getEmail() === $email or self::emailAvailable($email))  // email unique?
+        if ($user->getEmail() === $email || self::emailAvailable($email))  // email unique?
         {
             // update user
             $user->setFirstName($first_name);

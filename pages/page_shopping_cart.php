@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged in redirect to home
+if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"]))   // if not logged in redirect to home
 {
     header("LOCATION: " . ROOT_DIR);
     die();
@@ -78,8 +78,8 @@ if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged i
             <!-- bottom navigation  -->
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-end">
-                    <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a><!-- TODO make checkout -->
-
+                    <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    <!-- TODO make checkout -->
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                     <a href="javascript:history.back()" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>

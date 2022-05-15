@@ -20,7 +20,7 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
     require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
     require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
 
-    if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set (e.g. tested with email and password)?
+    if (!empty($_POST["email"]) && !empty($_POST["password"]))   // data set (e.g. tested with email and password)?
     {
         if (UserController::emailAvailable($_POST["email"]))     // email available?
         {

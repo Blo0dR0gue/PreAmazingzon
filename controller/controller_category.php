@@ -1,10 +1,11 @@
+<!--TODO Comments -->
+
 <?php
 
 require_once MODEL_DIR . DIRECTORY_SEPARATOR . 'model_category.php';
 
 class CategoryController
 {
-
     public static function getAll(): array
     {
         return Category::getAll();
@@ -12,7 +13,7 @@ class CategoryController
 
     public static function getById(?int $id): ?Category
     {
-        return Category::getById($id);  //TODO error handling; validation
+        return Category::getById($id);
     }
 
     public static function getNameById(?int $id): string
@@ -38,7 +39,8 @@ class CategoryController
         if (!isset($tmpProductCat)) return [];
         $path = [];
 
-        while ($tmpProductCat != null) {
+        while ($tmpProductCat != null)
+        {
             $path[] = $tmpProductCat->getName();
             $tmpProductCat = Category::getById($tmpProductCat->getParentID());
         }

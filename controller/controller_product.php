@@ -1,3 +1,5 @@
+<!--TODO Comments -->
+
 <?php
 
 require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_product.php";
@@ -5,9 +7,9 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_category.php";
 
 class ProductController
 {
-
     public static function addNew(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
     {
+        // TODO validation
         $product = new Product(0, $title, $description, $price, $stock, $shippingCost, $categoryID);
 
         $product = $product->insert();
@@ -19,14 +21,15 @@ class ProductController
 
     public static function uploadImages(?int $productID, ?array $files, ?int $mainImgID): bool
     {
-
+        // TODO validation
         if (!isset($files) || !count($files) > 0 || !isset($productID)) return true;
 
         $targetUploadDir = IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID;
 
         $errors = false;
 
-        for ($i = 0; $i < count($files["tmp_name"]); $i++) {
+        for ($i = 0; $i < count($files["tmp_name"]); $i++)
+        {
             $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, $i == $mainImgID);
             if (!$suc && !$errors) $errors = true;
         }
@@ -34,7 +37,7 @@ class ProductController
     }
 
     private static function uploadImage(string $tmpFile, string $targetUploadDir, int $productID, bool $isMainImg): bool
-    {
+    {// TODO validation
         $fileSize = filesize($tmpFile);
 
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -49,7 +52,8 @@ class ProductController
 
         if (!in_array($type, array_keys($allowed))) return false;
 
-        if (!file_exists($targetUploadDir)) {
+        if (!file_exists($targetUploadDir))
+        {
             mkdir($targetUploadDir, 0777, true);
         }
 
@@ -62,18 +66,20 @@ class ProductController
         $mainImages = glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*");
 
         $pictureID = "";
-        if ($isMainImg) {
-
-            if (count($mainImages) > 0) {
-                foreach ($mainImages as $mainImage) {
+        if ($isMainImg)
+        {
+            if (count($mainImages) > 0)
+            {
+                foreach ($mainImages as $mainImage)
+                {
                     $newName = str_replace("main", "", $mainImages);
                     //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
                     rename($mainImage, $newName[0]);
                 }
             }
-
             $pictureID = ($imageCounter + 1) . "main";
-        } else {
+        } else
+        {
             $pictureID = $imageCounter + 1;
         }
 
@@ -87,7 +93,7 @@ class ProductController
     }
 
     public static function searchProducts(string $search): array
-    {
+    {// TODO validation
         return Product::searchProducts($search);
     }
 
@@ -112,7 +118,5 @@ class ProductController
             return null;
 
         return Product::getByID($productID);
-
     }
-
 }

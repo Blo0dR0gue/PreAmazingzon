@@ -48,7 +48,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
     if (!empty($_POST["type"]))   // data set?
     {
-        if ($_POST["email"] === $user->getEmail() or UserController::emailAvailable($_POST["email"]))     // email available?
+        if ($_POST["email"] === $user->getEmail() || UserController::emailAvailable($_POST["email"]))     // email available?
         {
             // update user
             $user = UserController::update(
@@ -60,7 +60,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
             );
 
             // update default address
-            if ($user and !isset($addressInfo))
+            if ($user && !isset($addressInfo))
             {
                 $address = AddressController::getById($user->getDefaultAddressId());
                 $address = AddressController::update(

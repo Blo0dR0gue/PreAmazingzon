@@ -8,12 +8,12 @@ class UserRoleController
 {
 
     public static function getDefaultUserRole(): ?UserRole
-    {   // TODO validate
+    {
         return UserRole::getByName("user");
     }
 
     public static function getAdminUserRole(): ?UserRole
-    {   // TODO validate
+    {
         return UserRole::getByName("admin");
     }
 }

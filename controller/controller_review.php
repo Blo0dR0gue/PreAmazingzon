@@ -6,19 +6,12 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
 
 class ReviewController
 {
-
     public static function getNumberOfReviews(int $productId): int
     {
         $number = Review::getNumberOfReviews($productId);
 
-        if (!$number)
-        {
-            //TODO Error Handling
-            return 0;
-        }
-
+        if (!$number) return 0;
         return $number;
-
     }
 
     /**
@@ -49,13 +42,7 @@ class ReviewController
     {
         $avgRating = Review::getAvgRating($productId);
 
-        if (!$avgRating) {
-            //TODO Error Handling
-            return 0;
-        }
-
+        if (!$avgRating) return 0;
         return $avgRating;
-
     }
-
 }

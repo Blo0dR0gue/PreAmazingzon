@@ -20,7 +20,7 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
     require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
     require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
     //TODO Remember me cookies?
-    if (!empty($_POST["email"]) and !empty($_POST["password"]))   // data set?
+    if (!empty($_POST["email"]) && !empty($_POST["password"]))   // data set?
     {
         if ($user = UserController::getByEmail($_POST["email"]))     // get user
         {
