@@ -58,26 +58,31 @@
                         <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . "user_orange.svg" ?>" alt="mdo"
                              class="rounded-circle" width="40" height="40">
                     </a>
+                    <!-- drop down list -->
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
                         <li>
                             <p class="dropdown-item-text mb-1 text-muted"><?= $_SESSION["first_name"] . " " . $_SESSION["last_name"] ?></p>
                         </li>
-                        <li><a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile
-                                Info</a></li>
-                        <?php
-                        if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true):
-                            ?>
-                        <!--TODO Maybe add Dashboard?-->
-                            <li><a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php'?>">Show and Edit Products</a></li>
-                        <?php
-                        endif;
-                        ?>
-                        <li><a class="dropdown-item" href="#">###</a></li>
                         <li>
-                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_profile.php" ?>">Profile Info</a>
                         </li>
-                        <li><a class="dropdown-item"
-                               href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a>
+
+                        <!-- admin area -->
+                        <!--TODO Maybe add Dashboard?-->
+                        <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) {?>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <p class="dropdown-item-text mb-1 text-muted">Admin Tools:</p>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php'?>">Manage Products</a>
+                            </li>
+                        <?php } ?>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a>
                         </li>
                     </ul>
                 </div>
