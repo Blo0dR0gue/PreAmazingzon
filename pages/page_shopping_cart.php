@@ -49,18 +49,21 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
                             <th style="width:60%">Product</th>
                             <th style="width:10%">Price</th>
                             <th style="width:10%">Quantity</th>
-                            <th style="width:10%">Total</th>
+                            <th style="width:10%">Subtotal</th>
                             <th style="width:2%"></th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <?php
-                        if ($cartProducts)
+                        $total = 0.0;
+                        if ($cartProducts)  // if exist load cart entries into table rows
                         {
                             foreach ($cartProducts as $cartProduct)
                             {
+                                $subtotal = 0;
                                 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
+                                $total += $subtotal;
                             }
                         }
                         ?>
@@ -70,8 +73,8 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
 
                     <div class="float-end text-end">
-                        <h4>Subtotal:</h4>
-                        <h1>99.00€</h1> <!-- TODO make subtotal dynamic -->
+                        <h4>Total:</h4>
+                        <h1><?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?></h1>
                     </div>
                 </div>
             </div>
