@@ -64,20 +64,16 @@ class ProductController
         $mainImages = glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*");
 
         $pictureID = "";
-        if ($isMainImg)
-        {
-            if (count($mainImages) > 0)
-            {
-                foreach ($mainImages as $mainImage)
-                {
+        if ($isMainImg) {
+            if (count($mainImages) > 0) {
+                foreach ($mainImages as $mainImage) {
                     $newName = str_replace("main", "", $mainImages);
                     //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
                     rename($mainImage, $newName[0]);
                 }
             }
             $pictureID = ($imageCounter + 1) . "main";
-        } else
-        {
+        } else {
             $pictureID = $imageCounter + 1;
         }
 

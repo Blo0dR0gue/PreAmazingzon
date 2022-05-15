@@ -4,8 +4,7 @@
 function getDB(): mysqli
 {
     static $db;     // single instance of a db connection
-    if ($db instanceof MYSQLI)
-    {
+    if ($db instanceof MYSQLI) {
         return $db;
     }
 
@@ -13,8 +12,7 @@ function getDB(): mysqli
 
     $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
 
-    if ($db->connect_errno)
-    {
+    if ($db->connect_errno) {
         echo $db->connect_error; //TODO Errorhandling
     }
 

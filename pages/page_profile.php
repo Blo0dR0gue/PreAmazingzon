@@ -60,8 +60,7 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
             );
 
             // update default address
-            if ($user && !isset($addressInfo))
-            {
+            if ($user && !isset($addressInfo)) {
                 $address = AddressController::getById($user->getDefaultAddressId());
                 $address = AddressController::update(
                     $address,
@@ -192,24 +191,21 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
 
 <!-- show error popup -->
 <?php
-if (isset($addressInfo))
-{
+if (isset($addressInfo)) {
     show_popup(
         "Information",
         "We could not find any information about your default address. Go to the corresponding settings to set your default address."  // TODO
     );
 }
 
-if (isset($updateError))
-{
+if (isset($updateError)) {
     show_popup(
         "Error while Update",
         "An error occurred during the update. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
     );
 }
 
-if (isset($emailError))
-{
+if (isset($emailError)) {
     show_popup(
         "Email unavailable",
         "The given email address is already connected with an account. Please use a different email or login with the existing account."

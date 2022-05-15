@@ -70,7 +70,9 @@
                         <!-- admin area -->
                         <!--TODO Maybe add Dashboard?-->
                         <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) { ?>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li>
                                 <p class="dropdown-item-text mb-1 text-muted">Admin Tools:</p>
                             </li>
@@ -79,7 +81,9 @@
                             </li>
                         <?php } ?>
 
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
                         <li>
                             <a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_logout.inc.php" ?>">Logout</a>

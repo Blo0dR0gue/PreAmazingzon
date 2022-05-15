@@ -12,8 +12,7 @@ $_SESSION = array();
 
 // If the session is to be deleted, also delete the session cookie.
 // Attention: This deletes the session, not only the session data!
-if (ini_get("session.use_cookies"))
-{
+if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(
         session_name(),

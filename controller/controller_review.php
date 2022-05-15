@@ -23,14 +23,11 @@ class ReviewController
     {
         $avgRating = self::getAvgRating($productID);
 
-        for ($i = 1; $i <= 5; $i++)
-        {
+        for ($i = 1; $i <= 5; $i++) {
             $difference = $avgRating - $i;
-            if ($difference >= 0)
-            {
+            if ($difference >= 0) {
                 echo "<i class='fa fa-star rating-color ms-1'></i>";     // full star
-            } elseif (-0.25 > $difference && $difference > -0.75)
-            {
+            } elseif (-0.25 > $difference && $difference > -0.75) {
                 echo "<i class='fa fa-star-half-full rating-color ms-1'></i>";   // half star
             } else {
                 echo "<i class='fa fa-star-o rating-color ms-1'></i>";      // empty star

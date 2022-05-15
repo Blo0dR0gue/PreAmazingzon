@@ -6,7 +6,7 @@ require_once "site_php_head.inc.php";
 
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
-?>
+    ?>
     <tr>
         <td data-th="Product">
             <div class="row">
@@ -46,11 +46,10 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
                class="btn btn-close btn-md mb-2"></a>
         </td>
     </tr>
-<?php
+    <?php
     // save price for super script calculating total
     $subtotal = $product->getPrice($cartProduct->getAmount());
-} else
-{
+} else {
     $subtotal = 0;
 }
 ?>

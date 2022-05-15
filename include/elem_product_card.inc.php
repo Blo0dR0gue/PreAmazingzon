@@ -8,7 +8,7 @@ if (isset($product) && $product instanceof Product): ?>
         <!-- PRODUCT -->
         <div class="card border-0 shadow w-100">
             <!-- main image -->
-            <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); // TODO GLOBAL dont use manual queries http_build_query instead ?>"
+            <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); // TODO GLOBAL dont use manual queries http_build_query instead  ?>"
                class="d-flex justify-content-center align-items-center overflow-hidden" style="height: 250px">
                 <img src="<?= $product->getMainImg(); ?>" class="card-img-top" alt="main image"/>
             </a>
@@ -21,11 +21,9 @@ if (isset($product) && $product instanceof Product): ?>
                         <?php
                         $cat = CategoryController::getNameById($product->getCategoryID());
 
-                        if ($cat !== "No Category")
-                        {
+                        if ($cat !== "No Category") {
                             echo "<a href='#' class='text-muted'>{$cat}</a>";   // TODO insert cat link
-                        } else
-                        {
+                        } else {
                             echo "<a class='text-decoration-none'><i class='text-muted'>{$cat}</i></a>";
                         }
                         ?>

@@ -10,7 +10,7 @@ $products = [];
 $offset = $_GET["offset"] ?? 0;
 $amount = $_GET["amount"] ?? 8; // TODO remove hardcoded value?
 
-if(isset($_GET["search"])){
+if (isset($_GET["search"])) {
     $products = ProductController::searchProducts($_GET["search"]);
 } else {
     $products = ProductController::getProductsInRange($offset, $amount);
@@ -34,8 +34,7 @@ if(isset($_GET["search"])){
     <section class="container py-4" id="products">
         <div class="row">
             <?php
-            foreach ($products as $product)
-            {
+            foreach ($products as $product) {
                 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_product_card.inc.php";
             }//TODO only show x amount
             ?>

@@ -30,11 +30,9 @@ class CartProductController
     public static function add(int $userId, int $productId, int $amount): ?CartProduct
     {
         $cartProduct = CartProductController::getById($userId, $productId);     // is there already an entry?
-        if ($cartProduct)
-        {
+        if ($cartProduct) {
             return CartProductController::incAmount($cartProduct, $amount);     // increase amount by selected amount
-        } else
-        {
+        } else {
             $cartProduct = new CartProduct($userId, $productId, $amount);       // insert new entry
             return $cartProduct->insert();
         }

@@ -160,16 +160,14 @@ if (isset($_SESSION["login"]))   // if already logged in redirect to home
 
 <!-- show error popup -->
 <?php
-if (isset($registerError))
-{
+if (isset($registerError)) {
     show_popup(
         "Error while Registration",
         "An error occurred during the registration. Please make sure you filled out the form correctly. Otherwise, please try again later and excuse the inconvenience."
     );
 }
 
-if (isset($emailError))
-{
+if (isset($emailError)) {
     show_popup(
         "Email unavailable",
         "The given email address is already connected with an account. Please use a different email for creating a new account. Or login with the existing account."

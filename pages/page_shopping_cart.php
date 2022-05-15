@@ -56,8 +56,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"]))   // if not logged i
                         $total = 0.0;
                         if ($cartProducts)  // if exist load cart entries into table rows
                         {
-                            foreach ($cartProducts as $cartProduct)
-                            {
+                            foreach ($cartProducts as $cartProduct) {
                                 $subtotal = 0;
                                 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
                                 $total += $subtotal;

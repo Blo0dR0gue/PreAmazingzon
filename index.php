@@ -35,8 +35,7 @@
         <div class="row">
             <?php
             require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
-            foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product)
-            {
+            foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
                 require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_product_card.inc.php";
             }
             ?>
