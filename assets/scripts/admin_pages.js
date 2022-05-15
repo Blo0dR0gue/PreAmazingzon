@@ -43,12 +43,23 @@ function dragOverHandler(ev) {
 }
 
 /**
- * Gets a html template from the DOM.
+ * Gets a the admin page product image template using ajax
  * @param templateSelector The query selector for the item in the DOM.
- * @returns {string | DocumentFragment} The html content.
+ * @returns {string | DocumentFragment} The document fragment object of this template.
  */
 function getTemplate(templateSelector) {
-    return document.querySelector(templateSelector).content;
+    let fragment = document.createDocumentFragment();;
+    $.ajax({
+        url: "../../include/admin_product_img.inc.php",
+        type: "GET",
+        dataType: "html",
+        async: false,
+        success: function (data) {
+            //The container is at position 8 in this jquery object //TODO dynamic search of this div
+            fragment.appendChild($(data)[8]);
+        }
+    });
+    return fragment;
 }
 
 /**
@@ -76,7 +87,6 @@ let nextImgID = 0;
  * @type {string|DocumentFragment}
  */
 const main = getTemplate("#imgBoxTemplate");
-
 
 /**
  * Adds the formdata event to the product form.

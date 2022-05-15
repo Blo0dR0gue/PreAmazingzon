@@ -197,15 +197,6 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 </main>
 
-<template id="imgBoxTemplate">
-    <div class="img-box">
-        <img src="<?= IMAGE_DIR . DS . 'products' . DS . 'notfound.jpg' ?>"
-             class="tbl-img" alt="product_img">
-        <button type="button" class="btn btn-warning btn-sm" onclick="deleteImg(this)" data-id="-1">Delete</button>
-        <button type="button" name="setMainBtn" class="btn btn-danger btn-sm" onclick="setMainImg(this)" data-id="-1">Set Main</button>
-    </div>
-</template>
-
 <!-- footer -->
 <?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
