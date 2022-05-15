@@ -261,7 +261,7 @@ class Product
         $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*main.*");
         if (count($mainImages) !== 0) return $mainImages[0];
 
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "1.*");
+        $mainImages = $this->getAllImgs();
         if (count($mainImages) !== 0) return $mainImages[0];
 
         return IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg";
