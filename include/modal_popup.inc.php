@@ -26,5 +26,5 @@ function show_popup(
     </div>
 
     <!-- load js managing modal -->
-    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "modal_popup.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . DS . "modal_popup.js" ?>"></script>
 <?php } ?>

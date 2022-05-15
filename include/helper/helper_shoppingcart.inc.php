@@ -3,8 +3,8 @@
 <?php
 require_once "../site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_cart_product.php";
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
+require_once CONTROLLER_DIR . DS . "controller_cart_product.php";
+require_once CONTROLLER_DIR . DS . "controller_product.php";
 
 if (isset($_GET["action"]) && isset($_GET["productId"]) && is_numeric($_GET["productId"])) {
     $cartProduct = CartProductController::getById($_SESSION["uid"], $_GET["productId"]);
@@ -22,5 +22,5 @@ if (isset($_GET["action"]) && isset($_GET["productId"]) && is_numeric($_GET["pro
     }
 }
 
-header("LOCATION: " . PAGES_DIR . DIRECTORY_SEPARATOR . "page_shopping_cart.php");
+header("LOCATION: " . PAGES_DIR . DS . "page_shopping_cart.php");
 die();

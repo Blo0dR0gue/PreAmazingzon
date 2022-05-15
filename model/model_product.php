@@ -2,7 +2,7 @@
 
 <?php
 
-require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php";
+require_once INCLUDE_DIR . DS . "database.inc.php";
 
 class Product
 {
@@ -259,21 +259,21 @@ class Product
      */
     public function getMainImg(): string
     {
-        $mainImages = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*main.*");
+        $mainImages = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*main.*");
         if (count($mainImages) !== 0) return $mainImages[0];
 
         $mainImages = $this->getAllImgs();
         if (count($mainImages) !== 0) return $mainImages[0];
 
-        return IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg";
+        return IMAGE_DIR . DS . "products" . DS . "notfound.jpg";
     }
 
     public function getAllImgs(): array
     {
-        $images = glob(IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . "*");
+        $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");
         if (count($images) !== 0) return $images;
 
-        return [IMAGE_DIR . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "notfound.jpg"];
+        return [IMAGE_DIR . DS . "products" . DS . "notfound.jpg"];
     }
 
     // endregion

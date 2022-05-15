@@ -7,8 +7,8 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 }
 
 //Load required Controllers
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
+require_once CONTROLLER_DIR . DS . 'controller_product.php';
+require_once CONTROLLER_DIR . DS . 'controller_category.php';
 
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
@@ -29,7 +29,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     if (isset($product)) {
         $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
         if (!$errors) {
-            header("LOCATION: " . ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php');  // go to admin products page
+            header("LOCATION: " . ADMIN_PAGES_DIR . DS . 'page_products.php');  // go to admin products page
             //TODO success msg?
             die();
         }
@@ -43,19 +43,19 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <html class="h-100" lang="en">
 <head>
     <?php
-    require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php";
-    require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . DS . "site_html_head.inc.php";
+    require INCLUDE_DIR . DS . "modal_popup.inc.php";
     ?>
     <title><?= PAGE_NAME ?> - Admin - Product - Add</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_pages.css"; ?>">
+    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
 
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
@@ -198,7 +198,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <template id="imgBoxTemplate">
     <div class="img-box">
-        <img src="<?= IMAGE_DIR . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'notfound.jpg' ?>"
+        <img src="<?= IMAGE_DIR . DS . 'products' . DS . 'notfound.jpg' ?>"
              class="tbl-img" alt="product_img">
         <button type="button" class="btn btn-warning btn-sm" onclick="deleteImg(this)" data-id="-1">Delete</button>
         <button type="button" name="setMainBtn" class="btn btn-danger btn-sm" onclick="setMainImg(this)" data-id="-1">Set Main</button>
@@ -206,14 +206,14 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 </template>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
 <!-- enable tooltips on this page (by default disabled for performance)-->
-<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
 <!-- enable admin page tools-->
-<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "admin_pages.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DS . "admin_pages.js" ?>"></script>
 
 <!-- show error popup -->
 <?php

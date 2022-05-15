@@ -2,7 +2,7 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . 'model_category.php';
+require_once MODEL_DIR . DS . 'model_category.php';
 
 class CategoryController
 {

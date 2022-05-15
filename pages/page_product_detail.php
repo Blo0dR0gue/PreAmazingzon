@@ -3,9 +3,9 @@
 
 <!-- TODO do includes uniformly? in head? -->
 <?php
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_review.php';
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
+require_once CONTROLLER_DIR . DS . 'controller_product.php';
+require_once CONTROLLER_DIR . DS . 'controller_review.php';
+require_once CONTROLLER_DIR . DS . 'controller_category.php';
 ?>
 
 <?php // get product
@@ -26,17 +26,17 @@ if (isset($productID) && is_numeric($productID)) {
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - <?= $product->getTitle(); ?></title>
 
     <!-- file specific includes -->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_product_detail.css"; ?>">
-    <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "page_product_detail.js"; ?>"></script>
+    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_product_detail.css"; ?>">
+    <script src="<?= SCRIPT_DIR . DS . "page_product_detail.js"; ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -96,7 +96,7 @@ if (isset($productID) && is_numeric($productID)) {
 
                 <!-- stock & buttons -->
                 <form method="get"
-                      action="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_shoppingcart.inc.php" ?>">
+                      action="<?= INCLUDE_HELPER_DIR . DS . "helper_shoppingcart.inc.php" ?>">
                     <!-- helper values -->
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="productId" value="<?= $product->getId() ?>">
@@ -117,7 +117,7 @@ if (isset($productID) && is_numeric($productID)) {
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
 
 </body>
 </html>

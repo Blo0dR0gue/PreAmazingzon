@@ -11,13 +11,13 @@ if (isset($_SESSION["login"])) {    // if already logged in redirect to home
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Login</title>
 
     <!-- form processing script -->
     <?php
-    require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_popup.inc.php";
-    require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user.php";
+    require INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require CONTROLLER_DIR . DS . "controller_user.php";
     //TODO Remember me cookies?
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set?
         if ($user = UserController::getByEmail($_POST["email"])) {  // get user
@@ -37,7 +37,7 @@ if (isset($_SESSION["login"])) {    // if already logged in redirect to home
 <main class="m-auto w-100 px-3" style="max-width: 370px">
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?= ROOT_DIR ?>" class="mb-0">
-            <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo_long.svg" ?>" alt="Company Logo"
+            <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DS . "logo_long.svg" ?>" alt="Company Logo"
                  width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
@@ -66,7 +66,7 @@ if (isset($_SESSION["login"])) {    // if already logged in redirect to home
         <!-- buttons -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         <p class="my-1 text-muted">or</p>
-        <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
+        <a href="<?= PAGES_DIR . DS . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
             Create an account</a>
 
         <!-- custom footer -->
@@ -75,7 +75,7 @@ if (isset($_SESSION["login"])) {    // if already logged in redirect to home
 </main>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
 
 <!-- show error popup -->
 <?php

@@ -2,8 +2,8 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_cart_product.php";
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
+require_once MODEL_DIR . DS . "model_cart_product.php";
+require_once CONTROLLER_DIR . DS . "controller_product.php";
 
 class CartProductController
 {

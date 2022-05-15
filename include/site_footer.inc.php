@@ -7,8 +7,7 @@
         <div class="col-md-6 d-flex align-items-center">
             <!-- company logo -->
             <a href="<?= ROOT_DIR ?>" class="mb-0">
-                <img src="<?= IMAGE_LOGO_DIR . DIRECTORY_SEPARATOR . "logo.svg" ?>" class="bi me-2" width="40"
-                     height="40" alt="Company Logo">
+                <img src="<?= IMAGE_LOGO_DIR . DS . "logo.svg" ?>" class="bi me-2" width="40" height="40" alt="Logo">
             </a>
 
             <!-- company copy right -->
@@ -22,18 +21,18 @@
                 <a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-muted">Home</a>
             </li>
             <li class="nav-item">
-                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . 'page_products.php' ?>" class="nav-link px-2 text-muted">Products</a>
+                <a href="<?= PAGES_DIR . DS . 'page_products.php' ?>" class="nav-link px-2 text-muted">Products</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link px-2 text-muted">Categories</a>
             </li>
             <li class="nav-item">
-                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>
+                <a href="<?= PAGES_DIR . DS . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>
             </li>
         </ul>
     </div>
 </footer>
 
 <!-- load cookie consent modal on ever site, after the page has loaded -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "modal_cookie_consent.inc.php" ?>
+<?php require INCLUDE_DIR . DS . "modal_cookie_consent.inc.php" ?>
 

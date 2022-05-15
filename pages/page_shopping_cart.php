@@ -11,12 +11,12 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Cart</title>
 
     <!-- file specific includes -->
-    <?php require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_cart_product.php"; ?>
-    <?php require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php"; ?>
+    <?php require_once CONTROLLER_DIR . DS . "controller_cart_product.php"; ?>
+    <?php require_once CONTROLLER_DIR . DS . "controller_product.php"; ?>
 
     <!-- load data for shopping cart -->
     <?php $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]); ?>
@@ -24,7 +24,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="">
@@ -56,7 +56,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
                         if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
                                 $subtotal = 0;
-                                require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_cart_entry.php";
+                                require INCLUDE_DIR . DS . "elem_cart_entry.php";
                                 $total += $subtotal;
                             }
                         }
@@ -87,7 +87,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 </body>
 </html>

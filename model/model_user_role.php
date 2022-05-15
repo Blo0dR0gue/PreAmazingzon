@@ -2,7 +2,7 @@
 
 <?php
 // load required files
-require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php");
+require_once(INCLUDE_DIR . DS . "database.inc.php");
 
 class UserRole
 {

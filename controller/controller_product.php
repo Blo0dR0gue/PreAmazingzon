@@ -2,8 +2,8 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_product.php";
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_category.php";
+require_once MODEL_DIR . DS . "model_product.php";
+require_once MODEL_DIR . DS . "model_category.php";
 
 class ProductController
 {
@@ -24,7 +24,7 @@ class ProductController
         // TODO validation
         if (!isset($files) || !count($files) > 0 || !isset($productID)) return true;
 
-        $targetUploadDir = IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID;
+        $targetUploadDir = IMAGE_PRODUCT_DIR . DS . $productID;
 
         $errors = false;
 
@@ -57,11 +57,11 @@ class ProductController
 
         $expand = $allowed[$type];
 
-        $imageCounter = count(glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*"));
+        $imageCounter = count(glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*"));
 
         if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
 
-        $mainImages = glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*");
+        $mainImages = glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*main.*");
 
         $pictureID = "";
         if ($isMainImg) {
@@ -77,7 +77,7 @@ class ProductController
             $pictureID = $imageCounter + 1;
         }
 
-        $filePath = $targetUploadDir . DIRECTORY_SEPARATOR . $pictureID . '.' . $expand;
+        $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;
 
         if (!copy($tmpFile, $filePath)) return false;
 

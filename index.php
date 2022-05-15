@@ -4,16 +4,15 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?></title>
 </head>
 
 <!-- TODO project wide camel or snake case refactor? -->
-<!-- TODO project wide introduce short form of directory_divider -->
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -24,8 +23,9 @@
                 <p class="lead text-white">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
                     eirmod tempor invidunt ut labore et magna aliquyam erat, sed diam voluptua. At vero eos et justo duo
                     dolores et ea rebum. </p>
-                <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_about.php" ?>"
-                   class="btn btn-warning my-2 rounded-0">Learn more about us</a>
+                <a href="<?= PAGES_DIR . DS . "page_about.php" ?>" class="btn btn-warning my-2 rounded-0">
+                    Learn more about us
+                </a>
             </div>
         </div>
     </section>
@@ -34,9 +34,9 @@
         <h2>Products of the Second . . .</h2>
         <div class="row">
             <?php
-            require CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_product.php";
+            require CONTROLLER_DIR . DS . "controller_product.php";
             foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
-                require INCLUDE_DIR . DIRECTORY_SEPARATOR . "elem_product_card.inc.php";
+                require INCLUDE_DIR . DS . "elem_product_card.inc.php";
             }
             ?>
         </div>
@@ -44,7 +44,7 @@
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 </body>
 </html>

@@ -9,24 +9,24 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 }
 
 //Load required Controllers
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_product.php';
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
+require_once CONTROLLER_DIR . DS . 'controller_product.php';
+require_once CONTROLLER_DIR . DS . 'controller_category.php';
 
 ?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Products</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DIRECTORY_SEPARATOR . "style_admin_pages.css"; ?>">
+    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -59,7 +59,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
             ?>
             <tr>
                 <td style="vertical-align: middle;">
-                    <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_add_product.php" ?>" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Add a new product">
                         <i class="fa fa-plus"></i>
                     </a>
@@ -70,13 +70,13 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
                 </td>
                 <th scope="row"><?= $product->getID(); ?></th>
                 <td style="text-align: center">
-                    <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_edit.php?id=" . $product->getId(); ?>">
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>">
                         <img src="<?= $product->getMainImg(); ?>"
                              class="tbl-img" alt="main img" data-id="1"/>
                     </a>
                 </td>
                 <td>
-                    <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_edit.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
                 </td>
                 <td>
@@ -86,7 +86,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
                     <?= $product->getShippingCostFormatted(); ?>
                 </td>
                 <td>
-                    <a href="<?= ADMIN_PAGES_DIR . DIRECTORY_SEPARATOR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
                        class="text-decoration-none text-blue">
                         <?= CategoryController::getNameById($product->getCategoryID()) ?>
                     </a>
@@ -100,7 +100,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . 'controller_category.php';
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php"; ?>
+<?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
 
 </body>
 </html>
