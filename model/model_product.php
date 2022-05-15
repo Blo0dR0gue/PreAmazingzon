@@ -200,6 +200,7 @@ class Product
     }
 
 // TODO deal with sipping cost? per amount or add after?
+
     /**
      * @return float The Price for this modelProduct
      */

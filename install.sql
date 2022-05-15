@@ -3,257 +3,281 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
+SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
+SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE =
+        'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema amazingzon
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `amazingzon` ;
+DROP SCHEMA IF EXISTS `amazingzon`;
 
 -- -----------------------------------------------------
 -- Schema amazingzon
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `amazingzon` DEFAULT CHARACTER SET utf8 ;
-USE `amazingzon` ;
+CREATE SCHEMA IF NOT EXISTS `amazingzon` DEFAULT CHARACTER SET utf8;
+USE `amazingzon`;
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`UserRole`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`UserRole` ;
+DROP TABLE IF EXISTS `amazingzon`.`UserRole`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`UserRole` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`UserRole`
+(
+    `id`   INT         NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Address` ;
+DROP TABLE IF EXISTS `amazingzon`.`Address`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(255) NOT NULL,
-  `zipCode` VARCHAR(50) NOT NULL,
-  `streetNumber` VARCHAR(50) NOT NULL,
-  `city` VARCHAR(255) NOT NULL,
-  `user` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_Address_User`
-    FOREIGN KEY (`user`)
-    REFERENCES `amazingzon`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Address`
+(
+    `id`           INT          NOT NULL AUTO_INCREMENT,
+    `street`       VARCHAR(255) NOT NULL,
+    `zipCode`      VARCHAR(50)  NOT NULL,
+    `streetNumber` VARCHAR(50)  NOT NULL,
+    `city`         VARCHAR(255) NOT NULL,
+    `user`         INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_Address_User`
+        FOREIGN KEY (`user`)
+            REFERENCES `amazingzon`.`User` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`User`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`User` ;
+DROP TABLE IF EXISTS `amazingzon`.`User`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`User` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `password` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `userRole` INT NOT NULL,
-  `firstname` VARCHAR(255) NOT NULL,
-  `lastname` VARCHAR(255) NOT NULL,
-  `defaultAddress` INT NULL,
-  `active` TINYINT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_User_UserRight`
-    FOREIGN KEY (`userRole`)
-    REFERENCES `amazingzon`.`UserRole` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_User_Address`
-    FOREIGN KEY (`defaultAddress`)
-    REFERENCES `amazingzon`.`Address` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`User`
+(
+    `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `password`       VARCHAR(255) NOT NULL,
+    `email`          VARCHAR(255) NOT NULL,
+    `userRole`       INT          NOT NULL,
+    `firstname`      VARCHAR(255) NOT NULL,
+    `lastname`       VARCHAR(255) NOT NULL,
+    `defaultAddress` INT          NULL,
+    `active`         TINYINT      NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_User_UserRight`
+        FOREIGN KEY (`userRole`)
+            REFERENCES `amazingzon`.`UserRole` (`id`)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_User_Address`
+        FOREIGN KEY (`defaultAddress`)
+            REFERENCES `amazingzon`.`Address` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Category` ;
+DROP TABLE IF EXISTS `amazingzon`.`Category`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Category` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `description` TEXT NOT NULL,
-  `parent` INT,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_categorie_categorie1`
-    FOREIGN KEY (`parent`)
-    REFERENCES `amazingzon`.`Category` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Category`
+(
+    `id`          INT          NOT NULL AUTO_INCREMENT,
+    `name`        VARCHAR(255) NOT NULL,
+    `description` TEXT         NOT NULL,
+    `parent`      INT,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_categorie_categorie1`
+        FOREIGN KEY (`parent`)
+            REFERENCES `amazingzon`.`Category` (`id`)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Product` ;
+DROP TABLE IF EXISTS `amazingzon`.`Product`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Product` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `description` TEXT NOT NULL,
-  `price` DECIMAL(15,2) UNSIGNED NOT NULL,
-  `stock` INT NOT NULL DEFAULT 0,
-  `shippingCost` DECIMAL(15,2) NOT NULL,
-  `category` INT,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_Product_Category1`
-    FOREIGN KEY (`category`)
-    REFERENCES `amazingzon`.`Category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Product`
+(
+    `id`           INT                     NOT NULL AUTO_INCREMENT,
+    `title`        VARCHAR(255)            NOT NULL,
+    `description`  TEXT                    NOT NULL,
+    `price`        DECIMAL(15, 2) UNSIGNED NOT NULL,
+    `stock`        INT                     NOT NULL DEFAULT 0,
+    `shippingCost` DECIMAL(15, 2)          NOT NULL,
+    `category`     INT,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_Product_Category1`
+        FOREIGN KEY (`category`)
+            REFERENCES `amazingzon`.`Category` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Review`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Review` ;
+DROP TABLE IF EXISTS `amazingzon`.`Review`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Review` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `stars` INT UNSIGNED NOT NULL,
-  `text` TEXT NOT NULL,
-  `user` INT UNSIGNED NOT NULL,
-  `product` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_Review_User1`
-    FOREIGN KEY (`user`)
-    REFERENCES `amazingzon`.`User` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Review_Product1`
-    FOREIGN KEY (`product`)
-    REFERENCES `amazingzon`.`Product` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Review`
+(
+    `id`      INT          NOT NULL AUTO_INCREMENT,
+    `title`   VARCHAR(255) NOT NULL,
+    `stars`   INT UNSIGNED NOT NULL,
+    `text`    TEXT         NOT NULL,
+    `user`    INT UNSIGNED NOT NULL,
+    `product` INT          NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_Review_User1`
+        FOREIGN KEY (`user`)
+            REFERENCES `amazingzon`.`User` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_Review_Product1`
+        FOREIGN KEY (`product`)
+            REFERENCES `amazingzon`.`Product` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`OrderState`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`OrderState` ;
+DROP TABLE IF EXISTS `amazingzon`.`OrderState`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`OrderState` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `label` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`OrderState`
+(
+    `id`    INT          NOT NULL AUTO_INCREMENT,
+    `label` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Order` ;
+DROP TABLE IF EXISTS `amazingzon`.`Order`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Order` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `orderDate` DATETIME NOT NULL,
-  `deliveryDate` DATETIME NOT NULL,
-  `paid` TINYINT NOT NULL DEFAULT 0,
-  `orderState` INT NOT NULL,
-  `user` INT UNSIGNED NOT NULL,
-  `shippingAddress` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_Order_OrderState1`
-    FOREIGN KEY (`orderState`)
-    REFERENCES `amazingzon`.`OrderState` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Order_User1`
-    FOREIGN KEY (`user`)
-    REFERENCES `amazingzon`.`User` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Order_Address1`
-    FOREIGN KEY (`shippingAddress`)
-    REFERENCES `amazingzon`.`Address` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Order`
+(
+    `id`              INT          NOT NULL AUTO_INCREMENT,
+    `orderDate`       DATETIME     NOT NULL,
+    `deliveryDate`    DATETIME     NOT NULL,
+    `paid`            TINYINT      NOT NULL DEFAULT 0,
+    `orderState`      INT          NOT NULL,
+    `user`            INT UNSIGNED NOT NULL,
+    `shippingAddress` INT          NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_Order_OrderState1`
+        FOREIGN KEY (`orderState`)
+            REFERENCES `amazingzon`.`OrderState` (`id`)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_Order_User1`
+        FOREIGN KEY (`user`)
+            REFERENCES `amazingzon`.`User` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_Order_Address1`
+        FOREIGN KEY (`shippingAddress`)
+            REFERENCES `amazingzon`.`Address` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Product_Order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Product_Order` ;
+DROP TABLE IF EXISTS `amazingzon`.`Product_Order`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Product_Order` (
-  `product` INT NOT NULL,
-  `order` INT NOT NULL,
-  `amount` INT NOT NULL DEFAULT 1,
-  `price` DECIMAL(15,2) NOT NULL,
-  PRIMARY KEY (`product`, `order`),
-  CONSTRAINT `fk_Product_has_Order_Product1`
-    FOREIGN KEY (`product`)
-    REFERENCES `amazingzon`.`Product` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Product_has_Order_Order1`
-    FOREIGN KEY (`order`)
-    REFERENCES `amazingzon`.`Order` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Product_Order`
+(
+    `product` INT            NOT NULL,
+    `order`   INT            NOT NULL,
+    `amount`  INT            NOT NULL DEFAULT 1,
+    `price`   DECIMAL(15, 2) NOT NULL,
+    PRIMARY KEY (`product`, `order`),
+    CONSTRAINT `fk_Product_has_Order_Product1`
+        FOREIGN KEY (`product`)
+            REFERENCES `amazingzon`.`Product` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `fk_Product_has_Order_Order1`
+        FOREIGN KEY (`order`)
+            REFERENCES `amazingzon`.`Order` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `amazingzon`.`Shoppingcart_Product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amazingzon`.`Shoppingcart_Product` ;
+DROP TABLE IF EXISTS `amazingzon`.`Shoppingcart_Product`;
 
-CREATE TABLE IF NOT EXISTS `amazingzon`.`Shoppingcart_Product` (
-  `user` INT UNSIGNED NOT NULL,
-  `product` INT NOT NULL,
-  `amount` INT NOT NULL,
-  PRIMARY KEY (`user`, `product`),
-  CONSTRAINT `fk_shoppingcart_User1`
-    FOREIGN KEY (`user`)
-    REFERENCES `amazingzon`.`User` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_shoppingcart_Product1`
-    FOREIGN KEY (`product`)
-    REFERENCES `amazingzon`.`Product` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `amazingzon`.`Shoppingcart_Product`
+(
+    `user`    INT UNSIGNED NOT NULL,
+    `product` INT          NOT NULL,
+    `amount`  INT          NOT NULL,
+    PRIMARY KEY (`user`, `product`),
+    CONSTRAINT `fk_shoppingcart_User1`
+        FOREIGN KEY (`user`)
+            REFERENCES `amazingzon`.`User` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_shoppingcart_Product1`
+        FOREIGN KEY (`product`)
+            REFERENCES `amazingzon`.`Product` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+)
+    ENGINE = InnoDB;
 
 SET SQL_MODE = '';
 DROP USER IF EXISTS amazingzon;
-SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET SQL_MODE =
+        'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'amazingzon' IDENTIFIED BY 'sh7up#KT!';
 
 GRANT ALL ON `amazingzon`.* TO 'amazingzon';
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET SQL_MODE = @OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Data for table `amazingzon`.`UserRole`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `amazingzon`;
-INSERT INTO `amazingzon`.`UserRole` (`name`) VALUES ('admin');
-INSERT INTO `amazingzon`.`UserRole` (`name`) VALUES ('user');
+INSERT INTO `amazingzon`.`UserRole` (`name`)
+VALUES ('admin');
+INSERT INTO `amazingzon`.`UserRole` (`name`)
+VALUES ('user');
 
 COMMIT;
 
@@ -263,8 +287,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `amazingzon`;
-INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`) VALUES ('Katze', 'Super flauschig yeah', 6.50, 2, 7, null);
-INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`) VALUES ('Test', 'Testprodukt', 160.27, 1, 3.50, null);
+INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`)
+VALUES ('Katze', 'Super flauschig yeah', 6.50, 2, 7, null);
+INSERT INTO `amazingzon`.`Product` (`title`, `description`, `price`, `stock`, `shippingCost`, `category`)
+VALUES ('Test', 'Testprodukt', 160.27, 1, 3.50, null);
 
 COMMIT;
 
@@ -274,10 +300,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `amazingzon`;
-INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('new');
-INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('canceled');
-INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('sent');
-INSERT INTO `amazingzon`.`OrderState` (`label`) VALUES ('delivered');
+INSERT INTO `amazingzon`.`OrderState` (`label`)
+VALUES ('new');
+INSERT INTO `amazingzon`.`OrderState` (`label`)
+VALUES ('canceled');
+INSERT INTO `amazingzon`.`OrderState` (`label`)
+VALUES ('sent');
+INSERT INTO `amazingzon`.`OrderState` (`label`)
+VALUES ('delivered');
 
 COMMIT;
 
@@ -287,9 +317,11 @@ COMMIT;
 START TRANSACTION;
 USE amazingzon;
 INSERT INTO amazingzon.User (password, email, userRole, firstname, lastname, defaultAddress, active)
-VALUES  ('$2y$10$6Hcfffp14MOnyfzjoYlWm.RGSMxQF.kRE.mY7Jer51X.LVc8pFhZG', 'user@user.de', 2, 'Max', 'Musteruser', null, 1);
+VALUES ('$2y$10$6Hcfffp14MOnyfzjoYlWm.RGSMxQF.kRE.mY7Jer51X.LVc8pFhZG', 'user@user.de', 2, 'Max', 'Musteruser', null,
+        1);
 
 INSERT INTO amazingzon.User (password, email, userRole, firstname, lastname, defaultAddress, active)
-VALUES  ('$2y$10$Cvg4eJICZcIhH9cNyYfRu.EZSqpLAXOCQx5kHo3quLT1S9rCCeMnK', 'admin@admin.de', 1, 'Armin', 'Musteradmin', null, 1);
+VALUES ('$2y$10$Cvg4eJICZcIhH9cNyYfRu.EZSqpLAXOCQx5kHo3quLT1S9rCCeMnK', 'admin@admin.de', 1, 'Armin', 'Musteradmin',
+        null, 1);
 
 COMMIT;

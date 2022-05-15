@@ -69,7 +69,7 @@
 
                         <!-- admin area -->
                         <!--TODO Maybe add Dashboard?-->
-                        <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) {?>
+                        <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) { ?>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <p class="dropdown-item-text mb-1 text-muted">Admin Tools:</p>

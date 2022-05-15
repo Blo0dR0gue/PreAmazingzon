@@ -1,7 +1,6 @@
 /**
  * Function for enabling tooltips on the page this script is loaded by.
  */
-$(function ()
-{
+$(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })

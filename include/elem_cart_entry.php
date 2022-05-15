@@ -4,7 +4,7 @@
 <?php
 require_once "site_php_head.inc.php";
 
-if (isset($cartProduct) && $cartProduct instanceof CartProduct){
+if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
 ?>
     <tr>

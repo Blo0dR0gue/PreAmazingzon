@@ -28,8 +28,7 @@ class ProductController
 
         $errors = false;
 
-        for ($i = 0; $i < count($files["tmp_name"]); $i++)
-        {
+        for ($i = 0; $i < count($files["tmp_name"]); $i++) {
             $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, $i == $mainImgID);
             if (!$suc && !$errors) $errors = true;
         }
@@ -52,8 +51,7 @@ class ProductController
 
         if (!in_array($type, array_keys($allowed))) return false;
 
-        if (!file_exists($targetUploadDir))
-        {
+        if (!file_exists($targetUploadDir)) {
             mkdir($targetUploadDir, 0777, true);
         }
 
@@ -61,7 +59,7 @@ class ProductController
 
         $imageCounter = count(glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*"));
 
-        if($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
+        if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
 
         $mainImages = glob(IMAGE_PRODUCT_DIR . DIRECTORY_SEPARATOR . $productID . DIRECTORY_SEPARATOR . "*main.*");
 

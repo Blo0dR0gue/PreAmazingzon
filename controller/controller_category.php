@@ -39,8 +39,7 @@ class CategoryController
         if (!isset($tmpProductCat)) return [];
         $path = [];
 
-        while ($tmpProductCat != null)
-        {
+        while ($tmpProductCat != null) {
             $path[] = $tmpProductCat->getName();
             $tmpProductCat = Category::getById($tmpProductCat->getParentID());
         }

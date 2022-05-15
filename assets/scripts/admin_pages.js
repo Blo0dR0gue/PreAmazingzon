@@ -45,12 +45,12 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     formData.delete('files[]');
 
-    if(mainImgID == null){
+    if (mainImgID == null) {
         formData.set("mainImgID", Number(0).toString());
     }
     let index = 0;
     FILES.forEach(function (value, key) {
-        if(mainImgID != null && key === parseInt(mainImgID)){
+        if (mainImgID != null && key === parseInt(mainImgID)) {
             formData.set("mainImgID", index.toString());
         }
         formData.append("files[]", value, value.name);
@@ -60,14 +60,14 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
 function addImg(file, maxFileAmount) {
     if (!file || file['type'].split('/')[0] !== 'image') return;
-    if(FILES.size >= maxFileAmount) return;
+    if (FILES.size >= maxFileAmount) return;
     $("#dropTexts")[0].style.display = "none";
     let template = main.cloneNode(true);
 
     template.querySelector('div img').src = URL.createObjectURL(file);
-    template.querySelectorAll('div button').forEach(function (elem){
+    template.querySelectorAll('div button').forEach(function (elem) {
         elem.dataset.id = nextImgID.toString();
-        if(elem.name === "setMainBtn" && FILES.size <= 0){
+        if (elem.name === "setMainBtn" && FILES.size <= 0) {
             setMainImg(elem);
         }
     });
@@ -95,10 +95,10 @@ function deleteImg(btnElem) {
     FILES.delete(_imgID);
 
     //If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
-    if(_imgID === parseInt(lastMainImgElem.dataset.id)){
-        if(FILES.size > 0){
+    if (_imgID === parseInt(lastMainImgElem.dataset.id)) {
+        if (FILES.size > 0) {
             setMainImg(document.getElementsByName("setMainBtn")[0]);
-        }else{
+        } else {
             document.getElementById("mainImgID").value = "";
             lastMainImgElem = null;
             mainImgID = null;
@@ -114,7 +114,7 @@ function deleteImg(btnElem) {
  * @param btnElem The button element, which is clicked.
  */
 function setMainImg(btnElem) {
-    if(lastMainImgElem === btnElem) return;
+    if (lastMainImgElem === btnElem) return;
 
     //Change the button of the new main img
     btnElem.innerHTML = "Main";
@@ -122,7 +122,7 @@ function setMainImg(btnElem) {
     btnElem.classList.add("btn-success");
 
     //Change old texts and css classes
-    if(lastMainImgElem){
+    if (lastMainImgElem) {
         lastMainImgElem.classList.remove("btn-success");
         lastMainImgElem.classList.add("btn-danger");
         lastMainImgElem.innerHTML = "Set Main";

@@ -2,8 +2,9 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generiert durch Microsoft Visio, SVG Export user_orange.svg Page-2 -->
 <svg xmlns="http://www.w3.org/2000/svg"
-		width="8.47953in" height="8.47982in" viewBox="0 0 610.526 610.547" xml:space="preserve" color-interpolation-filters="sRGB"
-		class="st3">
+     width="8.47953in" height="8.47982in" viewBox="0 0 610.526 610.547" xml:space="preserve"
+     color-interpolation-filters="sRGB"
+     class="st3">
 	<style type="text/css">
 	<![CDATA[
 		.st1 {fill:#e7eced;stroke:none;stroke-linecap:butt;stroke-width:11.5472}
@@ -12,13 +13,13 @@
 	]]>
 	</style>
 
-	<g>
+    <g>
 		<title>Zeichenblatt-2</title>
-		<g id="group1-1" transform="translate(28.1108,-29.5472)">
+        <g id="group1-1" transform="translate(28.1108,-29.5472)">
 			<title>Tabelle.1</title>
-			<g id="shape2-2" transform="translate(99.6258,0)">
+            <g id="shape2-2" transform="translate(99.6258,0)">
 				<title>Tabelle.2</title>
-				<path d="M95.47 491.43 L13.2 536.31 C8.38 538.94 4.04 542.18 0 545.7 C47.97 586.15 109.88 610.55 177.54 610.55 C244.69
+                <path d="M95.47 491.43 L13.2 536.31 C8.38 538.94 4.04 542.18 0 545.7 C47.97 586.15 109.88 610.55 177.54 610.55 C244.69
 							 610.55 306.21 586.51 354.04 546.62 C349.63 542.9 344.85 539.54 339.54 536.9 L251.44 492.86 C240.06 487.17
 							 232.87 475.53 232.87 462.81 L232.87 428.24 C235.35 425.43 238.18 421.8 241.2 417.53 C253.21 400.57 262.29
 							 381.91 268.59 362.34 C279.89 358.86 288.21 348.42 288.21 336.02 L288.21 299.12 C288.21 291.01 284.6
@@ -27,9 +28,9 @@
 							 79.64 359.23 C88.86 399.36 113 428.24 113 428.24 L113 461.96 C112.99 474.23 106.26 485.54 95.47 491.43
 							 Z" class="st1"/>
 			</g>
-			<g id="shape3-4" transform="translate(0,-63.9582)">
+            <g id="shape3-4" transform="translate(0,-63.9582)">
 				<title>Tabelle.3</title>
-				<path d="M281.88 123.09 C129.62 120.49 4.08 241.81 1.48 394.07 C0 480.39 38.48 557.98 99.74 609.58 C103.75 606.08
+                <path d="M281.88 123.09 C129.62 120.49 4.08 241.81 1.48 394.07 C0 480.39 38.48 557.98 99.74 609.58 C103.75 606.08
 							 108.04 602.88 112.82 600.28 L195.09 555.4 C205.88 549.51 212.6 538.2 212.6 525.9 L212.6 492.19 C212.6
 							 492.19 188.45 463.31 179.24 423.18 C171.61 418.24 166.49 409.69 166.49 399.96 L166.49 363.07 C166.49
 							 354.95 170.1 347.7 175.71 342.62 L175.71 289.29 C175.71 289.29 164.75 206.29 277.15 206.29 C389.55 206.29

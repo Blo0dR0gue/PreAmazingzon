@@ -66,7 +66,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"]))   // if not logged i
                         ?>
                         </tbody>
                     </table>
-                    <h5 class="text-center text-muted mb-5"><i><?php if(!$cartProducts) echo "empty"; ?></i></h5>
+                    <h5 class="text-center text-muted mb-5"><i><?php if (!$cartProducts) echo "empty"; ?></i></h5>
 
                     <div class="float-end text-end">
                         <h1 class="mb-0"><small>Total:</small> <?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?></h1>

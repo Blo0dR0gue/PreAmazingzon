@@ -12,7 +12,7 @@ $amount = $_GET["amount"] ?? 8; // TODO remove hardcoded value?
 
 if(isset($_GET["search"])){
     $products = ProductController::searchProducts($_GET["search"]);
-}else{
+} else {
     $products = ProductController::getProductsInRange($offset, $amount);
 }
 
