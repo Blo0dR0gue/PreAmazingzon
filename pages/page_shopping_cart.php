@@ -82,7 +82,7 @@ if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged i
 
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                    <a href="<?= ROOT_DIR ?>" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
+                    <a href="javascript:history.back()" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
                 </div>
             </div>
         </div>
