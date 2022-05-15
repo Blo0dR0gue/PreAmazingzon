@@ -18,6 +18,11 @@ class CartProductController
         return CartProduct::getById($productId, $userId);
     }
 
+    public static function getCountByUser(int $userId): int
+    {   // TODO validate?
+        return CartProduct::getCountByUser($userId);
+    }
+
     public static function delete(CartProduct $cartProduct): bool
     {   // TODO validate?
         return $cartProduct->delete();

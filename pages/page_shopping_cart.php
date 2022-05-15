@@ -38,8 +38,11 @@ if (!isset($_SESSION["login"]))   // if not logged in redirect to home
             <div class="w-100 row">
                 <div class="col-lg-12 col-md-12 col-12 px-0">
                     <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
-                    <p class="mb-4 text-center font-weight-bold">3 items in your cart</p>
-                    <!-- TODO dynamic count -->
+                    <p class="mb-4 text-center font-weight-bold">
+                        <i><?= CartProductController::getCountByUser($_SESSION["uid"]) ?> items in your cart</i>
+                    </p>
+
+                    <!-- table -->
                     <table id="shoppingCart" class="table table-condensed table-responsive">
                         <thead>
                         <tr>

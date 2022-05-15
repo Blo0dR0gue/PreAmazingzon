@@ -4,7 +4,6 @@
 // load required files
 require_once(INCLUDE_DIR . DIRECTORY_SEPARATOR . "database.inc.php");
 
-// TODO implement
 class CartProduct
 {
     // region fields
@@ -121,6 +120,26 @@ class CartProduct
         $stmt->close();
 
         return $arr;
+    }
+
+    /**
+     * Get number of shopping-cart entries (cartProducts) related to one user.
+     * @param int $user_id user of interest
+     * @return float number of products in shopping-cart of user
+     */
+    public static function getCountByUser(int $user_id): int
+    {
+        $stmt = getDB()->prepare("SELECT COUNT(*) AS count from shoppingcart_product where user = ?;");
+        $stmt->bind_param("i", $user_id);
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
     }
 
     /**
