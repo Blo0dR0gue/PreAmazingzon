@@ -63,9 +63,18 @@ class CartProduct
 
     // endregion
 
-    public function insert(): void
+    public function insert(): ?CartProduct
     {
-        // TODO
+        $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii",
+            $this->userId,
+            $this->prodId,
+            $this->amount);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $stmt->close();
+        return $this;        // no e.g. autoincrement values, object is inserted as is
     }
 
     public function update(): ?CartProduct

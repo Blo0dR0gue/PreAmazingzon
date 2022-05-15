@@ -28,6 +28,19 @@ class CartProductController
         return $cartProduct->delete();
     }
 
+    public static function add(int $userId, int $productId, int $amount): ?CartProduct
+    {   // TODO validate?
+        $cartProduct = CartProductController::getById($userId, $productId);     // is there already an entry?
+        if ($cartProduct)
+        {
+            return CartProductController::incAmount($cartProduct, $amount);     // increase amount by selected amount
+        } else
+        {
+            $cartProduct = new CartProduct($userId, $productId, $amount);       // insert new entry
+            return $cartProduct->insert();
+        }
+    }
+
     public static function incAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
     {   // TODO validate?
         $product = ProductController::getByID($cartProduct->getProdId());
