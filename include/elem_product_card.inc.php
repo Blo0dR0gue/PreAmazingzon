@@ -6,7 +6,7 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_category.php";
 if (isset($product) && $product instanceof Product): ?>
     <div class="col-xl-3 col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
         <!-- PRODUCT -->
-        <div class="card border-0 shadow">
+        <div class="card border-0 shadow w-100">
             <!-- main image -->
             <a href="<?= PAGES_DIR . DIRECTORY_SEPARATOR . "page_product_detail.php?id=" . $product->getId(); // TODO GLOBAL dont use manual queries http_build_query instead?>"
                class="d-flex justify-content-center align-items-center overflow-hidden" style="height: 250px">
