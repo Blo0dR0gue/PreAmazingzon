@@ -175,7 +175,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                                    onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
                             <section class="container py-3" id="imgContainer">
-                                <div id="imgRow" class="row">
+                                <div id="imgRow" class="row jcenter">
                                 </div>
                             </section>
                         </div>
