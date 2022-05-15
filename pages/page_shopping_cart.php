@@ -71,8 +71,8 @@ if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged i
                     <h5 class="text-center text-muted mb-5"><i><?php if(!$cartProducts) echo "empty"; ?></i></h5>
 
                     <div class="float-end text-end">
-                        <h4>Total:</h4>
-                        <h1><?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?></h1>
+                        <h1 class="mb-0"><small>Total:</small> <?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?></h1>
+                        <small class="text-muted mt-0">including tax and shipping</small>
                     </div>
                 </div>
             </div>
