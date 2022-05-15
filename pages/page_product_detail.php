@@ -96,14 +96,20 @@ if (isset($productID) && is_numeric($productID)) {
                 </div>
 
                 <!-- stock & buttons -->
-                <div class="buttons d-flex flex-row gap-3">
-                    <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
-                           max="<?= $product->getStock() ?>">
-                    <button class="btn btn-dark">Add to Cart</button>
-                    <label for="quantity"></label>
-                    <!-- TODO make add to cart work -->
-                </div>
-                <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
+                <form method="get"
+                      action="<?= INCLUDE_HELPER_DIR . DIRECTORY_SEPARATOR . "helper_shoppingcart.inc.php" ?>">
+                    <!-- helper values -->
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="productId" value="<?= $product->getId() ?>">
+
+                    <div class="buttons d-flex flex-row gap-3">
+                        <label class="d-none" for="quantity"></label>
+                        <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
+                               max="<?= $product->getStock() ?>">
+                        <button type="submit" class="btn btn-warning">Add to Cart</button>
+                    </div>
+                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
+                </form>
             </div>
         </div>
     </div>

@@ -16,9 +16,15 @@ if(isset($_GET["action"]) && isset($_GET["productId"]) && is_numeric($_GET["prod
     }elseif ($_GET["action"] === "dec") // decrease amount number by one
     {
         CartProductController::decAmount($cartProduct);
-    }elseif ($_GET["action"] === "del")
+    }elseif ($_GET["action"] === "del") // delete entry
     {
         CartProductController::delete($cartProduct);
+    }elseif ($_GET["action"] === "add") // add product
+    {
+        if(isset($_GET["quantity"]))
+        {
+            CartProductController::add($_SESSION["uid"], $_GET["productId"], $_GET["quantity"]);
+        }
     }
 }
 

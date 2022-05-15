@@ -29,8 +29,6 @@ if (!isset($_SESSION["login"]) or !isset($_SESSION["uid"]))   // if not logged i
 
 <!-- main body -->
 <main class="">
-    <!-- TODO make shopping cart work -->
-
     <section class="pt-5 pb-5">
         <div class="container">
             <div class="w-100 row">
