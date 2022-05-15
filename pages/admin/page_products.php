@@ -18,7 +18,7 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
-    <title><?= PAGE_NAME ?> - Admin - Products</title>
+    <title>Admin - Products</title>
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">

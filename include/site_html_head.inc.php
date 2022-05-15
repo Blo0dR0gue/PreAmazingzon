@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="author" content="Daniel Czeschner, Frederik Wolter">
 
-<link rel="icon" type="image" href="../assets/images/logo/logo.svg">
+<link rel="icon" type="image" href="<?= IMAGE_LOGO_DIR . DS . "logo.svg" ?>">
 
 <!-- region load external files -->
 <!-- Load jQuery -->
