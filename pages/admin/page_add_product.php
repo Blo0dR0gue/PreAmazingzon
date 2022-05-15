@@ -94,6 +94,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="priceFilter"
                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
+                                    <!-- TODO do link -->
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="priceFilter">
                                     <!--TODO Rework -> tree like?; Replace button next with selected-->

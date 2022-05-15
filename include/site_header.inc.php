@@ -16,6 +16,7 @@
                 <li><a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="<?= PAGES_DIR . DS . 'page_products.php' ?>" class="nav-link px-2 text-white">Products</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Categories</a></li>
+                <!-- TODO do link -->
                 <li><a href="<?= PAGES_DIR . DS . "page_about.php" ?>" class="nav-link px-2 text-white">About</a></li>
             </ul>
 

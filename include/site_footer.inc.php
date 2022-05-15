@@ -25,6 +25,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link px-2 text-muted">Categories</a>
+                <!-- TODO do link -->
             </li>
             <li class="nav-item">
                 <a href="<?= PAGES_DIR . DS . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>

@@ -66,6 +66,7 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete product">
                         <i class="fa fa-trash "></i>
+                        <!-- TODO do link -->
                     </a>
                 </td>
                 <th scope="row"><?= $product->getID(); ?></th>
