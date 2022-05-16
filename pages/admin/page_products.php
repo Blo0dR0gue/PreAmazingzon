@@ -71,13 +71,13 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
                 </td>
                 <th scope="row"><?= $product->getID(); ?></th>
                 <td style="text-align: center">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>">
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>">
                         <img src="<?= $product->getMainImg(); ?>"
                              class="tbl-img" alt="main img" data-id="1"/>
                     </a>
                 </td>
                 <td>
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
                 </td>
                 <td>
