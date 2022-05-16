@@ -1,3 +1,4 @@
+<!--Represents an uploaded file in the edit or add product page-->
 <?php
 //Ad the php header, so ajax calls work.
 require_once "./site_php_head.inc.php";

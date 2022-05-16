@@ -55,8 +55,9 @@ function getTemplate(templateSelector) {
         dataType: "html",
         async: false,
         success: function (data) {
-            //The container is at position 8 in this jquery object //TODO dynamic search of this div
-            fragment.appendChild($(data)[8]);
+            //console.log($(data));
+            //The container is at position 10 in this jquery object //TODO dynamic search of this div
+            fragment.appendChild($(data)[10]);
         }
     });
     return fragment;
