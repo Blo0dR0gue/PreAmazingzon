@@ -7,10 +7,41 @@ require_once MODEL_DIR . DS . "model_category.php";
 
 class ProductController
 {
+
+    public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
+    {
+        $product->setCategoryID($categoryID);
+        $product->setTitle(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
+        $product->setDescription(htmlspecialchars($description, ENT_QUOTES, 'UTF-8'));
+        $product->setPrice($price);
+        $product->setShippingCost($shippingCost);
+        $product->setStock($stock);
+
+        return $product->update();
+    }
+
+    private static function generateRandomImageName($length = 10): string {
+        $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     public static function addNew(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
     {
         // TODO validation
-        $product = new Product(0, $title, $description, $price, $stock, $shippingCost, $categoryID);
+        $product = new Product(
+            0,
+            htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($description, ENT_QUOTES, 'UTF-8'),
+            $price,
+            $stock,
+            $shippingCost,
+            $categoryID
+        );
 
         $product = $product->insert();
 
@@ -19,17 +50,71 @@ class ProductController
         return $product;
     }
 
-    public static function uploadImages(?int $productID, ?array $files, ?int $mainImgID): bool
+    public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
     {
         // TODO validation
-        if (!isset($files) || !count($files) > 0 || !isset($productID)) return true;
+        if (!isset($fileNames) || !count($fileNames) > 0 || $fileNames[0] == "" || !isset($productID)) return false;
+
+        $errors = false;
+
+        $targetDir = IMAGE_PRODUCT_DIR . DS . $productID;
+        foreach ($fileNames as $fileName) {
+            $targetFile = $targetDir . DS . $fileName;
+            if (file_exists($targetFile)) {
+                unlink($targetFile);
+            } else {
+                $errors = true;
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function updateMainImg(?int $productID, ?string $newMainImgFileName): bool
+    {
+        if (!isset($productID) || !isset($newMainImgFileName) || $newMainImgFileName == "") return false;    //No error
+
+        $targetDirWithSep = IMAGE_PRODUCT_DIR . DS . $productID . DS;
+        $targetFile = $targetDirWithSep . $newMainImgFileName;
+        $imgNameParts = explode(".", $newMainImgFileName);
+
+        if (sizeof($imgNameParts) < 2) return false;   //It's a new image, wait until its uploaded.
+
+        self::removeAllMainImgTags($productID);
+
+        if (file_exists($targetFile)) {
+
+            if (sizeof($imgNameParts) == 2) {
+                rename($targetFile, $targetDirWithSep . $imgNameParts[0] . 'main' . "." . $imgNameParts[1]);
+                return false;   //No error
+            }
+        }
+        return true;     //Error
+    }
+
+    private static function removeAllMainImgTags(int $productID): void
+    {
+        $mainImages = glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*main.*");
+        if (count($mainImages) > 0) {
+            foreach ($mainImages as $mainImage) {
+                $newName = str_replace("main", "", $mainImages);
+                //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
+                rename($mainImage, $newName[0]);
+            }
+        }
+    }
+
+    public static function uploadImages(?int $productID, ?array $files, ?string $mainImgID): bool
+    {
+        // TODO validation
+        if (!isset($files) || !count($files) > 0 || !isset($productID)) return false;
 
         $targetUploadDir = IMAGE_PRODUCT_DIR . DS . $productID;
 
         $errors = false;
 
         for ($i = 0; $i < count($files["tmp_name"]); $i++) {
-            $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, $i == $mainImgID);
+            $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, is_numeric($mainImgID) && $i == intval($mainImgID));
             if (!$suc && !$errors) $errors = true;
         }
         return $errors;
@@ -61,20 +146,12 @@ class ProductController
 
         if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
 
-        $mainImages = glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*main.*");
-
         $pictureID = "";
         if ($isMainImg) {
-            if (count($mainImages) > 0) {
-                foreach ($mainImages as $mainImage) {
-                    $newName = str_replace("main", "", $mainImages);
-                    //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
-                    rename($mainImage, $newName[0]);
-                }
-            }
-            $pictureID = ($imageCounter + 1) . "main";
+            self::removeAllMainImgTags($productID);
+            $pictureID = self::generateRandomImageName() . ($imageCounter + 1) . "main";
         } else {
-            $pictureID = $imageCounter + 1;
+            $pictureID = self::generateRandomImageName() . $imageCounter + 1;
         }
 
         $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;

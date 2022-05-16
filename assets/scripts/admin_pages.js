@@ -43,21 +43,21 @@ function dragOverHandler(ev) {
 }
 
 /**
- * Gets a the admin page product image template using ajax
+ * Gets the admin page product image template using ajax
  * @param templateSelector The query selector for the item in the DOM.
  * @returns {string | DocumentFragment} The document fragment object of this template.
  */
 function getTemplate(templateSelector) {
-    let fragment = document.createDocumentFragment();;
+    let fragment = document.createDocumentFragment();
     $.ajax({
         url: "../../include/admin/admin_product_img.inc.php",
         type: "GET",
         dataType: "html",
         async: false,
         success: function (data) {
-            //console.log($(data));
-            //The container is at position 10 in this jquery object //TODO dynamic search of this div
-            fragment.appendChild($(data)[10]);
+            console.log($(data));
+            //The container is at position 2 in this jquery object //TODO dynamic search for this div
+            fragment.appendChild($(data)[2]);
         }
     });
     return fragment;
@@ -68,15 +68,17 @@ function getTemplate(templateSelector) {
  * @type {Map<any, any>}
  */
 const FILES = new Map();
+
+const DELETED_IMAGES_IDS = [];
+
 /**
  * The dom-element of the current selected main image.
  */
-let lastMainImgElem = null;
+let lastMainImgElem = document.getElementsByClassName("btn btn-success btn-sm")[0];
 /**
  * The data-id if the current selected main image.
- * @type {number}
  */
-let mainImgID = -1;
+let mainImgID = null;
 /**
  * The next data-id for the next uploaded image
  * @type {number}
@@ -102,9 +104,19 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
     //delete all uploaded files
     formData.delete('files[]');
 
+    //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
+    if (DELETED_IMAGES_IDS.length > 0) {
+        formData.delete("deletedImgIDs[]");
+        DELETED_IMAGES_IDS.forEach(function (val) {
+            formData.append("deletedImgIDs[]", val);
+        })
+    }
+
     //if mainImgID is null, no main img is selected. set it to 0 which means the index 0 of the $_FILES array is chosen as main image.
-    if (mainImgID == null) {
+    if (mainImgID == null && lastMainImgElem == null && FILES.size > 0) {
         formData.set("mainImgID", Number(0).toString());
+    }else if(mainImgID != null && FILES.size <= 0){
+        formData.set("mainImgID", mainImgID);
     }
 
     //counter variable
@@ -112,7 +124,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     FILES.forEach(function (value, key) {
         //if the current file is the mainImg, set the mainImgID formdata input to the counter variable, which is the index of this files in the array $_FILES.
-        if (mainImgID != null && key === parseInt(mainImgID)) {
+        if (mainImgID != null && key === mainImgID) {
             formData.set("mainImgID", index.toString());
         }
         //Add the file to the files array ($_FILES)
@@ -120,6 +132,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
         index++;
     });
+
 })
 
 /**
@@ -147,12 +160,14 @@ function addImg(file, maxFileAmount) {
         elem.dataset.id = nextImgID.toString();
 
         //If this is the first image, which is added to the drop zone (FILES array), set it to the main image.
-        if (elem.name === "setMainBtn" && FILES.size <= 0) {
+        //We check both, if the FILES map size is 0 and the container does not contain any imgBox,
+        // because in editMode the already uploaded images will not be added to the FILES map.
+        if (elem.name === "setMainBtn" && FILES.size <= 0 && $("#imgRow").children().length === 0) {
             setMainImg(elem);
         }
     });
 
-    FILES.set(nextImgID, file);
+    FILES.set(nextImgID.toString(), file);
     nextImgID++;
 
     //Add the template to the DOM.
@@ -174,10 +189,11 @@ function filesChanged(fileElem, maxFileAmount) {
 /**
  * Removes an Image from the local FILES array and removed the image box from the DOM.
  * @param btnElem The delete button element of the image which should be deleted.
+ * @param isNewImg If this param is true, we delete an image, which is not uploaded yet.
  */
-function deleteImg(btnElem) {
+function deleteImg(btnElem, isNewImg) {
     //Get the intern image if from the button element
-    const _imgID = parseInt(btnElem.dataset.id);
+    const _imgID = btnElem.dataset.id;
 
     const imgBox = btnElem.parentElement;
     const imgContainer = imgBox.parentElement;
@@ -185,23 +201,35 @@ function deleteImg(btnElem) {
     //Remove the image box of this image from the DOM
     imgContainer.removeChild(imgBox);
 
-    //Delete the image from the FILES map
-    FILES.delete(_imgID);
+    if (!isNewImg) {
+        //Relevant path by editing products.
 
-    if (_imgID === parseInt(lastMainImgElem.dataset.id)) {
-        if (FILES.size > 0) {
+        DELETED_IMAGES_IDS.push(_imgID);
+
+        //Get the setMain btn of the image, in which to delete btn was pressed.
+        let deleteBtn = btnElem.nextElementSibling;
+        //It was the main image but was selected as one inside this script. This happens, because the element was created by php and not javascript.
+        if (deleteBtn.classList.contains("btn-success") && lastMainImgElem == null) {
+            lastMainImgElem = btnElem;
+        }
+    } else {
+        //Delete the image from the FILES map
+        FILES.delete(_imgID);
+    }
+
+    if (lastMainImgElem != null && _imgID === lastMainImgElem.dataset.id) {
+        if (FILES.size > 0 || $("#imgRow").children().length > 0) {
             //If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
             setMainImg(document.getElementsByName("setMainBtn")[0]);
         } else {
             //If the FILES array is empty, reset all variables.
             document.getElementById("mainImgID").value = "";
             lastMainImgElem = null;
-            mainImgID = -1;
+            mainImgID = null;
         }
     }
 
-    if (FILES.size === 0)
-        $("#dropTexts")[0].style.display = "block";
+    if (FILES.size === 0 && $("#imgRow").children().length === 0) $("#dropTexts")[0].style.display = "block";
 }
 
 /**
@@ -209,7 +237,7 @@ function deleteImg(btnElem) {
  * @param btnElem The button element, which is clicked.
  */
 function setMainImg(btnElem) {
-    if (lastMainImgElem === btnElem) return;
+    if (lastMainImgElem === btnElem || btnElem.classList.contains("btn-success")) return;
 
     //Change the button of the new main img
     btnElem.innerHTML = "Main";
@@ -224,7 +252,7 @@ function setMainImg(btnElem) {
     }
     //Update references
     lastMainImgElem = btnElem;
-    mainImgID = parseInt(btnElem.dataset.id);
+    mainImgID = btnElem.dataset.id;
 }
 
 /**

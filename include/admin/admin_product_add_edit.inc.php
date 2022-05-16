@@ -1,4 +1,3 @@
-
 <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card">
         <div class="card-header">
@@ -9,7 +8,11 @@
 
             <div class="form-group position-relative">
                 <label for="title">Product Title</label>
-                <input type="text" value="" name="title" id="title" class="form-control"
+                <input type="text" value="<?php
+                if (isset($product) && $product instanceof Product) {
+                    echo $product->getTitle();
+                }
+                ?>" name="title" id="title" class="form-control"
                        placeholder="A New Product Title"
                        required pattern="[a-zäöüA-ZÄÖÜ ,.'-]+">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
@@ -22,8 +25,13 @@
                 <div class="row">
                     <div class="col-md-7" style="display: flex">
                         <input id="selectedRadio" type="text" style="width: 450px" required disabled
-                               placeholder="Please select a category!">
-                        <div class="invalid-tooltip opacity-75">Please select a Category!
+                               placeholder="Please select a category!" value="<?php
+                        if (isset($category) && $category instanceof Category) {
+                            echo $category->getName();
+                        }
+                        ?>">
+                        <div class="invalid-tooltip opacity-75">
+                            Please select a Category!
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -35,19 +43,26 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="priceFilter">
                                 <!--TODO Rework -> tree like?; Replace button next with selected-->
-                                <?php foreach (CategoryController::getAll() as $category) { ?>
+                                <?php foreach (CategoryController::getAll() as $tmpCategory) { ?>
                                     <li>
                                         <div class="dropdown-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="cat"
-                                                       id="categoryRadios<?php echo $category->getId() ?>"
-                                                       value="<?php echo $category->getId() ?>" <?php if (isset($cat)) if (in_array($category->getId(), $cat)) echo "checked"; ?>
+                                                       id="categoryRadios<?php echo $tmpCategory->getId() ?>"
+                                                       value="<?php echo $tmpCategory->getId() ?>" <?php
+                                                if (isset($cat)){
+                                                    if (in_array($tmpCategory->getId(), $cat))
+                                                        echo "checked";
+                                                } else if(isset($category) && $category instanceof Category)
+                                                    if($tmpCategory->getId() == $category->getId())
+                                                        echo "checked";
+                                                ?>
                                                        required onclick="handleRadioUpdate(this)"
-                                                       data-name="<?= $category->getName() ?>">
+                                                       data-name="<?= $tmpCategory->getName() ?>">
                                                 <div class="p-0">
                                                     <label class="form-check-label"
-                                                           for="categoryRadios<?php echo $category->getId() ?>">
-                                                        <?= $category->getName(); ?>
+                                                           for="categoryRadios<?php echo $tmpCategory->getId() ?>">
+                                                        <?= $tmpCategory->getName(); ?>
                                                     </label>
                                                 </div>
                                             </div>
@@ -64,15 +79,23 @@
             <div class="form-group position-relative">
                 <label for="description">Product Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3"
-                          placeholder="My New Cool Product" required></textarea>
+                          placeholder="My New Cool Product" required><?php
+                    if (isset($product) && $product instanceof Product) {
+                        echo $product->getDescription();
+                    }
+                    ?></textarea>
                 <div class="invalid-tooltip opacity-75">Please add a Product text!</div>
             </div>
 
             <div class="form-group position-relative">
                 <label for="price">Price</label>
                 <div class="input-group p-0">
-                    <input type="number" id="price" name="price" value="0.00" step='0.01' class="form-control"
-                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$">
+                    <input type="number" id="price" name="price" value="<?php
+                    if (isset($product) && $product instanceof Product) {
+                        echo $product->getPrice();
+                    }
+                    ?>" step='0.01' class="form-control"
+                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00">
                     <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                 </div>
@@ -81,8 +104,12 @@
                 <div class="form-group position-relative">
                     <label for="shipping">Shipping Cost</label>
                     <div class="input-group p-0">
-                        <input type="number" id="shipping" name="shipping" value="0.00" step='0.01'
-                               class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$">
+                        <input type="number" id="shipping" name="shipping" placeholder="3.50" step='0.01'
+                               class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" value="<?php
+                        if (isset($product) && $product instanceof Product) {
+                            echo $product->getShippingCost();
+                        }
+                        ?>">
                         <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
                         <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                     </div>
@@ -92,8 +119,12 @@
                     <label for="stock">Stock</label>
                     <div class="input-group p-0">
                         <div class="input-group p-0">
-                            <input type="number" id="stock" name="stock" class="form-control" value="0" required
-                                   pattern="[1-9][0-9]*|0">
+                            <input type="number" id="stock" name="stock" class="form-control" placeholder="42" required
+                                   pattern="[1-9][0-9]*|0" value="<?php
+                            if (isset($product) && $product instanceof Product) {
+                                echo $product->getStock();
+                            }
+                            ?>">
                             <span class="input-group-text">Pcs.</span>
                             <div class="invalid-tooltip opacity-75">Please choose a correct stock amount!</div>
                         </div>
@@ -106,7 +137,21 @@
                     <label for="pictures" class="form-label fs-4">Product Images</label>
                     <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
                          ondragover="dragOverHandler(event)">
-                        <div class="drop-texts" id="dropTexts">
+                        <?php
+                        if (isset($product) && $product instanceof Product) {
+                            $mainImg = $product->getMainImg();
+                            $allIMGsArray = $product->getAllImgsOrNull();
+                            if($allIMGsArray != null)
+                                $allIMGs = array_slice($allIMGsArray, 0, MAX_IMAGE_PER_PRODUCT);
+                        }
+                        ?>
+                        <div class="drop-texts" id="dropTexts"
+
+                            <?php
+                            //Hide the text, if we add images to the dropZone
+                            if (isset($allIMGs) && sizeof($allIMGs) > 0): ?>
+                                style="display: none"
+                            <?php endif; ?> >
                             <span class="drop-text">Click here or drag and drop file</span>
                         </div>
                         <input class="file-input" type="file" id="files" name="files[]" multiple
@@ -114,11 +159,32 @@
 
                         <section class="container py-3" id="imgContainer">
                             <div id="imgRow" class="row jcenter">
+
+                                <?php
+                                if (isset($allIMGs)) {
+                                    //Set the variable isNewImg to false, which is used by the template to define, if a tag is set.
+                                    $isNewImg = false;
+                                    foreach ($allIMGs as $img) {
+                                        $imgPaths = explode(DS, $img);
+                                        $imgID = end($imgPaths);
+                                        if (isset($mainImg) && $img == $mainImg) {
+                                            $isMainImg = true;
+                                        }
+                                        require INCLUDE_DIR . DS . "admin" . DS . "admin_product_img.inc.php";
+                                        $isMainImg = null;
+                                    }
+                                    //Reset the variable, which is used by the template.
+                                    $isNewImg = null;
+                                }
+                                ?>
+
                             </div>
                         </section>
                     </div>
 
-                    <input name="mainImgID" id="mainImgID" type="hidden" value="0">
+                    <input name="mainImgID" id="mainImgID" type="hidden">
+                    <!--Only relevant in edit mode. contains all deleted image indexes  -->
+                    <input name="deletedImgIDs[]" id="deletedImgIDs" type="hidden">
                 </div>
 
                 <br>

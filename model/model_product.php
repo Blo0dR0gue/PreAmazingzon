@@ -244,6 +244,54 @@ class Product
         return $this->categoryID;
     }
 
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param int $stock
+     */
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+    /**
+     * @param float $shippingCost
+     */
+    public function setShippingCost(float $shippingCost): void
+    {
+        $this->shippingCost = $shippingCost;
+    }
+
+    /**
+     * @param int|null $categoryID
+     */
+    public function setCategoryID(?int $categoryID): void
+    {
+        $this->categoryID = $categoryID;
+    }
+
     // endregion
 
 
@@ -276,12 +324,18 @@ class Product
         return [IMAGE_DIR . DS . "products" . DS . "notfound.jpg"];
     }
 
+    public function getAllImgsOrNull(): ?array{
+        $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");
+        if (count($images) !== 0) return $images;
+        return null;
+    }
+
     // endregion
 
 
     public function insert(): ?Product
     {
-        $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category) 
+        $stmt = getDB()->prepare("INSERT INTO Product(title, description, price, stock, shippingCost, category) 
                                         VALUES (?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("ssdidi",
             $this->title,
@@ -300,9 +354,29 @@ class Product
         return self::getById($newId);
     }
 
-    public function update(): void
+    public function update(): ?Product
     {
-        // TODO
+        $stmt = getDB()->prepare("UPDATE Product 
+                                    SET title = ?,
+                                        description = ?,
+                                        price = ?,
+                                        shippingCost = ?,
+                                        stock = ?,
+                                        category = ?
+                                    WHERE id = ?;");
+        $stmt->bind_param("ssddiii",
+            $this->title,
+            $this->description,
+            $this->price,
+            $this->shippingCost,
+            $this->stock,
+            $this->categoryID,
+            $this->id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return self::getById($this->id);
     }
 
     public function delete(): void

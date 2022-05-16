@@ -10,9 +10,61 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
 
+$productID = $_GET["id"];
+if (isset($productID) && is_numeric($productID)) {
+    $product = ProductController::getByID(intval($productID));
+
+    if (!isset($product)) {
+        header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php"); //Redirect, if no product is found.
+        die();
+    }
+
+    $category = CategoryController::getById($product->getCategoryID());
+    //Variable, which is used by the radio buttons
+    //$cat = $category;
+
+} else {
+    header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php"); //Redirect, if no number is passed.
+    die();
+}
+
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
-//TODO form val
+if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"]) && is_numeric($_POST["price"])
+    && isset($_POST["shipping"]) && is_numeric($_POST["shipping"]) && isset($_POST["stock"]) && is_numeric($_POST["stock"]) && $isPost) {
+
+    $product = ProductController::update(
+        $product,
+        $_POST["title"],
+        $_POST["cat"],
+        $_POST["description"],
+        $_POST["price"],
+        $_POST["shipping"],
+        $_POST["stock"],
+    );
+
+    if (isset($product)) {
+
+        $error = ProductController::deleteSelectedImages($product->getId(), $_POST["deletedImgIDs"]);
+
+        if (!$error) {
+            $error = ProductController::updateMainImg($product->getId(), $_POST["mainImgID"]);
+
+            if (!$error) {
+
+                $error = ProductController::uploadImages($product->getId(), $_FILES["files"] ?? null, $_POST["mainImgID"]);
+
+                if (!$error) {
+                    header("LOCATION: " . ADMIN_PAGES_DIR . DS . 'page_products.php');  // go to admin products page
+                    //TODO success msg?
+                    die();
+                }
+
+            }
+        }
+    }
+    $processingError = true;
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +88,7 @@ $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
 
-    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php";?>
+    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php"; ?>
 
 </main>
 
@@ -47,7 +99,7 @@ $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 <?php
 if (isset($processingError)) {   // processing error
     show_popup(
-        "Add Product Error",
+        "Edit Product Error",
         "ALARM" //TODO
     );
 }
