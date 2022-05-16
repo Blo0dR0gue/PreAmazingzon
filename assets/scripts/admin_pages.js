@@ -50,7 +50,7 @@ function dragOverHandler(ev) {
 function getTemplate(templateSelector) {
     let fragment = document.createDocumentFragment();;
     $.ajax({
-        url: "../../include/admin_product_img.inc.php",
+        url: "../../include/admin/admin_product_img.inc.php",
         type: "GET",
         dataType: "html",
         async: false,
