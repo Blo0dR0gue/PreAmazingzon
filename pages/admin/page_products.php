@@ -50,12 +50,18 @@ $products = ProductController::getProductsInRange($offset, $amount);
 
     <!--Toolbar -->
     <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3"
-         id="toolbar"></div>
-    <a href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>" class="btn btn-success btn-sm"
-       data-toggle="tooltip" data-placement="left"
-       title="Add a new product">
-        <i class="fa fa-plus"></i>
-    </a>    <hr>
+         id="toolbar">
+        <div class="btn-group" role="group" style="margin-left: 5px;">
+            <a type="button" class="btn btn-success"
+                    href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>"><i class="fa fa-plus"></i> Add a
+                product
+            </a>
+            <a type="button" class="btn btn-secondary">Middle</a>
+            <a type="button" class="btn btn-secondary">Right</a>
+        </div>
+    </div>
+
+    <hr>
 
     <table class="table">
         <thead class="thead-light">
@@ -84,7 +90,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
                     <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete product"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Product: " . $product->getTitle() . ", with the ID: " . $product->getId() . "?'" ?>,
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=".$product->getId()); ?>')">
+                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
                         <i class="fa fa-trash "></i>
                         <!-- TODO do link -->
                     </a>
@@ -152,9 +158,9 @@ $products = ProductController::getProductsInRange($offset, $amount);
 <?php
 if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // login error
     $msg = "";
-    if(isset($_GET["deleted"])){
+    if (isset($_GET["deleted"])) {
         $msg = "The product got deleted!";
-    }else if(isset($_GET["other"])){
+    } else if (isset($_GET["other"])) {
         $msg = "test";  //TODO remove
     }
 
