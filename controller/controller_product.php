@@ -74,7 +74,39 @@ class ProductController
      * @return bool true, if the product got deleted.
      */
     public static function delete(Product $product): bool {
-        return $product->delete();
+        $productDeleted = $product->delete();
+
+        if($productDeleted){
+            self::deleteAllImages($product->getId());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Deletes all images of the passed product id.
+     * @param int $productID The product id
+     * @return void
+     */
+    private static function deleteAllImages(int $productID): void {
+        $targetDir = IMAGE_PRODUCT_DIR . DS . $productID;
+        if(file_exists($targetDir) && is_dir($targetDir)){
+            self::removeDirectoryRec($targetDir);
+        }
+    }
+
+    /**
+     * Deletes a directory with all subfolders and files.
+     * @param string $path
+     * @return void
+     */
+    private static function removeDirectoryRec(string $path): void
+    {
+        $files = glob($path . '/*');
+        foreach ($files as $file) {
+            is_dir($file) ? self::removeDirectoryRec($file) : unlink($file);
+        }
+        rmdir($path);
     }
 
     /**

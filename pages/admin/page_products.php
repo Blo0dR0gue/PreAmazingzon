@@ -50,9 +50,12 @@ $products = ProductController::getProductsInRange($offset, $amount);
 
     <!--Toolbar -->
     <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3"
-         id="filter"></div>
-
-    <hr>
+         id="toolbar"></div>
+    <a href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>" class="btn btn-success btn-sm"
+       data-toggle="tooltip" data-placement="left"
+       title="Add a new product">
+        <i class="fa fa-plus"></i>
+    </a>    <hr>
 
     <table class="table">
         <thead class="thead-light">
