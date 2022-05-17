@@ -176,7 +176,6 @@ class Product
      */
     public static function getAmountOfProducts(?string $searchString): int
     {
-        $sql = "";
         if(isset($searchString)){
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
