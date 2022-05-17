@@ -25,6 +25,17 @@ const DISCOUNT_VARIATION = 50;
  * Max number of images per product shown on product detail page, inclusive the main image.
  */
 const MAX_IMAGE_PER_PRODUCT = 6;
+
+/**
+ * Defines, how many items are displayed on a page. For example, how many products are showed on one page on the all products page.
+ */
+const LIMIT_OF_SHOWED_ITEMS = 8;
+
+/**
+ * Defines, how many pagination links are on the left and right side of the current page.
+ */
+const PAGINATION_RANGE = 2;
+
 // endregion
 
 // region ########## Central Strings ##########
