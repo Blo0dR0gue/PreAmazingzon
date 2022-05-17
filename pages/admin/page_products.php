@@ -19,7 +19,7 @@ $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
 // Calculate offset for pagination
 $offset = ($page - 1) * $amount;
 // Get the total Amount of Products
-$productCount = ProductController::getAmountOfProducts();
+$productCount = ProductController::getAmountOfProducts(null);   //TODO search?
 // Calculate the total amount of pages
 $totalPages = ceil($productCount/$amount);
 

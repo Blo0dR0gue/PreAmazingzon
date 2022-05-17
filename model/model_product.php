@@ -153,9 +153,10 @@ class Product
     {
         $products = [];
 
+        $searchFilter = strtolower($searchString);
         $searchString = "%$searchString%";
 
-        $stmt = getDB()->prepare("SELECT DISTINCT p.id from product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;");
+        $stmt = getDB()->prepare("SELECT DISTINCT p.id from product as p LEFT OUTER JOIN Category as c on p.category = c.id where LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -170,14 +171,16 @@ class Product
 
     /**
      * Returns the amounts of products stored in the database using a filter, if it is defined.
-     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @param string|null $searchString A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
      * @return int  The amount of found products
      */
-    public static function getAmountOfProducts(?string $searchFilter): int
+    public static function getAmountOfProducts(?string $searchString): int
     {
         $sql = "";
-        if(isset($searchFilter)){
-            $sql = "SELECT COUNT(DISTINCT p.id) as count from product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;";
+        if(isset($searchString)){
+            $searchFilter = strtolower($searchString);
+            $searchString = "%$searchString%";
+            $sql = "SELECT COUNT(DISTINCT p.id) as count from product as p LEFT OUTER JOIN Category as c on p.category = c.id where LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
         }else{
             $sql = "SELECT COUNT(DISTINCT id) as count from product;";
         }
