@@ -12,6 +12,19 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
 
+// Max amount of showed Items
+$amount = LIMIT_OF_SHOWED_ITEMS;
+// Current pagination page number
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+// Calculate offset for pagination
+$offset = ($page - 1) * $amount;
+// Get the total Amount of Products
+$productCount = ProductController::getAmountOfProducts();
+// Calculate the total amount of pages
+$totalPages = ceil($productCount/$amount);
+
+$products = ProductController::getProductsInRange($offset, $amount);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +67,6 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
         </thead>
         <tbody>
         <?php
-        $products = ProductController::getAllProducts();
         foreach ($products as $product):
             ?>
             <tr>
@@ -99,6 +111,9 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
     </table>
 
 </main>
+
+<!-- pagination -->
+<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
