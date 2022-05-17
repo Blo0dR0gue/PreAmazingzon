@@ -191,7 +191,7 @@
                 <br>
 
                 <div class="card-footer">
-                    <a href="<?= ROOT_DIR ?>" class="btn btn-danger">Abort</a>
+                    <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
                     <button class="btn btn-success">Save</button>
                 </div>
             </div>
