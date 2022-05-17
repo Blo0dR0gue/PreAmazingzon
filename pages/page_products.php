@@ -44,7 +44,7 @@ if (isset($_GET["search"])) {
             <?php
             foreach ($products as $product) {
                 require INCLUDE_DIR . DS . "elem_product_card.inc.php";
-            }
+            }//TODO show msg, if no product is available
             ?>
         </div>
     </section>

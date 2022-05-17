@@ -37,7 +37,7 @@
             require CONTROLLER_DIR . DS . "controller_product.php";
             foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
                 require INCLUDE_DIR . DS . "elem_product_card.inc.php";
-            }
+            }//TODO show msg, if no product is available
             ?>
         </div>
     </section>
