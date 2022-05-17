@@ -1,4 +1,4 @@
-<!--Represents an uploaded file in the edit or add product page-->
+<!--Represents an uploaded file in the edit or add product page //TODO Comments-->
 <div class="img-box">
     <img src="<?= $img ?? "" ?>"
          class="tbl-img" alt="product_img">

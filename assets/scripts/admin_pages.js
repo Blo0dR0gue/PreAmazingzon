@@ -55,7 +55,7 @@ function getTemplate(templateSelector) {
         dataType: "html",
         async: false,
         success: function (data) {
-            console.log($(data));
+            //console.log($(data));
             //The container is at position 2 in this jquery object //TODO dynamic search for this div
             fragment.appendChild($(data)[2]);
         }
@@ -74,7 +74,7 @@ const DELETED_IMAGES_IDS = [];
 /**
  * The dom-element of the current selected main image.
  */
-let lastMainImgElem = document.getElementsByClassName("btn btn-success btn-sm")[0];
+let lastMainImgElem = $(".btn.btn-success.btn-sm")[0];
 /**
  * The data-id if the current selected main image.
  */
@@ -220,15 +220,16 @@ function deleteImg(btnElem, isNewImg) {
     if (lastMainImgElem != null && _imgID === lastMainImgElem.dataset.id) {
         if (FILES.size > 0 || $("#imgRow").children().length > 0) {
             //If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
-            setMainImg(document.getElementsByName("setMainBtn")[0]);
+            setMainImg($("button[name='setMainBtn']")[0]);
         } else {
-            //If the FILES array is empty, reset all variables.
-            document.getElementById("mainImgID").value = "";
+            //If no image is inside the dropArea, reset all variables.
+            $("#mainImgID").value = null;
             lastMainImgElem = null;
             mainImgID = null;
         }
     }
 
+    //If no image is added or no image is already uploaded.
     if (FILES.size === 0 && $("#imgRow").children().length === 0) $("#dropTexts")[0].style.display = "block";
 }
 
@@ -261,5 +262,5 @@ function setMainImg(btnElem) {
  * @param myRadio The radio input element.
  */
 function handleRadioUpdate(myRadio) {
-    document.getElementById("selectedRadio").value = myRadio.dataset.name;
+    $("#selectedRadio")[0].value = myRadio.dataset.name;
 }

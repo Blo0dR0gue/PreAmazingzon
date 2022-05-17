@@ -149,9 +149,9 @@ class ProductController
         $pictureID = "";
         if ($isMainImg) {
             self::removeAllMainImgTags($productID);
-            $pictureID = self::generateRandomImageName() . ($imageCounter + 1) . "main";
+            $pictureID = ($imageCounter + 1) . "_" . self::generateRandomImageName() . "main";
         } else {
-            $pictureID = self::generateRandomImageName() . $imageCounter + 1;
+            $pictureID = ($imageCounter + 1) . "_" . self::generateRandomImageName();
         }
 
         $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;
