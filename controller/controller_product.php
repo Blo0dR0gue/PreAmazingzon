@@ -69,7 +69,7 @@ class ProductController
     }
 
     /**
-     * Deletes a product from the database
+     * Deletes a product from the database and all its images.
      * @param Product $product The product, which should be deleted
      * @return bool true, if the product got deleted.
      */
