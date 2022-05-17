@@ -19,6 +19,7 @@ $totalPages = ceil($productCount/$amount);
 $products = [];
 
 if (isset($_GET["search"])) {
+    //TODO search pagination
     $products = ProductController::searchProducts($_GET["search"]);
 } else {
     $products = ProductController::getProductsInRange($offset, $amount);
