@@ -168,6 +168,24 @@ class Product
         return $products;
     }
 
+    /**
+     * Returns the amounts of products stored in the database.
+     * @return int The amount of products
+     */
+    public static function getAmountOfProducts(): int
+    {
+        $stmt = getDB()->prepare("SELECT COUNT(id) as count from product;");
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
     // region getter & setter
 
     /**
@@ -324,7 +342,8 @@ class Product
         return [IMAGE_DIR . DS . "products" . DS . "notfound.jpg"];
     }
 
-    public function getAllImgsOrNull(): ?array{
+    public function getAllImgsOrNull(): ?array
+    {
         $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");
         if (count($images) !== 0) return $images;
         return null;

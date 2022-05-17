@@ -8,6 +8,34 @@ require_once MODEL_DIR . DS . "model_category.php";
 class ProductController
 {
 
+    public static function searchProducts(string $search): array
+    {// TODO validation
+        return Product::searchProducts($search);
+    }
+
+    public static function getAllProducts(): array
+    {
+        return Product::getAllProducts();
+    }
+
+    public static function getProductsInRange(int $offset = 0, int $amount = 8): array
+    {
+        return Product::getProductsInRange($offset, $amount);
+    }
+
+    public static function getRandomProducts(int $amount = 4): array
+    {
+        return Product::getRandomProducts($amount);
+    }
+
+    public static function getByID(int $productID): ?Product
+    {
+        if ($productID == null || $productID == 0)
+            return null;
+
+        return Product::getByID($productID);
+    }
+
     public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
     {
         $product->setCategoryID($categoryID);
@@ -18,16 +46,6 @@ class ProductController
         $product->setStock($stock);
 
         return $product->update();
-    }
-
-    private static function generateRandomImageName($length = 10): string {
-        $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
     }
 
     public static function addNew(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
@@ -48,6 +66,14 @@ class ProductController
         if (!$product) return null;
 
         return $product;
+    }
+
+    /**
+     * Returns the amounts of products stored in the database.
+     * @return int The amount of products
+     */
+    public static function getAmountOfProducts(): int {
+        return Product::getAmountOfProducts();
     }
 
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
@@ -163,31 +189,13 @@ class ProductController
         return true;
     }
 
-    public static function searchProducts(string $search): array
-    {// TODO validation
-        return Product::searchProducts($search);
-    }
-
-    public static function getAllProducts(): array
-    {
-        return Product::getAllProducts();
-    }
-
-    public static function getProductsInRange(int $offset = 0, int $amount = 8): array
-    {
-        return Product::getProductsInRange($offset, $amount);
-    }
-
-    public static function getRandomProducts(int $amount = 4): array
-    {
-        return Product::getRandomProducts($amount);
-    }
-
-    public static function getByID(int $productID): ?Product
-    {
-        if ($productID == null || $productID == 0)
-            return null;
-
-        return Product::getByID($productID);
+    private static function generateRandomImageName($length = 10): string {
+        $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

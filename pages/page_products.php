@@ -5,10 +5,18 @@ require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_review.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
 
-$products = [];
+// Max amount of showed Items
+$amount = LIMIT_OF_SHOWED_ITEMS;
+// Current pagination page number
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+// Calculate offset for pagination
+$offset = ($page - 1) * $amount;
+// Get the total Amount of Products
+$productCount = ProductController::getAmountOfProducts();
+// Calculate the total amount of pages
+$totalPages = ceil($productCount/$amount);
 
-$offset = $_GET["offset"] ?? 0;
-$amount = $_GET["amount"] ?? 8; // TODO remove hardcoded value?
+$products = [];
 
 if (isset($_GET["search"])) {
     $products = ProductController::searchProducts($_GET["search"]);
@@ -41,6 +49,8 @@ if (isset($_GET["search"])) {
         </div>
     </section>
 </main>
+
+<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
