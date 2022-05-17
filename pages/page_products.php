@@ -51,6 +51,7 @@ if (isset($_GET["search"])) {
     </section>
 </main>
 
+<!-- pagination -->
 <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
