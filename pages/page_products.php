@@ -44,7 +44,7 @@ if (isset($_GET["search"])) {
             <?php
             foreach ($products as $product) {
                 require INCLUDE_DIR . DS . "elem_product_card.inc.php";
-            }//TODO only show x amount
+            }
             ?>
         </div>
     </section>
