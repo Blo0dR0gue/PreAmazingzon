@@ -69,11 +69,13 @@ class ProductController
     }
 
     /**
-     * Returns the amounts of products stored in the database.
-     * @return int The amount of products
+     * Returns the amounts of products stored in the database using a filter, if it is defined.
+     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @return int  The amount of found products
      */
-    public static function getAmountOfProducts(): int {
-        return Product::getAmountOfProducts();
+    public static function getAmountOfProducts(?string $searchFilter): int
+    {
+        return Product::getAmountOfProducts($searchFilter);
     }
 
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
@@ -189,7 +191,8 @@ class ProductController
         return true;
     }
 
-    private static function generateRandomImageName($length = 10): string {
+    private static function generateRandomImageName($length = 10): string
+    {
         $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

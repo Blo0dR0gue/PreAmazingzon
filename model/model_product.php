@@ -169,12 +169,24 @@ class Product
     }
 
     /**
-     * Returns the amounts of products stored in the database.
-     * @return int The amount of products
+     * Returns the amounts of products stored in the database using a filter, if it is defined.
+     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @return int  The amount of found products
      */
-    public static function getAmountOfProducts(): int
+    public static function getAmountOfProducts(?string $searchFilter): int
     {
-        $stmt = getDB()->prepare("SELECT COUNT(id) as count from product;");
+        $sql = "";
+        if(isset($searchFilter)){
+            $sql = "SELECT COUNT(DISTINCT p.id) as count from product as p LEFT OUTER JOIN Category as c on p.category = c.id where p.description LIKE ? OR p.title LIKE ? OR c.name LIKE ?;";
+        }else{
+            $sql = "SELECT COUNT(DISTINCT id) as count from product;";
+        }
+        $stmt = getDB()->prepare($sql);
+
+        if(isset($searchFilter)){
+            $stmt->bind_param("sss", $searchString, $searchString, $searchString);
+        }
+
         if (!$stmt->execute()) return 0;     // TODO ERROR handling
 
         // get result
