@@ -412,9 +412,21 @@ class Product
         return self::getById($this->id);
     }
 
-    public function delete(): void
+
+    /**
+     * Deletes itself from the database.
+     * @return bool true, if the product got deleted.
+     */
+    public function delete(): bool
     {
-        // TODO
+        $stmt = getDB()->prepare("DELETE FROM product WHERE id = ?;");
+        $stmt->bind_param("i",
+            $this->id);
+        if (!$stmt->execute()) return false;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return self::getById($this->id) == null;
     }
 
 }

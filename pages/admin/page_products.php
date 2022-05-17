@@ -21,7 +21,7 @@ $offset = ($page - 1) * $amount;
 // Get the total Amount of Products
 $productCount = ProductController::getAmountOfProducts(null);   //TODO search?
 // Calculate the total amount of pages
-$totalPages = ceil($productCount/$amount);
+$totalPages = ceil($productCount / $amount);
 
 $products = ProductController::getProductsInRange($offset, $amount);
 
@@ -31,6 +31,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
     <title>Admin - Products</title>
 
     <!-- file specific includes-->
@@ -39,7 +40,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -48,7 +49,8 @@ $products = ProductController::getProductsInRange($offset, $amount);
     <hr>
 
     <!--Toolbar -->
-    <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3" id="filter"></div>
+    <div class="d-flex flex-wrap flex-row align-items-middle border-top border-bottom border-2 pt-3 pb-3"
+         id="filter"></div>
 
     <hr>
 
@@ -71,12 +73,15 @@ $products = ProductController::getProductsInRange($offset, $amount);
             ?>
             <tr>
                 <td style="vertical-align: middle;">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>" class="btn btn-success btn-sm"
+                       data-toggle="tooltip" data-placement="left"
                        title="Add a new product">
                         <i class="fa fa-plus"></i>
                     </a>
-                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
-                       title="Delete product">
+                    <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
+                       title="Delete product"
+                       onclick="openConfirmModal(<?= "'Do you really want to delete the Product: " . $product->getTitle() . ", with the ID: " . $product->getId() . "?'" ?>,
+                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=".$product->getId()); ?>')">
                         <i class="fa fa-trash "></i>
                         <!-- TODO do link -->
                     </a>
@@ -110,6 +115,27 @@ $products = ProductController::getProductsInRange($offset, $amount);
         </tbody>
     </table>
 
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmModalBody">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="onConfirm()">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="<?= SCRIPT_DIR . DS . "modal_confirm_popup.js" ?>"></script>
+
 </main>
 
 <!-- pagination -->
@@ -117,6 +143,24 @@ $products = ProductController::getProductsInRange($offset, $amount);
 
 <!-- footer -->
 <?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+
+
+<!-- show info popup -->
+<?php
+if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // login error
+    $msg = "";
+    if(isset($_GET["deleted"])){
+        $msg = "The product got deleted!";
+    }else if(isset($_GET["other"])){
+        $msg = "test";  //TODO remove
+    }
+
+    show_popup(
+        "Products",
+        $msg
+    );
+}
+?>
 
 </body>
 </html>

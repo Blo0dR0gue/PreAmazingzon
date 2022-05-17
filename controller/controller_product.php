@@ -69,6 +69,15 @@ class ProductController
     }
 
     /**
+     * Deletes a product from the database
+     * @param Product $product The product, which should be deleted
+     * @return bool true, if the product got deleted.
+     */
+    public static function delete(Product $product): bool {
+        return $product->delete();
+    }
+
+    /**
      * Returns the amounts of products stored in the database using a filter, if it is defined.
      * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
      * @return int  The amount of found products
