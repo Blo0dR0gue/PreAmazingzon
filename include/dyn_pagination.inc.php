@@ -1,5 +1,6 @@
 <!--Adds a dynamic pagination to a site-->
-<?php if (isset($page) && isset($totalPages)): ?>
+<?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
+
     <nav aria-label="Page navigation example mt-5">
         <ul class="pagination justify-content-center">
 
@@ -14,25 +15,24 @@
                    } ?>">Previous</a>
             </li>
 
-            <li class="page-item <?php if ($page == 1) {
-                echo 'active';
-            } ?>">
-                <a class="page-link" href="index.php?page=1"></a>
-            </li>
-
             <?php
             //Calculate the ranges for the showed pagination links
-            if (($page - PAGINATION_RANGE) <= 1) {
-                $start_x = 1;
-                $end_x = 5;
-            } else if ($page >= ($totalPages - PAGINATION_RANGE)) {
-                $start_x = $totalPages - 4;
-                $end_x = $totalPages;
-            } else {
-                $start_x = $page - PAGINATION_RANGE;
-                $end_x = $page + PAGINATION_RANGE;
-            }
+            $start_x = $page - PAGINATION_RANGE;
+            $end_x = $page + PAGINATION_RANGE;
             ?>
+
+            <?php if ($start_x > 1): ?>
+
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page=1">1</a>
+                </li>
+
+                <li class="page-item disabled">
+                    <a class="page-link">...</a>
+                </li>
+
+            <?php endif; ?>
 
             <?php
             // loop to show links to range of pages around current page
@@ -53,15 +53,22 @@
             endfor;
             ?>
 
-            <li class="page-item <?php if ($page == $totalPages) {
-                echo 'active';
-            } ?>">
-                <a class="page-link" href="?page=<?= $totalPages ?></a>
-            </li>
+            <?php if ($end_x < $totalPages && $end_x != $start_x): ?>
+
+                <li class="page-item disabled">
+                    <a class="page-link">...</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+                </li>
+
+            <?php endif; ?>
 
             <li class=" page-item <?php if ($page >= $totalPages) {
-                    echo 'disabled';
-                } ?>">
+                echo 'disabled';
+            } ?>">
                 <a class="page-link"
                    href="<?php if ($page >= $totalPages) {
                        echo '#';
