@@ -17,6 +17,7 @@ Project developed by:
 ## Getting Started
 
 The project is designed to be executed in a local xampp installation or via GitPot.
+For setting up the MySQL database there is an 'install.sql' file located in the project root.
 
 ## Technical Details
 
@@ -30,19 +31,32 @@ The following libraries or APIs are used in the project:
 * [Bootstrap](https://getbootstrap.com/) CSS & (JS): for styling and GUI related things
 * [Popper](https://popper.js.org/): for better tooltips (recommended by Bootstrap)
 
+### Dir-Structure
+
+| Dir         | Description                                            |
+|-------------|--------------------------------------------------------|
+| assets      | Other assets , e. g. config files, images, js and css. |
+| controller  | Controller skripts as part of the MVC.                 |
+| include     | Scripts and elements included in pages.                |
+| model       | Model skripts as part of the MVC.                      |
+| pages       | Sub pages of the website.                              |
+| index.php   | Main entry point of the website.                       |
+| install.sql | File for setting up the MySQL database.                |
+| README.md   | Markdown file giving basic information to the project. |
+
+
 ### Database
 
 Following the design of the database using [MySQL Workbench](https://www.mysql.com/de/products/workbench/):
 ![](assets/images/database_design.png)
 
-### Dir-Structure
+### Test Data
 
-| Dir                               | Description                                            |
-|-----------------------------------|--------------------------------------------------------|
-| assets                            | Other assets , e. g. config files, images, js and css. |
-| controller                        | Controller skripts as part of the MVC.                 |
-| include                           | Scripts and elements included in pages.                |
-| model                             | Model skripts as part of the MVC.                      |
-| pages                             | Sub pages of the website.                              |
-| index.php                         | Main entry point of the website.                       |
-| README.md                         | Markdown file giving basic information to the project. |
+The project comes with some test data already inserted into the database by the install-sql-script.
+Important values are:
+
+#### predefined Users:
+| Role        | Email/Username | Password   |
+|-------------|----------------|------------|
+| normal user | user@user.de   | sh7up#KT!  |
+| admin       | admin@admin.de | sh7up#KT!  |
