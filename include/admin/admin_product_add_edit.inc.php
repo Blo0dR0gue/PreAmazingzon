@@ -23,56 +23,23 @@
             <div class="form-group position-relative">
 
                 <label for="selectedRadio">Category</label>
-                <div class="row">
-                    <div class="col-md-7" style="display: flex">
-                        <input id="selectedRadio" type="text" style="width: 450px" required disabled
-                               placeholder="Please select a category!" value="<?php
-                        if (isset($category) && $category instanceof Category) {
-                            echo $category->getName();
-                        }
-                        ?>">
-                        <div class="invalid-tooltip opacity-75">
-                            Please select a Category!
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="p-0 dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="priceFilter"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
-                                <!-- TODO do link -->
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="priceFilter">
-                                <!--TODO Rework -> tree like?; Replace button next with selected-->
-                                <?php foreach (CategoryController::getAll() as $tmpCategory) { ?>
-                                    <li>
-                                        <div class="dropdown-item">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="cat"
-                                                       id="categoryRadios<?php echo $tmpCategory->getId() ?>"
-                                                       value="<?php echo $tmpCategory->getId() ?>" <?php
-                                                if (isset($cat)){
-                                                    if (in_array($tmpCategory->getId(), $cat))
-                                                        echo "checked";
-                                                } else if(isset($category) && $category instanceof Category)
-                                                    if($tmpCategory->getId() == $category->getId())
-                                                        echo "checked";
-                                                ?>
-                                                       required onclick="handleRadioUpdate(this)"
-                                                       data-name="<?= $tmpCategory->getName() ?>">
-                                                <div class="p-0">
-                                                    <label class="form-check-label"
-                                                           for="categoryRadios<?php echo $tmpCategory->getId() ?>">
-                                                        <?= $tmpCategory->getName(); ?>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
+                <select class="form-select" aria-label="Default select example" name="cat" required>
+                    <!--TODO Rework -> tree like?; Replace button next with selected-->
+                    <option value="">Open this select menu</option>
+                    <?php foreach (CategoryController::getAll() as $tmpCategory): ?>
+                        <option value="<?= $tmpCategory->getId(); ?>" <?php
+                        if (isset($cat)) {
+                            if (in_array($tmpCategory->getId(), $cat))
+                                echo "selected";
+                        } else if (isset($category) && $category instanceof Category)
+                            if ($tmpCategory->getId() == $category->getId())
+                                echo "selected";
+                        ?>> <?= $tmpCategory->getName(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="invalid-tooltip opacity-75">
+                    Please select a Category!
                 </div>
 
             </div>
@@ -142,7 +109,7 @@
                         if (isset($product) && $product instanceof Product) {
                             $mainImg = $product->getMainImg();
                             $allIMGsArray = $product->getAllImgsOrNull();
-                            if($allIMGsArray != null)
+                            if ($allIMGsArray != null)
                                 $allIMGs = array_slice($allIMGsArray, 0, MAX_IMAGE_PER_PRODUCT);
                         }
                         ?>
