@@ -1,10 +1,14 @@
 <!--Page to show all products and searched products -->
+<!-- TODO comment -->
+
 <?php
 require_once "../include/site_php_head.inc.php";
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_review.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
+?>
 
+<?php
 // Max amount of showed Items
 $amount = LIMIT_OF_SHOWED_ITEMS;
 // Current pagination page number
@@ -23,7 +27,6 @@ if (isset($_GET["search"])) {
 } else {
     $products = ProductController::getProductsInRange($offset, $amount);
 }
-
 ?>
 
 <!DOCTYPE html>
