@@ -67,11 +67,10 @@ if (isset($productID) && is_numeric($productID)) {
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
-                <p class="small mb-2"><a href="#" class="text-muted"><?= CategoryController::getCategoryPathAsString($product) ?></a>
+                <p class="small mb-2"><a href="#" class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
                 <!-- TODO make link work -->
                 <!-- TODO no category string? -->
                 </p>
-
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
 

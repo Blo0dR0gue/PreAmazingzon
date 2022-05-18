@@ -80,6 +80,68 @@ class Category
         return new Category($res["id"], $name, $res["description"], $res["parent"]);
     }
 
+    public static function getPathToCategory(int $categoryID): string
+    {
+        $stmt = getDB()->prepare("with recursive tree as (
+                       select *, id as root_category, concat('', name) as category_path
+                       from category
+                       where category.parent is null
+                       union all
+                       select c.*, p.root_category, concat(p.category_path, ' > ', c.name)
+                       from category c
+                                join tree p on c.parent = p.id
+                   )
+                    select t.root_category,
+                           t.category_path
+                    from tree t
+                    WHERE t.id = ?;");
+        $stmt->bind_param("i", $categoryID);
+        if (!$stmt->execute()) return "";     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return "";
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["category_path"];
+    }
+
+
+    public static function getCategoryTree(): array
+    {
+        $categoryIDs = [];
+
+        $stmt = getDB()->prepare("with recursive tree as (
+                       select *, id as root_category, concat('', name) as category_path
+                       from category
+                       where category.parent is null
+                       union all
+                       select c.*, p.root_category, concat(p.category_path, ' > ', c.name)
+                       from category c
+                                join tree p on c.parent = p.id
+                   )
+                    select t.id as top,
+                           t.root_category as root,
+                           t.category_path as path
+                    from tree t
+                    ORDER BY t.category_path;");
+
+        if (!$stmt->execute()) return [];     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return [];
+
+        $rows = $res->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rows as $categoryTree) {
+            $categoryIDs[] = $categoryTree;
+        }
+
+        return $categoryIDs;
+    }
+
     // region getter
 
     /**
