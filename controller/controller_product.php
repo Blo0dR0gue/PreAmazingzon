@@ -189,6 +189,7 @@ class ProductController
         return $errors;
     }
 
+    // TODO cleanup methods?
     private static function uploadImage(string $tmpFile, string $targetUploadDir, int $productID, bool $isMainImg): bool
     {// TODO validation
         $fileSize = filesize($tmpFile);
@@ -219,9 +220,9 @@ class ProductController
         $pictureID = "";
         if ($isMainImg) {
             self::removeAllMainImgTags($productID);
-            $pictureID = ($imageCounter + 1) . "_" . self::generateRandomImageName() . "main";
+            $pictureID = ($imageCounter + 1) . "_" . $productID . "_" . self::generateRandomImageName() . "_main";
         } else {
-            $pictureID = ($imageCounter + 1) . "_" . self::generateRandomImageName();
+            $pictureID = ($imageCounter + 1) . "_" . $productID . "_" . self::generateRandomImageName();
         }
 
         $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;
