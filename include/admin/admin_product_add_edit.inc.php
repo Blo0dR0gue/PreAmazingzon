@@ -15,7 +15,7 @@
                 }
                 ?>" name="title" id="title" class="form-control"
                        placeholder="A New Product Title"
-                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-]+">
+                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]+">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
             </div>
 
