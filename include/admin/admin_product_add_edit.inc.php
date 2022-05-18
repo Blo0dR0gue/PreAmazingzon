@@ -26,15 +26,15 @@
                 <select class="form-select" aria-label="Default select example" name="cat" required>
                     <!--TODO Rework -> tree like?; Replace button next with selected-->
                     <option value="">Open this select menu</option>
-                    <?php foreach (CategoryController::getAll() as $tmpCategory): ?>
-                        <option value="<?= $tmpCategory->getId(); ?>" <?php
+                    <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>
+                        <option value="<?= $treeEntry["top"]; ?>" <?php
                         if (isset($cat)) {
-                            if (in_array($tmpCategory->getId(), $cat))
+                            if (in_array($treeEntry["top"], $cat))
                                 echo "selected";
                         } else if (isset($category) && $category instanceof Category)
-                            if ($tmpCategory->getId() == $category->getId())
+                            if ($treeEntry["top"] == $category->getId())
                                 echo "selected";
-                        ?>> <?= $tmpCategory->getName(); ?>
+                        ?>> <?= $treeEntry["path"]; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
