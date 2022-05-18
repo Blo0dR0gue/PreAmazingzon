@@ -200,7 +200,8 @@ class ProductController
 
         $allowed = [
             "image/png" => "png",
-            "image/jpg" => "jpg"
+            "image/jpg" => "jpg",
+            "image/jpeg" => "jpg"
         ];
 
         if (!in_array($type, array_keys($allowed))) return false;
