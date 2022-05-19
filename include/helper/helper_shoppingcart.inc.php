@@ -5,6 +5,9 @@ require_once "../site_php_head.inc.php";
 
 require_once CONTROLLER_DIR . DS . "controller_cart_product.php";
 require_once CONTROLLER_DIR . DS . "controller_product.php";
+require_once CONTROLLER_DIR . DS . "controller_user.php";
+
+UserController::redirectIfNotLoggedIn();
 
 if (isset($_GET["action"]) && isset($_GET["productId"]) && is_numeric($_GET["productId"])) {
     $cartProduct = CartProductController::getById($_SESSION["uid"], $_GET["productId"]);
