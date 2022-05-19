@@ -11,8 +11,8 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
 <?php
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
-$productCount = ProductController::getAmountOfProducts($_GET["search"]??null);      // Get the total Amount of Products
-$totalPages = ceil($productCount/LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
+$productCount = ProductController::getAmountOfProducts($_GET["search"] ?? null);      // Get the total Amount of Products
+$totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
 
 $products = [];
 
@@ -38,7 +38,7 @@ if (isset($_GET["search"])) {
 <main class="flex-shrink-0">
     <section class="container py-4">
         <!-- category row -->
-        <?php if($page == 1) {?>
+        <?php if ($page == 1) { ?>
             <div class="row mb-4">
                 <h2>Categories in Root</h2>
                 <!-- TODO make it work -->
@@ -58,7 +58,7 @@ if (isset($_GET["search"])) {
             <!-- TODO make it work -->
             <hr>
             <?php
-            if(count($products) > 0) {
+            if (count($products) > 0) {
                 foreach ($products as $product) {
                     require INCLUDE_DIR . DS . "elem_product_card.inc.php";
                 }

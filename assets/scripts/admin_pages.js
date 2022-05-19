@@ -115,7 +115,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
     //if mainImgID is null, no main img is selected. set it to 0 which means the index 0 of the $_FILES array is chosen as main image.
     if (mainImgID == null && lastMainImgElem == null && FILES.size > 0) {
         formData.set("mainImgID", Number(0).toString());
-    }else if(mainImgID != null && FILES.size <= 0){
+    } else if (mainImgID != null && FILES.size <= 0) {
         formData.set("mainImgID", mainImgID);
     }
 

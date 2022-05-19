@@ -47,12 +47,14 @@ class CategoryController
         return array_reverse($path);
     }
 
-    public static function getPathToCategoryL(?int $categoryID): string{
-        if(!isset($categoryID)) return "";
+    public static function getPathToCategoryL(?int $categoryID): string
+    {
+        if (!isset($categoryID)) return "";
         return Category::getPathToCategory($categoryID);
     }
 
-    public static function getCategoryTree(): array {
+    public static function getCategoryTree(): array
+    {
         return Category::getCategoryTree();
     }
 

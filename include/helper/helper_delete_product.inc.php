@@ -8,7 +8,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["is
     die();
 }
 
-if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -19,11 +19,11 @@ require_once CONTROLLER_DIR . DS . 'controller_product.php';
 
 $product = ProductController::getByID($productID);
 
-if(!isset($product)){
+if (!isset($product)) {
     header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php");
     die();
 }
 
 $suc = ProductController::delete($product);
 
-header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php?deleted=".$suc);
+header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php?deleted=" . $suc);

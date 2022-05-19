@@ -58,7 +58,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
 
-    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php";?>
+    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php"; ?>
 
 </main>
 

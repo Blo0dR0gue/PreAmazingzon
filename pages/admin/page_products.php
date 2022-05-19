@@ -53,8 +53,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
          id="toolbar">
         <div class="btn-group" role="group" style="margin-left: 5px;">
             <a type="button" class="btn btn-success"
-                    href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>"><i class="fa fa-plus"></i> Add a
-                product
+               href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>"><i class="fa fa-plus"></i> Add a product
             </a>
             <a type="button" class="btn btn-secondary">Middle</a>
             <a type="button" class="btn btn-secondary">Right</a>

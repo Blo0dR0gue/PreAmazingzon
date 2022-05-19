@@ -12,12 +12,12 @@ confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"), {
 
 let _redirectUrl;
 
-function openConfirmModal(text, redirectUrl){
+function openConfirmModal(text, redirectUrl) {
     $("#confirmModalBody")[0].textContent = text;
     _redirectUrl = redirectUrl;
     confirmModal.show();
 }
 
-function onConfirm(){
+function onConfirm() {
     window.location.replace(_redirectUrl);
 }

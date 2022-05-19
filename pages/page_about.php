@@ -14,7 +14,7 @@
 
 <!-- main body -->
 <main class="flex-shrink-0">
-<!--TODO make about -->
+    <!--TODO make about -->
 </main>
 
 <!-- footer -->
