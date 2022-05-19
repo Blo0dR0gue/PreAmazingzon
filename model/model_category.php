@@ -107,7 +107,6 @@ class Category
         return $res["category_path"];
     }
 
-
     public static function getCategoryTree(): array
     {
         $categoryIDs = [];
@@ -140,6 +139,14 @@ class Category
         }
 
         return $categoryIDs;
+    }
+
+    public function getImg(): string
+    {
+        $images = glob(IMAGE_DIR . DS . "categories" . DS . $this->id . DS . "*");
+        if (count($images) !== 0) return $images[0];
+
+        return IMAGE_DIR . DS . "products" . DS . "notfound.jpg";
     }
 
     // region getter
