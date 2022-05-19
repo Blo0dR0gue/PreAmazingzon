@@ -91,6 +91,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
                        title="Delete product"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Product: " . $product->getTitle() . ", with the ID: " . $product->getId() . "?'" ?>,
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
+                        <!-- TODO set modal title or use custom modal -->
                         <i class="fa fa-trash "></i>
                         <!-- TODO do link -->
                     </a>

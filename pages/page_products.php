@@ -9,23 +9,17 @@ require_once CONTROLLER_DIR . DS . 'controller_category.php';
 ?>
 
 <?php
-// Max amount of showed Items
-$amount = LIMIT_OF_SHOWED_ITEMS;
-// Current pagination page number
-$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
-// Calculate offset for pagination
-$offset = ($page - 1) * $amount;
-// Get the total Amount of Products
-$productCount = ProductController::getAmountOfProducts($_GET["search"]??null);
-// Calculate the total amount of pages
-$totalPages = ceil($productCount/$amount);
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
+$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
+$productCount = ProductController::getAmountOfProducts($_GET["search"]??null);      // Get the total Amount of Products
+$totalPages = ceil($productCount/LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
 
 $products = [];
 
 if (isset($_GET["search"])) {
-    $products = ProductController::searchProducts($_GET["search"]);
+    $products = ProductController::searchProducts($_GET["search"]); // TODO pagination for search?
 } else {
-    $products = ProductController::getProductsInRange($offset, $amount);
+    $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 }
 ?>
 

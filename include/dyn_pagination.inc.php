@@ -1,4 +1,6 @@
 <!--Adds a dynamic pagination to a site-->
+<!--TODO comment -->
+
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 
     <nav aria-label="Page navigation example mt-5">
