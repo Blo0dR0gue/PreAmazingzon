@@ -16,9 +16,16 @@ if (isset($product) && $product instanceof Product): ?>
 
             <div class="card-body border-top pb-1 px-3">
                 <!-- first row -->
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-1">
+                    <!-- title -->
+                    <a href="<?= PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId(); ?>"
+                       class="mb-0 h5 text-decoration-none text-black"><?= $product->getTitle() ?></a>
+                </div>
+
+                <!-- second row -->
+                <div class="d-flex mt-auto">
                     <!-- category -->
-                    <p class="small mb-2">
+                    <p class="small mb-2 me-auto">
                         <?php
                         $cat = CategoryController::getNameById($product->getCategoryID());
 
@@ -31,15 +38,8 @@ if (isset($product) && $product instanceof Product): ?>
                     </p>
                     <!-- 'discount' -->
                     <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?></s></p>
-                </div>
-
-                <!-- second row -->
-                <div class="d-flex justify-content-between mb-3">
-                    <!-- title -->
-                    <a href="<?= PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId(); ?>"
-                       class="mb-0 h5 text-decoration-none text-black"><?= $product->getTitle() ?></a>
                     <!-- price -->
-                    <h5 class="text-dark mb-0 ms-2"><?= $product->getPriceFormatted() ?></h5>
+                    <h5 class="text-dark mb-0 ms-1"><?= $product->getPriceFormatted() ?></h5>
                 </div>
 
                 <!-- third row -->
