@@ -37,11 +37,18 @@ if (isset($_GET["search"])) {
 <!-- main body -->
 <main class="flex-shrink-0">
     <section class="container py-4" id="products">
+        <!-- products row -->
         <div class="row">
+            <h2>All Products</h2>
+            <hr>
             <?php
-            foreach ($products as $product) {
-                require INCLUDE_DIR . DS . "elem_product_card.inc.php";
-            }//TODO show msg, if no product is available
+            if(count($products) > 0) {
+                foreach ($products as $product) {
+                    require INCLUDE_DIR . DS . "elem_product_card.inc.php";
+                }
+            } else {
+                echo "<h5 class='text-center text-muted mb-5'><i>no products found</i></h5>";
+            }
             ?>
         </div>
     </section>
