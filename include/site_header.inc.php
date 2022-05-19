@@ -43,7 +43,7 @@
                 </div>
             <?php } else { ?>
                 <!-- shopping cart -->
-                <a href="<?= PAGES_DIR . DS . "page_shopping_cart.php" ?>"
+                <a href="<?= USER_PAGES_DIR . DS . "page_shopping_cart.php" ?>"
                    class="d-flex align-items-center text-decoration-none me-3">
                     <i class='fa fa-shopping-cart link-warning' style='font-size:38px'></i>
                 </a>
@@ -61,7 +61,7 @@
                             <p class="dropdown-item-text mb-1 text-muted"><?= $_SESSION["first_name"] . " " . $_SESSION["last_name"] ?></p>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="<?= PAGES_DIR . DS . "page_profile.php" ?>">Profile Info</a>
+                            <a class="dropdown-item" href="<?= USER_PAGES_DIR . DS . "page_profile.php" ?>">Profile Info</a>
                         </li>
 
                         <!-- admin area -->

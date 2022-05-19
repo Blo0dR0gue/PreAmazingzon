@@ -34,3 +34,4 @@ const MODEL_DIR = ROOT_DIR . "model";
 
 const PAGES_DIR = ROOT_DIR . "pages";
 const ADMIN_PAGES_DIR = PAGES_DIR . DIRECTORY_SEPARATOR . 'admin';
+const USER_PAGES_DIR = PAGES_DIR . DIRECTORY_SEPARATOR . 'user';
