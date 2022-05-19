@@ -19,7 +19,10 @@ if (isset($product) && $product instanceof Product): ?>
                 <div class="d-flex justify-content-between mb-1">
                     <!-- title -->
                     <a href="<?= PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId(); ?>"
-                       class="mb-0 h5 text-decoration-none text-black"><?= $product->getTitle() ?></a>
+                       class="mb-0 h5 text-decoration-none text-black web"
+                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                        <?= $product->getTitle() ?>
+                    </a>
                 </div>
 
                 <!-- second row -->
