@@ -82,8 +82,28 @@ class UserController
     public static function redirectIfNotLoggedIn(): void {
         if(isset($_SESSION["login"]) && isset($_SESSION["uid"])){
             $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
             if(isset($user) && $user->isActive()){
                 return; //User is logged in
+            }
+        }
+        header("Location: " . PAGES_DIR . DS . "page_login.php");
+        die();
+    }
+
+
+    /**
+     * Redirect to the index page, if the user is not an admin
+     * @return void
+     */
+    public static function redirectIfNotAdmin(): void {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
+            $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
+            if(isset($user) && $user->isActive()){
+                //Check if user is really an admin
+                if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
+                    return; //User is admin
             }
         }
         header("Location: " . PAGES_DIR . DS . "page_login.php");
