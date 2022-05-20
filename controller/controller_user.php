@@ -71,6 +71,21 @@ class UserController
         return User::getByEmail($email);
     }
 
+    /**
+     * Redirect to the login page, if the user is not logged in or is inactive.
+     * @return void
+     */
+    public static function redirectIfNotLoggedIn(): void {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"])){
+            $user = self::getById($_SESSION["uid"]);
+            if(isset($user) && $user->isActive()){
+                return; //User is logged in
+            }
+        }
+        header("Location: " . PAGES_DIR . DS . "page_login.php");
+        die();
+    }
+
     public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
     { // TODO validate?
         if ($user->getEmail() === $email || self::emailAvailable($email)) {     // email unique?
