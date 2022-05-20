@@ -1,12 +1,9 @@
 <?php
-//TODO umbauen auf ajax?
 require_once "../site_php_head.inc.php";
 
-if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]) {
-    header("LOCATION: " . ROOT_DIR);    //User is not allowed to be here.
-    //TODO log?
-    die();
-}
+require_once CONTROLLER_DIR . DS . "controller_user.php";
+
+UserController::redirectIfNotAdmin();
 
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("LOCATION: " . ROOT_DIR);
