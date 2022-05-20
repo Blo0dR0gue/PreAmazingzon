@@ -99,7 +99,7 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
                     <p>
                         <?= ReviewController::getAvgRating($product->getId()) ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        (<?= ReviewController::getNumberOfReviews($product->getId()) ?> reviews)
+                        (<?= ReviewController::getNumberOfReviewsForProduct($product->getId()) ?> reviews)
                     </p>
                 </div>
 
@@ -129,13 +129,59 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
 
         <!-- Reviews -->
         <div class="row g-0 border-bottom p-3">
-
             <!-- LEFT -->
             <div class="col-lg-3 border-end">
                 <h4 class="mt-2" id="review_header">Customer Reviews</h4>
+
             </div>
             <!-- RIGHT -->
             <div class="col-lg-9 p-3 right-side align-content-center h-100">
+
+                <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item-->
+
+                    <div class="p-3 right-side align-content-center h-100 border-bottom">
+                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRating" aria-expanded="false" aria-controls="collapseExample">
+                            Write a review
+                        </button>
+                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post" class="collapse" id="collapseRating">
+
+                            <div class="form-group position-relative">
+                                <label for="title">Title</label>
+                                <input type="text" value="" name="title" id="title" class="form-control">
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <label>Rating</label>
+                                <div id="ratings d-flex flex-row align-items-center mt-3">
+                                    <div class="rating-group">
+                                        <input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio">
+                                        <label aria-label="No rating" class="rating__label" for="rating-none"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                        <label aria-label="1 star" class="rating__label" for="rating-1"><i class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
+                                        <label aria-label="2 stars" class="rating__label" for="rating-2"><i class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
+                                        <label aria-label="3 stars" class="rating__label" for="rating-3"><i class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-3" value="3" type="radio" checked>
+                                        <label aria-label="4 stars" class="rating__label" for="rating-4"><i class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
+                                        <label aria-label="5 stars" class="rating__label" for="rating-5"><i class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-5" value="5" type="radio">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            </div>
+                            <br>
+                            <button class="w-100 btn btn-sm btn-primary" type="submit">Save Review</button>
+
+                        </form>
+                    </div>
+
+                <?php endif; ?>
+
 
                 <?php if ($reviewCount > 0): ?>
                     <?php foreach (ReviewController::getReviewsForProductInRange($product->getId(), $offset, LIMIT_OF_SHOWED_ITEMS) as $review): ?>
@@ -163,8 +209,6 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
                 <div class="p-3">
                     <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
                 </div>
-
-
             </div>
         </div>
     </div>
