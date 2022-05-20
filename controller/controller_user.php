@@ -10,6 +10,10 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
 class UserController
 {
 
+    public static function getFormattedName(User $user): string {
+        return $user->getFirstName() . " " . $user->getLastName();
+    }
+
     public static function getById(?int $id): ?User
     {
         if (isset($id)) return User::getById($id);

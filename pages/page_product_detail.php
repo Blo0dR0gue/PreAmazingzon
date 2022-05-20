@@ -6,6 +6,7 @@
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_review.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
+require_once CONTROLLER_DIR . DS . 'controller_user.php';
 ?>
 
 <?php // get product
@@ -22,10 +23,11 @@ if (isset($productID) && is_numeric($productID)) {
     die();
 }
 
-
-
-$page = 1;
-$totalPages = 1;
+//TODO vereinheitlichen und in dyn_pagination.inc.php auslagern
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
+$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
+$reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
+$totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
 
 ?>
 
@@ -135,19 +137,28 @@ $totalPages = 1;
             <!-- RIGHT -->
             <div class="col-lg-9 p-3 right-side align-content-center h-100">
 
-                <div class="p-3 right-side align-content-center h-100 border-bottom">
-                    <p class="mt-1 pr-3 content">Author: Hans dieter</p>
-                    <div class="ratings d-flex flex-row align-items-center mt-3">
-                        <p>
-                            Rating: <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        </p>
-                    </div>
+                <?php if ($reviewCount > 0): ?>
+                    <?php foreach (ReviewController::getReviewsForProductInRange($product->getId(), $offset, LIMIT_OF_SHOWED_ITEMS) as $review): ?>
+                        <?php $user = UserController::getById($review->getUserId()); ?>
+                        <div class="p-3 right-side align-content-center h-100 border-bottom">
+                            <p class="mt-1 pr-3 content">Author: <?= UserController::getFormattedName($user); ?></p>
+                            <div class="ratings d-flex flex-row align-items-center mt-3">
+                                <p>
+                                    Rating: <?php ReviewController::calcAndIncProductStars($review) ?>
+                                </p>
+                            </div>
 
-                    <h4 class=""><u>Nicht so gut</u></h4>
-                    <p class="mt-1 pr-3 content">asfsadfsadfasffsdf</p>
+                            <h4 class=""><u><?= $review->getTitle(); ?></u></h4>
+                            <p class="mt-1 pr-3 content"><?= $review->getText(); ?></p>
 
-                </div>
+                        </div>
 
+                    <?php endforeach; ?>
+                <?php else: ?>
+
+                    <h5 class='text-center text-muted mb-5'><i>No reviews found. Be the first.</i></h5>
+
+                <?php endif; ?>
                 <!-- pagination -->
                 <div class="p-3">
                     <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
