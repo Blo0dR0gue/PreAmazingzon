@@ -71,6 +71,28 @@ class Review
         return $res["reviews"];
     }
 
+    /**
+     * Selects a specified amount of reviews of a product starting at an offset.
+     * @param int $productId The product id of the product from which the reviews should be selected
+     * @param int $offset The first row, which should be selected.
+     * @param int $amount The amount of rows, which should be selected.
+     * @return array|null An array with the found reviews or null, if an error occurred.
+     */
+    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array {
+        $reviews = [];
+
+        $stmt = getDB()->prepare("SELECT id from review WHERE product = ? ORDER BY id limit ? offset ?;");
+        $stmt->bind_param("iii", $productId, $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        foreach ($stmt->get_result() as $review) {
+            $reviews[] = self::getByID($review["id"]);
+        }
+        $stmt->close();
+        return $reviews;
+    }
+
     // region getter
 
     /**
