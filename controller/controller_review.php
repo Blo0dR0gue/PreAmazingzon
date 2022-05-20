@@ -7,7 +7,8 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
 class ReviewController
 {
 
-    public static function insert(string $title, string $text, int $stars, int $userId, int $productId): ?Review {
+    public static function insert(string $title, string $text, int $stars, int $userId, int $productId): ?Review
+    {
         $review = new Review(0, $title, $text, $stars, $userId, $productId);
         return $review->insert();
     }
@@ -50,7 +51,8 @@ class ReviewController
      * @param float $rating
      * @return void
      */
-    private static function createStarsRating(float $rating): void {
+    private static function createStarsRating(float $rating): void
+    {
         for ($i = 1; $i <= 5; $i++) {
             $difference = $rating - $i;
             if ($difference >= 0) {
@@ -78,7 +80,8 @@ class ReviewController
      * @param int $amount The amount of rows, which should be selected.
      * @return array|null An array with the found reviews or null, if an error occurred.
      */
-    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array {
+    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array
+    {
         return Review::getReviewsForProductInRange($productId, $offset, $amount);
     }
 
@@ -97,8 +100,19 @@ class ReviewController
      * @param int $productId The id of the product.
      * @return array An array with all this information. [0 => ["star"=0, "amount"=x, "percentage"=x, 1 => ...]
      */
-    public static function getStatsForEachStarForAProduct(int $productId): array {
+    public static function getStatsForEachStarForAProduct(int $productId): array
+    {
         return Review::getStatsForEachStarForAProduct($productId);
+    }
+
+    public static function getById(int $id): ?Review
+    {
+        return Review::getById($id);
+    }
+
+    public static function delete(Review $review): bool
+    {
+        return $review->delete();
     }
 
 }
