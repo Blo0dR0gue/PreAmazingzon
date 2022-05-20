@@ -16,12 +16,12 @@ class ReviewController
 
     /**
      * Calculate and set the star rating using full and half stars.
-     * @param int $productID The ProductID, for which the Stars should be included.
+     * @param int $productId The ProductID, for which the Stars should be included.
      * @return void HTML-Tags
      */
-    public static function calcAndIncAvgProductStars(int $productID): void
+    public static function calcAndIncAvgProductStars(int $productId): void
     {
-        $avgRating = self::getAvgRating($productID);
+        $avgRating = self::getAvgRating($productId);
 
         for ($i = 1; $i <= 5; $i++) {
             $difference = $avgRating - $i;
@@ -42,4 +42,16 @@ class ReviewController
         if (!$avgRating) return 0;
         return $avgRating;
     }
+
+    /**
+     * Selects a specified amount of reviews of a product starting at an offset.
+     * @param int $productId The product id of the product from which the reviews should be selected
+     * @param int $offset The first row, which should be selected.
+     * @param int $amount The amount of rows, which should be selected.
+     * @return array|null An array with the found reviews or null, if an error occurred.
+     */
+    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array {
+        return Review::getReviewsForProductInRange($productId, $offset, $amount);
+    }
+
 }

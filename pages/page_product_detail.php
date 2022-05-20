@@ -21,6 +21,12 @@ if (isset($productID) && is_numeric($productID)) {
     header("LOCATION: " . ROOT_DIR);   //Redirect, if no number is passed.
     die();
 }
+
+
+
+$page = 1;
+$totalPages = 1;
+
 ?>
 
 <!DOCTYPE html>
@@ -41,10 +47,11 @@ if (isset($productID) && is_numeric($productID)) {
 <!-- main body -->
 <main class="flex-shrink-0">
     <!-- back button -->
-    <a href="javascript:history.back()" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2" style="font-size:36px"></a>
+    <a href="javascript:history.back()" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2"
+       style="font-size:36px"></a>
 
     <div class="container mt-1 mb-5 card shadow">
-        <div class="row g-0">
+        <div class="row g-0 border-bottom">
             <!-- LEFT -->
             <div class="col-lg-6 border-end">
                 <div class="d-flex flex-column justify-content-center">
@@ -67,9 +74,10 @@ if (isset($productID) && is_numeric($productID)) {
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
-                <p class="small mb-2"><a href="#" class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
-                <!-- TODO make link work -->
-                <!-- TODO no category string? -->
+                <p class="small mb-2"><a href="#"
+                                         class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
+                    <!-- TODO make link work -->
+                    <!-- TODO no category string? -->
                 </p>
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
@@ -106,13 +114,50 @@ if (isset($productID) && is_numeric($productID)) {
                                max="<?= $product->getStock() ?>">
                         <button type="submit" class="btn btn-warning">Add to Cart</button>
                     </div>
-                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
+                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock
+                    </p>
                 </form>
+            </div>
+        </div>
+
+        <!-- Related products-->
+        <div class="row g-0 border-bottom p-3">
+            <h4 class="mt-2">Related products to this article</h4>
+        </div>
+
+        <!-- Reviews -->
+        <div class="row g-0 border-bottom p-3">
+
+            <!-- LEFT -->
+            <div class="col-lg-3 border-end">
+                <h4 class="mt-2" id="review_header">Customer Reviews</h4>
+            </div>
+            <!-- RIGHT -->
+            <div class="col-lg-9 p-3 right-side align-content-center h-100">
+
+                <div class="p-3 right-side align-content-center h-100 border-bottom">
+                    <p class="mt-1 pr-3 content">Author: Hans dieter</p>
+                    <div class="ratings d-flex flex-row align-items-center mt-3">
+                        <p>
+                            Rating: <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
+                        </p>
+                    </div>
+
+                    <h4 class=""><u>Nicht so gut</u></h4>
+                    <p class="mt-1 pr-3 content">asfsadfsadfasffsdf</p>
+
+                </div>
+
+                <!-- pagination -->
+                <div class="p-3">
+                    <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+                </div>
+
+
             </div>
         </div>
     </div>
 
-    <!--TODO Reviews -->
 </main>
 
 <!-- footer -->
