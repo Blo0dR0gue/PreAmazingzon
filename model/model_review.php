@@ -93,6 +93,21 @@ class Review
         return $reviews;
     }
 
+    public static function getAmountOfProducts(int $productId): int {
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from review where product = ?;");
+        $stmt->bind_param("i", $productId);
+
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
     // region getter
 
     /**

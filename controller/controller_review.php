@@ -66,4 +66,14 @@ class ReviewController
         return Review::getReviewsForProductInRange($productId, $offset, $amount);
     }
 
+    /**
+     * Returns the amounts of reviews for a product stored in the database.
+     * @param int $productId The product id of the product from which the reviews should be counted
+     * @return int The amount of found reviews
+     */
+    public static function getAmountOfReviewsForProduct(int $productId): int
+    {
+        return Review::getAmountOfProducts($productId);
+    }
+
 }
