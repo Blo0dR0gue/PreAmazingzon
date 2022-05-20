@@ -29,6 +29,9 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagi
 $reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
 $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
 
+$reviewStats = ReviewController::getStatsForEachStarForAProduct($product->getId());
+$avgRating = ReviewController::getAvgRating($product->getId());
+
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +100,7 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
                 <!-- stars -->
                 <div class="ratings d-flex flex-row align-items-center mt-3">
                     <p>
-                        <?= ReviewController::getAvgRating($product->getId()) ?> Stars
+                        <?= $avgRating ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
                         (<?= ReviewController::getNumberOfReviewsForProduct($product->getId()) ?> reviews)
                     </p>
@@ -132,6 +135,26 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
             <!-- LEFT -->
             <div class="col-lg-3 border-end">
                 <h4 class="mt-2" id="review_header">Customer Reviews</h4>
+                <div class="card px-2 mb-4">
+                    <div class="card-body px-0">
+
+                        <?php for ($i = 5; $i > -1; $i--): ?>
+
+                            <div class="row mx-1 px-0">
+                                <div class="progress mt-1 col-8 px-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                                     title="<?php echo $reviewStats[$i]["amount"] . ' vote(s) (' . $reviewStats[$i]["percentage"] . '%)'; ?>">
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: <?php echo $reviewStats[$i]["percentage"]; ?>%"
+                                         aria-valuenow="<?php echo $reviewStats[$i]["percentage"]; ?>" aria-valuemin="0"
+                                         aria-valuemax="100"></div>
+                                </div>
+                                <a class="col-sm" href="#"><?= $i . ($i === 1 ? "Star" : "Stars") ?></a>
+                            </div>
+
+                        <?php endfor; ?>
+
+                    </div>
+                </div>
 
             </div>
             <!-- RIGHT -->
@@ -140,16 +163,20 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
                 <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item or already reviewed it-->
 
                     <div class="p-3 right-side align-content-center h-100 border-bottom">
-                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRating" aria-expanded="false" aria-controls="collapseExample">
+                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseRating" aria-expanded="false"
+                                aria-controls="collapseExample">
                             Write a review
                         </button>
-                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post" class="collapse needs-validation" id="collapseRating" novalidate>
+                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post"
+                              class="collapse needs-validation" id="collapseRating" novalidate>
 
-                            <input type="hidden" value="<?=$product->getId();?>" name="productId">
+                            <input type="hidden" value="<?= $product->getId(); ?>" name="productId">
 
                             <div class="form-group position-relative">
                                 <label for="title">Title</label>
-                                <input type="text" value="" name="title" id="title" class="form-control" required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
+                                <input type="text" value="" name="title" id="title" class="form-control" required
+                                       pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                                 <div class="invalid-tooltip opacity-75">Please enter a valid Title!</div>
                             </div>
 
@@ -157,25 +184,40 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
                                 <label>Rating</label>
                                 <div id="ratings d-flex flex-row align-items-center mt-3">
                                     <div class="rating-group">
-                                        <input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio">
-                                        <label aria-label="No rating" class="rating__label" for="rating-none"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
-                                        <label aria-label="1 star" class="rating__label" for="rating-1"><i class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
-                                        <label aria-label="2 stars" class="rating__label" for="rating-2"><i class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
-                                        <label aria-label="3 stars" class="rating__label" for="rating-3"><i class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-3" value="3" type="radio" checked>
-                                        <label aria-label="4 stars" class="rating__label" for="rating-4"><i class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
-                                        <label aria-label="5 stars" class="rating__label" for="rating-5"><i class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-5" value="5" type="radio">
+                                        <input class="rating__input rating__input--none" name="rating"
+                                               id="rating-none"
+                                               value="0" type="radio">
+                                        <label aria-label="No rating" class="rating__label" for="rating-none"><i
+                                                    class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                        <label aria-label="1 star" class="rating__label" for="rating-1"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-1" value="1"
+                                               type="radio">
+                                        <label aria-label="2 stars" class="rating__label" for="rating-2"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-2" value="2"
+                                               type="radio">
+                                        <label aria-label="3 stars" class="rating__label" for="rating-3"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-3" value="3"
+                                               type="radio"
+                                               checked>
+                                        <label aria-label="4 stars" class="rating__label" for="rating-4"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-4" value="4"
+                                               type="radio">
+                                        <label aria-label="5 stars" class="rating__label" for="rating-5"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-5" value="5"
+                                               type="radio">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group position-relative">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea> <!--TODO pattern?-->
+                                <textarea class="form-control" id="description" name="description" rows="3"
+                                          required></textarea> <!--TODO pattern?-->
                                 <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
                             </div>
                             <br>

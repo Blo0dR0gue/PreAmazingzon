@@ -89,7 +89,16 @@ class ReviewController
      */
     public static function getAmountOfReviewsForProduct(int $productId): int
     {
-        return Review::getAmountOfProducts($productId);
+        return Review::getAmountOfReviewsForProduct($productId);
+    }
+
+    /**
+     * Count the amount of reviews for each star (0-5) and calculates the distribution of percentages among the 5 stars for a product.
+     * @param int $productId The id of the product.
+     * @return array An array with all this information. [0 => ["star"=0, "amount"=x, "percentage"=x, 1 => ...]
+     */
+    public static function getStatsForEachStarForAProduct(int $productId): array {
+        return Review::getStatsForEachStarForAProduct($productId);
     }
 
 }

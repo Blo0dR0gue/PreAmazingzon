@@ -115,7 +115,7 @@ class Review
         return $reviews;
     }
 
-    public static function getAmountOfProducts(int $productId): int {
+    public static function getAmountOfReviewsForProduct(int $productId): int {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from review where product = ?;");
         $stmt->bind_param("i", $productId);
 
@@ -128,6 +128,34 @@ class Review
         $stmt->close();
 
         return $res["count"];
+    }
+
+    /**
+     * Count the amount of reviews for each star (0-5) and calculates the distribution of percentages among the 5 stars for a product.
+     * @param int $productId The id of the product.
+     * @return array An array with all this information. [0 => ["star"=0, "amount"=x, "percentage"=x, 1 => ...]
+     */
+    public static function getStatsForEachStarForAProduct(int $productId): array {
+
+        $stmt = getDB()->prepare("SELECT stars as star, COUNT(*) as amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review where product = ?)*100, 2) as percentage FROM review WHERE product = ? GROUP BY stars;");
+        $stmt->bind_param("ii", $productId, $productId);
+
+        if (!$stmt->execute()) return [];     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        $inner = ["star"=>0, "amount"=>0, "percentage"=>0];
+        $result = array(0 => $inner, 1 => $inner, 2 => $inner, 3 => $inner, 4 => $inner, 5 => $inner);
+        if ($res->num_rows === 0) return $result;
+        $rows = $res->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rows as $row){
+            $result[$row['star']] = $row;
+        }
+
+        $stmt->close();
+
+        return $result;
     }
 
     // region getter
