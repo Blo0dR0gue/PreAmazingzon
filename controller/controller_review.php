@@ -15,16 +15,28 @@ class ReviewController
     }
 
     /**
-     * Calculate and set the star rating using full and half stars.
+     * Calculate and set the average star rating using full and half stars.
      * @param int $productId The ProductID, for which the Stars should be included.
      * @return void HTML-Tags
      */
     public static function calcAndIncAvgProductStars(int $productId): void
     {
-        $avgRating = self::getAvgRating($productId);
+        self::createStarsRating(self::getAvgRating($productId));
+    }
 
+    /**
+     * Calculate and set the star rating using full and half stars.
+     * @param int $productId The ProductID, for which the Stars should be included.
+     * @return void HTML-Tags
+     */
+    public static function calcAndIncProductStars(Review $review): void
+    {
+        self::createStarsRating($review->getStars());
+    }
+
+    private static function createStarsRating(int $rating): void {
         for ($i = 1; $i <= 5; $i++) {
-            $difference = $avgRating - $i;
+            $difference = $rating - $i;
             if ($difference >= 0) {
                 echo "<i class='fa fa-star rating-color ms-1'></i>";     // full star
             } elseif (-0.25 > $difference && $difference > -0.75) {
