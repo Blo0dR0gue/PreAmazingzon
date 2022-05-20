@@ -6,9 +6,20 @@ require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
 
 class ReviewController
 {
-    public static function getNumberOfReviews(int $productId): int
+
+    public static function insert(string $title, string $text, int $stars, int $userId, int $productId): ?Review {
+        $review = new Review(0, $title, $text, $stars, $userId, $productId);
+        return $review->insert();
+    }
+
+    /**
+     * Returns the amount of reviews for a product
+     * @param int $productId
+     * @return int
+     */
+    public static function getNumberOfReviewsForProduct(int $productId): int
     {
-        $number = Review::getNumberOfReviews($productId);
+        $number = Review::getNumberOfReviewsForProduct($productId);
 
         if (!$number) return 0;
         return $number;
@@ -26,7 +37,7 @@ class ReviewController
 
     /**
      * Calculate and set the star rating using full and half stars.
-     * @param int $productId The ProductID, for which the Stars should be included.
+     * @param Review $review The review object, for which the Stars should be created.
      * @return void HTML-Tags
      */
     public static function calcAndIncProductStars(Review $review): void
@@ -34,6 +45,11 @@ class ReviewController
         self::createStarsRating($review->getStars());
     }
 
+    /**
+     * Creates the stars rating html based on the passed rating
+     * @param int $rating
+     * @return void
+     */
     private static function createStarsRating(int $rating): void {
         for ($i = 1; $i <= 5; $i++) {
             $difference = $rating - $i;

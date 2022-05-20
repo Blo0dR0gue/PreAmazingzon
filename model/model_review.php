@@ -33,6 +33,28 @@ class Review
         $this->productId = $productId;
     }
 
+    /**
+     * Get an existing review by its id.
+     *
+     * @param int $id ID of a review
+     * @return Review|null corresponding review
+     */
+    public static function getById(int $id): ?Review {
+        $stmt = getDB()->prepare("SELECT * from review where id = ?;");
+
+        $stmt->bind_param("i", $id);
+
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Review($id, $res["title"], $res["text"], $res["stars"], $res["userId"], $res["productId"]);
+    }
+
     public static function getAvgRating(int $productId): ?float
     {
         $sql = "SELECT ROUND(AVG(stars), 1) as rating
@@ -52,7 +74,7 @@ class Review
         return $res["rating"];
     }
 
-    public static function getNumberOfReviews(int $productId): ?int
+    public static function getNumberOfReviewsForProduct(int $productId): ?int
     {
         $sql = "SELECT COUNT(*) as reviews
                 FROM review
@@ -160,9 +182,23 @@ class Review
 
     // endregion
 
-    public function insert(): void
+    public function insert(): ?Review
     {
-        // TODO
+        $stmt = getDB()->prepare("INSERT INTO review(title, stars, text, user, product)
+                                        VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sisii",
+            $this->title,
+            $this->stars,
+            $this->text,
+            $this->userId,
+            $this->productId);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $newId = $stmt->insert_id;
+        $stmt->close();
+
+        return self::getById($newId);
     }
 
     public function update(): void
