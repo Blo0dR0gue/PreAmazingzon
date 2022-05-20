@@ -137,17 +137,20 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
             <!-- RIGHT -->
             <div class="col-lg-9 p-3 right-side align-content-center h-100">
 
-                <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item-->
+                <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item or already reviewed it-->
 
                     <div class="p-3 right-side align-content-center h-100 border-bottom">
                         <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRating" aria-expanded="false" aria-controls="collapseExample">
                             Write a review
                         </button>
-                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post" class="collapse" id="collapseRating">
+                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post" class="collapse needs-validation" id="collapseRating" novalidate>
+
+                            <input type="hidden" value="<?=$product->getId();?>" name="productId">
 
                             <div class="form-group position-relative">
                                 <label for="title">Title</label>
-                                <input type="text" value="" name="title" id="title" class="form-control">
+                                <input type="text" value="" name="title" id="title" class="form-control" required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
+                                <div class="invalid-tooltip opacity-75">Please enter a valid Title!</div>
                             </div>
 
                             <div class="form-group position-relative">
@@ -172,7 +175,8 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
 
                             <div class="form-group position-relative">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea> <!--TODO pattern?-->
+                                <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
                             </div>
                             <br>
                             <button class="w-100 btn btn-sm btn-primary" type="submit">Save Review</button>
@@ -212,6 +216,11 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
             </div>
         </div>
     </div>
+
+    <!-- load custom form validation script -->
+    <script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+    <!-- enable tooltips on this page (by default disabled for performance)-->
+    <script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
 
 </main>
 

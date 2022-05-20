@@ -52,7 +52,7 @@ class Review
         $res = $res->fetch_assoc();
         $stmt->close();
 
-        return new Review($id, $res["title"], $res["text"], $res["stars"], $res["userId"], $res["productId"]);
+        return new Review($id, $res["title"], $res["text"], $res["stars"], $res["user"], $res["product"]);
     }
 
     public static function getAvgRating(int $productId): ?float
