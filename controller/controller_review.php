@@ -47,10 +47,10 @@ class ReviewController
 
     /**
      * Creates the stars rating html based on the passed rating
-     * @param int $rating
+     * @param float $rating
      * @return void
      */
-    private static function createStarsRating(int $rating): void {
+    private static function createStarsRating(float $rating): void {
         for ($i = 1; $i <= 5; $i++) {
             $difference = $rating - $i;
             if ($difference >= 0) {
