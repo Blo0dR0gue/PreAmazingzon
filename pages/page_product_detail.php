@@ -242,7 +242,9 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
                             <h4 class=""><u><?= $review->getTitle(); ?></u></h4>
                             <p class="mt-1 pr-3 content"><?= $review->getText(); ?></p>
-
+                            <?php if(UserController::isCurrentSessionAnAdmin()): ?>
+                            <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=".$product->getId(); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash "></i> Delete this review</a>
+                            <?php endif; ?>
                         </div>
 
                     <?php endforeach; ?>

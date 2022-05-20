@@ -91,6 +91,23 @@ class UserController
         die();
     }
 
+    /**
+     * Is the current logged-in user an admin?
+     * @return bool true, if he is an admin
+     */
+    public static function isCurrentSessionAnAdmin(): bool {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
+            $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
+            if(isset($user) && $user->isActive()){
+                //Check if user is really an admin
+                if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
+                    return true; //User is admin
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Redirect to the index page, if the user is not an admin
