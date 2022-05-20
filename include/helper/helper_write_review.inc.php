@@ -4,7 +4,7 @@ require_once "../site_php_head.inc.php";
 require_once CONTROLLER_DIR . DS . "controller_user.php";
 require_once CONTROLLER_DIR . DS . "controller_review.php";
 
-//Check if current logged-in user is an admin
+//Check if no user is logged-in or the logged-in user got blocked
 UserController::redirectIfNotLoggedIn();
 
 if (!isset($_POST["title"]) || !isset($_POST["rating"]) || !isset($_POST["description"]) || !isset($_POST["productId"]) ||
