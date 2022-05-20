@@ -3,6 +3,24 @@
 
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 
+    <?php
+        if(isset($_GET) && count($_GET) > 0 && !(count($_GET) == 1 && isset($_GET["page"]))){
+            $urlExtend = "";
+            foreach ($_GET as $key => $value){
+                if($key != "page"){
+                    if($urlExtend == ""){
+                        $urlExtend = $urlExtend . "?" . $key . "=" . $value;
+                    }else{
+                        $urlExtend = $urlExtend . "&" . $key . "=" . $value;
+                    }
+                }
+            }
+            $urlExtend = $urlExtend . "&page=";
+        }else{
+            $urlExtend = "?page=";
+        }
+    ?>
+
     <nav aria-label="Page navigation example mt-5">
         <ul class="pagination justify-content-center">
 
@@ -13,7 +31,7 @@
                    href="<?php if ($page <= 1) {
                        echo '#';
                    } else {
-                       echo "?page=" . $page - 1;
+                       echo $urlExtend . $page - 1;
                    } ?>">Previous</a>
             </li>
 
@@ -27,7 +45,7 @@
 
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page=1">1</a>
+                       href="<?=$urlExtend."1"?>>">1</a>
                 </li>
 
                 <li class="page-item disabled">
@@ -48,7 +66,7 @@
                         echo 'active';
                     } ?>">
                         <a class="page-link"
-                           <?php if ($page != $x): ?>href="?page=<?= $x; ?>" <?php endif; ?>> <?= $x; ?> </a>
+                           <?php if ($page != $x): ?>href="<?= $urlExtend . $x; ?>" <?php endif; ?>> <?= $x; ?> </a>
                     </li>
                 <?php
                 endif;
@@ -63,7 +81,7 @@
 
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+                       href="<?= $urlExtend . $totalPages ?>"><?= $totalPages ?></a>
                 </li>
 
             <?php endif; ?>
@@ -75,7 +93,7 @@
                    href="<?php if ($page >= $totalPages) {
                        echo '#';
                    } else {
-                       echo "?page=" . $page + 1;
+                       echo $urlExtend . $page + 1;
                    } ?>">Next</a>
             </li>
 
