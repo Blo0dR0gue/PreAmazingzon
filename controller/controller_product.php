@@ -48,7 +48,7 @@ class ProductController
         return $product->update();
     }
 
-    public static function addNew(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
+    public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
     {
         // TODO validation
         $product = new Product(
