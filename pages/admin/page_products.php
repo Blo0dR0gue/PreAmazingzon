@@ -90,6 +90,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
                     <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete product"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Product: " . $product->getTitle() . ", with the ID: " . $product->getId() . "?'" ?>,
+                               'Delete Product?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
                         <!-- TODO set modal title or use custom modal -->
                         <i class="fa fa-trash "></i>
