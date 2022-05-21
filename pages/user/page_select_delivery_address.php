@@ -37,7 +37,7 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
     <section class="container" id="selectDeliveryAdress">
         <div class="row">
             <?php
-            if ($deliveryAddresses != null):
+            if ($deliveryAddresses != null): //TODO primary address?
                 foreach ($deliveryAddresses as $deliveryAddress): ?>
                     <div class="col-3">
                         <div class="card">
