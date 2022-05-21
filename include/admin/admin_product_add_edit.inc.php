@@ -109,8 +109,10 @@
                 <div class="form-group">
 
                     <label for="pictures" class="form-label fs-4">Product Images</label>
+                    <!-- the image drop zone -->
                     <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
                          ondragover="dragOverHandler(event)">
+                        <!-- prepare to show the uploaded images in edit mode -->
                         <?php
                         if (isset($product) && $product instanceof Product) {
                             $mainImg = $product->getMainImg();
@@ -122,18 +124,20 @@
                         <div class="drop-texts" id="dropTexts"
 
                             <?php
-                            //Hide the text, if we add images to the dropZone
+                            //Hide the text, if we add images to the dropZone (edit mode)
                             if (isset($allIMGs) && sizeof($allIMGs) > 0): ?>
                                 style="display: none"
                             <?php endif; ?> >
                             <span class="drop-text">Click here or drag and drop file</span>
                         </div>
+                        <!-- embed the file explorer -->
                         <input class="file-input" type="file" id="files" name="files[]" multiple
                                onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
                         <section class="container py-3" id="imgContainer">
                             <div id="imgRow" class="row jcenter">
 
+                                <!-- show all uploaded images in edit mode -->
                                 <?php
                                 if (isset($allIMGs)) {
                                     //Set the variable isNewImg to false, which is used by the template to define, if a tag is set.
