@@ -134,13 +134,14 @@
                         <input class="file-input" type="file" id="files" name="files[]" multiple
                                onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
+                        <!-- images container -->
                         <section class="container py-3" id="imgContainer">
                             <div id="imgRow" class="row jcenter">
 
                                 <!-- show all uploaded images in edit mode -->
                                 <?php
                                 if (isset($allIMGs)) {
-                                    //Set the variable isNewImg to false, which is used by the template to define, if a tag is set.
+                                    //Set the variable isNewImg to false, which is used by the template to define, that this image is already uploaded.
                                     $isNewImg = false;
                                     //For each image path
                                     foreach ($allIMGs as $img) {
