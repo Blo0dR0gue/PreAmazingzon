@@ -30,4 +30,13 @@ class AddressController
 
         return $address->update();
     }
+
+    /**
+     * Get all existing addresses related to one user.
+     * @param int $userId user of interest
+     * @return array<Address>|null array of addresses
+     */
+    public static function getAllByUser(int $userId): ?array {
+        return Address::getAllByUser($userId);
+    }
 }
