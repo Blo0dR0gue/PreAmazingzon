@@ -1,4 +1,4 @@
-<!--Represents an uploaded file in the edit or add product page //TODO Comments-->
+<!-- Represents an uploaded file in the edit or add product page -->
 <div class="img-box">
     <!-- set the image source, if it is present (edit mode) -->
     <img src="<?= $img ?? "" ?>"
@@ -14,6 +14,7 @@
         Main
     </button>
     <?php else:?>
+    <!-- Add the set main image button, if we do not add them via php, and it's not the main image. (Gets updated via javascript) -->
     <button type="button" name="setMainBtn" class="btn btn-danger btn-sm" onclick="setMainImg(this)"
             data-id="<?= $imgID ?? -1 ?>">
         Set Main
