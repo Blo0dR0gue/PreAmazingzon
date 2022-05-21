@@ -117,7 +117,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         <label class="d-none" for="quantity"></label>
                         <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
                                max="<?= $product->getStock() ?>">
-                        <button type="submit" class="btn btn-warning">Add to Cart</button>
+                        <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0?"disabled":"" ?>>Add to Cart</button>
                     </div>
                     <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock
                     </p>
