@@ -142,6 +142,7 @@
                                 if (isset($allIMGs)) {
                                     //Set the variable isNewImg to false, which is used by the template to define, if a tag is set.
                                     $isNewImg = false;
+                                    //For each image path
                                     foreach ($allIMGs as $img) {
                                         $imgPaths = explode(DS, $img);
                                         $imgID = end($imgPaths);
