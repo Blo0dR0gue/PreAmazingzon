@@ -15,7 +15,8 @@ if(CartProductController::getCountByUser($_SESSION["uid"]) <= 0){
     die();
 }
 
-$deliveryAddresses = AddressController::getAllByUser($_SESSION["uid"]);
+$user = UserController::getById($_SESSION["uid"]);
+$deliveryAddresses = AddressController::getAllByUser($user->getId());
 
 ?>
 
@@ -40,14 +41,14 @@ $deliveryAddresses = AddressController::getAllByUser($_SESSION["uid"]);
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
-                            <strong class="recipient"><?= $deliveryAddress['recipient'] ?></strong>
+                            <strong class="recipient"><?= UserController::getFormattedName($user); ?></strong>
                             <p class="street">
-                                <?= $deliveryAddress['street'] ?> <?= $deliveryAddress['streetNumber'] ?>
+                                <?= $deliveryAddress->getStreet(); ?> <?= $deliveryAddress->getNumber(); ?>
                             </p>
                             <p class="city">
-                                <?= $deliveryAddress['zipCode'] ?> <?= $deliveryAddress['city'] ?>
+                                <?= $deliveryAddress->getZip(); ?> <?= $deliveryAddress->getCity(); ?>
                             </p>
-                            <a class="card-link" href="index.php/selectDeliveryAddress/<?= $deliveryAddress['id'] ?>">Wählen</a>
+                            <a class="card-link" href="#">Choose</a> <!--TODO-->
                         </div>
                     </div>
                 </div>
