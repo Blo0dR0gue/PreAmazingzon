@@ -75,7 +75,7 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
             <!-- bottom navigation  -->
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-end">
-                    <a href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    <button href="#" class="btn btn-warning mb-4 btn-lg pl-5 pr-5" <?= CartProductController::getCountByUser($_SESSION["uid"]) > 0 ? "":"disabled"; ?>>Checkout</button>
                     <!-- TODO make checkout -->
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
