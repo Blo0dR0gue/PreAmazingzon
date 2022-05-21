@@ -15,7 +15,7 @@
                 }
                 ?>" name="title" id="title" class="form-control"
                        placeholder="A New Product Title"
-                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]+">
+                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
             </div>
 
@@ -63,7 +63,7 @@
                         echo $product->getPrice();
                     }
                     ?>" step='0.01' class="form-control"
-                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00">
+                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00" min="0">
                     <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="form-group position-relative">
                     <label for="shipping">Shipping Cost</label>
                     <div class="input-group p-0">
-                        <input type="number" id="shipping" name="shipping" placeholder="3.50" step='0.01'
+                        <input type="number" id="shipping" name="shipping" placeholder="3.50" min="0" step='0.01'
                                class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" value="<?php
                         if (isset($product) && $product instanceof Product) {
                             echo $product->getShippingCost();
@@ -87,7 +87,7 @@
                     <label for="stock">Stock</label>
                     <div class="input-group p-0">
                         <div class="input-group p-0">
-                            <input type="number" id="stock" name="stock" class="form-control" placeholder="42" required
+                            <input type="number" id="stock" name="stock" class="form-control" placeholder="42" min="0" required
                                    pattern="[1-9][0-9]*|0" value="<?php
                             if (isset($product) && $product instanceof Product) {
                                 echo $product->getStock();
