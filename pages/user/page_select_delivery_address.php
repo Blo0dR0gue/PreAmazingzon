@@ -10,7 +10,7 @@ require_once CONTROLLER_DIR . DS . "controller_product.php";
 UserController::redirectIfNotLoggedIn();
 
 //Redirect, if no products are inside the cart.
-if(CartProductController::getCountByUser($_SESSION["uid"]) <= 0){
+if (CartProductController::getCountByUser($_SESSION["uid"]) <= 0) {
     header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
     die();
 }
@@ -32,28 +32,31 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
 <?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
-<main class="flex-shrink-0">
+<main class="m-auto w-100 px-3">
 
     <section class="container" id="selectDeliveryAdress">
         <div class="row">
             <?php
-            foreach ($deliveryAddresses as $deliveryAddress): ?>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <strong class="recipient"><?= UserController::getFormattedName($user); ?></strong>
-                            <p class="street">
-                                <?= $deliveryAddress->getStreet(); ?> <?= $deliveryAddress->getNumber(); ?>
-                            </p>
-                            <p class="city">
-                                <?= $deliveryAddress->getZip(); ?> <?= $deliveryAddress->getCity(); ?>
-                            </p>
-                            <a class="card-link" href="#">Choose</a> <!--TODO-->
+            if ($deliveryAddresses != null):
+                foreach ($deliveryAddresses as $deliveryAddress): ?>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <strong class="recipient"><?= UserController::getFormattedName($user); ?></strong>
+                                <p class="street">
+                                    <?= $deliveryAddress->getStreet(); ?> <?= $deliveryAddress->getNumber(); ?>
+                                </p>
+                                <p class="city">
+                                    <?= $deliveryAddress->getZip(); ?> <?= $deliveryAddress->getCity(); ?>
+                                </p>
+                                <a class="card-link" href="#">Choose</a> <!--TODO-->
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php
-            endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <h5 class='text-center text-muted mb-5'><i>No addresses found.</i></h5>
+            <?php endif; ?>
         </div>
     </section>
 
