@@ -1,4 +1,3 @@
-<!--TODO COMMENTS-->
 <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card">
         <div class="card-header">
