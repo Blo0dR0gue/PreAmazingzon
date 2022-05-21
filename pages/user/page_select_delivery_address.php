@@ -49,7 +49,7 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
                                 <p class="city">
                                     <?= $deliveryAddress->getZip(); ?> <?= $deliveryAddress->getCity(); ?>
                                 </p>
-                                <a class="card-link" href="#">Choose</a> <!--TODO-->
+                                <a class="card-link" href="#">Choose</a> <!--TODO buy products-->
                             </div>
                         </div>
                     </div>
