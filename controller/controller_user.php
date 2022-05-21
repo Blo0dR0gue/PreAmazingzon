@@ -87,6 +87,9 @@ class UserController
                 return; //User is logged in
             }
         }
+
+        //Delete all session variables
+        require_once INCLUDE_HELPER_DIR . DS . "helper_logout.inc.php";
         header("Location: " . PAGES_DIR . DS . "page_login.php");
         die();
     }
