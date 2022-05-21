@@ -3,10 +3,11 @@
     <div class="card">
         <div class="card-header">
             <!-- title -->
-            <h2 class="mb-2 mt-4">Add a new product</h2>
+            <h2 class="mb-2 mt-4">Product</h2>
         </div>
         <div class="card-body">
 
+            <!-- product title -->
             <div class="form-group position-relative">
                 <label for="title">Product Title</label>
                 <input type="text" value="<?php
@@ -20,6 +21,7 @@
             </div>
 
 
+            <!-- category select -->
             <div class="form-group position-relative">
 
                 <label for="selectedRadio">Category</label>
@@ -44,6 +46,7 @@
 
             </div>
 
+            <!-- product description (text) -->
             <div class="form-group position-relative">
                 <label for="description">Product Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3"
@@ -55,6 +58,7 @@
                 <div class="invalid-tooltip opacity-75">Please add a Product text!</div>
             </div>
 
+            <!-- price -->
             <div class="form-group position-relative">
                 <label for="price">Price</label>
                 <div class="input-group p-0">
@@ -68,7 +72,7 @@
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                 </div>
 
-
+                <!-- shipping cost -->
                 <div class="form-group position-relative">
                     <label for="shipping">Shipping Cost</label>
                     <div class="input-group p-0">
@@ -83,6 +87,7 @@
                     </div>
                 </div>
 
+                <!-- stock amount -->
                 <div class="form-group position-relative">
                     <label for="stock">Stock</label>
                     <div class="input-group p-0">
@@ -100,6 +105,7 @@
 
                 </div>
 
+                <!-- image upload drop zone -->
                 <div class="form-group">
 
                     <label for="pictures" class="form-label fs-4">Product Images</label>
@@ -150,6 +156,7 @@
                         </section>
                     </div>
 
+                    <!-- contains the id of the main image -->
                     <input name="mainImgID" id="mainImgID" type="hidden">
                     <!--Only relevant in edit mode. contains all deleted image indexes  -->
                     <input name="deletedImgIDs[]" id="deletedImgIDs" type="hidden">
@@ -157,6 +164,7 @@
 
                 <br>
 
+                <!-- buttons -->
                 <div class="card-footer">
                     <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
                     <button class="btn btn-success">Save</button>
