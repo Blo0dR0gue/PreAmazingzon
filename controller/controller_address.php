@@ -39,4 +39,5 @@ class AddressController
     public static function getAllByUser(int $userId): ?array {
         return Address::getAllByUser($userId);
     }
+
 }
