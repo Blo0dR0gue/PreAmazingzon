@@ -2,7 +2,7 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_user_role.php";
+require_once MODEL_DIR . DS . "model_user_role.php";
 
 class UserRoleController
 {
