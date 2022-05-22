@@ -17,7 +17,12 @@ class OrderController
 
     public static function insert(DateTime $orderDate, DateTime $deliveryDate, bool $paid, int $orderStateId, int $userId, int $shippingAddressId): ?Order{
         $order = new Order(0, $orderDate, $deliveryDate, $paid, $orderStateId, $userId, $shippingAddressId);
-        return $order->insert();
+        try {
+            return $order->insert();
+        } catch (Exception $e) {
+            //TODO error handling (datetime)
+        }
+        return null;
     }
 
     public static function calculateDeliveryDate(): ?DateTime {
