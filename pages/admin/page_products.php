@@ -3,10 +3,7 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]) {
-    header("LOCATION: " . ROOT_DIR);    //User is not allowed to be here.
-    die();
-}
+UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
 //Load required Controllers
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
@@ -53,8 +50,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
          id="toolbar">
         <div class="btn-group" role="group" style="margin-left: 5px;">
             <a type="button" class="btn btn-success"
-                    href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>"><i class="fa fa-plus"></i> Add a
-                product
+               href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>"><i class="fa fa-plus"></i> Add a product
             </a>
             <a type="button" class="btn btn-secondary">Middle</a>
             <a type="button" class="btn btn-secondary">Right</a>

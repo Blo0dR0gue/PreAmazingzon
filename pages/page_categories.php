@@ -36,10 +36,26 @@ if (isset($_GET["search"])) {
 
 <!-- main body -->
 <main class="flex-shrink-0">
-    <section class="container py-4" id="products">
-        <!-- products row -->
+    <section class="container py-4">
+        <!-- category row -->
+        <?php if ($page == 1) { ?>
+            <div class="row mb-4">
+                <h2>Categories in Root</h2>
+                <!-- TODO make it work -->
+                <hr>
+                <?php
+                $category = CategoryController::getByName("Test");
+                // TODO include categories
+                require INCLUDE_DIR . DS . "elem_category_card.inc.php";
+                ?>
+            </div>
+            <!-- TODO own pagination for categories -->
+        <?php } ?>
+
+        <!-- product row -->
         <div class="row">
-            <h2>All Products</h2>
+            <h2>Products in Root</h2>
+            <!-- TODO make it work -->
             <hr>
             <?php
             if (count($products) > 0) {

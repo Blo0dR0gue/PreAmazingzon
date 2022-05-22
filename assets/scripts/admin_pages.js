@@ -106,7 +106,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
     if (DELETED_IMAGES_IDS.length > 0) {
-        //reset the fromdata variable.
+        //reset the from-data variable.
         formData.delete("deletedImgIDs[]");
         //Add them all to the formdata
         DELETED_IMAGES_IDS.forEach(function (val) {
@@ -117,7 +117,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
     //if mainImgID is null, no main img is selected. set it to 0 which means the index 0 of the $_FILES array is chosen as main image.
     if (mainImgID == null && lastMainImgElem == null && FILES.size > 0) {
         formData.set("mainImgID", Number(0).toString());
-    }else if(mainImgID != null && FILES.size <= 0){
+    } else if (mainImgID != null && FILES.size <= 0) {
         formData.set("mainImgID", mainImgID);
     }
 

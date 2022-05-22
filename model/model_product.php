@@ -176,16 +176,16 @@ class Product
      */
     public static function getAmountOfProducts(?string $searchString): int
     {
-        if(isset($searchString)){
+        if (isset($searchString)) {
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
             $sql = "SELECT COUNT(DISTINCT p.id) as count from product as p LEFT OUTER JOIN Category as c on p.category = c.id where LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
-        }else{
+        } else {
             $sql = "SELECT COUNT(DISTINCT id) as count from product;";
         }
         $stmt = getDB()->prepare($sql);
 
-        if(isset($searchFilter)){
+        if (isset($searchFilter)) {
             $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         }
 

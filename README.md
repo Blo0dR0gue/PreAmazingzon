@@ -44,7 +44,6 @@ The following libraries or APIs are used in the project:
 | install.sql | File for setting up the MySQL database.                |
 | README.md   | Markdown file giving basic information to the project. |
 
-
 ### Database
 
 Following the design of the database using [MySQL Workbench](https://www.mysql.com/de/products/workbench/):
@@ -56,6 +55,7 @@ The project comes with some test data already inserted into the database by the 
 Important values are:
 
 #### predefined Users:
+
 | Role        | Email/Username | Password   |
 |-------------|----------------|------------|
 | normal user | user@user.de   | sh7up#KT!  |

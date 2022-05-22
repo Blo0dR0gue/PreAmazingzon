@@ -1,12 +1,7 @@
 <!-- TODO COMMENT -->
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
-<?php
-if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged in redirect to home
-    header("LOCATION: " . ROOT_DIR);
-    die();
-}
-?>
+<?php UserController::redirectIfNotLoggedIn();   // if not logged in redirect to home ?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -66,7 +61,9 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
                     <h5 class="text-center text-muted mb-5"><i><?php if (!$cartProducts) echo "empty"; ?></i></h5>
 
                     <div class="float-end text-end">
-                        <h1 class="mb-0"><small>Total:</small> <?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?></h1>
+                        <h1 class="mb-0">
+                            <small>Total:</small> <?= number_format($total, 2, ".", "") . CURRENCY_SYMBOL ?>
+                        </h1>
                         <small class="text-muted mt-0">including tax and shipping</small>
                     </div>
                 </div>
@@ -79,7 +76,9 @@ if (!isset($_SESSION["login"]) || !isset($_SESSION["uid"])) {   // if not logged
                     <!-- TODO make checkout -->
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                    <a href="javascript:history.back()" class="text-decoration-none"><i class="fa fa-arrow-left me-2"></i> Continue Shopping</a>
+                    <a href="javascript:history.back()" class="text-decoration-none">
+                        <i class="fa fa-arrow-left me-2"></i> Continue Shopping
+                    </a>
                 </div>
             </div>
         </div>

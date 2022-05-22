@@ -1,6 +1,7 @@
 <!-- site header resumed all over the website -->
 
 <!-- TODO make links work -->
+<?php require_once CONTROLLER_DIR . DS . 'controller_user.php'; ?>
 
 <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -35,7 +36,7 @@
             </form>
 
             <!-- dependant on login state -->
-            <?php if (!isset($_SESSION["login"])) { ?>
+            <?php if (!UserController::isCurrentSessionLoggedIn()) { ?>
                 <!-- show login and register buttons -->
                 <div class="text-end">
                     <a href="<?= PAGES_DIR . DS . "page_login.php" ?>" class="btn btn-warning me-2">Login</a>

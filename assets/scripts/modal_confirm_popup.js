@@ -1,4 +1,4 @@
-// script for handling the confirm modal
+// script for handling the confirm-modal
 
 /**
  * The model
@@ -18,7 +18,7 @@ let _redirectUrl;
  * @param title The title, which is showed in the header of this confirm modal
  * @param redirectUrl The url, to we redirect, if we click confirm.
  */
-function openConfirmModal(text, title, redirectUrl){
+function openConfirmModal(text, title, redirectUrl) {
     $("#confirmModalHead")[0].textContent = title;
     $("#confirmModalBody")[0].textContent = text;
     _redirectUrl = redirectUrl;
@@ -28,6 +28,6 @@ function openConfirmModal(text, title, redirectUrl){
 /**
  * Redirect on confirm
  */
-function onConfirm(){
+function onConfirm() {
     window.location.replace(_redirectUrl);
 }

@@ -1,10 +1,7 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]) {
-    header("LOCATION: " . ROOT_DIR);    //User is not allowed to be here.
-    die();
-}
+UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
 //Load required Controllers
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
@@ -58,7 +55,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
 
-    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php";?>
+    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php"; ?>
 
 </main>
 
