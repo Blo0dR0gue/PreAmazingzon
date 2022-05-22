@@ -39,7 +39,7 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
 <!-- main body -->
 <main class="flex-shrink-0">
 
-    <form method="post" class="needs-validation" action="#" name="checkoutForm" id="checkoutForm" novalidate>
+    <form method="post" class="needs-validation" action="" name="checkoutForm" id="checkoutForm" novalidate>
 
         <div class="container mt-1 mb-5 card shadow">
             <!-- Chosen address -->
@@ -76,7 +76,8 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
 
                             <?php if (isset($primaryAddress)): ?>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="defaultDelivery" value="<?= $primaryAddress->getId(); ?>"
+                                    <input class="form-check-input" type="radio" name="delivery" id="defaultDelivery"
+                                           value="<?= $primaryAddress->getId(); ?>"
                                            checked required>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $primaryAddress->getStreet() . " " . $primaryAddress->getNumber() .
@@ -94,22 +95,21 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
                                                    data-street="<?= $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() ?>"
                                                    data-city="<?= $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>"
                                                    value="<?= $deliveryOption->getId(); ?>"
-                                            required>
+                                                   required>
                                             <label class="form-check-label">
                                                 <!--TODO Add other recipient (missing in database)?-->
                                                 <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() .
                                                 ", " . $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>
                                             </label>
                                         </div>
-                                        <div class="invalid-tooltip opacity-75">Please choose a delivery address.</div>
                                     <?php endif ?>
                                 <?php endforeach; ?>
                             <?php elseif (!isset($primaryAddress)): ?>
                                 <h5 class='text-muted mb-5'><i>There are no addresses in your profile.</i></h5>
                                 <input type="hidden" name="delivery" value="" required>
                             <?php endif; ?>
+                            <div class="invalid-tooltip opacity-75">Please choose a delivery address.</div>
                         </div>
-
                     </div>
 
                     <br>
@@ -131,7 +131,7 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
                 </div>
                 <div class="col-lg-9 p-3 right-side align-content-center h-100">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payment" checked>
+                        <input class="form-check-input" type="radio" name="payment" checked value="default">
                         <label class="form-check-label">
                             Default
                         </label>
@@ -146,14 +146,28 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
 
                 </div>
                 <div class="col-lg-9 p-3 right-side align-content-center h-100">
-                    sdfasdfasdf
+                    <div class="d-flex justify-content-center row">
+                        <div class="col-md-10">
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- buttons -->
+            <div class="card-footer">
+                <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
+                <button class="btn btn-success">Purchase</button>
+            </div>
 
         </div>
 
     </form>
+
+    <!-- load custom form validation script -->
+    <script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+    <!-- enable tooltips on this page (by default disabled for performance)-->
+    <script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
 
 
 </main>
