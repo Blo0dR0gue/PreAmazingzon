@@ -2,7 +2,7 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_address.php";
+require_once MODEL_DIR . DS . "model_address.php";
 
 class AddressController
 {

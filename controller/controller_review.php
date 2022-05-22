@@ -2,7 +2,7 @@
 
 <?php
 
-require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_review.php";
+require_once MODEL_DIR . DS . "model_review.php";
 
 class ReviewController
 {
