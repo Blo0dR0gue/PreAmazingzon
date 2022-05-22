@@ -80,7 +80,6 @@ class UserController
         if(UserController::isCurrentSessionLoggedIn()) return; //User is logged in
 
         //delete all session variables
-        require_once INCLUDE_HELPER_DIR . DS . "helper_logout.inc.php";
         header("Location: " . PAGES_DIR . DS . "page_login.php");
         die();
     }
