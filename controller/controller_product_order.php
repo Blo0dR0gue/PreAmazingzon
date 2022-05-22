@@ -9,7 +9,7 @@ class ProductOrderController
         return ProductOrder::getByIDs($productId, $orderId);
     }
 
-    public static function insert(int $productId, int $orderId, int $amount, int $price): ?ProductOrder {
+    public static function insert(int $productId, int $orderId, int $amount, float $price): ?ProductOrder {
         $productOrder = new ProductOrder($productId, $orderId, $amount, $price);
         return $productOrder->insert();
     }

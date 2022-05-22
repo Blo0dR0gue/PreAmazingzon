@@ -8,16 +8,16 @@ class ProductOrder
     private int $productId;
     private int $orderId;
     private int $amount;
-    private int $price;
+    private float $price;
     // endregion
 
     /**
      * @param int $productId
      * @param int $orderId
      * @param int $amount
-     * @param int $price
+     * @param float $price
      */
-    public function __construct(int $productId, int $orderId, int $amount, int $price)
+    public function __construct(int $productId, int $orderId, int $amount, float $price)
     {
         $this->productId = $productId;
         $this->orderId = $orderId;
@@ -52,9 +52,9 @@ class ProductOrder
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -81,7 +81,7 @@ class ProductOrder
         $stmt = getDB()->prepare("INSERT INTO product_order(product, `order`, amount, price)
                                         VALUES (?, ?, ?, ?);");
 
-        $stmt->bind_param("i,i,i,i",
+        $stmt->bind_param("iiid",
             $this->productId,
             $this->orderId,
             $this->amount,

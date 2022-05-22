@@ -9,6 +9,7 @@ require_once CONTROLLER_DIR . DS . "controller_product.php";
 require_once CONTROLLER_DIR . DS . "controller_address.php";
 require_once CONTROLLER_DIR . DS . "controller_order.php";
 require_once CONTROLLER_DIR . DS . "controller_order_state.php";
+require_once CONTROLLER_DIR . DS . "controller_product_order.php";
 
 //Redirect, if user is not logged-in or got blocked (and logout)
 UserController::redirectIfNotLoggedIn();
@@ -25,10 +26,10 @@ if (!isset($_POST["delivery"]) || !isset($_POST["payment"]) ||
     die();
 }
 
-$orderProducts = CartProductController::getAllByUser($_SESSION["uid"]);
+$cartProducts = CartProductController::getAllByUser($_SESSION["uid"]);
 
 //Redirect to shopping cart, if no products are in it.
-if (!isset($orderProducts) && count($orderProducts) > 0) {
+if (!isset($cartProducts) && count($cartProducts) > 0) {
     header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
     die();
 }
@@ -56,12 +57,27 @@ try {
     //TODO handle (Datetime error)
 }
 
-if(!isset($order)){
+if (!isset($order)) {
     //TODO error handling
 }
 
 //Add products to order
-
-foreach ($orderProducts as $orderProduct){
-
+foreach ($cartProducts as $cartProduct) {
+    $productOrder = ProductOrderController::insert(
+        $cartProduct->getProdId(),
+        $order->getId(),
+        $cartProduct->getAmount(),
+        ProductController::getByID($cartProduct->getProdId())->getPrice()
+    );
+    if(isset($productOrder)){
+        //Remove product from cart.
+        CartProductController::delete($cartProduct);
+    }else{
+        //TODO error handling
+    }
 }
+
+//Done
+//TODO thank you page
+header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+die();
