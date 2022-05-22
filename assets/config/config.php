@@ -55,4 +55,9 @@ const PAGE_COPYRIGHT = "2022";
  */
 const CURRENCY_SYMBOL = "€";
 
+/**
+ * The timezone of this shop
+ */
+const DATE_TIME_ZONE = "Europe/Berlin";
+
 // endregion

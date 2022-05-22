@@ -231,6 +231,7 @@ class Product
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
+
 // TODO deal with shipping cost? per amount or add after?
 
     /**

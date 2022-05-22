@@ -257,12 +257,3 @@ function setMainImg(btnElem) {
     lastMainImgElem = btnElem;
     mainImgID = btnElem.dataset.id;
 }
-
-/**
- * Event is called, if a category is selected.
- * Updates the input field to show the user which category is selected.
- * @param myRadio The radio input element.
- */
-function handleRadioUpdate(myRadio) {
-    $("#selectedRadio")[0].value = myRadio.dataset.name;
-}
