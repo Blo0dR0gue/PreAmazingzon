@@ -3,10 +3,6 @@ require_once "../../include/site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
-//Load required Controllers
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-
 $productID = $_GET["id"];
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));

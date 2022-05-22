@@ -2,7 +2,6 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-require_once CONTROLLER_DIR . DS . 'controller_user.php';
 require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
 
 if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home

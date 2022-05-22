@@ -5,10 +5,6 @@ require_once "../../include/site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
-//Load required Controllers
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-
 // Max amount of showed Items
 $amount = LIMIT_OF_SHOWED_ITEMS;
 // Current pagination page number

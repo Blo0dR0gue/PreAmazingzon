@@ -1,12 +1,7 @@
 <!--Page to show all products and searched products -->
 <!-- TODO comment -->
 
-<?php
-require_once "../include/site_php_head.inc.php";
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_review.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-?>
+<?php require_once "../include/site_php_head.inc.php"; ?>
 
 <?php
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number

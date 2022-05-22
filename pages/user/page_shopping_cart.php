@@ -9,10 +9,6 @@
     <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Cart</title>
 
-    <!-- file specific includes -->
-    <?php require_once CONTROLLER_DIR . DS . "controller_cart_product.php"; ?>
-    <?php require_once CONTROLLER_DIR . DS . "controller_product.php"; ?>
-
     <!-- load data for shopping cart -->
     <?php $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]); ?>
 </head>

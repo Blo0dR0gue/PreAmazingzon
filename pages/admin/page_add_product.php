@@ -3,10 +3,6 @@ require_once "../../include/site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
-//Load required Controllers
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
 if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"])
@@ -39,7 +35,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <head>
     <?php
     require_once INCLUDE_DIR . DS . "site_html_head.inc.php";
-    require INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
     ?>
     <title><?= PAGE_NAME ?> - Admin - Product - Add</title>
 
@@ -50,7 +46,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
@@ -60,7 +56,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 <!-- show error popup -->
 <?php

@@ -3,7 +3,6 @@
 <?php
 
 require_once MODEL_DIR . DS . "model_cart_product.php";
-require_once CONTROLLER_DIR . DS . "controller_product.php";
 
 class CartProductController
 {

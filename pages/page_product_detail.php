@@ -2,12 +2,6 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <!-- TODO do includes uniformly? in head? -->
-<?php
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_review.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-require_once CONTROLLER_DIR . DS . 'controller_user.php';
-?>
 
 <?php // get product
 $productID = $_GET["id"];   //TODO html special chars?

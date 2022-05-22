@@ -4,9 +4,6 @@
 
 require_once MODEL_DIR . DIRECTORY_SEPARATOR . "model_user.php";
 
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_user_role.php";
-require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
-
 class UserController
 {
 

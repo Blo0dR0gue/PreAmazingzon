@@ -2,10 +2,6 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . DS . "controller_user.php";
-require_once CONTROLLER_DIR . DS . "controller_cart_product.php";
-require_once CONTROLLER_DIR . DS . "controller_product.php";
-
 //Redirect to login page, if user is not logged-in.
 UserController::redirectIfNotLoggedIn();
 

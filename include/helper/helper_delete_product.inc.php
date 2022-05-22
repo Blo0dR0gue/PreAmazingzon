@@ -1,8 +1,6 @@
 <?php
 require_once "../site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . DS . "controller_user.php";
-
 UserController::redirectIfNotAdmin();
 
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
@@ -11,8 +9,6 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 }
 
 $productID = intval($_GET["id"]);
-
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
 
 $product = ProductController::getByID($productID);
 

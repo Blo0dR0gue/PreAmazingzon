@@ -12,7 +12,7 @@
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -34,7 +34,6 @@
         <h2>Products of the Second . . .</h2>
         <div class="row">
             <?php
-            require CONTROLLER_DIR . DS . "controller_product.php";
             foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
                 require INCLUDE_DIR . DS . "elem_product_card.inc.php";
             }//TODO show msg, if no product is available
@@ -44,7 +43,7 @@
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 </body>
 </html>

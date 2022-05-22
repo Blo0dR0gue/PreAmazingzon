@@ -1,7 +1,6 @@
 <!-- site header resumed all over the website -->
 
 <!-- TODO make links work -->
-<?php require_once CONTROLLER_DIR . DS . 'controller_user.php'; ?>
 
 <header class="p-3 bg-dark text-white">
     <div class="container">

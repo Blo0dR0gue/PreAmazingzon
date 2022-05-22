@@ -1,9 +1,6 @@
 <?php
 require_once "../site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . DS . "controller_user.php";
-require_once CONTROLLER_DIR . DS . "controller_review.php";
-
 //Check if no user is logged-in or the logged-in user got blocked
 UserController::redirectIfNotLoggedIn();
 
