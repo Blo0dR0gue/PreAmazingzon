@@ -79,5 +79,5 @@ foreach ($cartProducts as $cartProduct) {
 
 //Done
 //TODO thank you page
-header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+header("Location: " . PAGES_DIR . DS . "page_thank_you.php");
 die();
