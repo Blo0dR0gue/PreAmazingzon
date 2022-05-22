@@ -1,3 +1,5 @@
+<!-- TODO Comment -->
+
 <?php
 require_once "../../include/site_php_head.inc.php";
 
@@ -41,7 +43,6 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
-
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -50,9 +51,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
-
     <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php"; ?>
-
 </main>
 
 <!-- footer -->
@@ -60,4 +59,3 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 </body>
 </html>
-
