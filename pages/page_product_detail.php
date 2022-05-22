@@ -56,6 +56,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
        style="font-size:36px"></a>
 
     <div class="container mt-1 mb-5 card shadow">
+        <!-- SECTION product info -->
         <div class="row g-0 border-bottom">
             <!-- LEFT -->
             <div class="col-lg-6 border-end">
@@ -79,11 +80,12 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
-                <p class="small mb-2"><a href="#"
-                                         class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
+                <p class="small mb-2">
+                    <a href="#" class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
                     <!-- TODO make link work -->
                     <!-- TODO no category string? -->
                 </p>
+
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
 
@@ -107,8 +109,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                 </div>
 
                 <!-- stock & buttons -->
-                <form method="get"
-                      action="<?= INCLUDE_HELPER_DIR . DS . "helper_shoppingcart.inc.php" ?>">
+                <form method="get" action="<?= INCLUDE_HELPER_DIR . DS . "helper_shoppingcart.inc.php" ?>">
                     <!-- helper values -->
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="productId" value="<?= $product->getId() ?>">
@@ -125,55 +126,53 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             </div>
         </div>
 
-        <!-- Related products-->
-        <div class="row g-0 border-bottom p-3">
+        <!-- SECTION related products-->
+        <div class="row g-0 border-bottom py-3 mt-3 ps-3">
             <h4 class="mt-2">Related products to this article</h4>
+            <!-- TODO do related products? -->
         </div>
 
-        <!-- Reviews -->
-        <div class="row g-0 border-bottom p-3">
+        <!-- SECTION reviews -->
+        <div class="row g-0 border-bottom ps-3">
             <!-- LEFT -->
             <div class="col-lg-3 border-end">
                 <h4 class="mt-2" id="review_header">Customer Reviews</h4>
-                <div class="card px-2 mb-4">
-                    <div class="card-body px-0">
-
-                        <?php for ($i = 5; $i > -1; $i--): ?>
-
-                            <div class="row mx-1 px-0">
-                                <div class="progress mt-1 col-8 px-0" data-bs-toggle="tooltip" data-bs-placement="right"
-                                     title="<?php echo $reviewStats[$i]["amount"] . ' vote(s) (' . $reviewStats[$i]["percentage"] . '%)'; ?>">
-                                    <div class="progress-bar" role="progressbar"
-                                         style="width: <?php echo $reviewStats[$i]["percentage"]; ?>%"
-                                         aria-valuenow="<?php echo $reviewStats[$i]["percentage"]; ?>" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
+                <!-- star distribution -->
+                <div class="mb-4">
+                    <?php for ($i = 5; $i > -1; $i--): // for each star rating ?>
+                        <div class="row mx-1 px-0">
+                            <div class="progress mt-1 col-8 px-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                                 title="<?php echo $reviewStats[$i]["amount"] . ' vote(s) = ' . $reviewStats[$i]["percentage"] . '%'; ?>">
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                     style="width: <?php echo $reviewStats[$i]["percentage"]; ?>%"
+                                     aria-valuenow="<?php echo $reviewStats[$i]["percentage"]; ?>" aria-valuemin="0"
+                                     aria-valuemax="100">
                                 </div>
-                                <a class="col-sm" href="#"><?= $i . ($i === 1 ? "Star" : "Stars") ?></a>
                             </div>
-
-                        <?php endfor; ?>
-
-                    </div>
+                            <a class="col-sm text-decoration-none" href="#"><?= $i . ($i === 1 ? " Star" : " Stars") ?></a>
+                            <!-- TODO make link work -->
+                        </div>
+                    <?php endfor; ?>
                 </div>
-
             </div>
-            <!-- RIGHT -->
-            <div class="col-lg-9 p-3 right-side align-content-center h-100">
 
-                <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item or already reviewed it-->
+            <!-- RIGHT -->
+            <div class="col-lg-9 right-side align-content-center h-100">
+                <?php if (UserController::isCurrentSessionLoggedIn()): ?>
+                    <!--TODO check if user bought this item or already reviewed it -->
 
                     <div class="p-3 right-side align-content-center h-100 border-bottom">
-                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                        <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseRating" aria-expanded="false"
                                 aria-controls="collapseExample">
                             Write a review
                         </button>
+                        <!-- collapsable form -->
                         <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post"
                               class="collapse needs-validation" id="collapseRating" novalidate>
-
                             <input type="hidden" value="<?= $product->getId(); ?>" name="productId">
 
-                            <div class="form-group position-relative">
+                            <div class="form-group position-relative mt-2">
                                 <label for="title">Title</label>
                                 <input type="text" value="" name="title" id="title" class="form-control" required
                                        pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
@@ -185,31 +184,25 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 <div id="ratings d-flex flex-row align-items-center mt-3">
                                     <div class="rating-group">
                                         <input class="rating__input rating__input--none" name="rating"
-                                               id="rating-none"
-                                               value="0" type="radio">
+                                               id="rating-none" value="0" type="radio" required>
                                         <label aria-label="No rating" class="rating__label" for="rating-none"><i
                                                     class="rating__icon rating__icon--none fa fa-ban"></i></label>
                                         <label aria-label="1 star" class="rating__label" for="rating-1"><i
                                                     class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-1" value="1"
-                                               type="radio">
+                                        <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
                                         <label aria-label="2 stars" class="rating__label" for="rating-2"><i
                                                     class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-2" value="2"
-                                               type="radio">
+                                        <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
                                         <label aria-label="3 stars" class="rating__label" for="rating-3"><i
                                                     class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-3" value="3"
-                                               type="radio"
+                                        <input class="rating__input" name="rating" id="rating-3" value="3" type="radio"
                                                checked>
                                         <label aria-label="4 stars" class="rating__label" for="rating-4"><i
                                                     class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-4" value="4"
-                                               type="radio">
+                                        <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
                                         <label aria-label="5 stars" class="rating__label" for="rating-5"><i
                                                     class="rating__icon rating-color fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating" id="rating-5" value="5"
-                                               type="radio">
+                                        <input class="rating__input" name="rating" id="rating-5" value="5" type="radio">
                                     </div>
                                 </div>
                             </div>
@@ -217,42 +210,40 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                             <div class="form-group position-relative">
                                 <label for="description">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="3"
-                                          required></textarea> <!--TODO pattern?-->
+                                          required></textarea> <!--TODO pattern? -->
                                 <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
                             </div>
                             <br>
                             <button class="w-100 btn btn-sm btn-primary" type="submit">Save Review</button>
-
                         </form>
                     </div>
-
                 <?php endif; ?>
-
 
                 <?php if ($reviewCount > 0): ?>
                     <?php foreach (ReviewController::getReviewsForProductInRange($product->getId(), $offset, LIMIT_OF_SHOWED_ITEMS) as $review): ?>
                         <?php $user = UserController::getById($review->getUserId()); ?>
                         <div class="p-3 right-side align-content-center h-100 border-bottom">
-                            <p class="mt-1 pr-3 content">Author: <?= UserController::getFormattedName($user); ?></p>
-                            <div class="ratings d-flex flex-row align-items-center mt-3">
-                                <p>
-                                    Rating: <?php ReviewController::calcAndIncProductStars($review) ?>
-                                </p>
+                            <div class="ratings d-flex flex-row align-items-center ">
+                                <p class="mb-1 me-3"><u>Author</u>: <?= UserController::getFormattedName($user); ?></p>
+                                <p class="mb-1 me-3"> <u>Rating</u>: <?php ReviewController::calcAndIncProductStars($review) ?></p>
+                                <?php if(UserController::isCurrentSessionAnAdmin()): ?>
+                                    <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=".$product->getId(); ?>"
+                                       class="btn btn-danger btn-sm ms-auto">
+                                        <i class="fa fa-trash "></i> Delete review
+                                    </a>
+                                <?php endif; ?>
                             </div>
 
-                            <h4 class=""><u><?= $review->getTitle(); ?></u></h4>
-                            <p class="mt-1 pr-3 content"><?= $review->getText(); ?></p>
-                            <?php if(UserController::isCurrentSessionAnAdmin()): ?>
-                            <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=".$product->getId(); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash "></i> Delete this review</a>
-                            <?php endif; ?>
+                            <h4 class=""><?= $review->getTitle(); ?></h4>
+                            <p class="mt-1 mb-0"><?= $review->getText(); ?></p>
                         </div>
-
                     <?php endforeach; ?>
+                <?php elseif (UserController::isCurrentSessionLoggedIn()): ?>
+                    <h5 class='text-center text-muted my-3'><i>No reviews found. Be the first.</i></h5>
                 <?php else: ?>
-
-                    <h5 class='text-center text-muted mb-5'><i>No reviews found. Be the first.</i></h5>
-
+                    <h5 class='text-center text-muted my-3'><i>No reviews found. Login and be the first.</i></h5>
                 <?php endif; ?>
+
                 <!-- pagination -->
                 <div class="p-3">
                     <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
