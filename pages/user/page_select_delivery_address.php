@@ -18,6 +18,8 @@ if (CartProductController::getCountByUser($_SESSION["uid"]) <= 0) {
 $user = UserController::getById($_SESSION["uid"]);
 $primaryAddress = AddressController::getById($user->getDefaultAddressId());
 $deliveryAddresses = AddressController::getAllByUser($user->getId());
+$cartItems = CartProductController::getAllByUser($user->getId());
+
 
 ?>
 
@@ -149,6 +151,9 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
                     <div class="d-flex justify-content-center row">
                         <div class="col-md-10">
 
+                            <?php foreach ($cartItems as $cartProduct){
+                                require INCLUDE_DIR . DS . "elem_checkout_product_card.inc.php";
+                            } ?>
                         </div>
                     </div>
                 </div>
