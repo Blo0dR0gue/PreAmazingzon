@@ -98,7 +98,7 @@ class ProductController
     }
 
     /**
-     * Deletes a directory with all subfolders and files.
+     * Deletes a directory with all sub-folders and files.
      * @param string $path
      * @return void
      */

@@ -106,7 +106,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
     if (DELETED_IMAGES_IDS.length > 0) {
-        //reset the fromdata variable.
+        //reset the from-data variable.
         formData.delete("deletedImgIDs[]");
         //Add them all to the formdata
         DELETED_IMAGES_IDS.forEach(function (val) {
