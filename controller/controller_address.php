@@ -36,8 +36,22 @@ class AddressController
      * @param int $userId user of interest
      * @return array<Address>|null array of addresses
      */
-    public static function getAllByUser(int $userId): ?array {
+    public static function getAllByUser(int $userId): ?array
+    {
         return Address::getAllByUser($userId);
+    }
+
+    /**
+     * Checks, if an address belongs to a user or not
+     * @param int $userId The id of the user
+     * @param Address $address The address
+     * @return bool true, if it belongs to the user
+     */
+    public static function doesThisAddressBelongsToUser(int $userId, Address $address): bool
+    {
+        $all = self::getAllByUser($userId);
+
+        return in_array($address, $all);
     }
 
 }

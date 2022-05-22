@@ -41,7 +41,9 @@ $cartItems = CartProductController::getAllByUser($user->getId());
 <!-- main body -->
 <main class="flex-shrink-0">
 
-    <form method="post" class="needs-validation" action="" name="checkoutForm" id="checkoutForm" novalidate>
+    <form method="post" class="needs-validation" action="<?= INCLUDE_HELPER_DIR . DS ."helper_checkout.inc.php"; ?>" name="checkoutForm" id="checkoutForm" novalidate>
+
+        <input type="hidden" value="<?= $user->getId() ?>" name="userId">
 
         <div class="container mt-1 mb-5 card shadow">
             <!-- Chosen address -->
@@ -66,7 +68,7 @@ $cartItems = CartProductController::getAllByUser($user->getId());
                     </div>
                     <?php if (!isset($primaryAddress)): ?>
                         <div id="noDeliveryText">
-                            <h5 class='text-muted mb-5'><i>There is no default address in your profile! Please select a
+                            <h5 class='mb-5 text-danger'><i>There is no default address in your profile! Please select a
                                     delivery
                                     address.</i></h5>
                         </div>
