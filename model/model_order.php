@@ -116,6 +116,9 @@ class Order
         return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function insert(): ?Order
     {
         $stmt = getDB()->prepare("INSERT INTO `order`(orderDate, deliveryDate, paid, orderState, user, shippingAddress)
