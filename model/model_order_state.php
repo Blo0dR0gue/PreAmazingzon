@@ -23,6 +23,7 @@ class OrderState
     }
 
     // region getter
+
     /**
      * @return int
      */
@@ -58,6 +59,21 @@ class OrderState
         $stmt->close();
 
         return new OrderState($id, $res["label"]);
+    }
+
+    public static function getByName(string $label): ?OrderState
+    {
+        $stmt = getDB()->prepare("SELECT * from orderstate where label = ?;");
+        $stmt->bind_param("s", $label);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new OrderState($res["id"], $res["label"]);
     }
 
 }

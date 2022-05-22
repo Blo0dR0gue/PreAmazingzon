@@ -98,6 +98,9 @@ class Order
 
     // endregion
 
+    /**
+     * @throws Exception
+     */
     public static function getById(int $id): ?Order
     {
         $stmt = getDB()->prepare("SELECT * from `order` where id = ?;");
@@ -110,18 +113,22 @@ class Order
         $res = $res->fetch_assoc();
         $stmt->close();
 
-        return new Order($id, $res["orderDate"], $res["deliveryDate"], $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
+        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
     }
 
     public function insert(): ?Order
     {
         $stmt = getDB()->prepare("INSERT INTO `order`(orderDate, deliveryDate, paid, orderState, user, shippingAddress)
                                         VALUES (?, ?, ?, ?, ?, ?);");
+
+        $orderDate = $this->orderDate->format("Y-m-d H:i:s");
+        $deliveryDate = $this->deliveryDate->format("Y-m-d H:i:s");
+
         $stmt->bind_param("ssiiii",
-            $this->orderDate,
-            $this->deliveryDate,
+            $orderDate,
+            $deliveryDate,
             $this->paid,
-            $this->orderDate,
+            $this->orderStateId,
             $this->userId,
             $this->shippingAddressId
         );

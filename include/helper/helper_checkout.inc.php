@@ -8,6 +8,7 @@ require_once CONTROLLER_DIR . DS . "controller_cart_product.php";
 require_once CONTROLLER_DIR . DS . "controller_product.php";
 require_once CONTROLLER_DIR . DS . "controller_address.php";
 require_once CONTROLLER_DIR . DS . "controller_order.php";
+require_once CONTROLLER_DIR . DS . "controller_order_state.php";
 
 //Redirect, if user is not logged-in or got blocked (and logout)
 UserController::redirectIfNotLoggedIn();
@@ -27,7 +28,7 @@ if (!isset($_POST["delivery"]) || !isset($_POST["payment"]) ||
 $orderProducts = CartProductController::getAllByUser($_SESSION["uid"]);
 
 //Redirect to shopping cart, if no products are in it.
-if(!isset($orderProducts)){
+if (!isset($orderProducts) && count($orderProducts) > 0) {
     header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
     die();
 }
@@ -35,8 +36,32 @@ if(!isset($orderProducts)){
 $deliveryAddress = AddressController::getById($_POST["delivery"]);
 
 //Redirect to shopping cart, if the passed delivery address does not belong to the user or its null
-if(isset($deliveryAddress) && !AddressController::doesThisAddressBelongsToUser($_SESSION["uid"], $deliveryAddress)){
+if (isset($deliveryAddress) && !AddressController::doesThisAddressBelongsToUser($_SESSION["uid"], $deliveryAddress)) {
     header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
     die();
 }
 
+$oderState = OrderStateController::getByName("new");
+$order = null;
+
+try {
+    $order = OrderController::insert(new DateTime("NOW", new DateTimeZone('Europe/Berlin')),
+        OrderController::calculateDeliveryDate(),
+        false,
+        $oderState->getId(),
+        $_SESSION["uid"],
+        $deliveryAddress->getId()
+    );
+} catch (Exception $e) {
+    //TODO handle (Datetime error)
+}
+
+if(!isset($order)){
+    //TODO error handling
+}
+
+//Add products to order
+
+foreach ($orderProducts as $orderProduct){
+
+}
