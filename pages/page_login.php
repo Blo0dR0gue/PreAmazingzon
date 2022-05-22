@@ -3,6 +3,7 @@
 
 <?php
 require_once CONTROLLER_DIR . DS . 'controller_user.php';
+require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
 
 if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
@@ -18,8 +19,6 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 
     <!-- form processing script -->
     <?php
-    require INCLUDE_DIR . DS . "modal_popup.inc.php";
-    require CONTROLLER_DIR . DS . "controller_user.php";
     //TODO Remember me cookies?
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set?
         if ($user = UserController::getByEmail($_POST["email"])) {  // get user

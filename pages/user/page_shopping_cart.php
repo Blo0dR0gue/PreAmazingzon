@@ -19,7 +19,7 @@
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="">
@@ -86,7 +86,7 @@
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
 </body>
 </html>

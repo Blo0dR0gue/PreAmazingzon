@@ -18,8 +18,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 
     <!-- form processing script -->
     <?php
-    require INCLUDE_DIR . DS . "modal_popup.inc.php";
-    require CONTROLLER_DIR . DS . "controller_user.php";
+    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
 
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set (e.g. tested with email and password)?
         if (UserController::emailAvailable($_POST["email"])) {      // email available?

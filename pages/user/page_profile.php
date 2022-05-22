@@ -74,7 +74,7 @@
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
@@ -171,7 +171,7 @@
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . DIRECTORY_SEPARATOR . "site_footer.inc.php" ?>
 
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . DIRECTORY_SEPARATOR . "form_validation.js" ?>"></script>

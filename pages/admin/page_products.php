@@ -131,7 +131,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
 <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
 
 
 <!-- show info popup -->

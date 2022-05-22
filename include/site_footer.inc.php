@@ -35,5 +35,4 @@
 </footer>
 
 <!-- load cookie consent modal on ever site, after the page has loaded -->
-<?php require INCLUDE_DIR . DS . "modal_cookie_consent.inc.php" ?>
-
+<?php require_once INCLUDE_DIR . DS . "modal_cookie_consent.inc.php" ?>

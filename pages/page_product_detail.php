@@ -47,7 +47,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -260,7 +260,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 </main>
 
 <!-- footer -->
-<?php require INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
 
 </body>
 </html>
