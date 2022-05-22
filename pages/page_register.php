@@ -2,7 +2,9 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (isset($_SESSION["login"])) {    // if already logged in redirect to home
+require_once CONTROLLER_DIR . DS . 'controller_user.php';
+
+if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
     die();
 }
