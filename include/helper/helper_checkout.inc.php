@@ -63,13 +63,21 @@ if (!isset($order)) {
 
 //Add products to order
 foreach ($cartProducts as $cartProduct) {
+    $product = ProductController::getByID($cartProduct->getProdId());
+
+    if(!isset($product)){
+        //TODO error
+    }
+
     $productOrder = ProductOrderController::insert(
         $cartProduct->getProdId(),
         $order->getId(),
         $cartProduct->getAmount(),
-        ProductController::getByID($cartProduct->getProdId())->getPrice()
+        $product->getPrice()
     );
     if(isset($productOrder)){
+        //Decrease amount
+        ProductController::decreaseStockAmount($cartProduct->getAmount(), $product);
         //Remove product from cart.
         CartProductController::delete($cartProduct);
     }else{
