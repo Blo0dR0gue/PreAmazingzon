@@ -80,15 +80,9 @@ class UserController
      * @return void
      */
     public static function redirectIfNotLoggedIn(): void {
-        if(isset($_SESSION["login"]) && isset($_SESSION["uid"])){
-            $user = self::getById($_SESSION["uid"]);
-            //Check, if this user even exist and if he is active
-            if(isset($user) && $user->isActive()){
-                return; //User is logged in
-            }
-        }
+        if(UserController::isCurrentSessionLoggedIn()) return; //User is logged in
 
-        //Delete all session variables
+        //delete all session variables
         require_once INCLUDE_HELPER_DIR . DS . "helper_logout.inc.php";
         header("Location: " . PAGES_DIR . DS . "page_login.php");
         die();
@@ -101,11 +95,28 @@ class UserController
     public static function isCurrentSessionAnAdmin(): bool {
         if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
             $user = self::getById($_SESSION["uid"]);
+
             //Check, if this user even exist and if he is active
             if(isset($user) && $user->isActive()){
                 //Check if user is really an admin
                 if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
                     return true; //User is admin
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Is user logged in?
+     * @return bool true, if he is logged in
+     */
+    public static function isCurrentSessionLoggedIn(): bool {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"])){
+            $user = self::getById($_SESSION["uid"]);
+
+            //Check, if this user even exist and if he is active
+            if(isset($user) && $user->isActive()){
+                return true; //User is logged in
             }
         }
         return false;
@@ -117,16 +128,9 @@ class UserController
      * @return void
      */
     public static function redirectIfNotAdmin(): void {
-        if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
-            $user = self::getById($_SESSION["uid"]);
-            //Check, if this user even exist and if he is active
-            if(isset($user) && $user->isActive()){
-                //Check if user is really an admin
-                if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
-                    return; //User is admin
-            }
-        }
-        header("Location: " . PAGES_DIR . DS . "page_login.php");
+        if(UserController::isCurrentSessionAnAdmin()) return; //User is admin
+
+        header("Location: " . ROOT_DIR);
         die();
     }
 
