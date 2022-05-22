@@ -58,16 +58,6 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <!-- footer -->
 <?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
 
-<!-- show error popup -->
-<?php
-if (isset($processingError)) {   // processing error
-    show_popup(
-        "Add Product Error",
-        "ALARM" //TODO
-    );
-}
-?>
-
 </body>
 </html>
 

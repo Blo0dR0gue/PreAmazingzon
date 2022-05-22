@@ -51,9 +51,54 @@ class CartProductController
         return null;
     }
 
+    /**
+     * Decreases the amount of products in cart to the max in stock, if we have more items in cart than it is in the stock. If the stock is 0 delete the item from the cart.
+     * @param CartProduct $cartProduct The cartproduct-object
+     * @return bool true, if the product got deleted from the cart
+     */
+    public static function handleOtherUserBoughtItemInCart(CartProduct $cartProduct): bool
+    {
+        require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+        $product = ProductController::getByID($cartProduct->getProdId());
+
+        if (!isset($product)) {
+            //Product does not exist
+            $cartProduct->delete();
+            show_popup(
+                "Product Changed",
+                "Product: '" . $product->getTitle() . "' got removed from your cart, because it does not exist anymore."
+            );
+            return true;
+        }
+
+        if ($cartProduct->getAmount() > $product->getStock()) {
+
+            if ($product->getStock() <= 0) {
+                //Remove it from the cart and show popup
+                $cartProduct->delete();
+                show_popup(
+                    "Product Changed",
+                    "Product: '" . $product->getTitle() . "' got removed from your cart, because the Stock is 0."
+                );
+                return true;
+            } else {
+                $newAmount = $product->getStock();
+                $popupString = "The amount for the product: '" . $product->getTitle() . "' got decreased from " . $cartProduct->getAmount() . " to " . $newAmount . ", because there a no more items in stock!";
+                self::decAmount($cartProduct, $cartProduct->getAmount() - $newAmount);
+
+                show_popup(
+                    "Product Changed",
+                    $popupString
+                );
+            }
+
+        }
+        return false;
+    }
+
     public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
     {
-        if ($cartProduct->getAmount() - $by > 1) {  // can not sell less than one
+        if ($cartProduct->getAmount() - $by >= 1) {  // can not sell less than one
             $cartProduct->setAmount($cartProduct->getAmount() - $by);
             return $cartProduct->update();
         }

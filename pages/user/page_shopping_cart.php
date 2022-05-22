@@ -7,6 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Cart</title>
 
     <!-- load data for shopping cart -->
@@ -47,7 +48,9 @@
                         if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
                                 $subtotal = 0;
-                                require INCLUDE_DIR . DS . "elem_cart_entry.php";
+                                //Decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
+                                if(!CartProductController::handleOtherUserBoughtItemInCart($cartProduct))       //If it got removed, don't show the item
+                                    require INCLUDE_DIR . DS . "elem_cart_entry.php";
                                 $total += $subtotal;
                             }
                         }
@@ -83,6 +86,16 @@
 
 <!-- footer -->
 <?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+
+<!-- show error popup -->
+<?php
+if (isset($processingError)) {   // processing error
+    show_popup(
+        "Edit Product Error",
+        "ALARM" //TODO
+    );
+}
+?>
 
 </body>
 </html>
