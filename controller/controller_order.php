@@ -26,7 +26,7 @@ class OrderController
     }
 
     public static function calculateDeliveryDate(): ?DateTime {
-        $dtZone = new DateTimeZone('Europe/Berlin');
+        $dtZone = new DateTimeZone(DATE_TIME_ZONE);
         $dt = null;
         try {
             $dt = new DateTime('now', $dtZone);

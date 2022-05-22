@@ -46,7 +46,7 @@ $oderState = OrderStateController::getByName("new");
 $order = null;
 
 try {
-    $order = OrderController::insert(new DateTime("NOW", new DateTimeZone('Europe/Berlin')),
+    $order = OrderController::insert(new DateTime("NOW", new DateTimeZone(DATE_TIME_ZONE)),
         OrderController::calculateDeliveryDate(),
         false,
         $oderState->getId(),
