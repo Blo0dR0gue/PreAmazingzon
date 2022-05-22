@@ -1,10 +1,7 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-if (!isset($_SESSION["login"]) || !isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]) {
-    header("LOCATION: " . ROOT_DIR);    //User is not allowed to be here.
-    die();
-}
+UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 
 //Load required Controllers
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
