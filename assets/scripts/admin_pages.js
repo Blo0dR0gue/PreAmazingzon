@@ -106,7 +106,9 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 
     //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
     if (DELETED_IMAGES_IDS.length > 0) {
+        //reset the fromdata variable.
         formData.delete("deletedImgIDs[]");
+        //Add them all to the formdata
         DELETED_IMAGES_IDS.forEach(function (val) {
             formData.append("deletedImgIDs[]", val);
         })
@@ -136,7 +138,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
 })
 
 /**
- * Add a image to the local FILES map.
+ * Add a new image to the local FILES map.
  * @param file The file, which should be added
  * @param maxFileAmount The max amount of images, which can be uploaded.
  */
@@ -202,7 +204,7 @@ function deleteImg(btnElem, isNewImg) {
     imgContainer.removeChild(imgBox);
 
     if (!isNewImg) {
-        //Relevant path by editing products.
+        //Relevant path by editing products. (Image is already uploaded)
 
         DELETED_IMAGES_IDS.push(_imgID);
 
@@ -213,7 +215,7 @@ function deleteImg(btnElem, isNewImg) {
             lastMainImgElem = btnElem;
         }
     } else {
-        //Delete the image from the FILES map
+        //Delete the image from the FILES map, if it is not uploaded yet.
         FILES.delete(_imgID);
     }
 

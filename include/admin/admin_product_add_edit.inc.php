@@ -1,12 +1,12 @@
-<!--TODO COMMENTS-->
 <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card">
         <div class="card-header">
             <!-- title -->
-            <h2 class="mb-2 mt-4">Add a new product</h2>
+            <h2 class="mb-2 mt-4">Product</h2>
         </div>
         <div class="card-body">
 
+            <!-- product title -->
             <div class="form-group position-relative">
                 <label for="title">Product Title</label>
                 <input type="text" value="<?php
@@ -15,11 +15,12 @@
                 }
                 ?>" name="title" id="title" class="form-control"
                        placeholder="A New Product Title"
-                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]+">
+                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
             </div>
 
 
+            <!-- category select -->
             <div class="form-group position-relative">
 
                 <label for="selectedRadio">Category</label>
@@ -44,6 +45,7 @@
 
             </div>
 
+            <!-- product description (text) -->
             <div class="form-group position-relative">
                 <label for="description">Product Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3"
@@ -55,6 +57,7 @@
                 <div class="invalid-tooltip opacity-75">Please add a Product text!</div>
             </div>
 
+            <!-- price -->
             <div class="form-group position-relative">
                 <label for="price">Price</label>
                 <div class="input-group p-0">
@@ -63,16 +66,16 @@
                         echo $product->getPrice();
                     }
                     ?>" step='0.01' class="form-control"
-                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00">
+                           required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00" min="0">
                     <span class="input-group-text"><?= CURRENCY_SYMBOL ?></span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                 </div>
 
-
+                <!-- shipping cost -->
                 <div class="form-group position-relative">
                     <label for="shipping">Shipping Cost</label>
                     <div class="input-group p-0">
-                        <input type="number" id="shipping" name="shipping" placeholder="3.50" step='0.01'
+                        <input type="number" id="shipping" name="shipping" placeholder="3.50" min="0" step='0.01'
                                class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" value="<?php
                         if (isset($product) && $product instanceof Product) {
                             echo $product->getShippingCost();
@@ -83,11 +86,12 @@
                     </div>
                 </div>
 
+                <!-- stock amount -->
                 <div class="form-group position-relative">
                     <label for="stock">Stock</label>
                     <div class="input-group p-0">
                         <div class="input-group p-0">
-                            <input type="number" id="stock" name="stock" class="form-control" placeholder="42" required
+                            <input type="number" id="stock" name="stock" class="form-control" placeholder="42" min="0" required
                                    pattern="[1-9][0-9]*|0" value="<?php
                             if (isset($product) && $product instanceof Product) {
                                 echo $product->getStock();
@@ -100,11 +104,14 @@
 
                 </div>
 
+                <!-- image upload drop zone -->
                 <div class="form-group">
 
                     <label for="pictures" class="form-label fs-4">Product Images</label>
+                    <!-- the image drop zone -->
                     <div id="dropZone" class="drop-zone" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
                          ondragover="dragOverHandler(event)">
+                        <!-- prepare to show the uploaded images in edit mode -->
                         <?php
                         if (isset($product) && $product instanceof Product) {
                             $mainImg = $product->getMainImg();
@@ -116,22 +123,26 @@
                         <div class="drop-texts" id="dropTexts"
 
                             <?php
-                            //Hide the text, if we add images to the dropZone
+                            //Hide the text, if we add images to the dropZone (edit mode)
                             if (isset($allIMGs) && sizeof($allIMGs) > 0): ?>
                                 style="display: none"
                             <?php endif; ?> >
                             <span class="drop-text">Click here or drag and drop file</span>
                         </div>
+                        <!-- embed the file explorer -->
                         <input class="file-input" type="file" id="files" name="files[]" multiple
                                onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
+                        <!-- images container -->
                         <section class="container py-3" id="imgContainer">
                             <div id="imgRow" class="row jcenter">
 
+                                <!-- show all uploaded images in edit mode -->
                                 <?php
                                 if (isset($allIMGs)) {
-                                    //Set the variable isNewImg to false, which is used by the template to define, if a tag is set.
+                                    //Set the variable isNewImg to false, which is used by the template to define, that this image is already uploaded.
                                     $isNewImg = false;
+                                    //For each image path
                                     foreach ($allIMGs as $img) {
                                         $imgPaths = explode(DS, $img);
                                         $imgID = end($imgPaths);
@@ -150,6 +161,7 @@
                         </section>
                     </div>
 
+                    <!-- contains the id of the main image -->
                     <input name="mainImgID" id="mainImgID" type="hidden">
                     <!--Only relevant in edit mode. contains all deleted image indexes  -->
                     <input name="deletedImgIDs[]" id="deletedImgIDs" type="hidden">
@@ -157,6 +169,7 @@
 
                 <br>
 
+                <!-- buttons -->
                 <div class="card-footer">
                     <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
                     <button class="btn btn-success">Save</button>

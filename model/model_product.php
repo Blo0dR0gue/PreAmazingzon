@@ -356,6 +356,10 @@ class Product
         return [IMAGE_DIR . DS . "products" . DS . "notfound.jpg"];
     }
 
+    /**
+     * Returns all image paths in an array or null, if there are no images uploaded.
+     * @return array|null
+     */
     public function getAllImgsOrNull(): ?array
     {
         $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");

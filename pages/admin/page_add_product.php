@@ -15,7 +15,7 @@ $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"])
     && isset($_POST["shipping"]) && isset($_POST["stock"]) && $isPost) {
 
-    $product = ProductController::addNew(
+    $product = ProductController::insert(
         $_POST["title"],
         $_POST["cat"],
         $_POST["description"],

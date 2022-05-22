@@ -6,6 +6,7 @@
 require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_review.php';
 require_once CONTROLLER_DIR . DS . 'controller_category.php';
+require_once CONTROLLER_DIR . DS . 'controller_user.php';
 ?>
 
 <?php // get product
@@ -21,6 +22,16 @@ if (isset($productID) && is_numeric($productID)) {
     header("LOCATION: " . ROOT_DIR);   //Redirect, if no number is passed.
     die();
 }
+
+//TODO vereinheitlichen und in dyn_pagination.inc.php auslagern
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
+$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
+$reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
+$totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
+
+$reviewStats = ReviewController::getStatsForEachStarForAProduct($product->getId());
+$avgRating = ReviewController::getAvgRating($product->getId());
+
 ?>
 
 <!DOCTYPE html>
@@ -41,10 +52,11 @@ if (isset($productID) && is_numeric($productID)) {
 <!-- main body -->
 <main class="flex-shrink-0">
     <!-- back button -->
-    <a href="javascript:history.back()" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2" style="font-size:36px"></a>
+    <a href="javascript:history.back()" class="fa fa-angle-double-left btn bg-transparent btn-sm ms-2"
+       style="font-size:36px"></a>
 
     <div class="container mt-1 mb-5 card shadow">
-        <div class="row g-0">
+        <div class="row g-0 border-bottom">
             <!-- LEFT -->
             <div class="col-lg-6 border-end">
                 <div class="d-flex flex-column justify-content-center">
@@ -67,9 +79,10 @@ if (isset($productID) && is_numeric($productID)) {
             <!-- RIGHT -->
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
-                <p class="small mb-2"><a href="#" class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
-                <!-- TODO make link work -->
-                <!-- TODO no category string? -->
+                <p class="small mb-2"><a href="#"
+                                         class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
+                    <!-- TODO make link work -->
+                    <!-- TODO no category string? -->
                 </p>
                 <!-- title -->
                 <h2><?= $product->getTitle() ?></h2>
@@ -87,9 +100,9 @@ if (isset($productID) && is_numeric($productID)) {
                 <!-- stars -->
                 <div class="ratings d-flex flex-row align-items-center mt-3">
                     <p>
-                        <?= ReviewController::getAvgRating($product->getId()) ?> Stars
+                        <?= $avgRating ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        (<?= ReviewController::getNumberOfReviews($product->getId()) ?> reviews)
+                        (<?= ReviewController::getNumberOfReviewsForProduct($product->getId()) ?> reviews)
                     </p>
                 </div>
 
@@ -104,15 +117,155 @@ if (isset($productID) && is_numeric($productID)) {
                         <label class="d-none" for="quantity"></label>
                         <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
                                max="<?= $product->getStock() ?>">
-                        <button type="submit" class="btn btn-warning">Add to Cart</button>
+                        <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0?"disabled":"" ?>>Add to Cart</button>
                     </div>
-                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock</p>
+                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock
+                    </p>
                 </form>
+            </div>
+        </div>
+
+        <!-- Related products-->
+        <div class="row g-0 border-bottom p-3">
+            <h4 class="mt-2">Related products to this article</h4>
+        </div>
+
+        <!-- Reviews -->
+        <div class="row g-0 border-bottom p-3">
+            <!-- LEFT -->
+            <div class="col-lg-3 border-end">
+                <h4 class="mt-2" id="review_header">Customer Reviews</h4>
+                <div class="card px-2 mb-4">
+                    <div class="card-body px-0">
+
+                        <?php for ($i = 5; $i > -1; $i--): ?>
+
+                            <div class="row mx-1 px-0">
+                                <div class="progress mt-1 col-8 px-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                                     title="<?php echo $reviewStats[$i]["amount"] . ' vote(s) (' . $reviewStats[$i]["percentage"] . '%)'; ?>">
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: <?php echo $reviewStats[$i]["percentage"]; ?>%"
+                                         aria-valuenow="<?php echo $reviewStats[$i]["percentage"]; ?>" aria-valuemin="0"
+                                         aria-valuemax="100"></div>
+                                </div>
+                                <a class="col-sm" href="#"><?= $i . ($i === 1 ? "Star" : "Stars") ?></a>
+                            </div>
+
+                        <?php endfor; ?>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- RIGHT -->
+            <div class="col-lg-9 p-3 right-side align-content-center h-100">
+
+                <?php if (isset($_SESSION["login"]) && $_SESSION["login"] && isset($_SESSION["uid"])): ?>  <!--TODO check if user bought this item or already reviewed it-->
+
+                    <div class="p-3 right-side align-content-center h-100 border-bottom">
+                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseRating" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Write a review
+                        </button>
+                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post"
+                              class="collapse needs-validation" id="collapseRating" novalidate>
+
+                            <input type="hidden" value="<?= $product->getId(); ?>" name="productId">
+
+                            <div class="form-group position-relative">
+                                <label for="title">Title</label>
+                                <input type="text" value="" name="title" id="title" class="form-control" required
+                                       pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
+                                <div class="invalid-tooltip opacity-75">Please enter a valid Title!</div>
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <label>Rating</label>
+                                <div id="ratings d-flex flex-row align-items-center mt-3">
+                                    <div class="rating-group">
+                                        <input class="rating__input rating__input--none" name="rating"
+                                               id="rating-none"
+                                               value="0" type="radio">
+                                        <label aria-label="No rating" class="rating__label" for="rating-none"><i
+                                                    class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                        <label aria-label="1 star" class="rating__label" for="rating-1"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-1" value="1"
+                                               type="radio">
+                                        <label aria-label="2 stars" class="rating__label" for="rating-2"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-2" value="2"
+                                               type="radio">
+                                        <label aria-label="3 stars" class="rating__label" for="rating-3"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-3" value="3"
+                                               type="radio"
+                                               checked>
+                                        <label aria-label="4 stars" class="rating__label" for="rating-4"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-4" value="4"
+                                               type="radio">
+                                        <label aria-label="5 stars" class="rating__label" for="rating-5"><i
+                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <input class="rating__input" name="rating" id="rating-5" value="5"
+                                               type="radio">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"
+                                          required></textarea> <!--TODO pattern?-->
+                                <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
+                            </div>
+                            <br>
+                            <button class="w-100 btn btn-sm btn-primary" type="submit">Save Review</button>
+
+                        </form>
+                    </div>
+
+                <?php endif; ?>
+
+
+                <?php if ($reviewCount > 0): ?>
+                    <?php foreach (ReviewController::getReviewsForProductInRange($product->getId(), $offset, LIMIT_OF_SHOWED_ITEMS) as $review): ?>
+                        <?php $user = UserController::getById($review->getUserId()); ?>
+                        <div class="p-3 right-side align-content-center h-100 border-bottom">
+                            <p class="mt-1 pr-3 content">Author: <?= UserController::getFormattedName($user); ?></p>
+                            <div class="ratings d-flex flex-row align-items-center mt-3">
+                                <p>
+                                    Rating: <?php ReviewController::calcAndIncProductStars($review) ?>
+                                </p>
+                            </div>
+
+                            <h4 class=""><u><?= $review->getTitle(); ?></u></h4>
+                            <p class="mt-1 pr-3 content"><?= $review->getText(); ?></p>
+                            <?php if(UserController::isCurrentSessionAnAdmin()): ?>
+                            <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=".$product->getId(); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash "></i> Delete this review</a>
+                            <?php endif; ?>
+                        </div>
+
+                    <?php endforeach; ?>
+                <?php else: ?>
+
+                    <h5 class='text-center text-muted mb-5'><i>No reviews found. Be the first.</i></h5>
+
+                <?php endif; ?>
+                <!-- pagination -->
+                <div class="p-3">
+                    <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+                </div>
             </div>
         </div>
     </div>
 
-    <!--TODO Reviews -->
+    <!-- load custom form validation script -->
+    <script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+    <!-- enable tooltips on this page (by default disabled for performance)-->
+    <script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+
 </main>
 
 <!-- footer -->

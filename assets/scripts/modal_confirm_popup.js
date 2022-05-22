@@ -1,7 +1,7 @@
-// script for handling the popup modal
+// script for handling the confirm-modal
 
 /**
- * By default, show the modal if it was loaded on the page.
+ * The model
  * @type {Modal}
  */
 confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"), {
@@ -12,12 +12,22 @@ confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"), {
 
 let _redirectUrl;
 
-function openConfirmModal(text, redirectUrl) {
+/**
+ * Open the modal and set redirect and inner text
+ * @param text The text, which is the content of this confirm modal
+ * @param title The title, which is showed in the header of this confirm modal
+ * @param redirectUrl The url, to we redirect, if we click confirm.
+ */
+function openConfirmModal(text, title, redirectUrl) {
+    $("#confirmModalHead")[0].textContent = title;
     $("#confirmModalBody")[0].textContent = text;
     _redirectUrl = redirectUrl;
     confirmModal.show();
 }
 
+/**
+ * Redirect on confirm
+ */
 function onConfirm() {
     window.location.replace(_redirectUrl);
 }

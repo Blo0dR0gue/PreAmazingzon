@@ -10,6 +10,10 @@ require_once CONTROLLER_DIR . DIRECTORY_SEPARATOR . "controller_address.php";
 class UserController
 {
 
+    public static function getFormattedName(User $user): string {
+        return $user->getFirstName() . " " . $user->getLastName();
+    }
+
     public static function getById(?int $id): ?User
     {
         if (isset($id)) return User::getById($id);
@@ -78,8 +82,48 @@ class UserController
     public static function redirectIfNotLoggedIn(): void {
         if(isset($_SESSION["login"]) && isset($_SESSION["uid"])){
             $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
             if(isset($user) && $user->isActive()){
                 return; //User is logged in
+            }
+        }
+
+        //Delete all session variables
+        require_once INCLUDE_HELPER_DIR . DS . "helper_logout.inc.php";
+        header("Location: " . PAGES_DIR . DS . "page_login.php");
+        die();
+    }
+
+    /**
+     * Is the current logged-in user an admin?
+     * @return bool true, if he is an admin
+     */
+    public static function isCurrentSessionAnAdmin(): bool {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
+            $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
+            if(isset($user) && $user->isActive()){
+                //Check if user is really an admin
+                if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
+                    return true; //User is admin
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Redirect to the index page, if the user is not an admin
+     * @return void
+     */
+    public static function redirectIfNotAdmin(): void {
+        if(isset($_SESSION["login"]) && isset($_SESSION["uid"]) && isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]){
+            $user = self::getById($_SESSION["uid"]);
+            //Check, if this user even exist and if he is active
+            if(isset($user) && $user->isActive()){
+                //Check if user is really an admin
+                if($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
+                    return; //User is admin
             }
         }
         header("Location: " . PAGES_DIR . DS . "page_login.php");

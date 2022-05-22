@@ -89,6 +89,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
                     <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete product"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Product: " . $product->getTitle() . ", with the ID: " . $product->getId() . "?'" ?>,
+                               'Delete Product?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
                         <!-- TODO set modal title or use custom modal -->
                         <i class="fa fa-trash "></i>
@@ -124,26 +125,8 @@ $products = ProductController::getProductsInRange($offset, $amount);
         </tbody>
     </table>
 
-    <!-- Modal -->
-    <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="confirmModalBody">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="onConfirm()">Understood</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="<?= SCRIPT_DIR . DS . "modal_confirm_popup.js" ?>"></script>
+    <!-- confirm modal -->
+    <?php require_once INCLUDE_DIR . DS . "modal_confirm.inc.php"; ?>
 
 </main>
 
