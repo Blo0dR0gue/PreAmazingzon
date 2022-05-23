@@ -146,7 +146,7 @@ class Order
      */
     public static function getAllForUserInRange(int $user_id, int $offset, int $amount): ?array
     {
-        $stmt = getDB()->prepare("SELECT * from `order` where user = ? order by orderDate limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT * from `order` where user = ? order by orderDate DESC limit ? offset ?;");
         $stmt->bind_param("iii", $user_id, $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
