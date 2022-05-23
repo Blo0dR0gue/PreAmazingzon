@@ -1,5 +1,5 @@
 <!-- TODO COMMENT -->
-<?php require_once "../include/site_php_head.inc.php" ?>
+<?php require_once "../../include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">

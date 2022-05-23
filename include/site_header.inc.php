@@ -63,6 +63,9 @@
                         <li>
                             <a class="dropdown-item" href="<?= USER_PAGES_DIR . DS . "page_profile.php" ?>">Profile Info</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= USER_PAGES_DIR . DS . "page_orders.php" ?>">Your Orders</a>
+                        </li>
 
                         <!-- admin area -->
                         <!--TODO Maybe add Dashboard?-->
