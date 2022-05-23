@@ -1,8 +1,10 @@
 <?php if (isset($order) && $order instanceof Order): ?>
     <div class="callout mb-5 border">
+
+        <!-- Head -->
         <h5 class="mb-2">Order
             number <?= $order->getId() . " (Status: " . OrderStateController::getById($order->getOrderStateId())->getLabel() . ")" ?></h5>
-        <p class="mb-0">Paid: <?= $order->isPaid()?"Paid":"Not Paid" ?></p>
+        <p class="mb-0">Paid: <?= $order->isPaid() ? "Paid" : "Not Paid" ?></p>
         <p class="mb-0">Order Date: <?= $order->getFormattedOrderDate(); ?></p>
         <p class="mb-0">Delivery Date: <?= $order->getFormattedDeliveryDate(); ?></p>
         <hr>
@@ -27,7 +29,7 @@
                 <div class="col-6 col-md-2">
                     <!--Image-->
                     <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#";
-                    // TODO GLOBAL dont use manual queries, http_build_query instead   ?>"
+                    // TODO GLOBAL dont use manual queries, http_build_query instead    ?>"
                        class="d-flex justify-content-center align-items-center">
                         <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . DS . "notfound.jpg"; ?>"
                              width="90"
@@ -87,7 +89,8 @@
             <div class="d-flex align-items-center">
                 <div class="col-6">
                     <button class="btn btn-sm fs-6"
-                       href="#">Download invoice</button>    <!--TODO-->
+                            href="#">Download invoice
+                    </button>    <!--TODO-->
                 </div>
 
                 <?php if (!$order->isPaid()) { ?>
