@@ -14,4 +14,8 @@ class ProductOrderController
         return $productOrder->insert();
     }
 
+    public static function getAllByOrder(int $orderId): array {
+        return ProductOrder::getAllByOrder($orderId);
+    }
+
 }

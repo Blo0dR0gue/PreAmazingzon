@@ -56,12 +56,22 @@ class Order
         return $this->orderDate;
     }
 
+
+    public function getFormattedOrderDate(): string{
+        return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+    }
+
     /**
      * @return DateTime
      */
     public function getDeliveryDate(): DateTime
     {
         return $this->deliveryDate;
+    }
+
+
+    public function getFormattedDeliveryDate(): string{
+        return $this->deliveryDate->format("d.m.Y");//TODO constant
     }
 
     /**
@@ -114,6 +124,43 @@ class Order
         $stmt->close();
 
         return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
+    }
+
+    public static function getAmountForUser(int $userId): int {
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from `order` where user = ?;");
+        $stmt->bind_param("i", $userId);
+
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getAllForUserInRange(int $user_id, int $offset, int $amount): ?array
+    {
+        $stmt = getDB()->prepare("SELECT * from `order` where user = ? order by orderDate DESC limit ? offset ?;");
+        $stmt->bind_param("iii", $user_id, $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+
+        $arr = array();
+        while ($r = $res->fetch_assoc()) {
+            $arr[] = new Order($r["id"], new DateTime($r["orderDate"]), new DateTime($r["deliveryDate"]), $r["paid"], $r["orderState"], $r["user"], $r["shippingAddress"]);
+        }
+        $stmt->close();
+
+        return $arr;
     }
 
     /**
