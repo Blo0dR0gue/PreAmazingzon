@@ -9,6 +9,10 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagi
 $orderCount = OrderController::getAmountForUser($_SESSION["uid"]);      // Get the total amount of order for the user
 $totalPages = ceil($orderCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages //TODO maybe other limits for orders?
 
+//Redirect to order page without page get variable which means we are on page 1
+if($page > $totalPages)
+    header("Location: " . USER_PAGES_DIR . DS . "page_orders.php");
+
 $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 
 ?>
