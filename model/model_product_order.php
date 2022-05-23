@@ -59,6 +59,24 @@ class ProductOrder
         return $this->price;
     }
 
+    /**
+     * Gets full price for this order item (price * amount)
+     * @return float The full price
+     */
+    public function getFullPrice(): float
+    {
+        return $this->price * $this->getAmount();
+    }
+
+    /**
+     * Gets the formatted full price as string including the currency symbol
+     * @return string
+     */
+    public function getFormattedFullPrice(): string
+    {
+        return number_format($this->getFullPrice(), 2, ".", "") . CURRENCY_SYMBOL;
+    }
+
     //endregion
 
     public static function getByIDs(int $productId, int $orderId): ?ProductOrder
