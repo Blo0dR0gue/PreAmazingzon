@@ -76,6 +76,25 @@ class ProductOrder
         return new ProductOrder($productId, $orderId, $res["amount"], $res["price"]);
     }
 
+    public static function getAllByOrder(int $orderId): ?array
+    {
+        $stmt = getDB()->prepare("SELECT * from product_order where `order` = ?;");
+        $stmt->bind_param("i", $orderId);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+
+        $arr = array();
+        while ($r = $res->fetch_assoc()) {
+            $arr[] = new ProductOrder($r["product"], $r["order"], $r["amount"], $r["price"]);
+        }
+        $stmt->close();
+
+        return $arr;
+    }
+
     public function insert(): ?ProductOrder
     {
         $stmt = getDB()->prepare("INSERT INTO product_order(product, `order`, amount, price)

@@ -26,6 +26,9 @@ require_once CONTROLLER_DIR . DS . 'controller_product.php';
 require_once CONTROLLER_DIR . DS . 'controller_review.php';
 require_once CONTROLLER_DIR . DS . 'controller_user.php';
 require_once CONTROLLER_DIR . DS . 'controller_user_role.php';
+require_once CONTROLLER_DIR . DS . 'controller_order.php';
+require_once CONTROLLER_DIR . DS . 'controller_product_order.php';
+require_once CONTROLLER_DIR . DS . 'controller_order_state.php';
 
 // session
 session_start();

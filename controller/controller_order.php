@@ -39,4 +39,17 @@ class OrderController
         return $dt;
     }
 
+    public static function getAmountForUser(int $userId): int{
+        return Order::getAmountForUser($userId);
+    }
+
+    public static function getAllForUserInRange(int $userId, int $offset): ?array{
+        try {
+            return Order::getAllForUserInRange($userId, $offset, LIMIT_OF_SHOWED_ITEMS);
+        } catch (Exception $e) {
+            //TODO handle DateTime error
+        }
+        return null;
+    }
+
 }
