@@ -16,6 +16,8 @@ $primaryAddress = AddressController::getById($user->getDefaultAddressId());
 $deliveryAddresses = AddressController::getAllByUser($user->getId());
 $cartItems = CartProductController::getAllByUser($user->getId());
 
+$totalProductPrice = 0;
+
 
 ?>
 
@@ -150,7 +152,9 @@ $cartItems = CartProductController::getAllByUser($user->getId());
                         <div class="col-md-10">
 
                             <?php foreach ($cartItems as $cartProduct){
+                                $subtotal = 0;
                                 require INCLUDE_DIR . DS . "elem_checkout_product_card.inc.php";
+                                $totalProductPrice += $subtotal;
                             } ?>
                         </div>
                     </div>
@@ -160,7 +164,7 @@ $cartItems = CartProductController::getAllByUser($user->getId());
             <!-- buttons -->
             <div class="card-footer">
                 <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
-                <button class="btn btn-success">Purchase</button>
+                <button class="btn btn-success">Purchase for <?= number_format($totalProductPrice, 2, ".", "") . CURRENCY_SYMBOL ?></button>
             </div>
 
         </div>
