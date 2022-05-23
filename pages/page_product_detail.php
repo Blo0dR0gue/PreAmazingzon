@@ -114,7 +114,8 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                max="<?= $product->getStock() ?>">
                         <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0?"disabled":"" ?>>Add to Cart</button>
                     </div>
-                    <p class="mb-0 ms-2 text-muted"><span class="fw-bold"><?= $product->getStock() ?></span> in Stock
+                    <p class="mb-0 ms-2 text-muted">
+                        <span class="fw-bold"><?= $product->getStock() ?></span> in Stock
                     </p>
                 </form>
             </div>
