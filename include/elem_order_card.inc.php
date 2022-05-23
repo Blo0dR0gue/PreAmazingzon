@@ -18,13 +18,17 @@
         foreach ($productOrders as $orderItem) {
             //Get the product object for the current order product
             $product = ProductController::getByID($orderItem->getProductId());
+            //Add the full price to the total sum
+            $sum += $orderItem->getFullPrice();
+            //Add the amount to the total amount
+            $count += $orderItem->getAmount();
             ?>
             <div class="row mb-3">
                 <div class="col-6 col-md-2">
                     <!--Image-->
                     <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#";
                     // TODO GLOBAL dont use manual queries, http_build_query instead   ?>"
-                       class="d-flex justify-content-center align-items-center overflow-hidden">
+                       class="d-flex justify-content-center align-items-center">
                         <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . DS . "notfound.jpg"; ?>"
                              width="90"
                              height="90" alt="Image of product">
@@ -35,7 +39,7 @@
                 <div class="col-6 col-md-4 d-flex align-items-center justify-content-center">
                     <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#"; ?>"
                        class="mb-0 h5 text-decoration-none text-black web"
-                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                         <?= isset($product) ? $product->getTitle() : "Product not found" ?>
                     </a>
                 </div>
@@ -47,16 +51,12 @@
 
                 <!--Amount-->
                 <div class="col-6 col-md-2 d-flex align-items-center">
-                    <?php
-                    $count += $orderItem->getAmount();
-                    echo $orderItem->getAmount() ?> pcs.
+                    <?= $orderItem->getAmount() ?> pcs.
                 </div>
 
                 <!--Price-->
                 <div class="col-6 col-md-2 d-flex align-items-center">
-                    <?php
-                    $sum += $orderItem->getAmount() * $orderItem->getPrice();
-                    echo number_format($orderItem->getAmount() * $orderItem->getPrice(), 2, ",", "") . CURRENCY_SYMBOL; ?>
+                    <?= $orderItem->getFormattedFullPrice(); ?>
                 </div>
             </div>
         <?php } ?>
