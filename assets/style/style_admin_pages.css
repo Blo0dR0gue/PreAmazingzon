@@ -2,12 +2,8 @@
     position: relative;
     width: 100%;
     border: 1px black dashed;
-    padding: 10px;
+    padding-inline: 10px;
     min-height: 250px;
-}
-
-.jcenter {
-    justify-content: center;
 }
 
 .drop-text {
@@ -23,21 +19,20 @@
     cursor: pointer;
 }
 
-.text {
-
-}
-
 .img-box {
-    width: 200px;
-    height: 150px;
     text-align: center;
     margin-bottom: 10px;
+}
+
+.img-div{
+    height: 200px;
 }
 
 .file-input {
     display: none;
 }
 
+/* TODO rework stretchy imgs*/
 .tbl-img {
     border: 1px solid #ddd;
     border-radius: 4px;

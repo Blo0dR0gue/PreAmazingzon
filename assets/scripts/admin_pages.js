@@ -250,8 +250,8 @@ function setMainImg(btnElem) {
     //Change old texts and css classes
     if (lastMainImgElem) {
         lastMainImgElem.classList.remove("btn-success");
-        lastMainImgElem.classList.add("btn-danger");
-        lastMainImgElem.innerHTML = "Set Main";
+        lastMainImgElem.classList.add("btn-secondary");
+        lastMainImgElem.innerHTML = "Main";
     }
     //Update references
     lastMainImgElem = btnElem;

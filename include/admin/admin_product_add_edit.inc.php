@@ -101,7 +101,7 @@
                 <label for="pictures" class="form-label fs-5 mt-2">Product Images</label>
                 <!-- image drop zone -->
                 <!-- TODO deprecated name event-->
-                <div id="dropZone" class="drop-zone rounded border-secondary" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
+                <div id="dropZone" class="drop-zone rounded border-secondary p-3" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
                      ondragover="dragOverHandler(event)">
                     <!-- prepare to show uploaded images in edit mode -->
                     <?php
@@ -126,8 +126,8 @@
                            onchange="filesChanged(this, <?= MAX_IMAGE_PER_PRODUCT ?>)">
 
                     <!-- images container -->
-                    <section class="container py-3" id="imgContainer">
-                        <div id="imgRow" class="row jcenter">
+                    <section id="imgContainer">
+                        <div id="imgRow" class="row justify-content-center">
                             <!-- show all uploaded images in edit mode -->
                             <?php
                             if (isset($allIMGs)) {
