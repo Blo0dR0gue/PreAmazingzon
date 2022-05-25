@@ -25,10 +25,13 @@ const IMAGE_PRODUCT_DIR = IMAGE_DIR . DS . "products";
 const SCRIPT_DIR = ASSETS_DIR . DS . "scripts";
 const STYLE_DIR = ASSETS_DIR . DS . "style";
 
+const INVOICES_DIR = ASSETS_DIR . DS . "invoices";
+
 const CONTROLLER_DIR = ROOT_DIR . "controller";
 
 const INCLUDE_DIR = ROOT_DIR . "include";
 const INCLUDE_HELPER_DIR = INCLUDE_DIR . DS . "helper";
+const INCLUDE_TCPDF_DIR = INCLUDE_DIR . DS . "tcpdf";
 
 const MODEL_DIR = ROOT_DIR . "model";
 

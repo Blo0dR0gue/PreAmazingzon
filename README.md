@@ -30,6 +30,7 @@ The following libraries or APIs are used in the project:
 * [jQuery](https://jquery.com/): for simplifying some JavaScript statements
 * [Bootstrap](https://getbootstrap.com/) CSS & (JS): for styling and GUI related things
 * [Popper](https://popper.js.org/): for better tooltips (recommended by Bootstrap)
+* [TCPDF](https://github.com/tecnickcom/tcpdf): PHP library for generating PDF documents on-the-fly
 
 ### Dir-Structure
 

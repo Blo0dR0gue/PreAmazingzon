@@ -60,4 +60,16 @@ const CURRENCY_SYMBOL = "€";
  */
 const DATE_TIME_ZONE = "Europe/Berlin";
 
+//region invoice
+
+const COMPANY_STREET = "Musterstraße";
+const COMPANY_STREET_NR = "1";
+const COMPANY_CITY = "Musterstadt";
+const COMPANY_ZIP_CODE = "12345";
+const COMPANY_COUNTRY = "Germany";
+const INVOICE_FOOTER = "We ask that you settle the invoice within 14 days of receipt.";
+
+
+//endregion
+
 // endregion
