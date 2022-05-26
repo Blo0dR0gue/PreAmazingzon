@@ -37,7 +37,7 @@ $users = UserController::getUsersInRange($offset)
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_users_add.php" ?>">
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_user_add.php" ?>">
             <i class="fa fa-plus"></i> Add User
         </a>
     </div>
@@ -64,7 +64,7 @@ $users = UserController::getUsersInRange($offset)
             <tr>
                 <td class="align-middle" data-th="">
                     <!--TODO-->
-                    <a href="#"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_user_edit.php" ?>"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                        title="Edit user">
                         <i class="fa fa-pencil"></i>
