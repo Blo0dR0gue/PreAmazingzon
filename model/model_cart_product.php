@@ -34,7 +34,7 @@ class CartProduct
      */
     public static function getAllByUser(int $user_id): ?array
     {
-        $stmt = getDB()->prepare("SELECT * from shoppingcart_product where user = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -58,7 +58,7 @@ class CartProduct
      */
     public static function getCountByUser(int $user_id): int
     {
-        $stmt = getDB()->prepare("SELECT COUNT(*) AS count from shoppingcart_product where user = ?;");
+        $stmt = getDB()->prepare("SELECT COUNT(*) AS count FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
         if (!$stmt->execute()) return 0;     // TODO ERROR handling
 

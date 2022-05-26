@@ -42,7 +42,7 @@ class Order
 
     public static function getAmountForUser(int $userId): int
     {
-        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from `order` where user = ?;");
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order` WHERE user = ?;");
         $stmt->bind_param("i", $userId);
 
         if (!$stmt->execute()) return 0;     // TODO ERROR handling
@@ -61,7 +61,7 @@ class Order
      */
     public static function getAllForUserInRange(int $user_id, int $offset, int $amount): ?array
     {
-        $stmt = getDB()->prepare("SELECT * from `order` where user = ? order by orderDate DESC limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE user = ? ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("iii", $user_id, $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -179,7 +179,7 @@ class Order
      */
     public static function getById(int $id): ?Order
     {
-        $stmt = getDB()->prepare("SELECT * from `order` where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

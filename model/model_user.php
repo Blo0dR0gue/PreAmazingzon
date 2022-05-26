@@ -44,7 +44,7 @@ class User
 
     public static function getByEmail(string $email): ?User
     {
-        $stmt = getDB()->prepare("SELECT * from user where email = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM user WHERE email = ?;");
         $stmt->bind_param("s", $email);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -217,7 +217,7 @@ class User
      */
     public static function getById(int $id): ?User
     {
-        $stmt = getDB()->prepare("SELECT * from user where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

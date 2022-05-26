@@ -52,7 +52,7 @@ class Category
     {
         if ($id == null) return null;
 
-        $stmt = getDB()->prepare("SELECT * from category where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM category WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -67,7 +67,7 @@ class Category
 
     public static function getByName(string $name): ?Category
     {
-        $stmt = getDB()->prepare("SELECT * from category where name = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
         $stmt->bind_param("s", $name);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

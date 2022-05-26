@@ -65,7 +65,7 @@ class Product
 
     public static function getByID(int $id): ?Product
     {
-        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -88,7 +88,7 @@ class Product
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id from product ORDER BY id limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT id FROM product ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -131,7 +131,7 @@ class Product
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id from product where category = ?;");
+        $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ?;");
         $stmt->bind_param("i", $categoryID);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -156,7 +156,7 @@ class Product
         $searchFilter = strtolower($searchString);
         $searchString = "%$searchString%";
 
-        $stmt = getDB()->prepare("SELECT DISTINCT p.id from product as p LEFT OUTER JOIN Category as c on p.category = c.id where LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
+        $stmt = getDB()->prepare("SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN Category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -179,9 +179,9 @@ class Product
         if (isset($searchString)) {
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
-            $sql = "SELECT COUNT(DISTINCT p.id) as count from product as p LEFT OUTER JOIN Category as c on p.category = c.id where LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
+            $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN Category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
         } else {
-            $sql = "SELECT COUNT(DISTINCT id) as count from product;";
+            $sql = "SELECT COUNT(DISTINCT id) AS count FROM product;";
         }
         $stmt = getDB()->prepare($sql);
 

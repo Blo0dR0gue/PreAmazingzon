@@ -31,7 +31,7 @@ class OrderState
      */
     public static function getById(int $id): ?OrderState
     {
-        $stmt = getDB()->prepare("SELECT * from orderstate where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -46,7 +46,7 @@ class OrderState
 
     public static function getByName(string $label): ?OrderState
     {
-        $stmt = getDB()->prepare("SELECT * from orderstate where label = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
         $stmt->bind_param("s", $label);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

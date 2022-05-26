@@ -82,7 +82,7 @@ class Review
     {
         $reviews = [];
 
-        $stmt = getDB()->prepare("SELECT id from review WHERE product = ? ORDER BY id limit ? offset ?;");
+        $stmt = getDB()->prepare("SELECT id FROM review WHERE product = ? ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("iii", $productId, $amount, $offset);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -102,7 +102,7 @@ class Review
      */
     public static function getById(int $id): ?Review
     {
-        $stmt = getDB()->prepare("SELECT * from review where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM review WHERE id = ?;");
 
         $stmt->bind_param("i", $id);
 
@@ -119,7 +119,7 @@ class Review
 
     public static function getAmountOfReviewsForProduct(int $productId): int
     {
-        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from review where product = ?;");
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
         $stmt->bind_param("i", $productId);
 
         if (!$stmt->execute()) return 0;     // TODO ERROR handling
@@ -140,7 +140,7 @@ class Review
      */
     public static function getStatsForEachStarForAProduct(int $productId): array
     {
-        $stmt = getDB()->prepare("SELECT stars as star, COUNT(*) as amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review where product = ?)*100, 2) as percentage FROM review WHERE product = ? GROUP BY stars;");
+        $stmt = getDB()->prepare("SELECT stars AS star, COUNT(*) AS amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review WHERE product = ?)*100, 2) AS percentage FROM review WHERE product = ? GROUP BY stars;");
         $stmt->bind_param("ii", $productId, $productId);
 
         if (!$stmt->execute()) return [];     // TODO ERROR handling

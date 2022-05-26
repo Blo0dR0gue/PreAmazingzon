@@ -29,7 +29,7 @@ class ProductOrder
 
     public static function getByIDs(int $productId, int $orderId): ?ProductOrder
     {
-        $stmt = getDB()->prepare("SELECT * from product_order where product = ? and `order` = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM product_order WHERE product = ? AND `order` = ?;");
         $stmt->bind_param("ii", $productId, $orderId);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -44,7 +44,7 @@ class ProductOrder
 
     public static function getAllByOrder(int $orderId): ?array
     {
-        $stmt = getDB()->prepare("SELECT * from product_order where `order` = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM product_order WHERE `order` = ?;");
         $stmt->bind_param("i", $orderId);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

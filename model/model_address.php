@@ -44,7 +44,7 @@ class Address
      */
     public static function getAllByUser(int $user_id): ?array
     {
-        $stmt = getDB()->prepare("SELECT * from address where user = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM address WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -68,7 +68,7 @@ class Address
      */
     public static function getDefaultByUser(int $user_id): ?Address
     {
-        $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
+        $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
         $stmt->bind_param("i", $user_id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -89,7 +89,7 @@ class Address
      */
     public static function getById(int $id): ?Address
     {
-        $stmt = getDB()->prepare("SELECT * from address where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM address WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 

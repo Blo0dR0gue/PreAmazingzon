@@ -31,7 +31,7 @@ class UserRole
      */
     public static function getById(int $id): ?UserRole
     {
-        $stmt = getDB()->prepare("SELECT * from userrole where id = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM userrole WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -51,7 +51,7 @@ class UserRole
      */
     public static function getByName(string $name): ?UserRole
     {
-        $stmt = getDB()->prepare("SELECT * from userrole where name = ?;");
+        $stmt = getDB()->prepare("SELECT * FROM userrole WHERE name = ?;");
         $stmt->bind_param("s", $name);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
