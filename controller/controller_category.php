@@ -58,4 +58,14 @@ class CategoryController
         return Category::getCategoryTree();
     }
 
+    /**
+     * Returns the amounts of categories stored in the database using a filter, if it is defined.
+     * @param string|null $searchFilter Filter used to test, if the passed string is in the description or the name of a category.
+     * @return int  The amount of found categories.
+     */
+    public static function getAmountOfCategories(?string $searchFilter): int
+    {
+        return Category::getAmountOfCategories($searchFilter);
+    }
+
 }

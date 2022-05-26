@@ -141,6 +141,37 @@ class Category
         return $categoryIDs;
     }
 
+    /**
+     * Returns the amounts of categories stored in the database using a filter, if it is defined.
+     * @param string|null $searchString Filter used to test, if the passed string is in the description, the title of a category.
+     * @return int  The amount of found categories.
+     */
+    public static function getAmountOfCategories(?string $searchString): int
+    {
+        if (isset($searchString)) {
+            $searchFilter = strtolower($searchString);
+            $searchString = "%$searchString%";
+            $sql = "SELECT COUNT(DISTINCT id) as count FROM category AS c WHERE LOWER(c.description) LIKE ? OR LOWER(c.name) LIKE ?;";
+            $stmt = getDB()->prepare($sql);
+
+            $stmt->bind_param("sss", $searchString, $searchString, $searchString);
+        } else {
+            $sql = "SELECT COUNT(DISTINCT id) as count FROM category;";
+            $stmt = getDB()->prepare($sql);
+        }
+
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
+
     public function getImg(): string
     {
         $images = glob(IMAGE_DIR . DS . "categories" . DS . $this->id . DS . "*");
