@@ -1,3 +1,4 @@
+/* drop zone */
 .drop-zone {
     position: relative;
     width: 100%;
@@ -19,25 +20,12 @@
     cursor: pointer;
 }
 
+/* images */
 .img-box {
     text-align: center;
     margin-bottom: 10px;
 }
 
-.img-div{
-    height: 200px;
-}
-
 .file-input {
     display: none;
-}
-
-/* TODO rework stretchy imgs*/
-.tbl-img {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    width: 140px;
-    height: 120px;
-    margin-bottom: 5px;
 }

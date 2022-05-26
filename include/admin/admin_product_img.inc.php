@@ -1,7 +1,8 @@
 <!-- Represents an uploaded file in the edit or add product page -->
 <div class="img-box mb-3 col-xl-4 col-lg-6">
     <!-- set the image source, if it is present (edit mode) -->
-    <div class="img-div border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1">
+    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
+         style="height: 200px;">
         <img src="<?= $img ?? "" ?>" class="mh-100 mw-100" alt="product_img">
     </div>
 
