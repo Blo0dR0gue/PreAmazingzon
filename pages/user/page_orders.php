@@ -10,7 +10,7 @@ $orderCount = OrderController::getAmountForUser($_SESSION["uid"]);      // Get t
 $totalPages = ceil($orderCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages //TODO maybe other limits for orders?
 
 //Redirect to order page without page get variable which means we are on page 1
-if($page > $totalPages)
+if($page > $totalPages && $totalPages > 0)
     header("Location: " . USER_PAGES_DIR . DS . "page_orders.php");
 
 $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
