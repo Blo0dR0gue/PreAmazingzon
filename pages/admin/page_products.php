@@ -72,7 +72,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
                     </a>
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete product"
-                       onclick="openConfirmModal(<?= "'Do you really want to delete the Product: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
+                       onclick="openConfirmModal(<?= "'Do you really want to delete the Product: \'" . $product->getTitle() . "\', with ID: " . $product->getId() . "?'" ?>,
                                'Delete Product?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
                         <i class="fa fa-trash "></i>
