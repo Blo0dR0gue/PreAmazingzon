@@ -59,6 +59,10 @@ class ProductOrder
         return $this->price;
     }
 
+    public function getFormattedUnitPrice(): string {
+        return number_format($this->price, 2, ".", "") . CURRENCY_SYMBOL;
+    }
+
     /**
      * Gets full price for this order item (price * amount)
      * @return float The full price
