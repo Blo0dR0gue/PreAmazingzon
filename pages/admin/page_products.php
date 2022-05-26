@@ -25,7 +25,7 @@ $products = ProductController::getProductsInRange($offset, $amount);
 <head>
     <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
     <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
-    <title>Admin - Products</title>
+    <title><?= PAGE_NAME ?> - Admin - Products</title>
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">

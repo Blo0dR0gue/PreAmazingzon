@@ -79,6 +79,12 @@
                             <li>
                                 <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DS . 'page_products.php'?>">Manage Products</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DS . 'page_users.php'?>">Manage Users</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . DS . 'page_orders.php'?>">Manage Orders</a>
+                            </li>
                         <?php } ?>
 
                         <li>
