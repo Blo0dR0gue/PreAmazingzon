@@ -37,7 +37,7 @@ $users = UserController::getUsersInRange($offset)
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="#?>"> <!--TODO-->
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_users_add.php" ?>">
             <i class="fa fa-plus"></i> Add User
         </a>
     </div>
@@ -53,7 +53,7 @@ $users = UserController::getUsersInRange($offset)
             <th scope="col" style="width: 30%; text-align: center">E-Mail</th>
             <th scope="col" style="width: 20%;">Firstname</th>
             <th scope="col" style="width: 20%">Lastname</th>
-            <th scope="col" style="width: 10%">Primary Address</th>
+            <th scope="col" style="width: 10%">Primary Address ID</th>
             <th scope="col" style="width: 10%">Active</th>
         </tr>
         </thead>
@@ -66,7 +66,7 @@ $users = UserController::getUsersInRange($offset)
                     <!--TODO-->
                     <a href="#"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
-                       title="Edit category">
+                       title="Edit user">
                         <i class="fa fa-pencil"></i>
                     </a>
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
