@@ -96,5 +96,5 @@ foreach ($cartProducts as $cartProduct) {
 //Create invoice
 require_once INCLUDE_HELPER_DIR . DS . "helper_create_invoice.inc.php";
 
-header("Location: " . PAGES_DIR . DS . "page_thank_you.php");
+header("Location: " . USER_PAGES_DIR . DS . "page_thank_you.php");
 die();
