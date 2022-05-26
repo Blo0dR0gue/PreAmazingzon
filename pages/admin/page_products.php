@@ -38,7 +38,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All products</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_add_product.php" ?>">
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_product_add.php" ?>">
             <i class="fa fa-plus"></i> Add product
         </a>
     </div>
@@ -65,7 +65,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
         <?php foreach ($products as $product): ?>
             <tr>
                 <td class="align-middle" data-th="">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                        title="Edit product">
                         <i class="fa fa-pencil"></i>
@@ -91,7 +91,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
                 </td>
 
                 <td data-th="Title">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
                 </td>
 
