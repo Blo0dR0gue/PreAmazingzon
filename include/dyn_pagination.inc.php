@@ -22,17 +22,11 @@
     ?>
 
     <nav aria-label="Page navigation example mt-5">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center mb-5">
 
-            <li class="page-item <?php if ($page <= 1) {
-                echo 'disabled';
-            } ?>">
+            <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
                 <a class="page-link"
-                   href="<?php if ($page <= 1) {
-                       echo '#';
-                   } else {
-                       echo $urlExtend . $page - 1;
-                   } ?>">Previous</a>
+                   href="<?php if ($page <= 1) echo '#'; else echo $urlExtend . $page - 1; ?>">Previous</a>
             </li>
 
             <?php
@@ -42,7 +36,6 @@
             ?>
 
             <?php if ($start_x > 1): ?>
-
                 <li class="page-item">
                     <a class="page-link"
                        href="<?= $urlExtend . "1" ?>>">1</a>
@@ -51,30 +44,20 @@
                 <li class="page-item disabled">
                     <a class="page-link">...</a>
                 </li>
-
             <?php endif; ?>
 
-            <?php
-            // loop to show links to range of pages around current page
-            for ($x = $start_x;
-                 $x < ($end_x + 1);
-                 $x++):
+            <!-- loop to show links to range of pages around current page -->
+            <?php for ($x = $start_x; $x < ($end_x + 1); $x++):
                 // if it's a valid page number...
-                if (($x > 0) && ($x <= $totalPages)):
-                    ?>
-                    <li class="page-item <?php if ($page == $x) {
-                        echo 'active';
-                    } ?>">
+                if (($x > 0) && ($x <= $totalPages)): ?>
+                    <li class="page-item <?php if ($page == $x) echo 'active'; ?>">
                         <a class="page-link"
                            <?php if ($page != $x): ?>href="<?= $urlExtend . $x; ?>" <?php endif; ?>> <?= $x; ?> </a>
                     </li>
-                <?php
-                endif;
-            endfor;
-            ?>
+                <?php endif;
+            endfor; ?>
 
             <?php if ($end_x < $totalPages && $end_x != $start_x): ?>
-
                 <li class="page-item disabled">
                     <a class="page-link">...</a>
                 </li>
@@ -83,20 +66,12 @@
                     <a class="page-link"
                        href="<?= $urlExtend . $totalPages ?>"><?= $totalPages ?></a>
                 </li>
-
             <?php endif; ?>
 
-            <li class=" page-item <?php if ($page >= $totalPages) {
-                echo 'disabled';
-            } ?>">
+            <li class=" page-item <?php if ($page >= $totalPages) echo 'disabled' ?>">
                 <a class="page-link"
-                   href="<?php if ($page >= $totalPages) {
-                       echo '#';
-                   } else {
-                       echo $urlExtend . $page + 1;
-                   } ?>">Next</a>
+                   href="<?php if ($page >= $totalPages) echo '#'; else echo $urlExtend . $page + 1; ?>">Next</a>
             </li>
-
         </ul>
     </nav>
 <?php endif; ?>
