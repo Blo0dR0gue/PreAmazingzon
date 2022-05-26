@@ -61,6 +61,9 @@ if (!isset($order)) {
     //TODO error handling
 }
 
+//Used for the invoice creation
+$productOrders = [];
+
 //Add products to order
 foreach ($cartProducts as $cartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
@@ -75,8 +78,12 @@ foreach ($cartProducts as $cartProduct) {
         $cartProduct->getAmount(),
         $product->getPrice()
     );
+
     if(isset($productOrder)){
-        //Decrease amount
+        //Add this item to the list of orders products for the invoice creation
+        $productOrders[] = $productOrder;
+
+        //Decrease the amount of the bought product.
         ProductController::decreaseStockAmount($cartProduct->getAmount(), $product);
         //Remove product from cart.
         CartProductController::delete($cartProduct);
@@ -86,6 +93,8 @@ foreach ($cartProducts as $cartProduct) {
 }
 
 //Done
-//TODO thank you page
+//Create invoice
+require_once INCLUDE_HELPER_DIR . DS . "helper_create_invoice.inc.php";
+
 header("Location: " . PAGES_DIR . DS . "page_thank_you.php");
 die();
