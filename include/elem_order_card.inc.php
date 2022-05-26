@@ -88,9 +88,10 @@
             </div>
             <div class="d-flex align-items-center">
                 <div class="col-6">
-                    <button class="btn btn-sm fs-6"
-                            href="#">Download invoice
-                    </button>    <!--TODO-->
+                    <!--TODO make it save so a user cant download a invoice of a other user?-->
+                    <a class="btn btn-sm fs-6" href="<?= INVOICES_DIR . DS . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>" download="">
+                        Download invoice
+                    </a>
                 </div>
 
                 <?php if (!$order->isPaid()) { ?>
