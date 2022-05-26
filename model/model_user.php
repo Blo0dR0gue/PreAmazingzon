@@ -258,6 +258,49 @@ class User
         return self::getById($this->id);
     }
 
+
+    /**
+     * Returns the amounts of products stored in the database.
+     * @return int The amount of users
+     */
+    public static function getAmountOfUsers(): int
+    {
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM user;");
+
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
+    /**
+     * Select a specified amount of products starting at an offset.
+     * @param int $offset The first row, which should be selected.
+     * @param int $amount The amount of rows, which should be selected.
+     * @return array|null An array with the found products or null, if an error occurred.
+     */
+    public static function getUsersInRange(int $offset, int $amount): ?array
+    {
+        $users = [];
+
+        $stmt = getDB()->prepare("SELECT id FROM user ORDER BY id LIMIT ? OFFSET ?;");
+        $stmt->bind_param("ii", $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+
+        foreach ($stmt->get_result() as $user) {
+            $users[] = self::getByID($user["id"]);
+        }
+        $stmt->close();
+        return $users;
+    }
+
     public function delete(): void
     {
         // TODO

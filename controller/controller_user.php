@@ -150,4 +150,14 @@ class UserController
         }
         return false;
     }
+
+    public static function getAmountOfUsers(): int {
+        return User::getAmountOfUsers();
+    }
+
+    public static function getUsersInRange(int $offset): array
+    {
+        return User::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+    }
+
 }
