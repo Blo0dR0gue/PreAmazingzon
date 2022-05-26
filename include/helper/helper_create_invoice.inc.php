@@ -1,49 +1,67 @@
 <?php
+//Helper page to create an invoice after the order complete.
+
+//Redirect, if this page got called directly and not via "request"
+if (str_contains($_SERVER["REQUEST_URI"], basename(__FILE__))) {
+    header("Location: " . ROOT_DIR);
+    die();
+}
+
 //Load Header
 require_once "../site_php_head.inc.php";
+
+UserController::redirectIfNotLoggedIn();
+
+//Redirect, if information to create the invoice are missing or the information do not have the correct datatype
+//The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
+if (!isset($order) || !$order instanceof Order || !isset($productOrders) || count($productOrders) <= 0 ||
+    !$productOrders[0] instanceof ProductOrder || !isset($deliveryAddress) || !$deliveryAddress instanceof Address) {
+    header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+    die();
+}
 
 //Load tcpdf
 require_once INCLUDE_TCPDF_DIR . DS . "tcpdf.php";
 
+//It's safe to user this here, because we check the user information in the function redirectIfNotLoggedIn
+$user = UserController::getById($_SESSION["uid"]);
 
-$invoice_nr = "743";
-$order_date = date("d.m.Y");
-$delivery_date = date("d.m.Y");
+$orderId = $order->getId();
+$userId = $user->getId();
+$order_date = $order->getFormattedOrderDate();
+$delivery_date = $order->getFormattedDeliveryDate();
 $pdfAuthor = PAGE_NAME;
 
-$invoice_header = '
-<img src="' . IMAGE_LOGO_DIR . DS . "logo_long.svg" . '" height="32">
-' . PAGE_NAME . '
-' . COMPANY_STREET . " " . COMPANY_STREET_NR . '
-' . COMPANY_ZIP_CODE . " " . COMPANY_CITY . '
-' . COMPANY_COUNTRY;
+$targetDir = INVOICES_DIR . DS . $userId;
 
-//TODO
-$invoice_recipient = '
-Max Musterman
-Musterstraße 17
-12345 Musterstadt';
+//The sender of this invoice
+$invoice_header =
+    "<img src='" . IMAGE_LOGO_DIR . DS . "logo_long.svg" . "' height='32'> \n " .
+    PAGE_NAME . "\n" .
+    COMPANY_STREET . " " . COMPANY_STREET_NR . "\n" .
+    COMPANY_ZIP_CODE . " " . COMPANY_CITY . "\n" .
+    COMPANY_COUNTRY;
+
+//Recipient information for invoice
+$invoice_recipient =
+    $user->getFormattedName() . "\n" .
+    $deliveryAddress->getStreet() . " " . $deliveryAddress->getNumber() . "\n" .
+    $deliveryAddress->getZip() . " " . $deliveryAddress->getCity();
 
 $invoice_footer = INVOICE_FOOTER;
-
-//TODO
-$order_items = array(
-    array("Produkt 1", 1, 42.50),
-    array("Produkt 2", 5, 5.20),
-    array("Produkt 3", 3, 10.00));
 
 //value added tax (0.19 = 19%)
 $tax = 0.0; //TODO constant
 
-$pdfName = "invoice_" . $invoice_nr . ".pdf";
+$pdfName = "invoice_" . $userId . "_" . $orderId . ".pdf";
 
 //Invoice body (The use of css is limited in tcpdf)
-$html = '
+$html = ' 
 <table style="width: 100%; ">
  <tr>
  <td>' . nl2br(trim($invoice_header)) . '</td>
     <td style="text-align: right">
-Bill Number ' . $invoice_nr . '<br>
+Bill Number ' . $orderId . '<br>
 Invoice Date: ' . $order_date . '<br>
 Delivery Date: ' . $delivery_date . '<br>
  </td>
@@ -72,19 +90,19 @@ Invoice
  <td style="text-align: center;"><b>Price</b></td>
  </tr>';
 
-//TODO
+//Total sum of all products for this invoice
 $sum = 0;
 
-foreach ($order_items as $item) {
-    $amount = $item[1];
-    $unitPrice = $item[2];
-    $price = $amount * $unitPrice;
-    $sum += $price;
+foreach ($productOrders as $item) {
+    $product = ProductController::getByID($item->getProductId());
+
+    $sum += $item->getFullPrice();
+
     $html .= '<tr>
-                <td>' . $item[0] . '</td>
- <td style="text-align: center;">' . $item[1] . '</td> 
- <td style="text-align: center;">' . number_format($item[2], 2, ',', '') . ' Euro</td>	
-                <td style="text-align: center;">' . number_format($price, 2, ',', '') . ' Euro</td>
+                <td>'.$product->getTitle().'</td>
+                <td style="text-align: center;">'.$item->getAmount()." pcs.".'</td> 
+                <td style="text-align: center;">'.$item->getFormattedUnitPrice().'</td>	
+                <td style="text-align: center;">'.$item->getFormattedFullPrice().'</td>
               </tr>';
 }
 $html .= "</table>";
@@ -92,32 +110,32 @@ $html .= "</table>";
 
 $html .= '
 <hr>
-<table cellpadding="5" cellspacing="0" style="width: 100%;" border="0">';
+<table style="width: 100%; border: none">';
 if ($tax > 0) {
-    $netto = $sum / (1 + $tax);
-    $tax_amount = $sum - $netto;
+    $net = $sum / (1 + $tax);
+    $tax_amount = $sum - $net;
 
     $html .= '
  <tr>
- <td colspan="3">Zwischensumme (Netto)</td>
- <td style="text-align: center;">' . number_format($netto, 2, ',', '') . ' Euro</td>
+ <td colspan="3">Subtotal (net)</td>
+ <td style="text-align: center;">' . number_format($net, 2, ',', '') . CURRENCY_SYMBOL . '</td>
  </tr>
  <tr>
- <td colspan="3">Umsatzsteuer (' . intval($tax * 100) . '%)</td>
- <td style="text-align: center;">' . number_format($tax_amount, 2, ',', '') . ' Euro</td>
+ <td colspan="3">Tax (' . intval($tax * 100) . '%)</td>
+ <td style="text-align: center;">' . number_format($tax_amount, 2, ',', '') . CURRENCY_SYMBOL . '</td>
  </tr>';
 }
 
 $html .= '
             <tr>
-                <td colspan="3"><b>Gesamtsumme: </b></td>
-                <td style="text-align: center;"><b>' . number_format($sum, 2, ',', '') . ' Euro</b></td>
+                <td colspan="3"><b>Total: </b></td>
+                <td style="text-align: center;"><b>' . number_format($sum, 2, ',', '') . CURRENCY_SYMBOL . '</b></td>
             </tr> 
         </table>
 <br><br><br>';
 
 if ($tax == 0) {
-    $html .= 'According to § 19 paragraph 1 UStG no sales tax will be charged.<br><br>';
+    $html .= "According to § 19 paragraph 1 UStG no sales tax will be charged.<br><br>";
 }
 
 $html .= nl2br($invoice_footer);
@@ -128,18 +146,18 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // Add PDF Information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor($pdfAuthor);
-$pdf->SetTitle('Invoice ' . $invoice_nr);
-$pdf->SetSubject('Invoice ' . $invoice_nr);
+$pdf->SetTitle("Invoice " . $orderId);
+$pdf->SetSubject("Invoice " . $orderId);
 
 
-// Add header and footer
-$pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+// Add header and footer fonts
+$pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, "", PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(array(PDF_FONT_NAME_DATA, "", PDF_FONT_SIZE_DATA));
 
-// Select font
+// Select monospace font
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-// select margin
+// select margins
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -151,7 +169,7 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // Select text font
-$pdf->SetFont('dejavusans', '', 10);
+$pdf->SetFont("dejavusans", "", 10);
 
 // Add a new page
 $pdf->AddPage();
@@ -160,8 +178,9 @@ $pdf->AddPage();
 $pdf->writeHTML($html, true, false, true, false, '');
 
 //Create output dir, if it does not exist.
-if (!file_exists(INVOICES_DIR)) {
-    mkdir(INVOICES_DIR, 0777, true);
+if (!file_exists($targetDir)) {
+    mkdir($targetDir, 0777, true);
 }
-//Create the pdf in the filesystem
-$pdf->Output(realpath(INVOICES_DIR) . DS . $pdfName, 'F');
+
+//Create the pdf in the filesystem (tcpdf only works with absolut paths)
+$pdf->Output(realpath($targetDir) . DS . $pdfName, "F");
