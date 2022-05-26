@@ -38,6 +38,71 @@ class Address
     // region getter
 
     /**
+     * Get all existing addresses related to one user.
+     * @param int $user_id user of interest
+     * @return array<Address>|null array of addresses
+     */
+    public static function getAllByUser(int $user_id): ?array
+    {
+        $stmt = getDB()->prepare("SELECT * from address where user = ?;");
+        $stmt->bind_param("i", $user_id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+
+        $arr = array();
+        while ($r = $res->fetch_assoc()) {
+            $arr[] = new Address($r["id"], $r["street"], $r["streetNumber"], $r["zipCode"], $r["city"], $r["user"]);
+        }
+        $stmt->close();
+
+        return $arr;
+    }
+
+    /**
+     * Get default existing default address related to one user.
+     * @param int $user_id user of interest
+     * @return Address|null default address
+     */
+    public static function getDefaultByUser(int $user_id): ?Address
+    {
+        $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
+        $stmt->bind_param("i", $user_id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return Address::getById($res["defaultAddress"]);
+    }
+
+    /**
+     * Get an existing address by its id.
+     *
+     * @param int $id ID of an address
+     * @return Address|null corresponding address
+     */
+    public static function getById(int $id): ?Address
+    {
+        $stmt = getDB()->prepare("SELECT * from address where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Address($id, $res["street"], $res["streetNumber"], $res["zipCode"], $res["city"], $res["user"]);
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -54,46 +119,23 @@ class Address
     }
 
     /**
-     * @return string
-     */
-    public function getNumber(): string
-    {
-        return $this->number;
-    }
-
-    /**
-     * @return string
-     */
-    public function getZip(): string
-    {
-        return $this->zip;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserId(): int
-    {
-        return $this->user_id;
-    }
-
-    // endregion
-
-    // region setter
-    /**
      * @param string $street
      */
     public function setStreet(string $street): void
     {
         $this->street = $street;
+    }
+
+    // endregion
+
+    // region setter
+
+    /**
+     * @return string
+     */
+    public function getNumber(): string
+    {
+        return $this->number;
     }
 
     /**
@@ -105,12 +147,30 @@ class Address
     }
 
     /**
+     * @return string
+     */
+    public function getZip(): string
+    {
+        return $this->zip;
+    }
+
+    /**
      * @param string $zip
      */
     public function setZip(string $zip): void
     {
         $this->zip = $zip;
     }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    // endregion
 
     /**
      * @param string $city
@@ -121,14 +181,20 @@ class Address
     }
 
     /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    /**
      * @param int $user_id
      */
     public function setUserId(int $user_id): void
     {
         $this->user_id = $user_id;
     }
-
-    // endregion
 
     public function insert(): ?Address
     {
@@ -175,71 +241,6 @@ class Address
     public function delete(): void
     {
         // TODO
-    }
-
-    /**
-     * Get an existing address by its id.
-     *
-     * @param int $id ID of an address
-     * @return Address|null corresponding address
-     */
-    public static function getById(int $id): ?Address
-    {
-        $stmt = getDB()->prepare("SELECT * from address where id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Address($id, $res["street"], $res["streetNumber"], $res["zipCode"], $res["city"], $res["user"]);
-    }
-
-    /**
-     * Get all existing addresses related to one user.
-     * @param int $user_id user of interest
-     * @return array<Address>|null array of addresses
-     */
-    public static function getAllByUser(int $user_id): ?array
-    {
-        $stmt = getDB()->prepare("SELECT * from address where user = ?;");
-        $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-
-        $arr = array();
-        while ($r = $res->fetch_assoc()) {
-            $arr[] = new Address($r["id"], $r["street"], $r["streetNumber"], $r["zipCode"], $r["city"], $r["user"]);
-        }
-        $stmt->close();
-
-        return $arr;
-    }
-
-    /**
-     * Get default existing default address related to one user.
-     * @param int $user_id user of interest
-     * @return Address|null default address
-     */
-    public static function getDefaultByUser(int $user_id): ?Address
-    {
-        $stmt = getDB()->prepare("SELECT defaultAddress from user where id = ?;");
-        $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return Address::getById($res["defaultAddress"]);
     }
 }
 

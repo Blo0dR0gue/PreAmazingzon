@@ -68,7 +68,7 @@ $productOrders = [];
 foreach ($cartProducts as $cartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
 
-    if(!isset($product)){
+    if (!isset($product)) {
         //TODO error
     }
 
@@ -79,7 +79,7 @@ foreach ($cartProducts as $cartProduct) {
         $product->getPrice()
     );
 
-    if(isset($productOrder)){
+    if (isset($productOrder)) {
         //Add this item to the list of orders products for the invoice creation
         $productOrders[] = $productOrder;
 
@@ -87,7 +87,7 @@ foreach ($cartProducts as $cartProduct) {
         ProductController::decreaseStockAmount($cartProduct->getAmount(), $product);
         //Remove product from cart.
         CartProductController::delete($cartProduct);
-    }else{
+    } else {
         //TODO error handling
     }
 }

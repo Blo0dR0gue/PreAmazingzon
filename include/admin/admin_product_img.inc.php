@@ -13,16 +13,16 @@
     </button>
 
     <!-- in edit mode, if we add the main image, change the set main image button to is main image button -->
-    <?php if(isset($isMainImg) && $isMainImg): ?>
-    <button type="button" name="setMainBtn" class="btn btn-success btn-sm" onclick="setMainImg(this)"
-            data-id="<?= $imgID ?? -1 ?>">
-        Main
-    </button>
-    <?php else:?>
-    <!-- add the set main image button, if we do not add them via php, and it's not the main image. (Gets updated via javascript) -->
-    <button type="button" name="setMainBtn" class="btn btn-secondary btn-sm" onclick="setMainImg(this)"
-            data-id="<?= $imgID ?? -1 ?>">
-        Main
-    </button>
+    <?php if (isset($isMainImg) && $isMainImg): ?>
+        <button type="button" name="setMainBtn" class="btn btn-success btn-sm" onclick="setMainImg(this)"
+                data-id="<?= $imgID ?? -1 ?>">
+            Main
+        </button>
+    <?php else: ?>
+        <!-- add the set main image button, if we do not add them via php, and it's not the main image. (Gets updated via javascript) -->
+        <button type="button" name="setMainBtn" class="btn btn-secondary btn-sm" onclick="setMainImg(this)"
+                data-id="<?= $imgID ?? -1 ?>">
+            Main
+        </button>
     <?php endif; ?>
 </div>

@@ -41,6 +41,22 @@ class User
     }
 
     // region getter
+
+    public static function getByEmail(string $email): ?User
+    {
+        $stmt = getDB()->prepare("SELECT * from user where email = ?;");
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new User($res["id"], $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
+    }
+
     /**
      * @return int
      */
@@ -58,11 +74,27 @@ class User
     }
 
     /**
+     * @param string $first_name
+     */
+    public function setFirstName(string $first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
      * @return string
      */
     public function getLastName(): string
     {
         return $this->last_name;
+    }
+
+    /**
+     * @param string $last_name
+     */
+    public function setLastName(string $last_name): void
+    {
+        $this->last_name = $last_name;
     }
 
     /**
@@ -74,6 +106,14 @@ class User
     }
 
     /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
      * @return string
      */
     public function getPasswordHash(): string
@@ -81,7 +121,20 @@ class User
         return $this->password_hash;
     }
 
-    public function getFormattedName() :string {
+    // endregion
+
+    // region setter
+
+    /**
+     * @param string $password_hash
+     */
+    public function setPasswordHash(string $password_hash): void
+    {
+        $this->password_hash = $password_hash;
+    }
+
+    public function getFormattedName(): string
+    {
         return $this->first_name . " " . $this->last_name;
     }
 
@@ -94,11 +147,27 @@ class User
     }
 
     /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
      * @return int
      */
     public function getRoleId(): int
     {
         return $this->role_id;
+    }
+
+    /**
+     * @param int $role_id
+     */
+    public function setRoleId(int $role_id): void
+    {
+        $this->role_id = $role_id;
     }
 
     /**
@@ -111,7 +180,6 @@ class User
 
     // endregion
 
-    // region setter
     /**
      * @param int|null $default_address_id
      */
@@ -119,55 +187,6 @@ class User
     {
         $this->default_address_id = $default_address_id;
     }
-
-    /**
-     * @param string $first_name
-     */
-    public function setFirstName(string $first_name): void
-    {
-        $this->first_name = $first_name;
-    }
-
-    /**
-     * @param string $last_name
-     */
-    public function setLastName(string $last_name): void
-    {
-        $this->last_name = $last_name;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @param string $password_hash
-     */
-    public function setPasswordHash(string $password_hash): void
-    {
-        $this->password_hash = $password_hash;
-    }
-
-    /**
-     * @param bool $active
-     */
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @param int $role_id
-     */
-    public function setRoleId(int $role_id): void
-    {
-        $this->role_id = $role_id;
-    }
-    // endregion
 
     public function insert(): ?User
     {
@@ -188,6 +207,27 @@ class User
         $stmt->close();
 
         return self::getById($newId);
+    }
+
+    /**
+     * Get an existing user by its id.
+     *
+     * @param int $id ID of a user
+     * @return User|null new address
+     */
+    public static function getById(int $id): ?User
+    {
+        $stmt = getDB()->prepare("SELECT * from user where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new User($id, $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
     }
 
     public function update(): ?User
@@ -221,42 +261,5 @@ class User
     public function delete(): void
     {
         // TODO
-    }
-
-    /**
-     * Get an existing user by its id.
-     *
-     * @param int $id ID of a user
-     * @return User|null new address
-     */
-    public static function getById(int $id): ?User
-    {
-        $stmt = getDB()->prepare("SELECT * from user where id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new User($id, $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
-    }
-
-
-    public static function getByEmail(string $email): ?User
-    {
-        $stmt = getDB()->prepare("SELECT * from user where email = ?;");
-        $stmt->bind_param("s", $email);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new User($res["id"], $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
     }
 }

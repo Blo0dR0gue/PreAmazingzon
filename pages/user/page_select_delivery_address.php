@@ -39,7 +39,8 @@ $totalProductPrice = 0;
 <!-- main body -->
 <main class="flex-shrink-0">
 
-    <form method="post" class="needs-validation" action="<?= INCLUDE_HELPER_DIR . DS ."helper_checkout.inc.php"; ?>" name="checkoutForm" id="checkoutForm" novalidate>
+    <form method="post" class="needs-validation" action="<?= INCLUDE_HELPER_DIR . DS . "helper_checkout.inc.php"; ?>"
+          name="checkoutForm" id="checkoutForm" novalidate>
 
         <input type="hidden" value="<?= $user->getId() ?>" name="userId">
 
@@ -150,8 +151,7 @@ $totalProductPrice = 0;
                 <div class="col-lg-9 p-3 right-side align-content-center h-100">
                     <div class="d-flex justify-content-center row">
                         <div class="col-md-10">
-
-                            <?php foreach ($cartItems as $cartProduct){
+                            <?php foreach ($cartItems as $cartProduct) {
                                 $subtotal = 0;
                                 require INCLUDE_DIR . DS . "elem_checkout_product_card.inc.php";
                                 $totalProductPrice += $subtotal;
@@ -164,7 +164,9 @@ $totalProductPrice = 0;
             <!-- buttons -->
             <div class="card-footer">
                 <a href="javascript:history.back()" class="btn btn-danger">Abort</a>
-                <button class="btn btn-success">Purchase for <?= number_format($totalProductPrice, 2, ".", "") . CURRENCY_SYMBOL ?></button>
+                <button class="btn btn-success">
+                    Purchase for <?= number_format($totalProductPrice, 2, ".", "") . CURRENCY_SYMBOL ?>
+                </button>
             </div>
 
         </div>

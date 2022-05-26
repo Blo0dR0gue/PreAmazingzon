@@ -48,73 +48,73 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
     <table class="table">
         <!-- table head -->
         <thead class="thead-light">
-            <tr>
-                <th scope="col" style="width: 3%"></th>
-                <th scope="col" style="width: 5%">#</th>
-                <th scope="col" style="width: 15%; text-align: center"><i class="fa fa-image"></i></th>
-                <th scope="col" style="width: 40%">Title</th>
-                <th scope="col" style="width: 7%">Price</th>
-                <th scope="col" style="width: 7%">Shipping</th>
-                <th scope="col" style="width: 15%">Category</th>
-                <th scope="col" style="width: 5%">Stock</th>
-            </tr>
+        <tr>
+            <th scope="col" style="width: 3%"></th>
+            <th scope="col" style="width: 5%">#</th>
+            <th scope="col" style="width: 15%; text-align: center"><i class="fa fa-image"></i></th>
+            <th scope="col" style="width: 40%">Title</th>
+            <th scope="col" style="width: 7%">Price</th>
+            <th scope="col" style="width: 7%">Shipping</th>
+            <th scope="col" style="width: 15%">Category</th>
+            <th scope="col" style="width: 5%">Stock</th>
+        </tr>
         </thead>
 
         <!-- table body -->
         <tbody>
-            <?php foreach ($products as $product): ?>
-                <tr>
-                    <td class="align-middle" data-th="">
-                        <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
-                           class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
-                           title="Edit product">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
-                           title="Delete product"
-                           onclick="openConfirmModal(<?= "'Do you really want to delete the Product: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
-                                   'Delete Product?',
-                                   '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                            <i class="fa fa-trash "></i>
-                        </a>
-                    </td>
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td class="align-middle" data-th="">
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
+                       class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
+                       title="Edit product">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
+                       title="Delete product"
+                       onclick="openConfirmModal(<?= "'Do you really want to delete the Product: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
+                               'Delete Product?',
+                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
+                        <i class="fa fa-trash "></i>
+                    </a>
+                </td>
 
-                    <td data-th="#">
-                        <b><?= $product->getID(); ?></b>
-                    </td>
+                <td data-th="#">
+                    <b><?= $product->getID(); ?></b>
+                </td>
 
-                    <td style="text-align: center" data-th="">
-                        <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
-                             style="height: 150px;">
-                            <img src="<?= $product->getMainImg(); ?>" class="mh-100 mw-100" alt="main img"/>
-                        </div>
-                    </td>
+                <td style="text-align: center" data-th="">
+                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
+                         style="height: 150px;">
+                        <img src="<?= $product->getMainImg(); ?>" class="mh-100 mw-100" alt="main img"/>
+                    </div>
+                </td>
 
-                    <td data-th="Title">
-                        <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
-                           class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
-                    </td>
+                <td data-th="Title">
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_edit_product.php?id=" . $product->getId(); ?>"
+                       class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
+                </td>
 
-                    <td data-th="Price">
-                        <?= $product->getPriceFormatted(); ?>
-                    </td>
+                <td data-th="Price">
+                    <?= $product->getPriceFormatted(); ?>
+                </td>
 
-                    <td data-th="Shipping">
-                        <?= $product->getShippingCostFormatted(); ?>
-                    </td>
+                <td data-th="Shipping">
+                    <?= $product->getShippingCostFormatted(); ?>
+                </td>
 
-                    <td data-th="Category">
-                        <a href="<?= ADMIN_PAGES_DIR . DS . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
-                           class="text-decoration-none text-blue">
-                            <?= CategoryController::getNameById($product->getCategoryID()) ?>
-                        </a>
-                    </td>
+                <td data-th="Category">
+                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
+                       class="text-decoration-none text-blue">
+                        <?= CategoryController::getNameById($product->getCategoryID()) ?>
+                    </a>
+                </td>
 
-                    <td data-th="Stock">
-                        <?= $product->getStock(); ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                <td data-th="Stock">
+                    <?= $product->getStock(); ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </main>

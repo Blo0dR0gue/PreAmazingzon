@@ -23,8 +23,8 @@
             <!-- product title -->
             <div class="form-group position-relative mb-1">
                 <label for="title">Product Title</label>
-                <input type="text" value="<?php if (isset($product) && $product instanceof Product) echo $product->getTitle() ?>"
-                       name="title" id="title" class="form-control" placeholder="A New Product Title"
+                <input type="text" name="title" id="title" class="form-control" placeholder="A New Product Title"
+                       value="<?php if (isset($product) && $product instanceof Product) echo $product->getTitle() ?>"
                        required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
             </div>
@@ -55,8 +55,10 @@
             <div class="form-group position-relative mb-1">
                 <label for="description">Product Description</label>
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
-                <textarea class="form-control" id="description" name="description" rows="3"
-                          placeholder="My New Cool Product" required><?php if (isset($product) && $product instanceof Product) echo $product->getDescription() ?></textarea>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="My cool Product"
+                          required>
+                    <?php if (isset($product) && $product instanceof Product) echo $product->getDescription() ?>
+                </textarea>
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
             </div>
 
@@ -101,8 +103,8 @@
                 <label for="pictures" class="form-label fs-5 mt-2">Product Images</label>
                 <!-- image drop zone -->
                 <!-- TODO deprecated name event-->
-                <div id="dropZone" class="drop-zone rounded border-secondary p-3" ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)"
-                     ondragover="dragOverHandler(event)">
+                <div id="dropZone" class="drop-zone rounded border-secondary p-3"
+                     ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)" ondragover="dragOverHandler(event)">
                     <!-- prepare to show uploaded images in edit mode -->
                     <?php
                     if (isset($product) && $product instanceof Product) {

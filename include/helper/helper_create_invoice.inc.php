@@ -99,10 +99,10 @@ foreach ($productOrders as $item) {
     $sum += $item->getFullPrice();
 
     $html .= '<tr>
-                <td>'.$product->getTitle().'</td>
-                <td style="text-align: center;">'.$item->getAmount()." pcs.".'</td> 
-                <td style="text-align: center;">'.$item->getFormattedUnitPrice().'</td>	
-                <td style="text-align: center;">'.$item->getFormattedFullPrice().'</td>
+                <td>' . $product->getTitle() . '</td>
+                <td style="text-align: center;">' . $item->getAmount() . " pcs." . '</td> 
+                <td style="text-align: center;">' . $item->getFormattedUnitPrice() . '</td>	
+                <td style="text-align: center;">' . $item->getFormattedFullPrice() . '</td>
               </tr>';
 }
 $html .= "</table>";

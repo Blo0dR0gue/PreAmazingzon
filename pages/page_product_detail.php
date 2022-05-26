@@ -112,7 +112,9 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         <label class="d-none" for="quantity"></label>
                         <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
                                max="<?= $product->getStock() ?>">
-                        <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0?"disabled":"" ?>>Add to Cart</button>
+                        <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0 ? "disabled" : "" ?>>
+                            Add to Cart
+                        </button>
                     </div>
                     <p class="mb-0 ms-2 text-muted">
                         <span class="fw-bold"><?= $product->getStock() ?></span> in Stock
@@ -220,9 +222,11 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         <div class="p-3 right-side align-content-center h-100 border-bottom">
                             <div class="ratings d-flex flex-row align-items-center ">
                                 <p class="mb-1 me-3"><u>Author</u>: <?= UserController::getFormattedName($user); ?></p>
-                                <p class="mb-1 me-3"> <u>Rating</u>: <?php ReviewController::calcAndIncProductStars($review) ?></p>
-                                <?php if(UserController::isCurrentSessionAnAdmin()): ?>
-                                    <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=".$product->getId(); ?>"
+                                <p class="mb-1 me-3">
+                                    <u>Rating</u>: <?php ReviewController::calcAndIncProductStars($review) ?>
+                                </p>
+                                <?php if (UserController::isCurrentSessionAnAdmin()): ?>
+                                    <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"
                                        class="btn btn-danger btn-sm ms-auto">
                                         <i class="fa fa-trash "></i> Delete review
                                     </a>

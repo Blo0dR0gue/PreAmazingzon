@@ -12,7 +12,8 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
             <div class="row">
                 <a href="<?= PAGES_DIR . DS . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
                    class="col-md-3 d-flex justify-content-center">
-                    <img src="<?= $product->getMainImg() ?>" alt="Image" class="img-fluid d-none d-md-block rounded shadow align-self-center">
+                    <img src="<?= $product->getMainImg() ?>" alt="Image"
+                         class="img-fluid d-none d-md-block rounded shadow align-self-center">
                 </a>
                 <div class="col-md-9 text-left mt-sm-2">
                     <a href="<?= PAGES_DIR . DS . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"

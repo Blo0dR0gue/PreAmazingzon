@@ -11,15 +11,15 @@ class CategoryController
         return Category::getAll();
     }
 
-    public static function getById(?int $id): ?Category
-    {
-        return Category::getById($id);
-    }
-
     public static function getNameById(?int $id): string
     {
         if (!isset($id)) return "No Category";
         return self::getById($id)->getName();
+    }
+
+    public static function getById(?int $id): ?Category
+    {
+        return Category::getById($id);
     }
 
     public static function getByName(string $name): ?Category

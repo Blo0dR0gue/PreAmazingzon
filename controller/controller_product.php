@@ -36,6 +36,19 @@ class ProductController
         return Product::getByID($productID);
     }
 
+    public static function decreaseStockAmount(int $amount, Product $product): ?Product
+    {
+        $currentStock = $product->getStock();
+
+        if ($currentStock < $amount) {
+            //TODO error
+            return null;
+        } else {
+            $product->setStock($product->getStock() - $amount);
+            return $product->update();
+        }
+    }
+
     public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
     {
         $product->setCategoryID($categoryID);
@@ -46,18 +59,6 @@ class ProductController
         $product->setStock($stock);
 
         return $product->update();
-    }
-
-    public static function decreaseStockAmount(int $amount, Product $product): ?Product {
-        $currentStock = $product->getStock();
-
-        if($currentStock < $amount){
-            //TODO error
-            return null;
-        }else{
-            $product->setStock($product->getStock()-$amount);
-            return $product->update();
-        }
     }
 
     public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product

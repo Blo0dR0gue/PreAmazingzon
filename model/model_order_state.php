@@ -25,23 +25,6 @@ class OrderState
     // region getter
 
     /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-    // endregion
-
-    /**
      * Get an existing OrderState by its id.
      * @param int $id ID of OrderState
      * @return OrderState|null found OrderState
@@ -74,6 +57,23 @@ class OrderState
         $stmt->close();
 
         return new OrderState($res["id"], $res["label"]);
+    }
+    // endregion
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
     }
 
 }

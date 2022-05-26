@@ -23,22 +23,6 @@ class UserRole
     }
 
     // region getter
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    // endregion
 
     /**
      * Get an existing UserRole by its id.
@@ -78,6 +62,23 @@ class UserRole
         $stmt->close();
 
         return new UserRole($res["id"], $res["name"]);
+    }
+    // endregion
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
 

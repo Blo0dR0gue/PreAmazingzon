@@ -40,93 +40,8 @@ class Order
 
     // region getter & setter
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public static function getAmountForUser(int $userId): int
     {
-        return $this->id;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getOrderDate(): DateTime
-    {
-        return $this->orderDate;
-    }
-
-
-    public function getFormattedOrderDate(): string{
-        return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDeliveryDate(): DateTime
-    {
-        return $this->deliveryDate;
-    }
-
-
-    public function getFormattedDeliveryDate(): string{
-        return $this->deliveryDate->format("d.m.Y");//TODO constant
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPaid(): bool
-    {
-        return $this->paid;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrderStateId(): int
-    {
-        return $this->orderStateId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getShippingAddressId(): int
-    {
-        return $this->shippingAddressId;
-    }
-
-    // endregion
-
-    /**
-     * @throws Exception
-     */
-    public static function getById(int $id): ?Order
-    {
-        $stmt = getDB()->prepare("SELECT * from `order` where id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
-    }
-
-    public static function getAmountForUser(int $userId): int {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from `order` where user = ?;");
         $stmt->bind_param("i", $userId);
 
@@ -164,6 +79,74 @@ class Order
     }
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getOrderDate(): DateTime
+    {
+        return $this->orderDate;
+    }
+
+    public function getFormattedOrderDate(): string
+    {
+        return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeliveryDate(): DateTime
+    {
+        return $this->deliveryDate;
+    }
+
+    public function getFormattedDeliveryDate(): string
+    {
+        return $this->deliveryDate->format("d.m.Y");//TODO constant
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaid(): bool
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderStateId(): int
+    {
+        return $this->orderStateId;
+    }
+
+    // endregion
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShippingAddressId(): int
+    {
+        return $this->shippingAddressId;
+    }
+
+    /**
      * @throws Exception
      */
     public function insert(): ?Order
@@ -189,6 +172,24 @@ class Order
         $stmt->close();
 
         return self::getById($newId);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getById(int $id): ?Order
+    {
+        $stmt = getDB()->prepare("SELECT * from `order` where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
     }
 
     public function update(): void

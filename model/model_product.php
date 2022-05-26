@@ -63,6 +63,21 @@ class Product
         return [];
     }
 
+    public static function getByID(int $id): ?Product
+    {
+        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"], $res["category"]);
+    }
+
     /**
      * Select a specified amount of products starting at an offset.
      * @param int $offset The first row, which should be selected.
@@ -84,21 +99,6 @@ class Product
         }
         $stmt->close();
         return $products;
-    }
-
-    public static function getByID(int $id): ?Product
-    {
-        $stmt = getDB()->prepare("SELECT * from product where id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Product($id, $res["title"], $res["description"], $res["price"], $res["stock"], $res["shippingCost"], $res["category"]);
     }
 
     /**
@@ -219,6 +219,14 @@ class Product
     }
 
     /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
      * @return string The Description of the modelProduct
      */
     public function getDescription(): string
@@ -226,13 +234,21 @@ class Product
         return $this->description;
     }
 
+
+// TODO deal with shipping cost? per amount or add after?
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
     public function getPriceFormatted(int $amount = 1): string
     {
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
-
-
-// TODO deal with shipping cost? per amount or add after?
 
     /**
      * @return float The Price for this modelProduct
@@ -240,6 +256,14 @@ class Product
     public function getPrice(int $amount = 1): float
     {
         return $this->price * $amount;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
     }
 
     public function getOriginalPriceFormatted(): string
@@ -256,6 +280,14 @@ class Product
         return $this->stock;
     }
 
+    /**
+     * @param int $stock
+     */
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
     public function getShippingCostFormatted(): string
     {
         return number_format($this->getShippingCost(), 2, ".", "") . CURRENCY_SYMBOL;
@@ -270,51 +302,19 @@ class Product
     }
 
     /**
-     * @return int|null
-     */
-    public function getCategoryID(): ?int
-    {
-        return $this->categoryID;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @param int $stock
-     */
-    public function setStock(int $stock): void
-    {
-        $this->stock = $stock;
-    }
-
-    /**
      * @param float $shippingCost
      */
     public function setShippingCost(float $shippingCost): void
     {
         $this->shippingCost = $shippingCost;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCategoryID(): ?int
+    {
+        return $this->categoryID;
     }
 
     /**

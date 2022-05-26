@@ -33,28 +33,6 @@ class Review
         $this->productId = $productId;
     }
 
-    /**
-     * Get an existing review by its id.
-     *
-     * @param int $id ID of a review
-     * @return Review|null corresponding review
-     */
-    public static function getById(int $id): ?Review {
-        $stmt = getDB()->prepare("SELECT * from review where id = ?;");
-
-        $stmt->bind_param("i", $id);
-
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Review($id, $res["title"], $res["text"], $res["stars"], $res["user"], $res["product"]);
-    }
-
     public static function getAvgRating(int $productId): ?float
     {
         $sql = "SELECT ROUND(AVG(stars), 1) as rating
@@ -100,7 +78,8 @@ class Review
      * @param int $amount The amount of rows, which should be selected.
      * @return array|null An array with the found reviews or null, if an error occurred.
      */
-    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array {
+    public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array
+    {
         $reviews = [];
 
         $stmt = getDB()->prepare("SELECT id from review WHERE product = ? ORDER BY id limit ? offset ?;");
@@ -115,7 +94,31 @@ class Review
         return $reviews;
     }
 
-    public static function getAmountOfReviewsForProduct(int $productId): int {
+    /**
+     * Get an existing review by its id.
+     *
+     * @param int $id ID of a review
+     * @return Review|null corresponding review
+     */
+    public static function getById(int $id): ?Review
+    {
+        $stmt = getDB()->prepare("SELECT * from review where id = ?;");
+
+        $stmt->bind_param("i", $id);
+
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Review($id, $res["title"], $res["text"], $res["stars"], $res["user"], $res["product"]);
+    }
+
+    public static function getAmountOfReviewsForProduct(int $productId): int
+    {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count from review where product = ?;");
         $stmt->bind_param("i", $productId);
 
@@ -135,8 +138,8 @@ class Review
      * @param int $productId The id of the product.
      * @return array An array with all this information. [0 => ["star"=0, "amount"=x, "percentage"=x, 1 => ...]
      */
-    public static function getStatsForEachStarForAProduct(int $productId): array {
-
+    public static function getStatsForEachStarForAProduct(int $productId): array
+    {
         $stmt = getDB()->prepare("SELECT stars as star, COUNT(*) as amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review where product = ?)*100, 2) as percentage FROM review WHERE product = ? GROUP BY stars;");
         $stmt->bind_param("ii", $productId, $productId);
 
@@ -144,12 +147,12 @@ class Review
 
         // get result
         $res = $stmt->get_result();
-        $inner = ["star"=>0, "amount"=>0, "percentage"=>0];
+        $inner = ["star" => 0, "amount" => 0, "percentage" => 0];
         $result = array(0 => $inner, 1 => $inner, 2 => $inner, 3 => $inner, 4 => $inner, 5 => $inner);
         if ($res->num_rows === 0) return $result;
         $rows = $res->fetch_all(MYSQLI_ASSOC);
 
-        foreach ($rows as $row){
+        foreach ($rows as $row) {
             $result[$row['star']] = $row;
         }
 

@@ -11,19 +11,9 @@ class CartProductController
         return CartProduct::getAllByUser($userId);
     }
 
-    public static function getById(int $userId, int $productId): ?CartProduct
-    {
-        return CartProduct::getById($productId, $userId);
-    }
-
     public static function getCountByUser(int $userId): int
     {
         return CartProduct::getCountByUser($userId);
-    }
-
-    public static function delete(CartProduct $cartProduct): bool
-    {
-        return $cartProduct->delete();
     }
 
     public static function add(int $userId, int $productId, int $amount): ?CartProduct
@@ -35,6 +25,11 @@ class CartProductController
             $cartProduct = new CartProduct($userId, $productId, $amount);       // insert new entry
             return $cartProduct->insert();
         }
+    }
+
+    public static function getById(int $userId, int $productId): ?CartProduct
+    {
+        return CartProduct::getById($productId, $userId);
     }
 
     public static function incAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
@@ -94,6 +89,11 @@ class CartProductController
 
         }
         return false;
+    }
+
+    public static function delete(CartProduct $cartProduct): bool
+    {
+        return $cartProduct->delete();
     }
 
     public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct

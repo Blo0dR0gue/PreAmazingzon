@@ -4,21 +4,21 @@
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 
     <?php
-        if(isset($_GET) && count($_GET) > 0 && !(count($_GET) == 1 && isset($_GET["page"]))){
-            $urlExtend = "";
-            foreach ($_GET as $key => $value){
-                if($key != "page"){
-                    if($urlExtend == ""){
-                        $urlExtend = $urlExtend . "?" . $key . "=" . $value;
-                    }else{
-                        $urlExtend = $urlExtend . "&" . $key . "=" . $value;
-                    }
+    if (isset($_GET) && count($_GET) > 0 && !(count($_GET) == 1 && isset($_GET["page"]))) {
+        $urlExtend = "";
+        foreach ($_GET as $key => $value) {
+            if ($key != "page") {
+                if ($urlExtend == "") {
+                    $urlExtend = $urlExtend . "?" . $key . "=" . $value;
+                } else {
+                    $urlExtend = $urlExtend . "&" . $key . "=" . $value;
                 }
             }
-            $urlExtend = $urlExtend . "&page=";
-        }else{
-            $urlExtend = "?page=";
         }
+        $urlExtend = $urlExtend . "&page=";
+    } else {
+        $urlExtend = "?page=";
+    }
     ?>
 
     <nav aria-label="Page navigation example mt-5">
@@ -45,7 +45,7 @@
 
                 <li class="page-item">
                     <a class="page-link"
-                       href="<?=$urlExtend."1"?>>">1</a>
+                       href="<?= $urlExtend . "1" ?>>">1</a>
                 </li>
 
                 <li class="page-item disabled">

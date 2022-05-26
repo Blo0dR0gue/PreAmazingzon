@@ -15,7 +15,8 @@ class OrderController
         return null;
     }
 
-    public static function insert(DateTime $orderDate, DateTime $deliveryDate, bool $paid, int $orderStateId, int $userId, int $shippingAddressId): ?Order{
+    public static function insert(DateTime $orderDate, DateTime $deliveryDate, bool $paid, int $orderStateId, int $userId, int $shippingAddressId): ?Order
+    {
         $order = new Order(0, $orderDate, $deliveryDate, $paid, $orderStateId, $userId, $shippingAddressId);
         try {
             return $order->insert();
@@ -25,7 +26,8 @@ class OrderController
         return null;
     }
 
-    public static function calculateDeliveryDate(): ?DateTime {
+    public static function calculateDeliveryDate(): ?DateTime
+    {
         $dtZone = new DateTimeZone(DATE_TIME_ZONE);
         $dt = null;
         try {
@@ -39,11 +41,13 @@ class OrderController
         return $dt;
     }
 
-    public static function getAmountForUser(int $userId): int{
+    public static function getAmountForUser(int $userId): int
+    {
         return Order::getAmountForUser($userId);
     }
 
-    public static function getAllForUserInRange(int $userId, int $offset): ?array{
+    public static function getAllForUserInRange(int $userId, int $offset): ?array
+    {
         try {
             return Order::getAllForUserInRange($userId, $offset, LIMIT_OF_SHOWED_ITEMS);
         } catch (Exception $e) {

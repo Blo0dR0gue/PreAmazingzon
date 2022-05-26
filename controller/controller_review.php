@@ -37,16 +37,6 @@ class ReviewController
     }
 
     /**
-     * Calculate and set the star rating using full and half stars.
-     * @param Review $review The review object, for which the Stars should be created.
-     * @return void HTML-Tags
-     */
-    public static function calcAndIncProductStars(Review $review): void
-    {
-        self::createStarsRating($review->getStars());
-    }
-
-    /**
      * Creates the stars rating html based on the passed rating
      * @param float $rating
      * @return void
@@ -71,6 +61,16 @@ class ReviewController
 
         if (!$avgRating) return 0;
         return $avgRating;
+    }
+
+    /**
+     * Calculate and set the star rating using full and half stars.
+     * @param Review $review The review object, for which the Stars should be created.
+     * @return void HTML-Tags
+     */
+    public static function calcAndIncProductStars(Review $review): void
+    {
+        self::createStarsRating($review->getStars());
     }
 
     /**

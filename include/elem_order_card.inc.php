@@ -29,7 +29,7 @@
                 <div class="col-6 col-md-2">
                     <!--Image-->
                     <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#";
-                    // TODO GLOBAL dont use manual queries, http_build_query instead    ?>"
+                    // TODO GLOBAL dont use manual queries, http_build_query instead     ?>"
                        class="d-flex justify-content-center align-items-center">
                         <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . DS . "notfound.jpg"; ?>"
                              width="90"
@@ -89,7 +89,8 @@
             <div class="d-flex align-items-center">
                 <div class="col-6">
                     <!--TODO make it save so a user cant download a invoice of a other user?-->
-                    <a class="btn btn-sm fs-6" href="<?= INVOICES_DIR . DS . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>" download="">
+                    <a class="btn btn-sm fs-6" download=""
+                       href="<?= INVOICES_DIR . DS . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
                         Download invoice
                     </a>
                 </div>

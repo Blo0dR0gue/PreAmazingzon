@@ -27,62 +27,6 @@ class ProductOrder
 
     //region getter & setter
 
-    /**
-     * @return int
-     */
-    public function getProductId(): int
-    {
-        return $this->productId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrderId(): int
-    {
-        return $this->orderId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return $this->price;
-    }
-
-    public function getFormattedUnitPrice(): string {
-        return number_format($this->price, 2, ".", "") . CURRENCY_SYMBOL;
-    }
-
-    /**
-     * Gets full price for this order item (price * amount)
-     * @return float The full price
-     */
-    public function getFullPrice(): float
-    {
-        return $this->price * $this->getAmount();
-    }
-
-    /**
-     * Gets the formatted full price as string including the currency symbol
-     * @return string
-     */
-    public function getFormattedFullPrice(): string
-    {
-        return number_format($this->getFullPrice(), 2, ".", "") . CURRENCY_SYMBOL;
-    }
-
-    //endregion
-
     public static function getByIDs(int $productId, int $orderId): ?ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * from product_order where product = ? and `order` = ?;");
@@ -115,6 +59,63 @@ class ProductOrder
         $stmt->close();
 
         return $arr;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderId(): int
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function getFormattedUnitPrice(): string
+    {
+        return number_format($this->price, 2, ".", "") . CURRENCY_SYMBOL;
+    }
+
+    /**
+     * Gets the formatted full price as string including the currency symbol
+     * @return string
+     */
+    public function getFormattedFullPrice(): string
+    {
+        return number_format($this->getFullPrice(), 2, ".", "") . CURRENCY_SYMBOL;
+    }
+
+    //endregion
+
+    /**
+     * Gets full price for this order item (price * amount)
+     * @return float The full price
+     */
+    public function getFullPrice(): float
+    {
+        return $this->price * $this->getAmount();
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmount(): int
+    {
+        return $this->amount;
     }
 
     public function insert(): ?ProductOrder

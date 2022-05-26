@@ -3,7 +3,7 @@
 <?php // inspired by https://www.php.net/session_destroy
 
 //Don't include the php header via this path, if the php header is already loaded.
-if(!defined("ROOT_DIR"))
+if (!defined("ROOT_DIR"))
     require_once "../site_php_head.inc.php";
 
 // Initialise the session.
