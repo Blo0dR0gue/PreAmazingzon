@@ -21,7 +21,7 @@ function dropHandler(ev, maxFileAmount) {
         // Use DataTransferItemList interface to access the file(s)
         for (let i = 0; i < ev.dataTransfer.items.length; i++) {
             // If dropped items aren't files, reject them
-            if (ev.dataTransfer.items[i].kind === 'file') {
+            if (ev.dataTransfer.items[i].kind === "file") {
                 let file = ev.dataTransfer.items[i].getAsFile();
                 addImg(file, maxFileAmount);
             }
@@ -55,9 +55,9 @@ function getTemplate(templateSelector) {
         dataType: "html",
         async: false,
         success: function (data) {
-            //console.log($(data));
-            //The container is at position 2 in this jquery object //TODO dynamic search for this div
-            fragment.appendChild($(data)[2]);
+            //console.log($(data).filter("div"));
+            //The container is at position 2 in this jquery object
+            fragment.appendChild($(data).filter("div")[0]);
         }
     });
     return fragment;
@@ -97,12 +97,12 @@ const main = getTemplate("#imgBoxTemplate");
  * We need to do this, because the input field "file" deletes the previous selected files out of the form, after the user selects other files.
  * JQuery does not have a formdata event :(
  */
-document.getElementById("prodForm").addEventListener('formdata', (e) => {
+document.getElementById("prodForm").addEventListener("formdata", (e) => {
     //The form data of the product form
     const formData = e.formData;
 
     //delete all uploaded files
-    formData.delete('files[]');
+    formData.delete("files[]");
 
     //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
     if (DELETED_IMAGES_IDS.length > 0) {
@@ -144,7 +144,7 @@ document.getElementById("prodForm").addEventListener('formdata', (e) => {
  */
 function addImg(file, maxFileAmount) {
     //If the file is not an image, skip
-    if (!file || file['type'].split('/')[0] !== 'image') return;
+    if (!file || file["type"].split("/")[0] !== "image") return;
 
     //If we reached the maxFilesAmount already, skip
     if (FILES.size >= maxFileAmount) return;
@@ -155,10 +155,10 @@ function addImg(file, maxFileAmount) {
     let template = main.cloneNode(true);
 
     //Select the image inside the template and set the src to the tmp url of the image.
-    template.querySelector('div img').src = URL.createObjectURL(file);
+    template.querySelector("div img").src = URL.createObjectURL(file);
 
     //Select all buttons inside the template and set the data-id to the current nextImgID.
-    template.querySelectorAll('div button').forEach(function (elem) {
+    template.querySelectorAll("div button").forEach(function (elem) {
         elem.dataset.id = nextImgID.toString();
 
         //If this is the first image, which is added to the drop zone (FILES array), set it to the main image.
