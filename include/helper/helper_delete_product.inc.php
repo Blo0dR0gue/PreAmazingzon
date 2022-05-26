@@ -1,4 +1,5 @@
 <?php
+//Deletes a product
 require_once "../site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();

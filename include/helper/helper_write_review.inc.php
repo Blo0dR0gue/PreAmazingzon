@@ -1,4 +1,5 @@
 <?php
+//Create a new review
 require_once "../site_php_head.inc.php";
 
 //Check if no user is logged-in or the logged-in user got blocked
