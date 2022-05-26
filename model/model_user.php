@@ -81,6 +81,10 @@ class User
         return $this->password_hash;
     }
 
+    public function getFormattedName() :string {
+        return $this->first_name . " " . $this->last_name;
+    }
+
     /**
      * @return bool
      */
