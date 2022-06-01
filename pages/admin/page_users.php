@@ -23,6 +23,7 @@ $users = UserController::getUsersInRange($offset)
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
+    <script src="<?= SCRIPT_DIR . DS . "admin_user_page.js" ?>"></script>
     <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
 </head>
 
@@ -63,15 +64,17 @@ $users = UserController::getUsersInRange($offset)
         <?php foreach ($users as $user): ?>
             <tr>
                 <td class="align-middle" data-th="">
-                    <!--TODO-->
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_user_edit.php" ?>"
-                       class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
-                       title="Edit user">
+                    <button
+                            class="btn btn-sm mb-1 <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"]?"disabled":"" ?>"
+                            data-toggle="tooltip" data-placement="left"
+                            title="Enable / Disable User"
+                            onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
                         <i class="fa fa-pencil"></i>
-                    </a>
+                    </button>
+                    <!--TODO-->
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete user"
-                       onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . "?'" ?>,
+                       onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
                                'Delete Product?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
                         <i class="fa fa-trash "></i>
@@ -95,11 +98,11 @@ $users = UserController::getUsersInRange($offset)
                 </td>
 
                 <td data-th="Primary Address">
-                    <?= $user->getDefaultAddressId()??"Not Set"; ?>
+                    <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
                 </td>
 
-                <td data-th="Active">
-                    <?= $user->isActive()?"Yes":"No"; ?>
+                <td data-th="Active" data-id="<?= $user->getId(); ?>">
+                    <?= $user->isActive() ? "Yes" : "No"; ?>
                 </td>
 
             </tr>
