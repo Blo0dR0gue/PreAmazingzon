@@ -1,6 +1,5 @@
-<!-- TODO Comment -->
-
 <?php
+//TODO Comments
 
 require_once MODEL_DIR . DS . "model_review.php";
 

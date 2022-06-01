@@ -1,4 +1,5 @@
 <?php
+//TODO Comments
 
 require_once INCLUDE_DIR . DS . "database.inc.php";
 

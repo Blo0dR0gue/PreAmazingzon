@@ -1,6 +1,5 @@
-<!--TODO Comments -->
-
 <?php
+//TODO Comments
 
 require_once MODEL_DIR . DS . "model_cart_product.php";
 

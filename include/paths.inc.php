@@ -1,6 +1,6 @@
-<!-- TODO COMMENT-->
-
 <?php
+//TODO Comments
+
 // redefine DIRECTORY_SEPARATOR
 /**
  * Shorter version of DIRECTORY_SEPARATOR

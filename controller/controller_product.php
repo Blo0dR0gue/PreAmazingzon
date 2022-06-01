@@ -1,6 +1,5 @@
-<!--TODO Comments + introduce regions-->
-
 <?php
+//TODO Comments + introduce regions
 
 require_once MODEL_DIR . DS . "model_product.php";
 require_once MODEL_DIR . DS . "model_category.php";

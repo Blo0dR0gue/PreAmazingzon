@@ -1,7 +1,7 @@
-<!-- php head file included in all necessary files at the beginning -->
-<!-- TODO COMMENT -->
-
 <?php
+//php head file included in all necessary files at the beginning
+//TODO Comments
+
 // php error display
 // TODO work out how reporting works; disable for prod?
 ini_set("display_errors", "On");

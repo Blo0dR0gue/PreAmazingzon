@@ -1,6 +1,6 @@
-<!-- config file for general stuff -->
-
 <?php
+//config file for general stuff
+
 /**
  * ROOT_PATH_OFFSET
  * offset of project related to server web-root.
