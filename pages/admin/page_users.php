@@ -65,12 +65,13 @@ $users = UserController::getUsersInRange($offset)
             <tr>
                 <td class="align-middle" data-th="">
                     <button
-                            class="btn btn-sm mb-1 <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"]?"disabled":"" ?>"
+                            class="btn btn-sm mb-1 <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                             data-toggle="tooltip" data-placement="left"
                             title="Enable / Disable User"
                             onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
                         <i class="fa fa-pencil"></i>
                     </button>
+                    <!--TODO make admin button?-->
                     <!--TODO-->
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete user"
