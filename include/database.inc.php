@@ -1,6 +1,6 @@
-<!-- TODO COMMENT-->
-
 <?php
+//TODO Comment - Error handling?
+
 function getDB(): mysqli
 {
     static $db;     // single instance of a db connection
