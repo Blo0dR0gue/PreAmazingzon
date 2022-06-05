@@ -1,15 +1,29 @@
 <?php if (isset($order) && $order instanceof Order): ?>
-    <div class="callout mb-5 border">
-
+    <div class="mb-4 border text-start rounded shadow">
         <!-- Head -->
-        <h5 class="mb-2">Order
-            number <?= $order->getId() . " (Status: " . OrderStateController::getById($order->getOrderStateId())->getLabel() . ")" ?></h5>
-        <p class="mb-0">Paid: <?= $order->isPaid() ? "Paid" : "Not Paid" ?></p>
-        <p class="mb-0">Order Date: <?= $order->getFormattedOrderDate(); ?></p>
-        <p class="mb-0">Delivery Date: <?= $order->getFormattedDeliveryDate(); ?></p>
-        <hr>
-        <?php
+        <div class="d-flex flex-wrap border-bottom mb-0">
+            <h4 class="pb-2 mb-0 mt-1 ps-2">Order #<?= $order->getId() ?></h4>
+        </div>
 
+        <div class="d-flex flex-wrap mb-0 mt-2 h6">
+            <p class="mb-0 col-2 ps-2">
+                <span class="text-muted">Status: </span><?= OrderStateController::getById($order->getOrderStateId())->getLabel() ?>
+            </p>
+            <p class="mb-0 col-2">
+                <span class="text-muted">Paid: </span><?= $order->isPaid() ? "Paid" : "Not Paid" ?>
+            </p>
+            <p class="mb-0 col-4">
+                <span class="text-muted">Order Time: </span><?= $order->getFormattedOrderDate(); ?>
+            </p>
+            <p class="mb-0 col-4">
+                <span class="text-muted">Delivery Date: </span><?= $order->getFormattedDeliveryDate(); ?>
+            </p>
+        </div>
+
+        <hr class="my-2">
+
+        <!-- Products -->
+        <?php
         //Total price for all products
         $sum = 0;
         //Total count of all products
@@ -25,88 +39,61 @@
             //Add the amount to the total amount
             $count += $orderItem->getAmount();
             ?>
-            <div class="row mb-3">
-                <div class="col-6 col-md-2">
-                    <!--Image-->
-                    <a href="<?= isset($product) ? PAGES_DIR . "page_product_detail.php?id=" . $product->getId() : "#";
-                    // TODO GLOBAL dont use manual queries, http_build_query instead     ?>"
-                       class="d-flex justify-content-center align-items-center">
-                        <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . "notfound.jpg"; ?>"
-                             width="90"
-                             height="90" alt="Image of product">
-                    </a>
-
+            <div class="d-flex flex-wrap mb-2 align-items-center">
+                <!-- Image -->
+                <div class="col-2 d-flex justify-content-center align-items-center" style="height: 90px">
+                    <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . "notfound.jpg"; ?>"
+                          alt="Product Image" style="max-width: 100px; max-height: 100%">
                 </div>
+
                 <!--Title-->
-                <div class="col-6 col-md-4 d-flex align-items-center justify-content-center">
+                <div class="col-6 pe-3">
                     <a href="<?= isset($product) ? PAGES_DIR . "page_product_detail.php?id=" . $product->getId() : "#"; ?>"
-                       class="mb-0 h5 text-decoration-none text-black web"
-                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                       class="mb-0 h6 text-decoration-none text-black">
                         <?= isset($product) ? $product->getTitle() : "Product not found" ?>
                     </a>
                 </div>
 
-                <!--Space-->
-                <div class="d-sm-none d-md-block col-md-2">
-
-                </div>
-
                 <!--Amount-->
-                <div class="col-6 col-md-2 d-flex align-items-center">
+                <div class="col-2">
                     <?= $orderItem->getAmount() ?> pcs.
                 </div>
 
                 <!--Price-->
-                <div class="col-6 col-md-2 d-flex align-items-center">
+                <div class="col-2">
                     <?= $orderItem->getFormattedFullPrice(); ?>
                 </div>
             </div>
         <?php } ?>
 
-        <hr>
+        <hr class="my-2">
 
         <!-- Total Stats -->
-        <div class="row mb-3">
-            <div class="d-sm-none d-md-block col-md-6">
+        <div class="d-flex flex-wrap mb-2 align-items-center">
+            <!-- Buttons -->
+            <div class="col-7 d-flex flex-wrap justify-content-around">
+                <!--TODO make it save so a user cant download a invoice of a other user?-->
+                <a class="btn btn-light border col-5" download=""
+                   href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
+                    Invoice
+                </a>
 
+                <?php if (!$order->isPaid()) { ?>
+                    <button class="col-5 btn btn-warning" onclick="#">Pay <!--TODO--></button>
+                <?php } else { ?>
+                    <div class="col-5 alert alert-success text-center mb-0">Paid</div>
+                <?php } ?>
             </div>
-            <div class="col-4 col-md-2 d-flex align-items-center">
-                <h6>Total:</h6>
+
+            <div class="col-1 text-end pe-2">
+                <h6><b>Total:</b></h6>
             </div>
-            <div class="col-4 col-md-2 d-flex align-items-center">
+            <div class="col-2">
                 <h6><?= $count ?> pcs.</h6>
             </div>
-            <div class="col-4 col-md-2 d-flex align-items-center">
+            <div class="col-2">
                 <h6><?= number_format($sum, 2, ",", "") . CURRENCY_SYMBOL; ?> </h6>
             </div>
         </div>
-
-        <!-- Invoice -->
-        <div class="row">
-            <div class="d-sm-none col-md-6">
-
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="col-6">
-                    <!--TODO make it save so a user cant download a invoice of a other user?-->
-                    <a class="btn btn-sm fs-6" download=""
-                       href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
-                        Download invoice
-                    </a>
-                </div>
-
-                <?php if (!$order->isPaid()) { ?>
-                    <button class="btn btn-warning col-4 btn-sm" onclick="#">
-                        Pay <!--TODO-->
-                    </button>
-                <?php } else { ?>
-                    <div class="col-4 alert alert-success text-center mb-0">
-                        Paid
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-        <br>
     </div>
-
 <?php endif; ?>
