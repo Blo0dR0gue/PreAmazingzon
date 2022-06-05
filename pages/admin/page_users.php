@@ -8,13 +8,13 @@ UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$userCount = UserController::getAmountOfUsers(null);                             // Get the total amount of users
-$totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                     // Calculate the total amount of pages
+$userCount = UserController::getAmountOfUsers(null);                              // Get the total amount of users
+$totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                           // Calculate the total amount of pages
 
 $users = UserController::getUsersInRange($offset)
-
 ?>
 <!-- TODO if deleted pagination triggered modal each time -->
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
@@ -33,14 +33,14 @@ $users = UserController::getUsersInRange($offset)
 
 <!-- main body -->
 <main class="flex-shrink-0 container">
-
     <!-- page header -->
     <div class="d-flex align-items-end">
-        <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
+        <h1 class="mt-4 ms-2 mb-0 mr-auto">All Users</h1>
         <!-- add button -->
         <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_user_add.php" ?>">
             <i class="fa fa-plus"></i> Add User
         </a>
+        <!-- TODO do we need add user? -->
     </div>
     <hr class="mt-2">
 
@@ -49,13 +49,13 @@ $users = UserController::getUsersInRange($offset)
         <!-- table head -->
         <thead class="thead-light">
         <tr>
-            <th scope="col" style="width: 5%"></th>
+            <th scope="col" style="width: 8%"></th>
             <th scope="col" style="width: 5%">#</th>
-            <th scope="col" style="width: 30%; text-align: center">E-Mail</th>
-            <th scope="col" style="width: 20%;">Firstname</th>
-            <th scope="col" style="width: 20%">Lastname</th>
+            <th scope="col" style="width: 25%">E-Mail</th>
+            <th scope="col" style="width: 15%;">Firstname</th>
+            <th scope="col" style="width: 15%">Lastname</th>
             <th scope="col" style="width: 10%">Primary Address ID</th>
-            <th scope="col" style="width: 10%">Active</th>
+            <th scope="col" style="width: 5%">Active</th>
         </tr>
         </thead>
 
@@ -65,14 +65,14 @@ $users = UserController::getUsersInRange($offset)
             <tr>
                 <td class="align-middle" data-th="">
                     <button
-                            class="btn btn-sm mb-1 <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
+                            class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                             data-toggle="tooltip" data-placement="left"
-                            title="Enable / Disable User"
+                            title="(De-) Activate User"
                             onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fa fa-toggle-on"></i>
                     </button>
                     <!--TODO make admin button?-->
-                    <!--TODO-->
+                    <!--TODO user delete -->
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete user"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
@@ -86,7 +86,7 @@ $users = UserController::getUsersInRange($offset)
                     <b><?= $user->getID(); ?></b>
                 </td>
 
-                <td style="text-align: center" data-th="E-Mail">
+                <td data-th="E-Mail">
                     <?= $user->getEmail(); ?>
                 </td>
 
@@ -98,14 +98,13 @@ $users = UserController::getUsersInRange($offset)
                     <?= $user->getLastName(); ?>
                 </td>
 
-                <td data-th="Primary Address">
+                <td data-th="Primary Address ID">
                     <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
                 </td>
 
                 <td data-th="Active" data-id="<?= $user->getId(); ?>">
                     <?= $user->isActive() ? "Yes" : "No"; ?>
                 </td>
-
             </tr>
         <?php endforeach; ?>
         </tbody>
