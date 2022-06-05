@@ -38,10 +38,10 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
             <!-- Orders -->
             <div class="col-md-12">
                 <?php
-                if ($orderCount > 0){
+                if ($orderCount > 0) {
                     foreach ($orders as $order)
                         require INCLUDE_ELEMENTS_DIR . "elem_order_card.inc.php";
-                }else{
+                } else {
                     echo "<h5 class='text-center text-muted mb-5'><i>No Orders found ... just buy something, and it will appear here.</i></h5>";
                 }
                 ?>

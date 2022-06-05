@@ -71,7 +71,8 @@
             <!-- bottom navigation  -->
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-end">
-                    <a href="<?= USER_PAGES_DIR . "page_select_delivery_address.php"; ?>" class="btn btn-warning mb-4 btn-lg pl-5 pr-5 <?= CartProductController::getCountByUser($_SESSION["uid"]) > 0 ? "":"disabled"; ?>">Checkout</a>
+                    <a href="<?= USER_PAGES_DIR . "page_select_delivery_address.php"; ?>"
+                       class="btn btn-warning mb-4 btn-lg pl-5 pr-5 <?= CartProductController::getCountByUser($_SESSION["uid"]) > 0 ? "" : "disabled"; ?>">Checkout</a>
                     <!-- TODO make checkout -->
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">

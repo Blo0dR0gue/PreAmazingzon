@@ -43,7 +43,7 @@
                 <!-- Image -->
                 <div class="col-2 d-flex justify-content-center align-items-center" style="height: 90px">
                     <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . "notfound.jpg"; ?>"
-                          alt="Product Image" style="max-width: 100px; max-height: 100%">
+                         alt="Product Image" style="max-width: 100px; max-height: 100%">
                 </div>
 
                 <!--Title-->

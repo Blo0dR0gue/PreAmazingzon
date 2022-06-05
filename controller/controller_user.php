@@ -150,7 +150,8 @@ class UserController
         return false;
     }
 
-    public static function getAmountOfUsers(): int {
+    public static function getAmountOfUsers(): int
+    {
         return User::getAmountOfUsers();
     }
 

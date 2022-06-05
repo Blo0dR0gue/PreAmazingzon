@@ -4,10 +4,10 @@
 <?php require_once "../include/site_php_head.inc.php"; ?>
 
 <?php
-$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
-$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;                // Current pagination page number
+$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                                  // Calculate offset for pagination
 $productCount = ProductController::getAmountOfProducts($_GET["search"] ?? null);      // Get the total Amount of Products
-$totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
+$totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                                 // Calculate the total amount of pages
 
 $products = [];
 
