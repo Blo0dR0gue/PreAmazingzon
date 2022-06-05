@@ -3,14 +3,6 @@
 
 require_once "../site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . "controller_user.php";
-require_once CONTROLLER_DIR . "controller_cart_product.php";
-require_once CONTROLLER_DIR . "controller_product.php";
-require_once CONTROLLER_DIR . "controller_address.php";
-require_once CONTROLLER_DIR . "controller_order.php";
-require_once CONTROLLER_DIR . "controller_order_state.php";
-require_once CONTROLLER_DIR . "controller_product_order.php";
-
 //Redirect, if user is not logged-in or got blocked (and logout)
 UserController::redirectIfNotLoggedIn();
 
