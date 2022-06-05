@@ -153,7 +153,7 @@ $totalProductPrice = 0;
                         <div class="col-md-10">
                             <?php foreach ($cartItems as $cartProduct) {
                                 $subtotal = 0;
-                                require INCLUDE_DIR . "elem_checkout_product_card.inc.php";
+                                require INCLUDE_ELEMENTS_DIR . "elem_checkout_product_card.inc.php";
                                 $totalProductPrice += $subtotal;
                             } ?>
                         </div>

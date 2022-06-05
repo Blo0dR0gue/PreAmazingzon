@@ -50,7 +50,7 @@
                                 $subtotal = 0;
                                 //Decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
                                 if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct))       //If it got removed, don't show the item
-                                    require INCLUDE_DIR . "elem_cart_entry.php";
+                                    require INCLUDE_ELEMENTS_DIR . "elem_cart_entry.php";
                                 $total += $subtotal;
                             }
                         }

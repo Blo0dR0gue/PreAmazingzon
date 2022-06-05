@@ -41,7 +41,7 @@ if (isset($_GET["search"])) {
                 <?php
                 $category = CategoryController::getByName("Test");
                 // TODO include categories
-                require INCLUDE_DIR . "elem_category_card.inc.php";
+                require INCLUDE_ELEMENTS_DIR . "elem_category_card.inc.php";
                 ?>
             </div>
             <!-- TODO own pagination for categories -->
@@ -55,7 +55,7 @@ if (isset($_GET["search"])) {
             <?php
             if (count($products) > 0) {
                 foreach ($products as $product) {
-                    require INCLUDE_DIR . "elem_product_card.inc.php";
+                    require INCLUDE_ELEMENTS_DIR . "elem_product_card.inc.php";
                 }
             } else {
                 echo "<h5 class='text-center text-muted mb-5'><i>no products found</i></h5>";

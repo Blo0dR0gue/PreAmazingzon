@@ -15,7 +15,6 @@ define("SERVER_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 // define sub dirs constants
 // ./assets
 const ASSETS_DIR = ROOT_DIR . "assets" . DS;
-
 const CONFIG_DIR = ASSETS_DIR . "config" . DS;
 const SCRIPT_DIR = ASSETS_DIR . "scripts" . DS;
 const STYLE_DIR = ASSETS_DIR . "style" . DS;
@@ -34,6 +33,7 @@ const INCLUDE_DIR = ROOT_DIR . "include" . DS;
 const INCLUDE_HELPER_DIR = INCLUDE_DIR . "helper" . DS;
 const INCLUDE_TCPDF_DIR = INCLUDE_DIR . "tcpdf" . DS;
 const INCLUDE_ADMIN_DIR = INCLUDE_DIR . "admin" . DS;
+const INCLUDE_ELEMENTS_DIR = INCLUDE_DIR . "elements" . DS;
 
 // ./model
 const MODEL_DIR = ROOT_DIR . "model" . DS;

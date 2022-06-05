@@ -2,8 +2,6 @@
 <!-- TODO MAKE IT WORK-->
 
 <?php
-require_once "site_php_head.inc.php";
-
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
     ?>

@@ -1,5 +1,4 @@
 <?php
-
 if (isset($category) && $category instanceof Category) { ?>
     <div class="col-xl-3 col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
         <!-- CATEGORY -->
