@@ -55,9 +55,8 @@
             <div class="form-group position-relative mb-1">
                 <label for="description">Product Description</label>
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
-                <textarea class="form-control" id="description" name="description" rows="3" placeholder="My cool Product"
-                          required>
-                    <?php if (isset($product) && $product instanceof Product) echo $product->getDescription() ?>
+                <textarea class="form-control" id="description" name="description" placeholder="My Product" required
+                          rows="3"><?php if (isset($product) && $product instanceof Product) echo $product->getDescription() ?>
                 </textarea>
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
             </div>
