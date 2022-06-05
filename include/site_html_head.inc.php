@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="author" content="Daniel Czeschner, Frederik Wolter">
 
-<link rel="icon" type="image" href="<?= IMAGE_LOGO_DIR . DS . "logo.svg" ?>">
+<link rel="icon" type="image" href="<?= IMAGE_LOGO_DIR . "logo.svg" ?>">
 
 <!-- region load external files -->
 <!-- Load jQuery -->
@@ -27,6 +27,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- Load Custom CSS Files -->
-<link rel="stylesheet" href="<?= STYLE_DIR . DS . "star_rating.css" ?>"/>
+<link rel="stylesheet" href="<?= STYLE_DIR . "star_rating.css" ?>"/>
 
 <!-- endregion -->

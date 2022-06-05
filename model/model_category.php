@@ -2,7 +2,7 @@
 //TODO Comments
 
 // load required files
-require_once(INCLUDE_DIR . DS . "database.inc.php");
+require_once(INCLUDE_DIR . "database.inc.php");
 
 class Category
 {
@@ -174,10 +174,10 @@ class Category
 
     public function getImg(): string
     {
-        $images = glob(IMAGE_DIR . DS . "categories" . DS . $this->id . DS . "*");
+        $images = glob(IMAGE_CATEGORIES_DIR . $this->id . DS . "*");
         if (count($images) !== 0) return $images[0];
 
-        return IMAGE_DIR . DS . "products" . DS . "notfound.jpg";
+        return IMAGE_PRODUCT_DIR . "notfound.jpg";
     }
 
     // region getter

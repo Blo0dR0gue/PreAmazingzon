@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+require_once INCLUDE_DIR . "modal_popup.inc.php";
 
 if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);
@@ -13,7 +13,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Login</title>
 
     <!-- form processing script -->
@@ -37,7 +37,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <main class="m-auto w-100 px-3" style="max-width: 370px">
     <form action="" method="post" class="needs-validation" novalidate>
         <a href="<?= ROOT_DIR ?>" class="mb-0">
-            <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DS . "logo_long.svg" ?>" alt="Company Logo"
+            <img class="mb-4" src="<?= IMAGE_LOGO_DIR . "logo_long.svg" ?>" alt="Company Logo"
                  width="" height="64">
         </a>
         <h3 class="mb-3 fw-normal">Please login</h3>
@@ -66,7 +66,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
         <!-- buttons -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         <p class="my-1 text-muted">or</p>
-        <a href="<?= PAGES_DIR . DS . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
+        <a href="<?= PAGES_DIR . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
             Create an account</a>
 
         <!-- custom footer -->
@@ -75,7 +75,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 </main>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
 
 <!-- show error popup -->
 <?php

@@ -7,7 +7,7 @@ UserController::redirectIfNotLoggedIn();
 
 //Redirect, if no products are inside the cart.
 if (CartProductController::getCountByUser($_SESSION["uid"]) <= 0) {
-    header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+    header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
@@ -24,22 +24,22 @@ $totalProductPrice = 0;
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - About</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_checkout.css"; ?>">
-    <script src="<?= SCRIPT_DIR . DS . "checkout_handler.js" ?>"></script>
+    <link rel="stylesheet" href="<?= STYLE_DIR . "style_checkout.css"; ?>">
+    <script src="<?= SCRIPT_DIR . "checkout_handler.js" ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
 
-    <form method="post" class="needs-validation" action="<?= INCLUDE_HELPER_DIR . DS . "helper_checkout.inc.php"; ?>"
+    <form method="post" class="needs-validation" action="<?= INCLUDE_HELPER_DIR . "helper_checkout.inc.php"; ?>"
           name="checkoutForm" id="checkoutForm" novalidate>
 
         <input type="hidden" value="<?= $user->getId() ?>" name="userId">
@@ -153,7 +153,7 @@ $totalProductPrice = 0;
                         <div class="col-md-10">
                             <?php foreach ($cartItems as $cartProduct) {
                                 $subtotal = 0;
-                                require INCLUDE_DIR . DS . "elem_checkout_product_card.inc.php";
+                                require INCLUDE_DIR . "elem_checkout_product_card.inc.php";
                                 $totalProductPrice += $subtotal;
                             } ?>
                         </div>
@@ -174,15 +174,15 @@ $totalProductPrice = 0;
     </form>
 
     <!-- load custom form validation script -->
-    <script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
     <!-- enable tooltips on this page (by default disabled for performance)-->
-    <script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 
 </main>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
 </body>
 </html>

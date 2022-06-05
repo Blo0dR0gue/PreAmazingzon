@@ -16,12 +16,12 @@ UserController::redirectIfNotLoggedIn();
 //The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
 if (!isset($order) || !$order instanceof Order || !isset($productOrders) || count($productOrders) <= 0 ||
     !$productOrders[0] instanceof ProductOrder || !isset($deliveryAddress) || !$deliveryAddress instanceof Address) {
-    header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+    header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
 //Load tcpdf
-require_once INCLUDE_TCPDF_DIR . DS . "tcpdf.php";
+require_once INCLUDE_TCPDF_DIR . "tcpdf.php";
 
 //It's safe to user this here, because we check the user information in the function redirectIfNotLoggedIn
 $user = UserController::getById($_SESSION["uid"]);
@@ -32,11 +32,11 @@ $order_date = $order->getFormattedOrderDate();
 $delivery_date = $order->getFormattedDeliveryDate();
 $pdfAuthor = PAGE_NAME;
 
-$targetDir = INVOICES_DIR . DS . $userId;
+$targetDir = INVOICES_DIR . $userId;
 
 //The sender of this invoice
 $invoice_header =
-    "<img src='" . IMAGE_LOGO_DIR . DS . "logo_long.svg" . "' height='32'> \n " .
+    "<img src='" . IMAGE_LOGO_DIR . "logo_long.svg" . "' height='32'> \n " .
     PAGE_NAME . "\n" .
     COMPANY_STREET . " " . COMPANY_STREET_NR . "\n" .
     COMPANY_ZIP_CODE . " " . COMPANY_CITY . "\n" .

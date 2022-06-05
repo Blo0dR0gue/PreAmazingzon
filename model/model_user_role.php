@@ -2,7 +2,7 @@
 //TODO Comments
 
 // load required files
-require_once(INCLUDE_DIR . DS . "database.inc.php");
+require_once(INCLUDE_DIR . "database.inc.php");
 
 class UserRole
 {

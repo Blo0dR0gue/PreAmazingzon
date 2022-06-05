@@ -21,13 +21,13 @@ if (isset($_GET["search"])) {
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?></title>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -39,7 +39,7 @@ if (isset($_GET["search"])) {
             <?php
             if (count($products) > 0) {
                 foreach ($products as $product) {
-                    require INCLUDE_DIR . DS . "elem_product_card.inc.php";
+                    require INCLUDE_DIR . "elem_product_card.inc.php";
                 }
             } else {
                 echo "<h5 class='text-center text-muted mb-5'><i>no products found</i></h5>";
@@ -50,10 +50,10 @@ if (isset($_GET["search"])) {
 </main>
 
 <!-- pagination -->
-<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+<?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
 </body>
 </html>

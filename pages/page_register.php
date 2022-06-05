@@ -11,12 +11,12 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Register</title>
 
     <!-- form processing script -->
     <?php
-    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . "modal_popup.inc.php";
 
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set (e.g. tested with email and password)?
         if (UserController::emailAvailable($_POST["email"])) {      // email available?
@@ -48,7 +48,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <main class="m-auto w-100 px-3" style="max-width: 600px">
     <!-- title -->
     <a href="<?= ROOT_DIR ?>" class="mb-0">
-        <img class="mb-4" src="<?= IMAGE_LOGO_DIR . DS . "logo_long.svg" ?>" alt="Company Logo" width="" height="64">
+        <img class="mb-4" src="<?= IMAGE_LOGO_DIR . "logo_long.svg" ?>" alt="Company Logo" width="" height="64">
     </a>
     <h3 class="mb-2">Create an Account</h3>
     <p class="text-muted mb-4">Give us some more information about you, so we can get to know you.</p>
@@ -142,15 +142,15 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
     </form>
 
     <p class="mt-4 mb-1 text-muted">Already registered?
-        <a class="text-muted" href="<?= PAGES_DIR . DS . "page_login.php" ?>">Login</a>
+        <a class="text-muted" href="<?= PAGES_DIR . "page_login.php" ?>">Login</a>
     </p>
     <p class="mb-3 text-muted">© <?= PAGE_COPYRIGHT . " " . PAGE_NAME ?> Inc.</p>
 </main>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
 <!-- enable tooltips on this page (by default disabled for performance)-->
-<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- show error popup -->
 <?php

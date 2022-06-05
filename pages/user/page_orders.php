@@ -11,7 +11,7 @@ $totalPages = ceil($orderCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the
 
 //Redirect to order page without page get variable which means we are on page 1
 if ($page > $totalPages && $totalPages > 0)
-    header("Location: " . USER_PAGES_DIR . DS . "page_orders.php");
+    header("Location: " . USER_PAGES_DIR . "page_orders.php");
 
 $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 
@@ -20,13 +20,13 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Orders</title>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="w-100 px-3">
@@ -45,7 +45,7 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
                 if ($orderCount > 0):
                     foreach ($orders as $order):
 
-                        require INCLUDE_DIR . DS . "elem_order_card.inc.php";
+                        require INCLUDE_DIR . "elem_order_card.inc.php";
 
                     endforeach;
                 else:
@@ -60,10 +60,10 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 </main>
 
 <!-- pagination -->
-<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+<?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
 </body>
 </html>

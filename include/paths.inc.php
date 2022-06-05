@@ -2,9 +2,7 @@
 //TODO Comments
 
 // redefine DIRECTORY_SEPARATOR
-/**
- * Shorter version of DIRECTORY_SEPARATOR
- */
+/** Shorter version of DIRECTORY_SEPARATOR */
 const DS = DIRECTORY_SEPARATOR;
 
 // define root dirs
@@ -14,27 +12,33 @@ $path = str_repeat(".." . DS, count($dirs) - 1);
 define("ROOT_DIR", empty(ROOT_PATH_OFFSET) ? $path : $path . ROOT_PATH_OFFSET . DS);
 define("SERVER_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
-// define sub dirs
-const ASSETS_DIR = ROOT_DIR . "assets";
+// define sub dirs constants
+// ./assets
+const ASSETS_DIR = ROOT_DIR . "assets" . DS;
 
-const CONFIG_DIR = ASSETS_DIR . DS . "config";
-const FILE_DIR = ASSETS_DIR . DS . "files";
-const IMAGE_DIR = ASSETS_DIR . DS . "images";
-const IMAGE_LOGO_DIR = IMAGE_DIR . DS . "logo";
-const IMAGE_PRODUCT_DIR = IMAGE_DIR . DS . "products";
-const SCRIPT_DIR = ASSETS_DIR . DS . "scripts";
-const STYLE_DIR = ASSETS_DIR . DS . "style";
+const CONFIG_DIR = ASSETS_DIR . "config" . DS;
+const SCRIPT_DIR = ASSETS_DIR . "scripts" . DS;
+const STYLE_DIR = ASSETS_DIR . "style" . DS;
+const INVOICES_DIR = ASSETS_DIR . "invoices" . DS;
+const IMAGE_DIR = ASSETS_DIR . "images" . DS;
+// ./assets/image
+const IMAGE_LOGO_DIR = IMAGE_DIR . "logo" . DS;
+const IMAGE_PRODUCT_DIR = IMAGE_DIR . "products" . DS;
+const IMAGE_CATEGORIES_DIR = IMAGE_DIR . "categories" . DS;
 
-const INVOICES_DIR = ASSETS_DIR . DS . "invoices";
+// ./controller
+const CONTROLLER_DIR = ROOT_DIR . "controller" . DS;
 
-const CONTROLLER_DIR = ROOT_DIR . "controller";
+// ./include
+const INCLUDE_DIR = ROOT_DIR . "include" . DS;
+const INCLUDE_HELPER_DIR = INCLUDE_DIR . "helper" . DS;
+const INCLUDE_TCPDF_DIR = INCLUDE_DIR . "tcpdf" . DS;
+const INCLUDE_ADMIN_DIR = INCLUDE_DIR . "admin" . DS;
 
-const INCLUDE_DIR = ROOT_DIR . "include";
-const INCLUDE_HELPER_DIR = INCLUDE_DIR . DS . "helper";
-const INCLUDE_TCPDF_DIR = INCLUDE_DIR . DS . "tcpdf";
+// ./model
+const MODEL_DIR = ROOT_DIR . "model" . DS;
 
-const MODEL_DIR = ROOT_DIR . "model";
-
-const PAGES_DIR = ROOT_DIR . "pages";
-const ADMIN_PAGES_DIR = PAGES_DIR . DS . 'admin';
-const USER_PAGES_DIR = PAGES_DIR . DS . 'user';
+// ./pages
+const PAGES_DIR = ROOT_DIR . "pages" . DS;
+const ADMIN_PAGES_DIR = PAGES_DIR . 'admin' . DS;
+const USER_PAGES_DIR = PAGES_DIR . 'user' . DS;

@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . 'model_category.php';
+require_once MODEL_DIR . 'model_category.php';
 
 class CategoryController
 {

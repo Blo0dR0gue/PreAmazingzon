@@ -31,17 +31,17 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - <?= $product->getTitle(); ?></title>
 
     <!-- file specific includes -->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_product_detail.css"; ?>">
-    <script src="<?= SCRIPT_DIR . DS . "page_product_detail.js"; ?>"></script>
+    <link rel="stylesheet" href="<?= STYLE_DIR . "style_product_detail.css"; ?>">
+    <script src="<?= SCRIPT_DIR . "page_product_detail.js"; ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0">
@@ -103,7 +103,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                 </div>
 
                 <!-- stock & buttons -->
-                <form method="get" action="<?= INCLUDE_HELPER_DIR . DS . "helper_shoppingcart.inc.php" ?>">
+                <form method="get" action="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php" ?>">
                     <!-- helper values -->
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="productId" value="<?= $product->getId() ?>">
@@ -165,7 +165,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                             Write a review
                         </button>
                         <!-- collapsable form -->
-                        <form action="<?= INCLUDE_HELPER_DIR . DS . "helper_write_review.inc.php"; ?>" method="post"
+                        <form action="<?= INCLUDE_HELPER_DIR . "helper_write_review.inc.php"; ?>" method="post"
                               class="collapse needs-validation" id="collapseRating" novalidate>
                             <input type="hidden" value="<?= $product->getId(); ?>" name="productId">
 
@@ -226,7 +226,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                     <u>Rating</u>: <?php ReviewController::calcAndIncProductStars($review) ?>
                                 </p>
                                 <?php if (UserController::isCurrentSessionAnAdmin()): ?>
-                                    <a href="<?= INCLUDE_HELPER_DIR . DS . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"
+                                    <a href="<?= INCLUDE_HELPER_DIR . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"
                                        class="btn btn-danger btn-sm ms-auto">
                                         <i class="fa fa-trash "></i> Delete review
                                     </a>
@@ -245,21 +245,21 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
                 <!-- pagination -->
                 <div class="p-3">
-                    <?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+                    <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- load custom form validation script -->
-    <script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
     <!-- enable tooltips on this page (by default disabled for performance)-->
-    <script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 </main>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
 </body>
 </html>

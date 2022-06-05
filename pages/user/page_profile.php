@@ -6,12 +6,12 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Profile</title>
 
     <!-- form preload script -->
     <?php
-    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . "modal_popup.inc.php";
 
     // get user
     $user = UserController::getById($_SESSION["uid"]);
@@ -33,7 +33,7 @@
 
     <!-- form processing script -->
     <?php
-    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . "modal_popup.inc.php";
 
     if (!empty($_POST["type"])) {   // data set?
         if ($_POST["email"] === $user->getEmail() || UserController::emailAvailable($_POST["email"])) { // email available?
@@ -70,7 +70,7 @@
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
@@ -167,12 +167,12 @@
 </main>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
 <!-- enable tooltips on this page (by default disabled for performance)-->
-<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 
 <!-- show error popup -->

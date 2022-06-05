@@ -21,5 +21,5 @@ if (isset($_GET["action"]) && isset($_GET["productId"]) && is_numeric($_GET["pro
     }
 }
 
-header("LOCATION: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+header("LOCATION: " . USER_PAGES_DIR . "page_shopping_cart.php");
 die();

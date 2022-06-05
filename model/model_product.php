@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once INCLUDE_DIR . DS . "database.inc.php";
+require_once INCLUDE_DIR . "database.inc.php";
 
 class Product
 {
@@ -339,21 +339,21 @@ class Product
      */
     public function getMainImg(): string
     {
-        $mainImages = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*main.*");
+        $mainImages = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*main.*");
         if (count($mainImages) !== 0) return $mainImages[0];
 
         $mainImages = $this->getAllImgs();
         if (count($mainImages) !== 0) return $mainImages[0];
 
-        return IMAGE_DIR . DS . "products" . DS . "notfound.jpg";
+        return IMAGE_PRODUCT_DIR . "notfound.jpg";
     }
 
     public function getAllImgs(): array
     {
-        $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");
+        $images = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*");
         if (count($images) !== 0) return $images;
 
-        return [IMAGE_DIR . DS . "products" . DS . "notfound.jpg"];
+        return [IMAGE_PRODUCT_DIR . "notfound.jpg"];
     }
 
     /**
@@ -362,7 +362,7 @@ class Product
      */
     public function getAllImgsOrNull(): ?array
     {
-        $images = glob(IMAGE_DIR . DS . "products" . DS . $this->id . DS . "*");
+        $images = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*");
         if (count($images) !== 0) return $images;
         return null;
     }

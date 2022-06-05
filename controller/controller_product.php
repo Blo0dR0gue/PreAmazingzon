@@ -1,8 +1,8 @@
 <?php
 //TODO Comments + introduce regions
 
-require_once MODEL_DIR . DS . "model_product.php";
-require_once MODEL_DIR . DS . "model_category.php";
+require_once MODEL_DIR . "model_product.php";
+require_once MODEL_DIR . "model_category.php";
 
 class ProductController
 {
@@ -103,7 +103,7 @@ class ProductController
      */
     private static function deleteAllImages(int $productID): void
     {
-        $targetDir = IMAGE_PRODUCT_DIR . DS . $productID;
+        $targetDir = IMAGE_PRODUCT_DIR . $productID;
         if (file_exists($targetDir) && is_dir($targetDir)) {
             self::removeDirectoryRec($targetDir);
         }
@@ -140,7 +140,7 @@ class ProductController
 
         $errors = false;
 
-        $targetDir = IMAGE_PRODUCT_DIR . DS . $productID;
+        $targetDir = IMAGE_PRODUCT_DIR . $productID;
         foreach ($fileNames as $fileName) {
             $targetFile = $targetDir . DS . $fileName;
             if (file_exists($targetFile)) {
@@ -157,7 +157,7 @@ class ProductController
     {
         if (!isset($productID) || !isset($newMainImgFileName) || $newMainImgFileName == "") return false;    //No error
 
-        $targetDirWithSep = IMAGE_PRODUCT_DIR . DS . $productID . DS;
+        $targetDirWithSep = IMAGE_PRODUCT_DIR . $productID . DS;
         $targetFile = $targetDirWithSep . $newMainImgFileName;
         $imgNameParts = explode(".", $newMainImgFileName);
 
@@ -177,7 +177,7 @@ class ProductController
 
     private static function removeAllMainImgTags(int $productID): void
     {
-        $mainImages = glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*main.*");
+        $mainImages = glob(IMAGE_PRODUCT_DIR . $productID . DS . "*main.*");
         if (count($mainImages) > 0) {
             foreach ($mainImages as $mainImage) {
                 $newName = str_replace("main", "", $mainImages);
@@ -192,7 +192,7 @@ class ProductController
         // TODO validation
         if (!isset($files) || !count($files) > 0 || !isset($productID)) return false;
 
-        $targetUploadDir = IMAGE_PRODUCT_DIR . DS . $productID;
+        $targetUploadDir = IMAGE_PRODUCT_DIR . $productID;
 
         $errors = false;
 
@@ -227,7 +227,7 @@ class ProductController
 
         $expand = $allowed[$type];
 
-        $imageCounter = count(glob(IMAGE_PRODUCT_DIR . DS . $productID . DS . "*"));
+        $imageCounter = count(glob(IMAGE_PRODUCT_DIR . $productID . DS . "*"));
 
         if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) return false;
 

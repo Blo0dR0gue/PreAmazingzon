@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
-    <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Cart</title>
 
     <!-- load data for shopping cart -->
@@ -16,7 +16,7 @@
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="">
@@ -50,7 +50,7 @@
                                 $subtotal = 0;
                                 //Decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
                                 if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct))       //If it got removed, don't show the item
-                                    require INCLUDE_DIR . DS . "elem_cart_entry.php";
+                                    require INCLUDE_DIR . "elem_cart_entry.php";
                                 $total += $subtotal;
                             }
                         }
@@ -71,7 +71,7 @@
             <!-- bottom navigation  -->
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-end">
-                    <a href="<?= USER_PAGES_DIR . DS . "page_select_delivery_address.php"; ?>" class="btn btn-warning mb-4 btn-lg pl-5 pr-5 <?= CartProductController::getCountByUser($_SESSION["uid"]) > 0 ? "":"disabled"; ?>">Checkout</a>
+                    <a href="<?= USER_PAGES_DIR . "page_select_delivery_address.php"; ?>" class="btn btn-warning mb-4 btn-lg pl-5 pr-5 <?= CartProductController::getCountByUser($_SESSION["uid"]) > 0 ? "":"disabled"; ?>">Checkout</a>
                     <!-- TODO make checkout -->
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
@@ -85,7 +85,7 @@
 </main>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
 <!-- show error popup -->
 <?php

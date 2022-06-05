@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . 'model_order.php';
+require_once MODEL_DIR . 'model_order.php';
 
 class OrderController
 {

@@ -18,18 +18,18 @@ $users = UserController::getUsersInRange($offset)
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Users</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
-    <script src="<?= SCRIPT_DIR . DS . "admin_user_page.js" ?>"></script>
-    <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
+    <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
+    <script src="<?= SCRIPT_DIR . "admin_user_page.js" ?>"></script>
+    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0 container">
@@ -38,7 +38,7 @@ $users = UserController::getUsersInRange($offset)
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_user_add.php" ?>">
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_user_add.php" ?>">
             <i class="fa fa-plus"></i> Add User
         </a>
     </div>
@@ -77,7 +77,7 @@ $users = UserController::getUsersInRange($offset)
                        title="Delete user"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
                                'Delete Product?',
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
+                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
                         <i class="fa fa-trash "></i>
                     </a>
                 </td>
@@ -113,16 +113,16 @@ $users = UserController::getUsersInRange($offset)
 </main>
 
 <!-- enable tooltips on this page -->
-<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . DS . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- pagination -->
-<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+<?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
 <!-- show info popup -->
 <?php

@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . "model_user_role.php";
+require_once MODEL_DIR . "model_user_role.php";
 
 class UserRoleController
 {

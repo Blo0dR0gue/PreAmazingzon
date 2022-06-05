@@ -20,17 +20,17 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
-    <?php require_once INCLUDE_DIR . DS . "site_html_head.inc.php"; ?>
+    <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Categories</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
-    <?php require_once INCLUDE_DIR . DS . "modal_popup.inc.php"; ?>
+    <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
+    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="flex-shrink-0 container">
@@ -39,7 +39,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . DS . "page_product_add.php" // TODO change?>">
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_product_add.php" // TODO change?>">
             <i class="fa fa-plus"></i> Add category
         </a>
     </div>
@@ -63,7 +63,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
         <?php foreach ($products as $product): ?>
             <tr>
                 <td class="align-middle" data-th="">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                        title="Edit category">
                         <i class="fa fa-pencil"></i>
@@ -72,7 +72,7 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
                        title="Delete category"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Category: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
                                'Delete Category?',
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . DS . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
+                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
                         <i class="fa fa-trash "></i>
                     </a>
                 </td>
@@ -89,12 +89,12 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
                 </td>
 
                 <td data-th="Title">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_product_edit.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
                 </td>
 
                 <td data-th="Super">
-                    <a href="<?= ADMIN_PAGES_DIR . DS . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
                        class="text-decoration-none text-blue">
                         <?= CategoryController::getNameById($product->getCategoryID()) ?>
                     </a>
@@ -106,16 +106,16 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
 </main>
 
 <!-- enable tooltips on this page -->
-<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . DS . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- pagination -->
-<?php require INCLUDE_DIR . DS . "dyn_pagination.inc.php" ?>
+<?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
 <!-- show info popup -->
 <?php

@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . "model_cart_product.php";
+require_once MODEL_DIR . "model_cart_product.php";
 
 class CartProductController
 {
@@ -52,7 +52,7 @@ class CartProductController
      */
     public static function handleOtherUserBoughtItemInCart(CartProduct $cartProduct): bool
     {
-        require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+        require_once INCLUDE_DIR . "modal_popup.inc.php";
         $product = ProductController::getByID($cartProduct->getProdId());
 
         if (!isset($product)) {

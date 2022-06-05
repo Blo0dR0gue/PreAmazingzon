@@ -28,10 +28,10 @@
             <div class="row mb-3">
                 <div class="col-6 col-md-2">
                     <!--Image-->
-                    <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#";
+                    <a href="<?= isset($product) ? PAGES_DIR . "page_product_detail.php?id=" . $product->getId() : "#";
                     // TODO GLOBAL dont use manual queries, http_build_query instead     ?>"
                        class="d-flex justify-content-center align-items-center">
-                        <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . DS . "notfound.jpg"; ?>"
+                        <img src="<?= isset($product) ? $product->getMainImg() : IMAGE_PRODUCT_DIR . "notfound.jpg"; ?>"
                              width="90"
                              height="90" alt="Image of product">
                     </a>
@@ -39,7 +39,7 @@
                 </div>
                 <!--Title-->
                 <div class="col-6 col-md-4 d-flex align-items-center justify-content-center">
-                    <a href="<?= isset($product) ? PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId() : "#"; ?>"
+                    <a href="<?= isset($product) ? PAGES_DIR . "page_product_detail.php?id=" . $product->getId() : "#"; ?>"
                        class="mb-0 h5 text-decoration-none text-black web"
                        style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                         <?= isset($product) ? $product->getTitle() : "Product not found" ?>
@@ -90,7 +90,7 @@
                 <div class="col-6">
                     <!--TODO make it save so a user cant download a invoice of a other user?-->
                     <a class="btn btn-sm fs-6" download=""
-                       href="<?= INVOICES_DIR . DS . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
+                       href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
                         Download invoice
                     </a>
                 </div>

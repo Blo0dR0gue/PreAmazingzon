@@ -141,7 +141,7 @@
                                     $imgID = end($imgPaths);
                                     if (isset($mainImg) && $img == $mainImg) $isMainImg = true;
 
-                                    require INCLUDE_DIR . DS . "admin" . DS . "admin_product_img.inc.php";
+                                    require INCLUDE_ADMIN_DIR . "admin_product_img.inc.php";
                                     $isMainImg = null;
                                 }
                                 $isNewImg = null;   //Reset the variable, which is used by the template.
@@ -167,8 +167,8 @@
 </form>
 
 <!-- load custom form validation script -->
-<script src="<?= SCRIPT_DIR . DS . "form_validation.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
 <!-- enable tooltips on this page (by default disabled for performance) -->
-<script src="<?= SCRIPT_DIR . DS . "tooltip_enable.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 <!-- enable admin page tools -->
-<script src="<?= SCRIPT_DIR . DS . "admin_pages.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "admin_pages.js" ?>"></script>

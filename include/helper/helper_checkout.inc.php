@@ -3,13 +3,13 @@
 
 require_once "../site_php_head.inc.php";
 
-require_once CONTROLLER_DIR . DS . "controller_user.php";
-require_once CONTROLLER_DIR . DS . "controller_cart_product.php";
-require_once CONTROLLER_DIR . DS . "controller_product.php";
-require_once CONTROLLER_DIR . DS . "controller_address.php";
-require_once CONTROLLER_DIR . DS . "controller_order.php";
-require_once CONTROLLER_DIR . DS . "controller_order_state.php";
-require_once CONTROLLER_DIR . DS . "controller_product_order.php";
+require_once CONTROLLER_DIR . "controller_user.php";
+require_once CONTROLLER_DIR . "controller_cart_product.php";
+require_once CONTROLLER_DIR . "controller_product.php";
+require_once CONTROLLER_DIR . "controller_address.php";
+require_once CONTROLLER_DIR . "controller_order.php";
+require_once CONTROLLER_DIR . "controller_order_state.php";
+require_once CONTROLLER_DIR . "controller_product_order.php";
 
 //Redirect, if user is not logged-in or got blocked (and logout)
 UserController::redirectIfNotLoggedIn();
@@ -21,7 +21,7 @@ if (!isset($_POST["delivery"]) || !isset($_POST["payment"]) ||
     if (isset($_SERVER["HTTP_REFERER"])) {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
     } else {
-        header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+        header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     }
     die();
 }
@@ -30,7 +30,7 @@ $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]);
 
 //Redirect to shopping cart, if no products are in it.
 if (!isset($cartProducts) && count($cartProducts) > 0) {
-    header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+    header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
@@ -38,7 +38,7 @@ $deliveryAddress = AddressController::getById($_POST["delivery"]);
 
 //Redirect to shopping cart, if the passed delivery address does not belong to the user or its null
 if (isset($deliveryAddress) && !AddressController::doesThisAddressBelongsToUser($_SESSION["uid"], $deliveryAddress)) {
-    header("Location: " . USER_PAGES_DIR . DS . "page_shopping_cart.php");
+    header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
@@ -94,7 +94,7 @@ foreach ($cartProducts as $cartProduct) {
 
 //Done
 //Create invoice
-require_once INCLUDE_HELPER_DIR . DS . "helper_create_invoice.inc.php";
+require_once INCLUDE_HELPER_DIR . "helper_create_invoice.inc.php";
 
-header("Location: " . USER_PAGES_DIR . DS . "page_thank_you.php");
+header("Location: " . USER_PAGES_DIR . "page_thank_you.php");
 die();

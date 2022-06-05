@@ -19,7 +19,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     if (isset($_SERVER["HTTP_REFERER"])) {
         header("Location: " . $_SERVER["HTTP_REFERER"]); //In this way, we can keep all set get parameters in the url
     } else {
-        header("Location: " . PAGES_DIR . DS . "page_product_detail.php?id=" . $_GET["productId"]);
+        header("Location: " . PAGES_DIR . "page_product_detail.php?id=" . $_GET["productId"]);
     }
     die();
 }
@@ -31,7 +31,7 @@ if (!isset($review)) {
     if (isset($_SERVER["HTTP_REFERER"])) {
         header("Location: " . $_SERVER["HTTP_REFERER"]); //In this way, we can keep all set get parameters in the url
     } else {
-        header("Location: " . PAGES_DIR . DS . "page_product_detail.php?id=" . $_GET["productId"]);
+        header("Location: " . PAGES_DIR . "page_product_detail.php?id=" . $_GET["productId"]);
     }
     die();
 }
@@ -42,6 +42,6 @@ $suc = ReviewController::delete($review);
 if (isset($_SERVER["HTTP_REFERER"])) {
     header("Location: " . $_SERVER["HTTP_REFERER"]); //In this way, we can keep all set get parameters in the url
 } else {
-    header("Location: " . PAGES_DIR . DS . "page_product_detail.php?id=" . $_GET["productId"]);
+    header("Location: " . PAGES_DIR . "page_product_detail.php?id=" . $_GET["productId"]);
 }
 die();

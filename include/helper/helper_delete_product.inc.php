@@ -14,10 +14,10 @@ $productID = intval($_GET["id"]);
 $product = ProductController::getByID($productID);
 
 if (!isset($product)) {
-    header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php");
+    header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php");
     die();
 }
 
 $suc = ProductController::delete($product);
 
-header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php?deleted=" . $suc);
+header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php?deleted=" . $suc);

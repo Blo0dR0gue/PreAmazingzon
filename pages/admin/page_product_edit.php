@@ -8,7 +8,7 @@ if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
-        header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php"); //Redirect, if no product is found.
+        header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); //Redirect, if no product is found.
         die();
     }
 
@@ -17,7 +17,7 @@ if (isset($productID) && is_numeric($productID)) {
     //$cat = $category;
 
 } else {
-    header("LOCATION: " . ADMIN_PAGES_DIR . DS . "page_products.php"); //Redirect, if no number is passed.
+    header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); //Redirect, if no number is passed.
     die();
 }
 
@@ -48,7 +48,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                 $error = ProductController::uploadImages($product->getId(), $_FILES["files"] ?? null, $_POST["mainImgID"]);
 
                 if (!$error) {
-                    header("LOCATION: " . ADMIN_PAGES_DIR . DS . 'page_products.php');  // go to admin products page
+                    header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
                     //TODO success msg?
                     die();
                 }
@@ -64,27 +64,27 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <html class="h-100" lang="en">
 <head>
     <?php
-    require_once INCLUDE_DIR . DS . "site_html_head.inc.php";
-    require_once INCLUDE_DIR . DS . "modal_popup.inc.php";
+    require_once INCLUDE_DIR . "site_html_head.inc.php";
+    require_once INCLUDE_DIR . "modal_popup.inc.php";
     ?>
     <title><?= PAGE_NAME ?> - Admin - Product - Edit</title>
 
     <!-- file specific includes-->
-    <link rel="stylesheet" href="<?= STYLE_DIR . DS . "style_admin_pages.css"; ?>">
+    <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
 
 </head>
 
 <body class="d-flex flex-column h-100">
 <!-- header -->
-<?php require_once INCLUDE_DIR . DS . "site_header.inc.php"; ?>
+<?php require_once INCLUDE_DIR . "site_header.inc.php"; ?>
 
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 800px">
-    <?php require_once INCLUDE_DIR . DS . 'admin' . DS . "admin_product_add_edit.inc.php"; ?>
+    <?php require_once INCLUDE_ADMIN_DIR . "admin_product_add_edit.inc.php"; ?>
 </main>
 
 <!-- footer -->
-<?php require_once INCLUDE_DIR . DS . "site_footer.inc.php" ?>
+<?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
 <!-- show error popup -->
 <?php

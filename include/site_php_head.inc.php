@@ -19,16 +19,16 @@ require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPAR
 
 // includes
 // TODO
-require_once CONTROLLER_DIR . DS . 'controller_address.php';
-require_once CONTROLLER_DIR . DS . 'controller_cart_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_category.php';
-require_once CONTROLLER_DIR . DS . 'controller_product.php';
-require_once CONTROLLER_DIR . DS . 'controller_review.php';
-require_once CONTROLLER_DIR . DS . 'controller_user.php';
-require_once CONTROLLER_DIR . DS . 'controller_user_role.php';
-require_once CONTROLLER_DIR . DS . 'controller_order.php';
-require_once CONTROLLER_DIR . DS . 'controller_product_order.php';
-require_once CONTROLLER_DIR . DS . 'controller_order_state.php';
+require_once CONTROLLER_DIR . 'controller_address.php';
+require_once CONTROLLER_DIR . 'controller_cart_product.php';
+require_once CONTROLLER_DIR . 'controller_category.php';
+require_once CONTROLLER_DIR . 'controller_product.php';
+require_once CONTROLLER_DIR . 'controller_review.php';
+require_once CONTROLLER_DIR . 'controller_user.php';
+require_once CONTROLLER_DIR . 'controller_user_role.php';
+require_once CONTROLLER_DIR . 'controller_order.php';
+require_once CONTROLLER_DIR . 'controller_product_order.php';
+require_once CONTROLLER_DIR . 'controller_order_state.php';
 
 // session
 session_start();

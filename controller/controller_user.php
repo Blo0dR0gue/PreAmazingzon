@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . "model_user.php";
+require_once MODEL_DIR . "model_user.php";
 
 class UserController
 {
@@ -92,7 +92,7 @@ class UserController
         if (UserController::isCurrentSessionLoggedIn()) return; //User is logged in
 
         //delete all session variables
-        header("Location: " . PAGES_DIR . DS . "page_login.php");
+        header("Location: " . PAGES_DIR . "page_login.php");
         die();
     }
 

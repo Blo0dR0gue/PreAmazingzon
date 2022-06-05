@@ -1,7 +1,7 @@
 <?php
 //TODO Comments
 
-require_once MODEL_DIR . DS . "model_address.php";
+require_once MODEL_DIR . "model_address.php";
 
 class AddressController
 {

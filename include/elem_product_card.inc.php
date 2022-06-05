@@ -5,7 +5,7 @@ if (isset($product) && $product instanceof Product): ?>
         <!-- PRODUCT -->
         <div class="card border-0 shadow w-100">
             <!-- main image -->
-            <a href="<?= PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId();
+            <a href="<?= PAGES_DIR . "page_product_detail.php?id=" . $product->getId();
             // TODO GLOBAL dont use manual queries, http_build_query instead    ?>"
                class="d-flex justify-content-center align-items-center overflow-hidden" style="height: 250px">
                 <img src="<?= $product->getMainImg(); ?>" class="card-img-top mh-100 mw-100 w-auto" alt="main image"/>
@@ -15,7 +15,7 @@ if (isset($product) && $product instanceof Product): ?>
                 <!-- first row -->
                 <div class="d-flex justify-content-between mb-1">
                     <!-- title -->
-                    <a href="<?= PAGES_DIR . DS . "page_product_detail.php?id=" . $product->getId(); ?>"
+                    <a href="<?= PAGES_DIR . "page_product_detail.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-black web"
                        style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                         <?= $product->getTitle() ?>
