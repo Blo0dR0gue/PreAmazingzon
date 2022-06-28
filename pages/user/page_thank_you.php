@@ -19,10 +19,7 @@
             <h1 class="display-2">Thank you for your order!</h1>
             <p class="lead">Please check your orders inside your profile to see the invoice.</p>
             <hr>
-            <p class="text-muted">
-                Having trouble? <a href="#">Contact us</a>
-            </p>
-            <!-- TODO make link work -->
+            <p class="text-muted">Having trouble? <a href="#">Contact us</a></p>
             <p class="lead">
                 <a class="btn btn-primary" href="<?= ROOT_DIR ?>" role="button">Continue shopping</a>
             </p>

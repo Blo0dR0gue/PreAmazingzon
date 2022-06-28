@@ -36,11 +36,6 @@ $users = UserController::getUsersInRange($offset)
     <!-- page header -->
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All Users</h1>
-        <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_user_add.php" ?>">
-            <i class="fa fa-plus"></i> Add User
-        </a>
-        <!-- TODO do we need add user? -->
     </div>
     <hr class="mt-2">
 

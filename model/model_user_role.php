@@ -33,7 +33,7 @@ class UserRole
     {
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -53,7 +53,7 @@ class UserRole
     {
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE name = ?;");
         $stmt->bind_param("s", $name);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();

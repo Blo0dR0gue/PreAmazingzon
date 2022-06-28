@@ -17,8 +17,6 @@ $deliveryAddresses = AddressController::getAllByUser($user->getId());
 $cartItems = CartProductController::getAllByUser($user->getId());
 
 $totalProductPrice = 0;
-
-
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +55,6 @@ $totalProductPrice = 0;
                         <ul class="list-group">
                             <li id="selectedDeliveryName"
                                 class="list-group-item borderless p-0"><?= isset($primaryAddress) ? UserController::getFormattedName($user) : ""; ?></li>
-                            <!--TODO Add other recipient (missing in database)?-->
                             <li id="selectedDeliveryStreet"
                                 class="list-group-item borderless p-0"><?= isset($primaryAddress) ? $primaryAddress->getStreet() . " " . $primaryAddress->getNumber() : ""; ?></li>
                             <li id="selectedDeliveryCity"
@@ -100,7 +97,6 @@ $totalProductPrice = 0;
                                                    value="<?= $deliveryOption->getId(); ?>"
                                                    required>
                                             <label class="form-check-label">
-                                                <!--TODO Add other recipient (missing in database)?-->
                                                 <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() .
                                                 ", " . $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>
                                             </label>

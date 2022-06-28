@@ -18,7 +18,6 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 
     <!-- form processing script -->
     <?php
-    //TODO Remember me cookies?
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {    // data set?
         if ($user = UserController::getByEmail($_POST["email"])) {  // get user
             if (UserController::login($user, $_POST["password"])) { // login user
@@ -56,16 +55,9 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
         </div>
         <p class="text-muted"><small>By logging in, you accept the terms of use.</small></p>
 
-        <!-- TODO do we need remember me?-->
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me" name="remember"> Remember me
-            </label>
-        </div>
-
         <!-- buttons -->
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-        <p class="my-1 text-muted">or</p>
+        <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Login</button>
+        <p class="my-0 text-muted">or</p>
         <a href="<?= PAGES_DIR . "page_register.php" ?>" class="w-100 btn btn-lg btn-secondary">
             Create an account</a>
 

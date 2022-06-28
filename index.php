@@ -36,7 +36,7 @@
             <?php
             foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
                 require INCLUDE_ELEMENTS_DIR . "elem_product_card.inc.php";
-            }//TODO show msg, if no product is available
+            }
             ?>
         </div>
     </section>

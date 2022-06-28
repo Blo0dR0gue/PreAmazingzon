@@ -50,7 +50,7 @@ if (isset($_GET["search"])) {
         <!-- product row -->
         <div class="row">
             <h2>Products in Root</h2>
-            <!-- TODO make it work -->
+            <!-- TODO make it work and use name of category -->
             <hr>
             <?php
             if (count($products) > 0) {
