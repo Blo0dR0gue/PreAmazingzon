@@ -155,7 +155,7 @@ class Product
         $searchFilter = strtolower($searchString);
         $searchString = "%$searchString%";
 
-        $stmt = getDB()->prepare("SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN Category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
+        $stmt = getDB()->prepare("SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -178,7 +178,7 @@ class Product
         if (isset($searchString)) {
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
-            $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN Category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
+            $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
         } else {
             $sql = "SELECT COUNT(DISTINCT id) AS count FROM product;";
         }
