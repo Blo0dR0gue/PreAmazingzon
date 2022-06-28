@@ -77,7 +77,6 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                 <p class="small mb-2">
                     <a href="#" class="text-muted"><?= CategoryController::getPathToCategoryL($product->getCategoryID()); ?></a>
                     <!-- TODO make link work -->
-                    <!-- TODO no category string? -->
                 </p>
 
                 <!-- title -->
@@ -123,16 +122,10 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             </div>
         </div>
 
-        <!-- SECTION related products-->
-        <div class="row g-0 border-bottom py-3 mt-3 ps-3">
-            <h4 class="mt-2">Related products to this article</h4>
-            <!-- TODO do related products? -->
-        </div>
-
         <!-- SECTION reviews -->
-        <div class="row g-0 border-bottom ps-3">
+        <div class="row g-0 border-bottom">
             <!-- LEFT -->
-            <div class="col-lg-3 border-end">
+            <div class="col-lg-3 border-end ps-3 pt-3">
                 <h4 class="mt-2" id="review_header">Customer Reviews</h4>
                 <!-- star distribution -->
                 <div class="mb-4">
@@ -146,19 +139,18 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                      aria-valuemax="100">
                                 </div>
                             </div>
-                            <p class="col-sm text-decoration-none mb-0" href="#"><?= $i . ($i === 1 ? " Star" : " Stars") ?></p>
-                            <!-- TODO make link work -->
+                            <p class="col-sm text-decoration-none mb-0"><?= $i . ($i === 1 ? " Star" : " Stars") ?></p>
                         </div>
                     <?php endfor; ?>
                 </div>
             </div>
 
             <!-- RIGHT -->
-            <div class="col-lg-9 right-side align-content-center h-100">
+            <div class="col-lg-9 right-side align-content-center h-100 pt-2">
                 <?php if (UserController::isCurrentSessionLoggedIn()): ?>
                     <!--TODO check if user bought this item or already reviewed it -->
 
-                    <div class="p-3 right-side align-content-center h-100 border-bottom">
+                    <div class="p-3 right-side align-content-center h-100">
                         <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseRating" aria-expanded="false"
                                 aria-controls="collapseExample">
@@ -173,7 +165,9 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 <label for="title">Title</label>
                                 <input type="text" value="" name="title" id="title" class="form-control" required
                                        pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
-                                <div class="invalid-tooltip opacity-75">Please enter a valid Title!</div>
+                                <div class="invalid-tooltip opacity-75">
+                                    Please enter a valid Title! (min. 5 characters, no special characters)
+                                </div>
                             </div>
 
                             <div class="form-group position-relative">
@@ -207,7 +201,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                             <div class="form-group position-relative">
                                 <label for="description">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="3"
-                                          required></textarea> <!--TODO pattern? -->
+                                          required></textarea>
                                 <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
                             </div>
                             <br>
