@@ -45,7 +45,7 @@ class Product
             $products = [];
 
             //No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT id FROM Product ORDER BY id;");
+            $result = getDB()->query("SELECT id FROM product ORDER BY id;");
 
             if (!$result) return [];
 
@@ -109,7 +109,7 @@ class Product
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id FROM Product ORDER BY RAND() LIMIT ?;");
+        $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
@@ -372,7 +372,7 @@ class Product
 
     public function insert(): ?Product
     {
-        $stmt = getDB()->prepare("INSERT INTO Product(title, description, price, stock, shippingCost, category) 
+        $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category) 
                                         VALUES (?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("ssdidi",
             $this->title,
@@ -393,7 +393,7 @@ class Product
 
     public function update(): ?Product
     {
-        $stmt = getDB()->prepare("UPDATE Product 
+        $stmt = getDB()->prepare("UPDATE product 
                                     SET title = ?,
                                         description = ?,
                                         price = ?,

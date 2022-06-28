@@ -35,7 +35,7 @@ class Category
         $categories = [];
 
         //No need for prepared statement, because we do not use inputs.
-        $result = getDB()->query("SELECT id FROM Category;");
+        $result = getDB()->query("SELECT id FROM category;");
 
         if (!$result) return [];
 
