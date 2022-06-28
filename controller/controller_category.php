@@ -31,11 +31,6 @@ class CategoryController
         return implode(" > ", self::getCategoryPathByProduct($product));
     }
 
-    public static function getCategoriesInRange(int $offset = 0, int $amount = 8): array
-    {
-        return Category::getCategoriesInRange($offset, $amount);
-    }
-
     public static function getCategoryPathByProduct(Product $product): array
     {
         $tmpProductCat = Category::getById($product->getCategoryID());
@@ -49,6 +44,11 @@ class CategoryController
         }
 
         return array_reverse($path);
+    }
+
+    public static function getCategoriesInRange(int $offset = 0, int $amount = 8): array
+    {
+        return Category::getCategoriesInRange($offset, $amount);
     }
 
     public static function getPathToCategoryL(?int $categoryID): string

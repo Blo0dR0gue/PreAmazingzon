@@ -1,6 +1,7 @@
 # Amazingzon
 
-*Repository for student project 'Amazingzon', originally developed in [this](https://github.com/Blo0dR0gue/PreAmazingzon) repository.*
+*Repository for student project 'Amazingzon', originally developed
+in [this](https://github.com/Blo0dR0gue/PreAmazingzon) repository.*
 
 This project is created as part of the 'Web Engineering 2' lecture in summer semester 2022 in the Applied Computer
 Science course at DHBW Mannheim.
@@ -20,30 +21,30 @@ For setting up the MySQL database there is an `install.sql` file located in the 
 Below is the list of agreed features, their implementation state and where to find them if necessary.
 
 - [ ] products
-  - [ ] categories
-  - [x] price inclusive shipping cost
-  - [x] description
-  - [x] quantity / stock
-  - [x] multiple images
-  - [ ] search
-  - [x] ratings including comments
+    - [ ] categories
+    - [x] price inclusive shipping cost
+    - [x] description
+    - [x] quantity / stock
+    - [x] multiple images
+    - [ ] search
+    - [x] ratings including comments
 - [ ] User area
-  - [x] register
-  - [x] login and logout
-  - [x] change personal data e.g. email
-  - [x] change password
-  - [ ] manage multiple delivery addresses
-  - [ ] order overview / history
-  - [ ] invoice generation (as pdf)
-  - [x] shopping cart
+    - [x] register
+    - [x] login and logout
+    - [x] change personal data e.g. email
+    - [x] change password
+    - [ ] manage multiple delivery addresses
+    - [ ] order overview / history
+    - [ ] invoice generation (as pdf)
+    - [x] shopping cart
 - [ ] admin area
-  - [ ] product management 
-    - [x] show & create products
-    - [x] edit product e.g. change price, images, description, quantity
-  - [x] user management
-    - [x] deactivate or delete users
-  - [ ] category management
-  - [ ] order management
+    - [ ] product management
+        - [x] show & create products
+        - [x] edit product e.g. change price, images, description, quantity
+    - [x] user management
+        - [x] deactivate or delete users
+    - [ ] category management
+    - [ ] order management
 - [ ] ~~auctions~~
 
 ## Technical Details
@@ -74,7 +75,8 @@ The following libraries or APIs are used in the project in advance to the above 
 
 ### Database
 
-The `MySQL` database is designed using [MySQL Workbench](https://www.mysql.com/de/products/workbench/), following this diagram:
+The `MySQL` database is designed using [MySQL Workbench](https://www.mysql.com/de/products/workbench/), following this
+diagram:
 ![Database Diagram Image](assets/images/database_design.png)
 
 ### Test Data
@@ -89,11 +91,12 @@ Important values for testing are:
 | normal user | user@user.de   | sh7up#KT!  |
 | admin       | admin@admin.de | sh7up#KT!  |
 
-
 ## Screenshots
+
 ![Login Page Image](assets/images/screenshot_page_login.png)<br>
 ![Product Page Image](assets/images/screenshot_page_product.png)
 
 ## Authors
 
-Project developed by [Daniel Czeschner](https://github.com/Blo0dR0gue) and [Frederik Wolter](https://github.com/FrederikWolter).
+Project developed by [Daniel Czeschner](https://github.com/Blo0dR0gue)
+and [Frederik Wolter](https://github.com/FrederikWolter).
