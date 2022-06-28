@@ -146,7 +146,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                      aria-valuemax="100">
                                 </div>
                             </div>
-                            <a class="col-sm text-decoration-none" href="#"><?= $i . ($i === 1 ? " Star" : " Stars") ?></a>
+                            <p class="col-sm text-decoration-none mb-0" href="#"><?= $i . ($i === 1 ? " Star" : " Stars") ?></p>
                             <!-- TODO make link work -->
                         </div>
                     <?php endfor; ?>
