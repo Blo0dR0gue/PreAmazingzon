@@ -111,7 +111,7 @@ class CartProduct
 
     public function insert(): ?CartProduct
     {
-        $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?)");
+        $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?);");
         $stmt->bind_param("iii",
             $this->userId,
             $this->prodId,

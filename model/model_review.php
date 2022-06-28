@@ -35,11 +35,10 @@ class Review
 
     public static function getAvgRating(int $productId): ?float
     {
-        $sql = "SELECT ROUND(AVG(stars), 1) as rating
-                FROM review
-                WHERE product = ?
-                GROUP BY product;";
-        $stmt = getDb()->prepare($sql);
+        $stmt = getDb()->prepare("SELECT ROUND(AVG(stars), 1) as rating
+                                        FROM review
+                                        WHERE product = ?
+                                        GROUP BY product;");
         $stmt->bind_param("i", $productId);
         if (!$stmt->execute()) return null;    //TODO Error Handling
 
@@ -54,11 +53,10 @@ class Review
 
     public static function getNumberOfReviewsForProduct(int $productId): ?int
     {
-        $sql = "SELECT COUNT(*) as reviews
-                FROM review
-                WHERE product = ?
-                GROUP BY product";
-        $stmt = getDb()->prepare($sql);
+        $stmt = getDb()->prepare("SELECT COUNT(*) as reviews
+                                        FROM review
+                                        WHERE product = ?
+                                        GROUP BY product;");
         $stmt->bind_param("i", $productId);
         if (!$stmt->execute()) return null;    //TODO Error Handling
 

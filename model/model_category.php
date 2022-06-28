@@ -151,13 +151,11 @@ class Category
         if (isset($searchString)) {
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
-            $sql = "SELECT COUNT(DISTINCT id) as count FROM category AS c WHERE LOWER(c.description) LIKE ? OR LOWER(c.name) LIKE ?;";
-            $stmt = getDB()->prepare($sql);
+            $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category AS c WHERE LOWER(c.description) LIKE ? OR LOWER(c.name) LIKE ?;");
 
             $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         } else {
-            $sql = "SELECT COUNT(DISTINCT id) as count FROM category;";
-            $stmt = getDB()->prepare($sql);
+            $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category;");
         }
 
         if (!$stmt->execute()) return 0;     // TODO ERROR handling
