@@ -169,6 +169,29 @@ class Category
         return $res["count"];
     }
 
+    /**
+     * Select a specified amount of categories starting at an offset.
+     * @param int $offset The first category, which should be selected.
+     * @param int $amount The amount of categories, which should be selected.
+     * @return array|null An array with the found categories or null, if an error occurred.
+     */
+    public static function getCategoriesInRange(int $offset, int $amount): ?array
+    {
+        $categories = [];
+
+        $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
+        $stmt->bind_param("ii", $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        foreach ($stmt->get_result() as $category) {
+            $categories[] = self::getByID($category["id"]);
+        }
+        $stmt->close();
+        return $categories;
+    }
+
+    // region getter
 
     public function getImg(): string
     {
@@ -177,8 +200,6 @@ class Category
 
         return IMAGE_PRODUCT_DIR . "notfound.jpg";
     }
-
-    // region getter
 
     /**
      * @return int

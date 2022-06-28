@@ -1,4 +1,4 @@
-<!--Page to show all products and searched products -->
+<!--Page to show all categories -->
 <!-- TODO comment -->
 
 <?php require_once "../include/site_php_head.inc.php"; ?>

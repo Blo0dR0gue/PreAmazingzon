@@ -12,7 +12,7 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $categoryCount = CategoryController::getAmountOfCategories(null);       // Get the total amount of categories   //TODO search?
 $totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
-$products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+$products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
 <!-- TODO if deleted pagination triggered modal each time -->
@@ -123,10 +123,7 @@ if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
     $msg = "";
     if (isset($_GET["deleted"])) {
         $msg = "The category got deleted!";
-    } else if (isset($_GET["other"])) {
-        $msg = "test";  //TODO remove
     }
-
     show_popup("Categories", $msg);
 }
 ?>
