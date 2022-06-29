@@ -229,7 +229,7 @@ class ProductController
 
         if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) { return false; }
 
-        $pictureID = "";
+        $pictureID = "";    // TODO unused?
         if ($isMainImg) {
             self::removeAllMainImgTags($productID);
             $pictureID = ($imageCounter + 1) . "_" . $productID . "_" . self::generateRandomImageName() . "_main";

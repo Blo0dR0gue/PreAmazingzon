@@ -64,7 +64,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         $allIMGs = array_slice($product->getAllImgs(), 0, MAX_IMAGE_PER_PRODUCT);
 
                         foreach ($allIMGs as $img) {
-                            echo "<div class='thumbnail_image'><img onclick='changeImage(this)' src='{$img}' alt=''></div>";
+                            echo "<div class='thumbnail_image'><img onclick='changeImage(this)' src='$img' alt=''></div>";
                         }
                         ?>
                     </div>

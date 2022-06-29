@@ -47,7 +47,7 @@ class CartProductController
 
     /**
      * Decreases the amount of products in cart to the max in stock, if we have more items in cart than it is in the stock. If the stock is 0 delete the item from the cart.
-     * @param CartProduct $cartProduct The cartproduct-object
+     * @param CartProduct $cartProduct The cart-product-object
      * @return bool true, if the product got deleted from the cart
      */
     public static function handleOtherUserBoughtItemInCart(CartProduct $cartProduct): bool
