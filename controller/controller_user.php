@@ -29,15 +29,15 @@ class UserController
         return false;   // failure
     }
 
-    public static function register(string $first_name, string $last_name, string $email, string $password, string $zip, string $city, string $street, string $number, int $role_id): ?User
+    public static function register(string $firstName, string $lastName, string $email, string $password, string $zip, string $city, string $street, string $number, int $roleId): ?User
     {   // TODO validate
 
         if (self::emailAvailable($email)) {     // email unique
             // hash password
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             // create user
-            $user = new User(0, $first_name, $last_name, $email, $password_hash, true, $role_id, null);
+            $user = new User(0, $firstName, $lastName, $email, $passwordHash, true, $roleId, null);
             $user = $user->insert();
             if (!$user) { return null; }
 
@@ -66,16 +66,16 @@ class UserController
         return User::getByEmail($email);
     }
 
-    public static function update(User $user, string $first_name, string $last_name, string $email, string $password, int $role_id = null, int $defaultAddressId = null): ?User
+    public static function update(User $user, string $firstName, string $lastName, string $email, string $password, int $roleId = null, int $defaultAddressId = null): ?User
     { // TODO validate?
         if ($user->getEmail() === $email || self::emailAvailable($email)) {     // email unique?
             // update user
-            $user->setFirstName($first_name);
-            $user->setLastName($last_name);
+            $user->setFirstName($firstName);
+            $user->setLastName($lastName);
             $user->setEmail($email);
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
             $user->setActive(true);
-            if ($role_id != null) { $user->setRoleId($role_id); }
+            if ($roleId != null) { $user->setRoleId($roleId); }
             if ($defaultAddressId != null) { $user->setDefaultAddressId($defaultAddressId); }
 
             return $user->update();

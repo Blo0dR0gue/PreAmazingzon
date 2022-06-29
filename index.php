@@ -1,4 +1,4 @@
-<!-- TODO COMMENT -->
+<!-- TODO COMMENT  -->
 <?php require_once "include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>
@@ -7,8 +7,6 @@
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?></title>
 </head>
-
-<!-- TODO project wide camel or snake case refactor? -->
 
 <body class="d-flex flex-column h-100">
 <!-- header -->

@@ -29,13 +29,13 @@ class CartProduct
 
     /**
      * Get all shopping-cart entries (cartProducts) related to one user.
-     * @param int $user_id user of interest
+     * @param int $userId user of interest
      * @return array<CartProduct>|null array of cartProducts
      */
-    public static function getAllByUser(int $user_id): ?array
+    public static function getAllByUser(int $userId): ?array
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) { return null; }
 
         // get result
@@ -53,13 +53,13 @@ class CartProduct
 
     /**
      * Get number of shopping-cart entries (cartProducts) related to one user.
-     * @param int $user_id user of interest
-     * @return float number of products in shopping-cart of user
+     * @param int $userId user of interest
+     * @return int number of products in shopping-cart of user
      */
-    public static function getCountByUser(int $user_id): int
+    public static function getCountByUser(int $userId): int
     {
         $stmt = getDB()->prepare("SELECT COUNT(*) AS count FROM shoppingcart_product WHERE user = ?;");
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) { return 0; }
 
         // get result

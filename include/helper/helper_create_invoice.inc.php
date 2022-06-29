@@ -28,8 +28,8 @@ $user = UserController::getById($_SESSION["uid"]);
 
 $orderId = $order->getId();
 $userId = $user->getId();
-$order_date = $order->getFormattedOrderDate();
-$delivery_date = $order->getFormattedDeliveryDate();
+$orderDate = $order->getFormattedOrderDate();
+$deliveryDate = $order->getFormattedDeliveryDate();
 $pdfAuthor = PAGE_NAME;
 
 $targetDir = INVOICES_DIR . $userId;
@@ -62,8 +62,8 @@ $html = '
  <td>' . nl2br(trim($invoice_header)) . '</td>
     <td style="text-align: right">
 Bill Number ' . $orderId . '<br>
-Invoice Date: ' . $order_date . '<br>
-Delivery Date: ' . $delivery_date . '<br>
+Invoice Date: ' . $orderDate . '<br>
+Delivery Date: ' . $deliveryDate . '<br>
  </td>
  </tr>
  

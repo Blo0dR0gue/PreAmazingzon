@@ -5,9 +5,9 @@ require_once MODEL_DIR . "model_address.php";
 
 class AddressController
 {
-    public static function insert(string $street, string $number, string $zip, string $city, int $user_id): ?Address
+    public static function insert(string $street, string $number, string $zip, string $city, int $userId): ?Address
     {   // TODO validate
-        $address = new Address(0, $street, $number, $zip, $city, $user_id);
+        $address = new Address(0, $street, $number, $zip, $city, $userId);
         return $address->insert();
     }
 

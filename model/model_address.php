@@ -13,7 +13,7 @@ class Address
     private string $number;
     private string $zip;
     private string $city;
-    private int $user_id;
+    private int $userId;
     // endregion
 
     /**
@@ -23,29 +23,29 @@ class Address
      * @param string $number
      * @param string $zip
      * @param string $city
-     * @param int $user_id
+     * @param int $userId
      */
-    public function __construct(int $id, string $street, string $number, string $zip, string $city, int $user_id)
+    public function __construct(int $id, string $street, string $number, string $zip, string $city, int $userId)
     {
         $this->id = $id;
         $this->street = $street;
         $this->number = $number;
         $this->zip = $zip;
         $this->city = $city;
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     // region getter
 
     /**
      * Get all existing addresses related to one user.
-     * @param int $user_id user of interest
+     * @param int $userId user of interest
      * @return array<Address>|null array of addresses
      */
-    public static function getAllByUser(int $user_id): ?array
+    public static function getAllByUser(int $userId): ?array
     {
         $stmt = getDB()->prepare("SELECT * FROM address WHERE user = ?;");
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) { return null; }
 
         // get result
@@ -63,13 +63,13 @@ class Address
 
     /**
      * Get default existing default address related to one user.
-     * @param int $user_id user of interest
+     * @param int $userId user of interest
      * @return Address|null default address
      */
-    public static function getDefaultByUser(int $user_id): ?Address
+    public static function getDefaultByUser(int $userId): ?Address
     {
         $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) { return null; }
 
         // get result
@@ -185,15 +185,15 @@ class Address
      */
     public function getUserId(): int
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * @param int $user_id
+     * @param int $userId
      */
-    public function setUserId(int $user_id): void
+    public function setUserId(int $userId): void
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     public function insert(): ?Address
@@ -205,7 +205,7 @@ class Address
             $this->zip,
             $this->number,
             $this->city,
-            $this->user_id);
+            $this->userId);
         if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
@@ -229,7 +229,7 @@ class Address
             $this->zip,
             $this->number,
             $this->city,
-            $this->user_id,
+            $this->userId,
             $this->id);
         if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 

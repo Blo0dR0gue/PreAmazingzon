@@ -81,16 +81,16 @@ class Order
 
     /**
      * Gets all orders for a users from an offset to a limit.
-     * @param int $user_id The id of the user.
+     * @param int $userId The id of the user.
      * @param int $offset The offset from where the first item should be selected.
      * @param int $amount The amount of items, which should be selected.
      * @return array|null An array the selected {@link Order}s or null, if no order was found.
      * @throws Exception If it is not possible to convert a string to a datetime object.
      */
-    public static function getAllForUserInRange(int $user_id, int $offset, int $amount): ?array
+    public static function getAllForUserInRange(int $userId, int $offset, int $amount): ?array
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE user = ? ORDER BY orderDate DESC limit ? OFFSET ?;");
-        $stmt->bind_param("iii", $user_id, $amount, $offset);
+        $stmt->bind_param("iii", $userId, $amount, $offset);
         if (!$stmt->execute()) { return null; }
 
         // get result

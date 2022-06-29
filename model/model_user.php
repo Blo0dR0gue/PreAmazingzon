@@ -8,35 +8,35 @@ class User
 {
     // region fields
     private int $id;
-    private string $first_name;
-    private string $last_name;
+    private string $firstName;
+    private string $lastName;
     private string $email;
-    private string $password_hash;
+    private string $passwordHash;
     private bool $active;
-    private int $role_id;
-    private ?int $default_address_id;   //Default Address can be null
+    private int $roleId;
+    private ?int $defaultAddressId;   //Default Address can be null
     // endregion
 
     /**
      * @param int $id
-     * @param string $first_name
-     * @param string $last_name
+     * @param string $firstName
+     * @param string $lastName
      * @param string $email
-     * @param string $password_hash
+     * @param string $passwordHash
      * @param bool $active
-     * @param int $role_id
-     * @param int|null $default_address_id
+     * @param int $roleId
+     * @param int|null $defaultAddressId
      */
-    public function __construct(int $id, string $first_name, string $last_name, string $email, string $password_hash, bool $active, int $role_id, ?int $default_address_id)
+    public function __construct(int $id, string $firstName, string $lastName, string $email, string $passwordHash, bool $active, int $roleId, ?int $defaultAddressId)
     {
         $this->id = $id;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
         $this->email = $email;
-        $this->password_hash = $password_hash;
+        $this->passwordHash = $passwordHash;
         $this->active = $active;
-        $this->role_id = $role_id;
-        $this->default_address_id = $default_address_id;
+        $this->roleId = $roleId;
+        $this->defaultAddressId = $defaultAddressId;
     }
 
     // region getter & setter
@@ -54,15 +54,15 @@ class User
      */
     public function getFirstName(): string
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
     /**
-     * @param string $first_name
+     * @param string $firstName
      */
-    public function setFirstName(string $first_name): void
+    public function setFirstName(string $firstName): void
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
     }
 
     /**
@@ -70,15 +70,15 @@ class User
      */
     public function getLastName(): string
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
     /**
-     * @param string $last_name
+     * @param string $lastName
      */
-    public function setLastName(string $last_name): void
+    public function setLastName(string $lastName): void
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -102,20 +102,20 @@ class User
      */
     public function getPasswordHash(): string
     {
-        return $this->password_hash;
+        return $this->passwordHash;
     }
 
     /**
-     * @param string $password_hash
+     * @param string $passwordHash
      */
-    public function setPasswordHash(string $password_hash): void
+    public function setPasswordHash(string $passwordHash): void
     {
-        $this->password_hash = $password_hash;
+        $this->passwordHash = $passwordHash;
     }
 
     public function getFormattedName(): string
     {
-        return $this->first_name . " " . $this->last_name;
+        return $this->firstName . " " . $this->lastName;
     }
 
     /**
@@ -139,15 +139,15 @@ class User
      */
     public function getRoleId(): int
     {
-        return $this->role_id;
+        return $this->roleId;
     }
 
     /**
-     * @param int $role_id
+     * @param int $roleId
      */
-    public function setRoleId(int $role_id): void
+    public function setRoleId(int $roleId): void
     {
-        $this->role_id = $role_id;
+        $this->roleId = $roleId;
     }
 
     /**
@@ -155,15 +155,15 @@ class User
      */
     public function getDefaultAddressId(): ?int
     {
-        return $this->default_address_id;
+        return $this->defaultAddressId;
     }
 
     /**
-     * @param int|null $default_address_id
+     * @param int|null $defaultAddressId
      */
-    public function setDefaultAddressId(?int $default_address_id): void
+    public function setDefaultAddressId(?int $defaultAddressId): void
     {
-        $this->default_address_id = $default_address_id;
+        $this->defaultAddressId = $defaultAddressId;
     }
     // endregion
 
@@ -172,12 +172,12 @@ class User
         $stmt = getDB()->prepare("INSERT INTO user(password, email, userRole, firstname, lastname, defaultAddress, active) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssissii",
-            $this->password_hash,
+            $this->passwordHash,
             $this->email,
-            $this->role_id,
-            $this->first_name,
-            $this->last_name,
-            $this->default_address_id,
+            $this->roleId,
+            $this->firstName,
+            $this->lastName,
+            $this->defaultAddressId,
             $this->active);
         if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
@@ -236,12 +236,12 @@ class User
                                             active = ?
                                         WHERE id = ?;");
         $stmt->bind_param("ssissiii",
-            $this->password_hash,
+            $this->passwordHash,
             $this->email,
-            $this->role_id,
-            $this->first_name,
-            $this->last_name,
-            $this->default_address_id,
+            $this->roleId,
+            $this->firstName,
+            $this->lastName,
+            $this->defaultAddressId,
             $this->active,
             $this->id);
         if (!$stmt->execute()) { return null; }     // TODO ERROR handling
