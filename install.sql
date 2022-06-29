@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Address`
     CONSTRAINT `fk_Address_User`
         FOREIGN KEY (`user`)
             REFERENCES `amazingzon`.`User` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`User`
     CONSTRAINT `fk_User_Address`
         FOREIGN KEY (`defaultAddress`)
             REFERENCES `amazingzon`.`Address` (`id`)
-            ON DELETE CASCADE
+            ON DELETE SET NULL
             ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
@@ -125,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Product`
     CONSTRAINT `fk_Product_Category1`
         FOREIGN KEY (`category`)
             REFERENCES `amazingzon`.`Category` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE SET NULL
+            ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 
@@ -153,8 +153,8 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Review`
     CONSTRAINT `fk_Review_Product1`
         FOREIGN KEY (`product`)
             REFERENCES `amazingzon`.`Product` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 
@@ -201,8 +201,8 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Order`
     CONSTRAINT `fk_Order_Address1`
         FOREIGN KEY (`shippingAddress`)
             REFERENCES `amazingzon`.`Address` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE SET NULL
+            ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 
@@ -223,12 +223,12 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Product_Order`
         FOREIGN KEY (`product`)
             REFERENCES `amazingzon`.`Product` (`id`)
             ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
+            ON UPDATE CASCADE,
     CONSTRAINT `fk_Product_has_Order_Order1`
         FOREIGN KEY (`order`)
             REFERENCES `amazingzon`.`Order` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 
