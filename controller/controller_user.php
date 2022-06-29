@@ -160,4 +160,9 @@ class UserController
         return User::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
     }
 
+    public static function delete(User $user): bool
+    {
+        return $user->delete();
+    }
+
 }

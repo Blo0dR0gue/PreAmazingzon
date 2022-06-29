@@ -301,8 +301,19 @@ class User
         return $users;
     }
 
-    public function delete(): void
+    /**
+     * Deletes itself from the database.
+     * @return bool true, if the user got deleted.
+     */
+    public function delete(): bool
     {
-        // TODO
+        $stmt = getDB()->prepare("DELETE FROM user WHERE id = ?;");
+        $stmt->bind_param("i",
+            $this->id);
+        if (!$stmt->execute()) return false;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return self::getById($this->id) == null;
     }
 }
