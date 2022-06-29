@@ -28,12 +28,12 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
         <td data-th="Price"><?= $product->getPriceFormatted() ?></td>
         <td data-th="Quantity">
             <div class="d-flex justify-content-center">
-                <a href="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
+                <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
                     <em class="fa fa-minus link-warning"></em>
                 </a>
                 <p class="border px-2 rounded text-muted"><?= $cartProduct->getAmount() ?></p>
-                <a href="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "inc", "productId" => $product->getId()]) ?>"
+                <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "inc", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
                     <em class="fa fa-plus link-warning"></em>
                 </a>
@@ -41,7 +41,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
         </td>
         <td data-th="Subtotal"><?= $product->getPriceFormatted($cartProduct->getAmount()) ?></td>
         <td data-th="" class="actions">
-            <a href="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
+            <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
                class="btn btn-close btn-md mb-2"></a>
         </td>
     </tr>

@@ -101,7 +101,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                 </div>
 
                 <!-- stock & buttons -->
-                <form method="get" action="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php" ?>">
+                <form method="get" action="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php" ?>">
                     <!-- helper values -->
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="productId" value="<?= $product->getId() ?>">
