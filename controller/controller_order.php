@@ -57,4 +57,20 @@ class OrderController
         return null;
     }
 
+    public static function getAmountOfUsers(): int
+    {
+        return Order::getAmount();
+    }
+
+    public static function getAllInRange(int $offset, int $LIMIT_OF_SHOWED_ITEMS): ?array
+    {
+        try {
+            return Order::getAllInRange($offset, $LIMIT_OF_SHOWED_ITEMS);
+        } catch (Exception $e) {
+            //TODO 500 error
+            header("LOCATION: " . PAGES_DIR . 'page_error.php');
+            die();
+        }
+    }
+
 }

@@ -38,6 +38,26 @@ class Order
 
     // region getter & setter
 
+
+    /**
+     * Gets the amount of orders.
+     * @return int The amount of orders.
+     */
+    public static function getAmount(): int
+    {
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order`;");
+
+        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return 0;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
     /**
      * Returns the amount of orders for a specific user
      * @param int $userId The id of the user.
@@ -86,6 +106,33 @@ class Order
         return $arr;
     }
 
+
+    /**
+     * Gets all orders from an offset to a limit.
+     * @param int $offset The offset from where the first item should be selected.
+     * @param int $amount The amount of items, which should be selected.
+     * @return array|null An array the selected {@link Order}s or null, if no order was found.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
+     */
+    public static function getAllInRange(int $offset, int $amount): ?array
+    {
+        $stmt = getDB()->prepare("SELECT * FROM `order` ORDER BY orderDate DESC limit ? OFFSET ?;");
+        $stmt->bind_param("ii", $amount, $offset);
+        if (!$stmt->execute()) return null;     // TODO ERROR handling
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+
+        $arr = array();
+        while ($r = $res->fetch_assoc()) {
+            $arr[] = new Order($r["id"], new DateTime($r["orderDate"]), new DateTime($r["deliveryDate"]), $r["paid"], $r["orderState"], $r["user"], $r["shippingAddress"]);
+        }
+        $stmt->close();
+
+        return $arr;
+    }
+
     /**
      * @return int The id of the object.
      */
@@ -107,7 +154,9 @@ class Order
      */
     public function getFormattedOrderDate(): string
     {
-        return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+        if (isset($this->orderDate))
+            return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+        return "Not Set";
     }
 
     /**
@@ -123,7 +172,9 @@ class Order
      */
     public function getFormattedDeliveryDate(): string
     {
-        return $this->deliveryDate->format("d.m.Y");//TODO constant
+        if (isset($this->deliveryDate))
+            return $this->deliveryDate->format("d.m.Y");//TODO constant
+        return "Not Set";
     }
 
     /**

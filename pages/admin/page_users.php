@@ -8,8 +8,8 @@ UserController::redirectIfNotAdmin();   //User is not allowed to be here.
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$userCount = UserController::getAmountOfUsers(null);                              // Get the total amount of users
-$totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                           // Calculate the total amount of pages
+$userCount = UserController::getAmountOfUsers();                                  // Get the total amount of users
+$totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
 $users = UserController::getUsersInRange($offset)
 ?>
@@ -39,7 +39,7 @@ $users = UserController::getUsersInRange($offset)
     </div>
     <hr class="mt-2">
 
-    <!-- category table -->
+    <!-- user table -->
     <table class="table">
         <!-- table head -->
         <thead class="thead-light">
@@ -71,7 +71,7 @@ $users = UserController::getUsersInRange($offset)
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete user"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
-                               'Delete Product?',
+                               'Delete User?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
                         <i class="fa fa-trash "></i>
                     </a>
@@ -123,12 +123,12 @@ $users = UserController::getUsersInRange($offset)
 if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
     $msg = "";
     if (isset($_GET["deleted"])) {
-        $msg = "The category got deleted!";
+        $msg = "The user got deleted!";
     } else if (isset($_GET["other"])) {
         $msg = "test";  //TODO remove
     }
 
-    show_popup("Categories", $msg);
+    show_popup("Users", $msg);
 }
 ?>
 
