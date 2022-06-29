@@ -18,6 +18,7 @@ if (!isset($product)) {
     die();
 }
 
+//TODO dont delete product (toggle active status)
 $suc = ProductController::delete($product);
 
 header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php?deleted=" . $suc);
