@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Product_Order`
     CONSTRAINT `fk_Product_has_Order_Product1`
         FOREIGN KEY (`product`)
             REFERENCES `amazingzon`.`Product` (`id`)
-            ON DELETE CASCADE
+            ON DELETE RESTRICT
             ON UPDATE CASCADE,
     CONSTRAINT `fk_Product_has_Order_Order1`
         FOREIGN KEY (`order`)
