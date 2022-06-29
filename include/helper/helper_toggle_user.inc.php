@@ -1,5 +1,5 @@
 <?php
-//Enables / Disables a user
+// Enables / Disables a user
 
 require_once "../site_php_head.inc.php";
 

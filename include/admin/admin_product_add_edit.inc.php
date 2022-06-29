@@ -1,4 +1,4 @@
-<!--TODO comment -->
+<!-- TODO comment -->
 
 <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card my-4">
@@ -33,7 +33,7 @@
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Category</label>
                 <select class="form-select" aria-label="Default select example" name="cat" required>
-                    <!--TODO Rework -> tree like?; Replace button next with selected-->
+                    <!-- TODO Rework -> tree like?; Replace button next with selected -->
                     <option value="" hidden>Select Category</option>
 
                     <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>
@@ -133,9 +133,9 @@
                             <!-- show all uploaded images in edit mode -->
                             <?php
                             if (isset($allIMGs)) {
-                                //Set the variable isNewImg to false, which is used by the template to define, that this image is already uploaded.
+                                // Set the variable isNewImg to false, which is used by the template to define, that this image is already uploaded.
                                 $isNewImg = false;
-                                //For each image path
+                                // For each image path
                                 foreach ($allIMGs as $img) {
                                     $imgPaths = explode(DS, $img);
                                     $imgID = end($imgPaths);
@@ -144,7 +144,7 @@
                                     require INCLUDE_ADMIN_DIR . "admin_product_img.inc.php";
                                     $isMainImg = null;
                                 }
-                                $isNewImg = null;   //Reset the variable, which is used by the template.
+                                $isNewImg = null;   // Reset the variable, which is used by the template.
                             }
                             ?>
                         </div>

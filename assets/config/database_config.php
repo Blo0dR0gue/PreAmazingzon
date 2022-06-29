@@ -1,5 +1,5 @@
 <?php
-//config file for database related stuff
+// config file for database related stuff
 
 const DB_DATABASE = "amazingzon";
 const DB_USERNAME = "amazingzon";

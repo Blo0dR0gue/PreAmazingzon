@@ -3,13 +3,13 @@
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-UserController::redirectIfNotAdmin();   //User is not allowed to be here.
+UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 // TODO change pagination to categories
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$categoryCount = CategoryController::getAmountOfCategories(null);       // Get the total amount of categories   //TODO search?
+$categoryCount = CategoryController::getAmountOfCategories(null);       // Get the total amount of categories   // TODO search?
 $totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
 $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);

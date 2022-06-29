@@ -1,4 +1,4 @@
-<!--Page to show all categories -->
+<!-- Page to show all categories -->
 <!-- TODO comment -->
 
 <?php require_once "../include/site_php_head.inc.php"; ?>
@@ -44,7 +44,6 @@ if (isset($_GET["search"])) {
                 require INCLUDE_ELEMENTS_DIR . "elem_category_card.inc.php";
                 ?>
             </div>
-            <!-- TODO own pagination for categories -->
         <?php } ?>
 
         <!-- product row -->

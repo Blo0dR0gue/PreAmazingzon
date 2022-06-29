@@ -1,23 +1,23 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-UserController::redirectIfNotAdmin();   //User is not allowed to be here.
+UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 $productID = $_GET["id"];
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
-        header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); //Redirect, if no product is found.
+        header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no product is found.
         die();
     }
 
     $category = CategoryController::getById($product->getCategoryID());
-    //Variable, which is used by the radio buttons
-    //$cat = $category;
+    // Variable, which is used by the radio buttons
+    // $cat = $category;
 
 } else {
-    header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); //Redirect, if no number is passed.
+    header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no number is passed.
     die();
 }
 
@@ -49,7 +49,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
                 if (!$error) {
                     header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
-                    //TODO success msg?
+                    // TODO success msg?
                     die();
                 }
 
@@ -91,7 +91,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 if (isset($processingError)) {   // processing error
     show_popup(
         "Edit Product Error",
-        "ALARM" //TODO
+        "ALARM" // TODO
     );
 }
 ?>

@@ -1,29 +1,29 @@
 <?php
-//Helper page to create an invoice after the order complete.
+// Helper page to create an invoice after the order complete.
 
-//Redirect, if this page got called directly and not via "request"
+// Redirect, if this page got called directly and not via "request"
 if (str_contains($_SERVER["REQUEST_URI"], basename(__FILE__))) {
     header("Location: " . ROOT_DIR);
     die();
 }
 
-//Load Header
+// Load Header
 require_once "../site_php_head.inc.php";
 
 UserController::redirectIfNotLoggedIn();
 
-//Redirect, if information to create the invoice are missing or the information do not have the correct datatype
-//The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
+// Redirect, if information to create the invoice are missing or the information do not have the correct datatype
+// The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
 if (!isset($order) || !$order instanceof Order || !isset($productOrders) || empty($productOrders) ||    // TODO Condition is unnecessary because it is checked by 'empty($productOrders)'
     !$productOrders[0] instanceof ProductOrder || !isset($deliveryAddress) || !$deliveryAddress instanceof Address) {
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
-//Load tcpdf
+// Load tcpdf
 require_once INCLUDE_TCPDF_DIR . "tcpdf.php";
 
-//It's safe to user this here, because we check the user information in the function redirectIfNotLoggedIn
+// It's safe to user this here, because we check the user information in the function redirectIfNotLoggedIn
 $user = UserController::getById($_SESSION["uid"]);
 
 $orderId = $order->getId();
@@ -34,7 +34,7 @@ $pdfAuthor = PAGE_NAME;
 
 $targetDir = INVOICES_DIR . $userId;
 
-//The sender of this invoice
+// The sender of this invoice
 $invoice_header =
     "<img src='" . IMAGE_LOGO_DIR . "logo_long.svg" . "' height='32'> \n " .
     PAGE_NAME . "\n" .
@@ -42,7 +42,7 @@ $invoice_header =
     COMPANY_ZIP_CODE . " " . COMPANY_CITY . "\n" .
     COMPANY_COUNTRY;
 
-//Recipient information for invoice
+// Recipient information for invoice
 $invoice_recipient =
     $user->getFormattedName() . "\n" .
     $deliveryAddress->getStreet() . " " . $deliveryAddress->getNumber() . "\n" .
@@ -50,12 +50,12 @@ $invoice_recipient =
 
 $invoice_footer = INVOICE_FOOTER;
 
-//value added tax (0.19 = 19%)
-$tax = 0.0; //TODO constant
+// value added tax (0.19 = 19%)
+$tax = 0.0; // TODO constant
 
 $pdfName = "invoice_" . $userId . "_" . $orderId . ".pdf";
 
-//Invoice body (The use of css is limited in tcpdf)
+// Invoice body (The use of css is limited in tcpdf)
 $html = ' 
 <table style="width: 100%; ">
  <tr>
@@ -90,7 +90,7 @@ Invoice
  <td style="text-align: center;"><b>Price</b></td>
  </tr>';
 
-//Total sum of all products for this invoice
+// Total sum of all products for this invoice
 $sum = 0;
 
 foreach ($productOrders as $item) {
@@ -177,10 +177,10 @@ $pdf->AddPage();
 // Add the html content to the pdf.
 $pdf->writeHTML($html, true, false, true, false, '');
 
-//Create output dir, if it does not exist.
+// Create output dir, if it does not exist.
 if (!file_exists($targetDir)) {
     mkdir($targetDir, 0777, true);
 }
 
-//Create the pdf in the filesystem (tcpdf only works with absolut paths)
+// Create the pdf in the filesystem (tcpdf only works with absolut paths)
 $pdf->Output(realpath($targetDir) . DS . $pdfName, "F");

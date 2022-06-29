@@ -1,4 +1,3 @@
-<!-- TODO COMMENT -->
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>

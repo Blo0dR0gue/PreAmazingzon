@@ -28,7 +28,7 @@
     $address = AddressController::getById($user->getDefaultAddressId());
     if (!$address) { $addressInfo = 1; }    // user address could be found?
 
-    //TODO add/edit multiple addresses -> separate setting? for overview and complexity reasons?
+    // TODO add/edit multiple addresses -> separate setting? for overview and complexity reasons?
     ?>
 
     <!-- form processing script -->
@@ -124,7 +124,7 @@
 
 
         <h4 class="mb-2 mt-3">Default Address Information</h4>
-        <?php if (isset($address)) { //Is the default address available? ?>
+        <?php if (isset($address)) { // Is the default address available? ?>
             <!-- region address 1 row -->
             <div class="form-row row">
                 <div class="col-md-4 mb-3 px-2 position-relative">

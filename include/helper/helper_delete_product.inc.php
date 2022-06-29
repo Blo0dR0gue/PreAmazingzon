@@ -1,5 +1,5 @@
 <?php
-//Deletes a product
+// Deletes a product
 require_once "../site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();
@@ -18,7 +18,7 @@ if (!isset($product)) {
     die();
 }
 
-//TODO dont delete product (toggle active status)
+// TODO dont delete product (toggle active status)
 $suc = ProductController::delete($product);
 
 header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php?deleted=" . $suc);

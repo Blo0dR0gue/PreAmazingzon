@@ -1,5 +1,5 @@
 <?php
-//TODO Comments
+// TODO Comments
 
 // load required files
 require_once(INCLUDE_DIR . "database.inc.php");
@@ -14,7 +14,7 @@ class User
     private string $passwordHash;
     private bool $active;
     private int $roleId;
-    private ?int $defaultAddressId;   //Default Address can be null
+    private ?int $defaultAddressId;   // Default Address can be null
     // endregion
 
     /**

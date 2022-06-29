@@ -24,17 +24,17 @@
 
         <!-- Products -->
         <?php
-        //Total price for all products
+        // Total price for all products
         $sum = 0;
-        //Total count of all products
+        // Total count of all products
         $count = 0;
-        //Get all products which got ordered
+        // Get all products which got ordered
         $productOrders = ProductOrderController::getAllByOrder($order->getId());
 
         foreach ($productOrders as $orderItem) {
-            //Get the product object for the current order product
+            // Get the product object for the current order product
             $product = ProductController::getByID($orderItem->getProductId());
-            //Add the full price to the total sum
+            // Add the full price to the total sum
             $sum += $orderItem->getFullPrice();
             //Add the amount to the total amount
             $count += $orderItem->getAmount();
@@ -46,7 +46,7 @@
                          alt="Product Image" style="max-width: 100px; max-height: 100%">
                 </div>
 
-                <!--Title-->
+                <!-- Title -->
                 <div class="col-6 pe-3">
                     <a href="<?= isset($product) ? PAGES_DIR . "page_product_detail.php?id=" . $product->getId() : "#"; ?>"
                        class="mb-0 h6 text-decoration-none text-black">
@@ -54,12 +54,12 @@
                     </a>
                 </div>
 
-                <!--Amount-->
+                <!-- Amount -->
                 <div class="col-2">
                     <?= $orderItem->getAmount() ?> pcs.
                 </div>
 
-                <!--Price-->
+                <!-- Price -->
                 <div class="col-2">
                     <?= $orderItem->getFormattedFullPrice(); ?>
                 </div>
@@ -72,7 +72,7 @@
         <div class="d-flex flex-wrap mb-2 align-items-center">
             <!-- Buttons -->
             <div class="col-7 d-flex flex-wrap justify-content-around">
-                <!--TODO make it save so a user cant download a invoice of a other user?-->
+                <!-- TODO make it save so a user cant download a invoice of a other user? -->
                 <a class="btn btn-light border col-5" download=""
                    href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
                     Invoice

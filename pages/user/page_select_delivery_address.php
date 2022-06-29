@@ -2,10 +2,10 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-//Redirect to login page, if user is not logged-in.
+// Redirect to login page, if user is not logged-in.
 UserController::redirectIfNotLoggedIn();
 
-//Redirect, if no products are inside the cart.
+// Redirect, if no products are inside the cart.
 if (CartProductController::getCountByUser($_SESSION["uid"]) <= 0) {
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();

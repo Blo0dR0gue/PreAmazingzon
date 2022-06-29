@@ -1,5 +1,5 @@
 <?php
-//TODO Comments
+// TODO Comments
 
 require_once INCLUDE_DIR . "database.inc.php";
 
@@ -26,7 +26,7 @@ class ProductOrder
         $this->price = $price;
     }
 
-    //region getter & setter
+    // region getter & setter
 
     public static function getByIDs(int $productId, int $orderId): ?ProductOrder
     {
@@ -100,7 +100,7 @@ class ProductOrder
         return number_format($this->getFullPrice(), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
-    //endregion
+    // endregion
 
     /**
      * Gets full price for this order item (price * amount)

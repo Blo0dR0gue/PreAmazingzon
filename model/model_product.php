@@ -1,5 +1,5 @@
 <?php
-//TODO Comments
+// TODO Comments
 
 require_once INCLUDE_DIR . "database.inc.php";
 
@@ -44,7 +44,7 @@ class Product
         try {
             $products = [];
 
-            //No need for prepared statement, because we do not use inputs.
+            // No need for prepared statement, because we do not use inputs.
             $result = getDB()->query("SELECT id FROM product ORDER BY id;");
 
             if (!$result) { return []; }
@@ -57,7 +57,7 @@ class Product
 
             return $products;
         } catch (Exception $e) {
-            echo $e; //TODO Error Handling
+            echo $e; // TODO Error Handling
         }
         return [];
     }

@@ -1,8 +1,8 @@
 <?php
-//Create a new review
+// Create a new review
 require_once "../site_php_head.inc.php";
 
-//Check if no user is logged-in or the logged-in user got blocked
+// Check if no user is logged-in or the logged-in user got blocked
 UserController::redirectIfNotLoggedIn();
 
 if (!isset($_POST["productId"]) || !is_numeric($_POST["productId"])) {
@@ -25,7 +25,7 @@ $review = ReviewController::insert(
 );
 
 if (!isset($review)) {
-    //TODO error
+    // TODO error
 }
 
 header("Location: " . PAGES_DIR . "page_product_detail.php?id=" . $_POST["productId"]);

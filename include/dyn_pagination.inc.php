@@ -1,5 +1,5 @@
-<!--Adds a dynamic pagination to a site-->
-<!--TODO comment -->
+<!-- Adds a dynamic pagination to a site -->
+<!-- TODO comment -->
 
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 

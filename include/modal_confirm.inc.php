@@ -1,4 +1,4 @@
-<!--Represents a confirm model-->
+<!-- Represents a confirm model -->
 <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">

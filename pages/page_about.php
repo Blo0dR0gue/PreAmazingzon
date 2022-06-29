@@ -1,4 +1,3 @@
-<!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <!DOCTYPE html>
@@ -14,6 +13,7 @@
 
 <!-- main body -->
 <main class="flex-shrink-0" id="content">
+    <!-- some demo text -->
     <div class="container mt-5">
         <h1 class="frame mb-4">About us</h1>
 
@@ -24,6 +24,8 @@
             <p class="mb-1"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp &nbsp02973 974430</p>
             <i class="fa fa-envelope" aria-hidden="true">&nbsp &nbsp</i><a href="mailto:info@amazingzon.com">info@amazingzon.com</a>
         </div>
+
+        <!------------>
 
         <div>
             <h3 class="mt-3">Disclaimer</h3>

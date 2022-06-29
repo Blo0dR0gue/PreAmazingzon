@@ -1,5 +1,5 @@
 <?php
-//TODO Comments
+// TODO Comments
 
 // load required files
 require_once(INCLUDE_DIR . "database.inc.php");

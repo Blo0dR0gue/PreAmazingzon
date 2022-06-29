@@ -94,7 +94,7 @@
 if (isset($processingError)) {   // processing error
     show_popup(
         "Edit Product Error",
-        "ALARM" //TODO
+        "ALARM" // TODO
     );
 }
 ?>

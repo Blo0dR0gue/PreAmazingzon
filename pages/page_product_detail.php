@@ -1,23 +1,21 @@
 <!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
-<!-- TODO do includes uniformly? in head? -->
-
 <?php // get product
-$productID = $_GET["id"];   //TODO html special chars?
+$productID = $_GET["id"];   // TODO html special chars?
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
-        header("LOCATION: " . ROOT_DIR);   //Redirect, if no product is found.
+        header("LOCATION: " . ROOT_DIR);   // Redirect, if no product is found.
         die();
     }
 } else {
-    header("LOCATION: " . ROOT_DIR);   //Redirect, if no number is passed.
+    header("LOCATION: " . ROOT_DIR);   // Redirect, if no number is passed.
     die();
 }
 
-//TODO vereinheitlichen und in dyn_pagination.inc.php auslagern
+// TODO vereinheitlichen und in dyn_pagination.inc.php auslagern
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
 $reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
@@ -147,7 +145,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             <!-- RIGHT -->
             <div class="col-lg-9 right-side align-content-center h-100 pt-2">
                 <?php if (UserController::isCurrentSessionLoggedIn()): ?>
-                    <!--TODO check if user bought this item or already reviewed it -->
+                    <!-- TODO check if user bought this item or already reviewed it -->
 
                     <div class="p-3 right-side align-content-center h-100">
                         <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse"

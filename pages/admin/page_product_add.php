@@ -3,7 +3,7 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-UserController::redirectIfNotAdmin();   //User is not allowed to be here.
+UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
@@ -23,7 +23,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
         if (!$errors) {
             header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
-            //TODO success msg?
+            // TODO success msg?
             die();
         }
     }

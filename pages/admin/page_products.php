@@ -3,12 +3,12 @@
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-UserController::redirectIfNotAdmin();   //User is not allowed to be here.
+UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 // pagination stuff TODO do pagination uniformly
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products   //TODO search?
+$productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products   // TODO search?
 $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
 $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS);
@@ -138,7 +138,7 @@ if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
     if (isset($_GET["deleted"])) {
         $msg = "The product got deleted!";
     } else if (isset($_GET["other"])) {
-        $msg = "test";  //TODO remove
+        $msg = "test";  // TODO remove
     }
 
     show_popup("Products", $msg);

@@ -3,7 +3,7 @@
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-UserController::redirectIfNotAdmin();   //User is not allowed to be here.
+UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
@@ -125,7 +125,7 @@ if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
     if (isset($_GET["deleted"])) {
         $msg = "The user got deleted!";
     } else if (isset($_GET["other"])) {
-        $msg = "test";  //TODO remove
+        $msg = "test";  // TODO remove
     }
 
     show_popup("Users", $msg);

@@ -1,5 +1,5 @@
 <?php
-//config file for general stuff
+// config file for general stuff
 
 /**
  * ROOT_PATH_OFFSET
@@ -60,7 +60,7 @@ const CURRENCY_SYMBOL = "€";
  */
 const DATE_TIME_ZONE = "Europe/Berlin";
 
-//region invoice
+// region invoice
 
 const COMPANY_STREET = "Musterstraße";
 const COMPANY_STREET_NR = "1";
@@ -70,6 +70,6 @@ const COMPANY_COUNTRY = "Germany";
 const INVOICE_FOOTER = "We ask that you settle the invoice within 14 days of receipt.";
 
 
-//endregion
+// endregion
 
 // endregion

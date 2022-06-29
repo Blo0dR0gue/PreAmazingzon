@@ -155,7 +155,7 @@ class Order
     public function getFormattedOrderDate(): string
     {
         if (isset($this->orderDate)) {
-            return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+            return $this->orderDate->format("d.m.Y H:i:s");// TODO constant
         }
         return "Not Set";
     }
@@ -174,7 +174,7 @@ class Order
     public function getFormattedDeliveryDate(): string
     {
         if (isset($this->deliveryDate)){
-            return $this->deliveryDate->format("d.m.Y");//TODO constant
+            return $this->deliveryDate->format("d.m.Y");// TODO constant
         }
         return "Not Set";
     }
