@@ -1,10 +1,8 @@
 <?php
-//TODO Comments
 
 // load required files
 require_once(INCLUDE_DIR . "database.inc.php");
 
-// TODO implement
 class Order
 {
 
@@ -40,6 +38,11 @@ class Order
 
     // region getter & setter
 
+    /**
+     * Returns the amount of orders for a specific user
+     * @param int $userId The id of the user.
+     * @return int The amount of orders.
+     */
     public static function getAmountForUser(int $userId): int
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order` WHERE user = ?;");
@@ -57,7 +60,12 @@ class Order
     }
 
     /**
-     * @throws Exception
+     * Gets all orders for a users from an offset to a limit.
+     * @param int $user_id The id of the user.
+     * @param int $offset The offset from where the first item should be selected.
+     * @param int $amount The amount of items, which should be selected.
+     * @return array|null An array the selected {@link Order}s or null, if no order was found.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
      */
     public static function getAllForUserInRange(int $user_id, int $offset, int $amount): ?array
     {
@@ -79,7 +87,7 @@ class Order
     }
 
     /**
-     * @return int
+     * @return int The id of the object.
      */
     public function getId(): int
     {
@@ -87,33 +95,39 @@ class Order
     }
 
     /**
-     * @return DateTime
+     * @return DateTime The datetime object for the order data.
      */
     public function getOrderDate(): DateTime
     {
         return $this->orderDate;
     }
 
+    /**
+     * @return string The formatted order date as a string in the format: d.m.Y H:i:s
+     */
     public function getFormattedOrderDate(): string
     {
         return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
     }
 
     /**
-     * @return DateTime
+     * @return DateTime The datetime object for the delivery date.
      */
     public function getDeliveryDate(): DateTime
     {
         return $this->deliveryDate;
     }
 
+    /**
+     * @return string The formatted delivery date as a string in the format: d.m.Y H:i:s.
+     */
     public function getFormattedDeliveryDate(): string
     {
         return $this->deliveryDate->format("d.m.Y");//TODO constant
     }
 
     /**
-     * @return bool
+     * @return bool true, if the order is paid
      */
     public function isPaid(): bool
     {
@@ -121,7 +135,7 @@ class Order
     }
 
     /**
-     * @return int
+     * @return int The state id in which the order currently is.
      */
     public function getOrderStateId(): int
     {
@@ -131,7 +145,7 @@ class Order
     // endregion
 
     /**
-     * @return int
+     * @return int The id of the user who placed this order
      */
     public function getUserId(): int
     {
@@ -139,7 +153,7 @@ class Order
     }
 
     /**
-     * @return int
+     * @return int The id of the address, to which this order gets shipped.
      */
     public function getShippingAddressId(): int
     {
@@ -147,7 +161,8 @@ class Order
     }
 
     /**
-     * @throws Exception
+     * Calls an insert statement for this object.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
      */
     public function insert(): ?Order
     {
@@ -175,7 +190,8 @@ class Order
     }
 
     /**
-     * @throws Exception
+     * Gets a specific order by his id.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
      */
     public static function getById(int $id): ?Order
     {
