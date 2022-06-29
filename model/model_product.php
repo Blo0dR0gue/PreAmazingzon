@@ -47,7 +47,7 @@ class Product
             //No need for prepared statement, because we do not use inputs.
             $result = getDB()->query("SELECT id FROM product ORDER BY id;");
 
-            if (!$result) return [];
+            if (!$result) { return []; }
 
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -66,11 +66,11 @@ class Product
     {
         $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -89,7 +89,7 @@ class Product
 
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -110,7 +110,7 @@ class Product
 
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         foreach ($stmt->get_result() as $product) {
             $products[] = self::getByID($product["id"]);
@@ -131,7 +131,7 @@ class Product
 
         $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ?;");
         $stmt->bind_param("i", $categoryID);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -150,12 +150,12 @@ class Product
     {
         $products = [];
 
-        $searchFilter = strtolower($searchString);
+        $searchFilter = strtolower($searchString);  // TODO never used?
         $searchString = "%$searchString%";
 
         $stmt = getDB()->prepare("SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -185,11 +185,11 @@ class Product
             $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         }
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -337,10 +337,10 @@ class Product
     public function getMainImg(): string
     {
         $mainImages = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*main.*");
-        if (count($mainImages) !== 0) return $mainImages[0];
+        if (!empty($mainImages)) { return $mainImages[0]; }
 
         $mainImages = $this->getAllImgs();
-        if (count($mainImages) !== 0) return $mainImages[0];
+        if (!empty($mainImages)) { return $mainImages[0]; }
 
         return IMAGE_PRODUCT_DIR . "notfound.jpg";
     }
@@ -348,7 +348,7 @@ class Product
     public function getAllImgs(): array
     {
         $images = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*");
-        if (count($images) !== 0) return $images;
+        if (count($images) !== 0) { return $images; }
 
         return [IMAGE_PRODUCT_DIR . "notfound.jpg"];
     }
@@ -360,7 +360,7 @@ class Product
     public function getAllImgsOrNull(): ?array
     {
         $images = glob(IMAGE_PRODUCT_DIR . $this->id . DS . "*");
-        if (count($images) !== 0) return $images;
+        if (count($images) !== 0) { return $images; }
         return null;
     }
 
@@ -379,7 +379,7 @@ class Product
             $this->shippingCost,
             $this->categoryID,
         );
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         // get result
         $newId = $stmt->insert_id;
@@ -406,7 +406,7 @@ class Product
             $this->stock,
             $this->categoryID,
             $this->id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         $stmt->close();
 
@@ -423,7 +423,7 @@ class Product
         $stmt = getDB()->prepare("DELETE FROM product WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;
+        if (!$stmt->execute()) { return false; }
 
         $stmt->close();
 

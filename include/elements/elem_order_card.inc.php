@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-1 text-end pe-2">
-                <h6><b>Total:</b></h6>
+                <h6><strong>Total:</strong></h6>
             </div>
             <div class="col-2">
                 <h6><?= $count ?> pcs.</h6>

@@ -40,7 +40,7 @@ $users = UserController::getUsersInRange($offset)
     <hr class="mt-2">
 
     <!-- user table -->
-    <table class="table">
+    <table class="table" aria-label="User Table">
         <!-- table head -->
         <thead class="thead-light">
         <tr>
@@ -64,7 +64,7 @@ $users = UserController::getUsersInRange($offset)
                             data-toggle="tooltip" data-placement="left"
                             title="(De-) Activate User"
                             onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
-                        <i class="fa fa-toggle-on"></i>
+                        <em class="fa fa-toggle-on"></em>
                     </button>
                     <!--TODO make admin button?-->
                     <!--TODO user delete -->
@@ -73,12 +73,12 @@ $users = UserController::getUsersInRange($offset)
                        onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
                                'Delete User?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
-                        <i class="fa fa-trash "></i>
+                        <em class="fa fa-trash "></em>
                     </a>
                 </td>
 
                 <td data-th="#">
-                    <b><?= $user->getID(); ?></b>
+                    <strong><?= $user->getID(); ?></strong>
                 </td>
 
                 <td data-th="E-Mail">

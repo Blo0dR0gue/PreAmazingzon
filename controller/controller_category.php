@@ -12,7 +12,7 @@ class CategoryController
 
     public static function getNameById(?int $id): string
     {
-        if (!isset($id)) return "No Category";
+        if (!isset($id)) { return "No Category"; }
         return self::getById($id)->getName();
     }
 
@@ -35,7 +35,7 @@ class CategoryController
     {
         $tmpProductCat = Category::getById($product->getCategoryID());
 
-        if (!isset($tmpProductCat)) return [];
+        if (!isset($tmpProductCat)) { return []; }
         $path = [];
 
         while ($tmpProductCat != null) {
@@ -53,7 +53,7 @@ class CategoryController
 
     public static function getPathToCategoryL(?int $categoryID): string
     {
-        if (!isset($categoryID)) return "";
+        if (!isset($categoryID)) { return ""; }
         return Category::getPathToCategory($categoryID);
     }
 

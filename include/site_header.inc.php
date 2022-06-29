@@ -28,7 +28,7 @@
                            aria-label="Search" aria-describedby="search-addon"
                            value="<?= $_GET["search"] ?? "" ?>" minlength="3"/>
                     <button type="submit" class="input-group-text border-0" id="search-addon">
-                        <i class="fa fa-search"></i>
+                        <em class="fa fa-search"></em>
                     </button>
                 </div>
             </form>
@@ -44,7 +44,7 @@
                 <!-- shopping cart -->
                 <a href="<?= USER_PAGES_DIR . "page_shopping_cart.php" ?>"
                    class="d-flex align-items-center text-decoration-none me-3">
-                    <i class='fa fa-shopping-cart link-warning' style='font-size:38px'></i>
+                    <em class='fa fa-shopping-cart link-warning' style='font-size:38px'></em>
                 </a>
 
                 <!-- show profile action -->

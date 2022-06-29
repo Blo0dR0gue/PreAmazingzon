@@ -47,11 +47,11 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order`;");
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -68,11 +68,11 @@ class Order
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order` WHERE user = ?;");
         $stmt->bind_param("i", $userId);
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -91,11 +91,11 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE user = ? ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("iii", $user_id, $amount, $offset);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -118,11 +118,11 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -154,8 +154,9 @@ class Order
      */
     public function getFormattedOrderDate(): string
     {
-        if (isset($this->orderDate))
+        if (isset($this->orderDate)) {
             return $this->orderDate->format("d.m.Y H:i:s");//TODO constant
+        }
         return "Not Set";
     }
 
@@ -172,8 +173,9 @@ class Order
      */
     public function getFormattedDeliveryDate(): string
     {
-        if (isset($this->deliveryDate))
+        if (isset($this->deliveryDate)){
             return $this->deliveryDate->format("d.m.Y");//TODO constant
+        }
         return "Not Set";
     }
 
@@ -220,18 +222,18 @@ class Order
         $stmt = getDB()->prepare("INSERT INTO `order`(orderDate, deliveryDate, paid, orderState, user, shippingAddress)
                                         VALUES (?, ?, ?, ?, ?, ?);");
 
-        $orderDate = $this->orderDate->format("Y-m-d H:i:s");
-        $deliveryDate = $this->deliveryDate->format("Y-m-d H:i:s");
+        $orderDateString = $this->orderDate->format("Y-m-d H:i:s");
+        $deliveryDateString = $this->deliveryDate->format("Y-m-d H:i:s");
 
         $stmt->bind_param("ssiiii",
-            $orderDate,
-            $deliveryDate,
+            $orderDateString,
+            $deliveryDateString,
             $this->paid,
             $this->orderStateId,
             $this->userId,
             $this->shippingAddressId
         );
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         $newId = $stmt->insert_id;
@@ -248,11 +250,11 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -274,7 +276,7 @@ class Order
         $stmt = getDB()->prepare("DELETE FROM `order` WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;
+        if (!$stmt->execute()) { return false; }
 
         $stmt->close();
 

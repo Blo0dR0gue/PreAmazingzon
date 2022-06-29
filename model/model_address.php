@@ -46,11 +46,11 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT * FROM address WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -70,11 +70,11 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -91,11 +91,11 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT * FROM address WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -206,7 +206,7 @@ class Address
             $this->number,
             $this->city,
             $this->user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         $newId = $stmt->insert_id;
@@ -231,7 +231,7 @@ class Address
             $this->city,
             $this->user_id,
             $this->id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         $stmt->close();
 

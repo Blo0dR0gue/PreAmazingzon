@@ -36,8 +36,8 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
-            } else $registerError = 1;
-        } else $emailError = 1;
+            } else { $registerError = 1; }
+        } else { $emailError = 1; }
     }
     ?>
 </head>

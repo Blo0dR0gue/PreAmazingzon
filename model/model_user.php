@@ -179,7 +179,7 @@ class User
             $this->last_name,
             $this->default_address_id,
             $this->active);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         // get result
         $newId = $stmt->insert_id;
@@ -198,11 +198,11 @@ class User
     {
         $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -213,11 +213,11 @@ class User
     {
         $stmt = getDB()->prepare("SELECT * FROM user WHERE email = ?;");
         $stmt->bind_param("s", $email);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -244,7 +244,7 @@ class User
             $this->default_address_id,
             $this->active,
             $this->id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         $stmt->close();
@@ -261,11 +261,11 @@ class User
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM user;");
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -284,10 +284,9 @@ class User
 
         $stmt = getDB()->prepare("SELECT id FROM user ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
-
         foreach ($stmt->get_result() as $user) {
             $users[] = self::getByID($user["id"]);
         }
@@ -304,7 +303,7 @@ class User
         $stmt = getDB()->prepare("DELETE FROM user WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;
+        if (!$stmt->execute()) { return false; }
 
         $stmt->close();
 

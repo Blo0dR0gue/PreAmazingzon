@@ -32,11 +32,11 @@ class ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE product = ? AND `order` = ?;");
         $stmt->bind_param("ii", $productId, $orderId);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -47,11 +47,11 @@ class ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE `order` = ?;");
         $stmt->bind_param("i", $orderId);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -129,7 +129,7 @@ class ProductOrder
             $this->amount,
             $this->price
         );
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         // get result
         $stmt->close();

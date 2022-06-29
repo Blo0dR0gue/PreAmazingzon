@@ -33,11 +33,11 @@ class UserRole
     {
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -53,11 +53,11 @@ class UserRole
     {
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE name = ?;");
         $stmt->bind_param("s", $name);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 

@@ -30,12 +30,12 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
             <div class="d-flex justify-content-center">
                 <a href="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
-                    <i class="fa fa-minus link-warning"></i>
+                    <em class="fa fa-minus link-warning"></em>
                 </a>
                 <p class="border px-2 rounded text-muted"><?= $cartProduct->getAmount() ?></p>
                 <a href="<?= INCLUDE_HELPER_DIR . "helper_shoppingcart.inc.php?" . http_build_query(["action" => "inc", "productId" => $product->getId()]) ?>"
                    class="text-decoration-none mx-2">
-                    <i class="fa fa-plus link-warning"></i>
+                    <em class="fa fa-plus link-warning"></em>
                 </a>
             </div>
         </td>

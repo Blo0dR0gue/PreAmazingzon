@@ -39,11 +39,11 @@ class UserController
             // create user
             $user = new User(0, $first_name, $last_name, $email, $password_hash, true, $role_id, null);
             $user = $user->insert();
-            if (!$user) return null;
+            if (!$user) { return null; }
 
             // create address
             $address = AddressController::insert($street, $number, $zip, $city, $user->getId());
-            if (!$address) return null;
+            if (!$address) { return null; }
 
             // save address to user
             $user->setDefaultAddressId($address->getId());
@@ -57,7 +57,7 @@ class UserController
     public static function emailAvailable(string $email): bool
     {   // TODO validate
         // user with mail exists?
-        if (UserController::getByEmail($email)) return false;   // user exists
+        if (UserController::getByEmail($email)) { return false; }   // user exists
         return true;    // user not exists
     }
 
@@ -75,8 +75,8 @@ class UserController
             $user->setEmail($email);
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
             $user->setActive(true);
-            if ($role_id != null) $user->setRoleId($role_id);
-            if ($defaultAddressId != null) $user->setDefaultAddressId($defaultAddressId);
+            if ($role_id != null) { $user->setRoleId($role_id); }
+            if ($defaultAddressId != null) { $user->setDefaultAddressId($defaultAddressId); }
 
             return $user->update();
         }
@@ -89,7 +89,7 @@ class UserController
      */
     public static function redirectIfNotLoggedIn(): void
     {
-        if (UserController::isCurrentSessionLoggedIn()) return; //User is logged in
+        if (UserController::isCurrentSessionLoggedIn()) { return; } //User is logged in
 
         //delete all session variables
         header("Location: " . PAGES_DIR . "page_login.php");
@@ -115,8 +115,11 @@ class UserController
 
     public static function getById(?int $id): ?User
     {
-        if (isset($id)) return User::getById($id);
-        else return null;
+        if (isset($id)){
+            return User::getById($id);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -125,7 +128,7 @@ class UserController
      */
     public static function redirectIfNotAdmin(): void
     {
-        if (UserController::isCurrentSessionAnAdmin()) return; //User is admin
+        if (UserController::isCurrentSessionAnAdmin()) { return; } //User is admin
 
         header("Location: " . ROOT_DIR);
         die();
@@ -143,8 +146,9 @@ class UserController
             //Check, if this user even exist and if he is active
             if (isset($user) && $user->isActive()) {
                 //Check if user is really an admin
-                if ($user->getRoleId() === UserRoleController::getAdminUserRole()->getId())
-                    return true; //User is admin
+                if ($user->getRoleId() === UserRoleController::getAdminUserRole()->getId()){
+                    return true; // user is admin
+                }
             }
         }
         return false;

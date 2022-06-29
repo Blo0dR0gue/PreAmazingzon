@@ -33,7 +33,7 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
     <hr class="mt-2">
 
     <!--order table-->
-    <table class="table">
+    <table class="table" aria-label="Orders Table">
         <!-- table head -->
         <thead class="thead-light">
         <tr>
@@ -66,12 +66,12 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
                                onclick="openConfirmModal(<?= "'Do you really want to delete the order with ID: \'" . $order->getId() . "\'and all its information?'" ?>,
                                        'Delete Order?',
                                        '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_order.inc.php?id=" . $order->getId()); ?>')">
-                                <i class="fa fa-trash "></i>
+                                <em class="fa fa-trash "></em>
                             </a>
                         </td>
 
                         <td data-th="#">
-                            <b><?= $order->getID(); ?></b>
+                            <strong><?= $order->getID(); ?></strong>
                         </td>
 
                         <td data-th="User ID">
@@ -112,7 +112,7 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
             ?>
             <tr>
                 <td colspan="7" style="text-align: center">
-                    <p><i class="mb-3">No orders are available.</i></p>
+                    <p><em class="mb-3">No orders are available.</em></p>
                 </td>
             </tr>
         <?php

@@ -91,6 +91,11 @@ Important values for testing are:
 | normal user | user@user.de   | sh7up#KT!  |
 | admin       | admin@admin.de | sh7up#KT!  |
 
+## Code Style
+
+The Code Style is based on code styling of [PhpStorm](https://www.jetbrains.com/help/phpstorm/settings-code-style.html)
+and the style guides of [SonarLint](https://www.sonarlint.org/).
+
 ## Screenshots
 
 ![Login Page Image](assets/images/screenshot_page_login.png)<br>

@@ -14,7 +14,7 @@ UserController::redirectIfNotLoggedIn();
 
 //Redirect, if information to create the invoice are missing or the information do not have the correct datatype
 //The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
-if (!isset($order) || !$order instanceof Order || !isset($productOrders) || count($productOrders) <= 0 ||
+if (!isset($order) || !$order instanceof Order || !isset($productOrders) || empty($productOrders) ||
     !$productOrders[0] instanceof ProductOrder || !isset($deliveryAddress) || !$deliveryAddress instanceof Address) {
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();

@@ -37,7 +37,7 @@ class Category
         //No need for prepared statement, because we do not use inputs.
         $result = getDB()->query("SELECT id FROM category;");
 
-        if (!$result) return [];
+        if (!$result) { return []; }
 
         $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -50,15 +50,15 @@ class Category
 
     public static function getById(?int $id): ?Category
     {
-        if ($id == null) return null;
+        if ($id == null) { return null; }
 
         $stmt = getDB()->prepare("SELECT * FROM category WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -69,11 +69,11 @@ class Category
     {
         $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
         $stmt->bind_param("s", $name);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -96,11 +96,11 @@ class Category
                     from tree t
                     WHERE t.id = ?;");
         $stmt->bind_param("i", $categoryID);
-        if (!$stmt->execute()) return "";     // TODO ERROR handling
+        if (!$stmt->execute()) { return ""; }    // TODO ERROR handling
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return "";
+        if ($res->num_rows === 0) { return ""; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -126,11 +126,11 @@ class Category
                     from tree t
                     ORDER BY t.category_path;");
 
-        if (!$stmt->execute()) return [];     // TODO ERROR handling
+        if (!$stmt->execute()) { return []; }     // TODO ERROR handling
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return [];
+        if ($res->num_rows === 0) { return []; }
 
         $rows = $res->fetch_all(MYSQLI_ASSOC);
 
@@ -149,7 +149,7 @@ class Category
     public static function getAmountOfCategories(?string $searchString): int
     {
         if (isset($searchString)) {
-            $searchFilter = strtolower($searchString);
+            $searchFilter = strtolower($searchString);  // TODO unused?
             $searchString = "%$searchString%";
             $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category AS c WHERE LOWER(c.description) LIKE ? OR LOWER(c.name) LIKE ?;");
 
@@ -158,11 +158,11 @@ class Category
             $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category;");
         }
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -181,7 +181,7 @@ class Category
 
         $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         foreach ($stmt->get_result() as $category) {
@@ -196,7 +196,7 @@ class Category
     public function getImg(): string
     {
         $images = glob(IMAGE_CATEGORIES_DIR . $this->id . DS . "*");
-        if (count($images) !== 0) return $images[0];
+        if (!empty($images)) { return $images[0]; }
 
         return IMAGE_PRODUCT_DIR . "notfound.jpg";
     }

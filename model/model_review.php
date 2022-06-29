@@ -40,11 +40,11 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -58,11 +58,11 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -82,7 +82,7 @@ class Review
 
         $stmt = getDB()->prepare("SELECT id FROM review WHERE product = ? ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("iii", $productId, $amount, $offset);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         foreach ($stmt->get_result() as $review) {
@@ -104,11 +104,11 @@ class Review
 
         $stmt->bind_param("i", $id);
 
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -120,11 +120,11 @@ class Review
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
         $stmt->bind_param("i", $productId);
 
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -141,13 +141,13 @@ class Review
         $stmt = getDB()->prepare("SELECT stars AS star, COUNT(*) AS amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review WHERE product = ?)*100, 2) AS percentage FROM review WHERE product = ? GROUP BY stars;");
         $stmt->bind_param("ii", $productId, $productId);
 
-        if (!$stmt->execute()) return [];     // TODO ERROR handling
+        if (!$stmt->execute()) { return []; }     // TODO ERROR handling
 
         // get result
         $res = $stmt->get_result();
         $inner = ["star" => 0, "amount" => 0, "percentage" => 0];
         $result = array(0 => $inner, 1 => $inner, 2 => $inner, 3 => $inner, 4 => $inner, 5 => $inner);
-        if ($res->num_rows === 0) return $result;
+        if ($res->num_rows === 0) { return $result; }
         $rows = $res->fetch_all(MYSQLI_ASSOC);
 
         foreach ($rows as $row) {
@@ -221,7 +221,7 @@ class Review
             $this->text,
             $this->userId,
             $this->productId);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         // get result
         $newId = $stmt->insert_id;
@@ -239,7 +239,7 @@ class Review
         $stmt = getDB()->prepare("DELETE FROM review WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;
+        if (!$stmt->execute()) { return false; }
 
         $stmt->close();
 

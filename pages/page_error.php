@@ -11,7 +11,7 @@
 
 <?php
     if(isset($_POST["errorCode"])){
-        switch ($_POST["errorCode"]){
+        switch ($_POST["errorCode"]){ // TODO why?
             case "503":
             default:
                 $errorCode = "503";

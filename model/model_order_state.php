@@ -33,11 +33,11 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -48,11 +48,11 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
         $stmt->bind_param("s", $label);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 

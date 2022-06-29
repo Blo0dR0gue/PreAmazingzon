@@ -25,7 +25,6 @@ $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate th
 
 $reviewStats = ReviewController::getStatsForEachStarForAProduct($product->getId());
 $avgRating = ReviewController::getAvgRating($product->getId());
-
 ?>
 
 <!DOCTYPE html>
@@ -176,23 +175,23 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                     <div class="rating-group">
                                         <input class="rating__input rating__input--none" name="rating"
                                                id="rating-none" value="0" type="radio" required>
-                                        <label aria-label="No rating" class="rating__label" for="rating-none"><i
-                                                    class="rating__icon rating__icon--none fa fa-ban"></i></label>
-                                        <label aria-label="1 star" class="rating__label" for="rating-1"><i
-                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <label aria-label="No rating" class="rating__label" for="rating-none">
+                                            <em class="rating__icon rating__icon--none fa fa-ban"></em></label>
+                                        <label aria-label="1 star" class="rating__label" for="rating-1">
+                                            <em class="rating__icon rating-color fa fa-star"></em></label>
                                         <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
-                                        <label aria-label="2 stars" class="rating__label" for="rating-2"><i
-                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <label aria-label="2 stars" class="rating__label" for="rating-2">
+                                            <em class="rating__icon rating-color fa fa-star"></em></label>
                                         <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
-                                        <label aria-label="3 stars" class="rating__label" for="rating-3"><i
-                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <label aria-label="3 stars" class="rating__label" for="rating-3">
+                                            <em class="rating__icon rating-color fa fa-star"></em></label>
                                         <input class="rating__input" name="rating" id="rating-3" value="3" type="radio"
                                                checked>
-                                        <label aria-label="4 stars" class="rating__label" for="rating-4"><i
-                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <label aria-label="4 stars" class="rating__label" for="rating-4">
+                                            <em class="rating__icon rating-color fa fa-star"></em></label>
                                         <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
-                                        <label aria-label="5 stars" class="rating__label" for="rating-5"><i
-                                                    class="rating__icon rating-color fa fa-star"></i></label>
+                                        <label aria-label="5 stars" class="rating__label" for="rating-5">
+                                            <em class="rating__icon rating-color fa fa-star"></em></label>
                                         <input class="rating__input" name="rating" id="rating-5" value="5" type="radio">
                                     </div>
                                 </div>
@@ -222,7 +221,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 <?php if (UserController::isCurrentSessionAnAdmin()): ?>
                                     <a href="<?= INCLUDE_HELPER_DIR . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"
                                        class="btn btn-danger btn-sm ms-auto">
-                                        <i class="fa fa-trash "></i> Delete review
+                                        <em class="fa fa-trash "></em> Delete review
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -232,9 +231,9 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         </div>
                     <?php endforeach; ?>
                 <?php elseif (UserController::isCurrentSessionLoggedIn()): ?>
-                    <h5 class='text-center text-muted my-3'><i>No reviews found. Be the first.</i></h5>
+                    <h5 class='text-center text-muted my-3'><em>No reviews found. Be the first.</em></h5>
                 <?php else: ?>
-                    <h5 class='text-center text-muted my-3'><i>No reviews found. Login and be the first.</i></h5>
+                    <h5 class='text-center text-muted my-3'><em>No reviews found. Login and be the first.</em></h5>
                 <?php endif; ?>
 
                 <!-- pagination -->

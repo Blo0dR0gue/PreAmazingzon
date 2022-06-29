@@ -64,9 +64,9 @@ $totalProductPrice = 0;
                     </div>
                     <?php if (!isset($primaryAddress)): ?>
                         <div id="noDeliveryText">
-                            <h5 class='mb-5 text-danger'><i>There is no default address in your profile! Please select a
-                                    delivery
-                                    address.</i></h5>
+                            <h5 class='mb-5 text-danger'>
+                                <em>There is no default address in your profile! Please select a delivery address.</em>
+                            </h5>
                         </div>
 
                     <?php endif; ?>
@@ -104,7 +104,7 @@ $totalProductPrice = 0;
                                     <?php endif ?>
                                 <?php endforeach; ?>
                             <?php elseif (!isset($primaryAddress)): ?>
-                                <h5 class='text-muted mb-5'><i>There are no addresses in your profile.</i></h5>
+                                <h5 class='text-muted mb-5'><em>There are no addresses in your profile.</em></h5>
                                 <input type="hidden" name="delivery" value="" required>
                             <?php endif; ?>
                             <div class="invalid-tooltip opacity-75">Please choose a delivery address.</div>

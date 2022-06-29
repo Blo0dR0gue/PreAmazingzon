@@ -40,19 +40,19 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
         <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_product_add.php" // TODO change?>">
-            <i class="fa fa-plus"></i> Add category
+            <em class="fa fa-plus"></em> Add category
         </a>
     </div>
     <hr class="mt-2">
 
     <!-- category table -->
-    <table class="table">
+    <table class="table" aria-label="Categories Table">
         <!-- table head -->
         <thead class="thead-light">
         <tr>
             <th scope="col" style="width: 5%"></th>
             <th scope="col" style="width: 10%">#</th>
-            <th scope="col" style="width: 20%; text-align: center"><i class="fa fa-image"></i></th>
+            <th scope="col" style="width: 20%; text-align: center"><em class="fa fa-image"></em></th>
             <th scope="col" style="width: 45%">Title</th>
             <th scope="col" style="width: 20%">Super</th>
         </tr>
@@ -66,19 +66,19 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
                     <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                        title="Edit category">
-                        <i class="fa fa-pencil"></i>
+                        <em class="fa fa-pencil"></em>
                     </a>
                     <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                        title="Delete category"
                        onclick="openConfirmModal(<?= "'Do you really want to delete the Category: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
                                'Delete Category?',
                                '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                        <i class="fa fa-trash "></i>
+                        <em class="fa fa-trash "></em>
                     </a>
                 </td>
 
                 <td data-th="#">
-                    <b><?= $product->getID(); ?></b>
+                    <strong><?= $product->getID(); ?></strong>
                 </td>
 
                 <td style="text-align: center" data-th="">

@@ -26,7 +26,7 @@
 
     // get address
     $address = AddressController::getById($user->getDefaultAddressId());
-    if (!$address) $addressInfo = 1;     // user address could be found?
+    if (!$address) { $addressInfo = 1; }    // user address could be found?
 
     //TODO add/edit multiple addresses -> separate setting? for overview and complexity reasons?
     ?>
@@ -62,8 +62,8 @@
                 UserController::login($user, $_POST["password"]);   // login user
                 header("LOCATION: " . ROOT_DIR);  // go back to home site
                 die();
-            } else $updateError = 1;
-        } else $emailError = 1;
+            } else { $updateError = 1; }
+        } else { $emailError = 1; }
     }
     ?>
 </head>
@@ -159,7 +159,7 @@
             </div>
             <!-- endregion -->
         <?php } else { ?>
-            <p><i class="mb-3">No Information about your default address available.</i></p>
+            <p><em class="mb-3">No Information about your default address available.</em></p>
         <?php } ?>
 
         <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Save</button>

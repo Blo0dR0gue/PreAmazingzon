@@ -4,7 +4,7 @@
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 
     <?php
-    if (isset($_GET) && count($_GET) > 0 && !(count($_GET) == 1 && isset($_GET["page"]))) {
+    if (isset($_GET) && !empty($_GET) && !(count($_GET) == 1 && isset($_GET["page"]))) {
         $urlExtend = "";
         foreach ($_GET as $key => $value) {
             if ($key != "page") {
@@ -24,9 +24,9 @@
     <nav aria-label="Page navigation example mt-5">
         <ul class="pagination justify-content-center mb-5">
 
-            <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
+            <li class="page-item <?php if ($page <= 1) { echo 'disabled'; } ?>">
                 <a class="page-link"
-                   href="<?php if ($page <= 1) echo '#'; else echo $urlExtend . $page - 1; ?>">Previous</a>
+                   href="<?php if ($page <= 1) { echo '#'; } else { echo $urlExtend . $page - 1; } ?>">Previous</a>
             </li>
 
             <?php
@@ -50,7 +50,7 @@
             <?php for ($x = $start_x; $x < ($end_x + 1); $x++):
                 // if it's a valid page number...
                 if (($x > 0) && ($x <= $totalPages)): ?>
-                    <li class="page-item <?php if ($page == $x) echo 'active'; ?>">
+                    <li class="page-item <?php if ($page == $x) { echo 'active'; } ?>">
                         <a class="page-link"
                            <?php if ($page != $x): ?>href="<?= $urlExtend . $x; ?>" <?php endif; ?>> <?= $x; ?> </a>
                     </li>
@@ -68,9 +68,9 @@
                 </li>
             <?php endif; ?>
 
-            <li class=" page-item <?php if ($page >= $totalPages) echo 'disabled' ?>">
+            <li class=" page-item <?php if ($page >= $totalPages) { echo 'disabled'; } ?>">
                 <a class="page-link"
-                   href="<?php if ($page >= $totalPages) echo '#'; else echo $urlExtend . $page + 1; ?>">Next</a>
+                   href="<?php if ($page >= $totalPages) { echo '#'; } else { echo $urlExtend . $page + 1; } ?>">Next</a>
             </li>
         </ul>
     </nav>

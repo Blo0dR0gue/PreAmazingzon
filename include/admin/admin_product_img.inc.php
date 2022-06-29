@@ -9,7 +9,7 @@
     <!-- delete image, pass true to deleteImg function, if it is a new image which is not uploaded yet. -->
     <button type="button" class="btn btn-warning btn-sm" data-id="<?= $imgID ?? -1 ?>"
             onclick="deleteImg(this, <?php echo isset($isNewImg) ? 'false' : 'true' ?>)">
-        <i class="fa fa-trash "></i>
+        <em class="fa fa-trash "></em>
     </button>
 
     <!-- in edit mode, if we add the main image, change the set main image button to is main image button -->

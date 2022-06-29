@@ -36,11 +36,11 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -60,11 +60,11 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT COUNT(*) AS count FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return 0;
+        if (!$stmt->execute()) { return 0; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return 0;
+        if ($res->num_rows === 0) { return 0; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -116,7 +116,7 @@ class CartProduct
             $this->userId,
             $this->prodId,
             $this->amount);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
 
         // get result
         $stmt->close();
@@ -132,7 +132,7 @@ class CartProduct
             $this->amount,
             $this->userId,
             $this->prodId);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
 
         $stmt->close();
 
@@ -150,11 +150,11 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
         $stmt->bind_param("ii", $userId, $productId);
-        if (!$stmt->execute()) return null;
+        if (!$stmt->execute()) { return null; }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
+        if ($res->num_rows === 0) { return null; }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -168,7 +168,7 @@ class CartProduct
         $stmt->bind_param("ii",
             $this->userId,
             $this->prodId);
-        if (!$stmt->execute()) return false;
+        if (!$stmt->execute()) { return false; }
 
         $stmt->close();
 

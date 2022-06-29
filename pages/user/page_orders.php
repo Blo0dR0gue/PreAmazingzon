@@ -10,7 +10,7 @@ $orderCount = OrderController::getAmountForUser($_SESSION["uid"]);              
 $totalPages = ceil($orderCount / LIMIT_OF_SHOWED_ITEMS);                            // Calculate the total amount of pages //TODO maybe other limits for orders?
 
 //Redirect to order page without page get variable which means we are on page 1
-if ($page > $totalPages && $totalPages > 0) header("Location: " . USER_PAGES_DIR . "page_orders.php");
+if ($page > $totalPages && $totalPages > 0) { header("Location: " . USER_PAGES_DIR . "page_orders.php"); }
 
 $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 ?>
@@ -39,8 +39,9 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
             <div class="col-md-12">
                 <?php
                 if ($orderCount > 0) {
-                    foreach ($orders as $order)
+                    foreach ($orders as $order) {
                         require INCLUDE_ELEMENTS_DIR . "elem_order_card.inc.php";
+                    }
                 } else {
                     echo "<h5 class='text-center text-muted mb-5'><i>No Orders found ... just buy something, and it will appear here.</i></h5>";
                 }

@@ -13,10 +13,11 @@ class AddressController
 
     public static function getById(?int $id): ?Address
     {
-        if ($id != null)
+        if ($id != null) {
             return Address::getById($id);
-        else
+        } else {
             return null;
+        }
     }
 
     public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address
@@ -25,7 +26,7 @@ class AddressController
         $address->setZip($zipCode);
         $address->setNumber($streetNumber);
         $address->setCity($city);
-        if ($userId != null) $address->setUserId($userId);
+        if ($userId != null) { $address->setUserId($userId); }
 
         return $address->update();
     }

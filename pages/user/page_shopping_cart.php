@@ -27,11 +27,11 @@
                     <!-- heading -->
                     <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
                     <p class="mb-4 text-center font-weight-bold">
-                        <i><?= CartProductController::getCountByUser($_SESSION["uid"]) ?> items in your cart</i>
+                        <em><?= CartProductController::getCountByUser($_SESSION["uid"]) ?> items in your cart</em>
                     </p>
 
                     <!-- table -->
-                    <table id="shoppingCart" class="table table-condensed table-responsive">
+                    <table id="shoppingCart" class="table table-condensed table-responsive" aria-label="Shopping Cart List">
                         <thead>
                         <tr>
                             <th style="width:60%">Product</th>
@@ -48,16 +48,17 @@
                         if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
                                 $subtotal = 0;
-                                //Decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
-                                if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct))       //If it got removed, don't show the item
+                                // decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
+                                if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct)) {    // if it got removed, don't show the item
                                     require INCLUDE_ELEMENTS_DIR . "elem_cart_entry.php";
+                                }
                                 $total += $subtotal;
                             }
                         }
                         ?>
                         </tbody>
                     </table>
-                    <h5 class="text-center text-muted mb-5"><i><?php if (!$cartProducts) echo "empty"; ?></i></h5>
+                    <h5 class="text-center text-muted mb-5"><em><?php if (!$cartProducts) { echo "empty"; } ?></em></h5>
 
                     <div class="float-end text-end">
                         <h1 class="mb-0">
@@ -77,7 +78,7 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                     <a href="javascript:history.back()" class="text-decoration-none">
-                        <i class="fa fa-arrow-left me-2"></i> Continue Shopping
+                        <em class="fa fa-arrow-left me-2"></em> Continue Shopping
                     </a>
                 </div>
             </div>
