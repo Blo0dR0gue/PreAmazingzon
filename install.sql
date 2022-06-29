@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Order`
     `paid`            TINYINT      NOT NULL DEFAULT 0,
     `orderState`      INT          NOT NULL,
     `user`            INT UNSIGNED NOT NULL,
-    `shippingAddress` INT          NOT NULL,
+    `shippingAddress` INT          ,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_Order_OrderState1`
         FOREIGN KEY (`orderState`)
