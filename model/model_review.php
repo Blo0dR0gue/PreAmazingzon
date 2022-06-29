@@ -40,7 +40,7 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) return null;    //TODO Error Handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -58,7 +58,7 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) return null;    //TODO Error Handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -82,7 +82,7 @@ class Review
 
         $stmt = getDB()->prepare("SELECT id FROM review WHERE product = ? ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("iii", $productId, $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         foreach ($stmt->get_result() as $review) {
@@ -104,7 +104,7 @@ class Review
 
         $stmt->bind_param("i", $id);
 
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -120,7 +120,7 @@ class Review
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
         $stmt->bind_param("i", $productId);
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -230,12 +230,6 @@ class Review
         return self::getById($newId);
     }
 
-    public function update(): void
-    {
-        // TODO
-    }
-
-
     /**
      * Deletes itself from the database.
      * @return bool true, if the product got deleted.
@@ -245,7 +239,7 @@ class Review
         $stmt = getDB()->prepare("DELETE FROM review WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;     // TODO ERROR handling
+        if (!$stmt->execute()) return false;
 
         $stmt->close();
 

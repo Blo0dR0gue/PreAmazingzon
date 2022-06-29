@@ -47,7 +47,7 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order`;");
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -68,7 +68,7 @@ class Order
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order` WHERE user = ?;");
         $stmt->bind_param("i", $userId);
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -91,7 +91,7 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE user = ? ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("iii", $user_id, $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -118,7 +118,7 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -248,7 +248,7 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -274,7 +274,7 @@ class Order
         $stmt = getDB()->prepare("DELETE FROM `order` WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;     // TODO ERROR handling
+        if (!$stmt->execute()) return false;
 
         $stmt->close();
 

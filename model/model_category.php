@@ -54,7 +54,7 @@ class Category
 
         $stmt = getDB()->prepare("SELECT * FROM category WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -69,7 +69,7 @@ class Category
     {
         $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
         $stmt->bind_param("s", $name);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -158,7 +158,7 @@ class Category
             $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category;");
         }
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -181,7 +181,7 @@ class Category
 
         $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         foreach ($stmt->get_result() as $category) {

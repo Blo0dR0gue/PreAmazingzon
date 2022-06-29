@@ -33,7 +33,7 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -48,7 +48,7 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
         $stmt->bind_param("s", $label);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();

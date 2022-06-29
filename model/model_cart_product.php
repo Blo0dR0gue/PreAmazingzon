@@ -36,7 +36,7 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -60,7 +60,7 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT COUNT(*) AS count FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -150,7 +150,7 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
         $stmt->bind_param("ii", $userId, $productId);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -168,7 +168,7 @@ class CartProduct
         $stmt->bind_param("ii",
             $this->userId,
             $this->prodId);
-        if (!$stmt->execute()) return false;     // TODO ERROR handling
+        if (!$stmt->execute()) return false;
 
         $stmt->close();
 

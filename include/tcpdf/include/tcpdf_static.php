@@ -470,7 +470,7 @@ class TCPDF_STATIC {
 	 * @param string $text input text to be encrypted
 	 * @return string encrypted text
 	 * @author Nicola Asuni
-	 * @since TODO
+	 * @since TODDO
 	 * @public static
 	 */
 	public static function _AESnopad($key, $text) {

@@ -15,7 +15,6 @@
         </div>
 
         <!-- footer right -->
-        <!-- TODO edit footer navigation -->
         <ul class="nav col-md-6 justify-content-end d-flex">
             <li class="nav-item">
                 <a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-muted">Home</a>
@@ -24,8 +23,7 @@
                 <a href="<?= PAGES_DIR . 'page_products.php' ?>" class="nav-link px-2 text-muted">Products</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link px-2 text-muted">Categories</a>
-                <!-- TODO do link -->
+                <a href="<?= PAGES_DIR . 'page_categories.php' ?>" class="nav-link px-2 text-muted">Categories</a>
             </li>
             <li class="nav-item">
                 <a href="<?= PAGES_DIR . "page_about.php" ?>" class="nav-link px-2 text-muted">About</a>

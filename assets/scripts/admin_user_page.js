@@ -1,3 +1,4 @@
+// TODO comment
 function onToggleUserActivation(button, userId) {
 
     $.ajax({

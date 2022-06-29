@@ -66,7 +66,7 @@ class Product
     {
         $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -92,7 +92,6 @@ class Product
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
-
         foreach ($stmt->get_result() as $product) {
             $products[] = self::getByID($product["id"]);
         }
@@ -111,7 +110,7 @@ class Product
 
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         foreach ($stmt->get_result() as $product) {
             $products[] = self::getByID($product["id"]);
@@ -135,7 +134,6 @@ class Product
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
-
         foreach ($stmt->get_result() as $product) {
             $products[] = self::getByID($product["id"]);
         }
@@ -160,7 +158,6 @@ class Product
         if (!$stmt->execute()) return null;     // TODO ERROR handling
 
         // get result
-
         foreach ($stmt->get_result() as $product) {
             $products[] = self::getByID($product["id"]);
         }
@@ -188,7 +185,7 @@ class Product
             $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         }
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -426,7 +423,7 @@ class Product
         $stmt = getDB()->prepare("DELETE FROM product WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;     // TODO ERROR handling
+        if (!$stmt->execute()) return false;
 
         $stmt->close();
 

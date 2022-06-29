@@ -32,7 +32,7 @@ class ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE product = ? AND `order` = ?;");
         $stmt->bind_param("ii", $productId, $orderId);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -47,7 +47,7 @@ class ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE `order` = ?;");
         $stmt->bind_param("i", $orderId);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -123,7 +123,6 @@ class ProductOrder
     {
         $stmt = getDB()->prepare("INSERT INTO product_order(product, `order`, amount, price)
                                         VALUES (?, ?, ?, ?);");
-
         $stmt->bind_param("iiid",
             $this->productId,
             $this->orderId,
@@ -137,6 +136,4 @@ class ProductOrder
 
         return $this;
     }
-
-
 }

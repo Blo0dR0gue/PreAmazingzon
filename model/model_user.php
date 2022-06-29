@@ -4,7 +4,6 @@
 // load required files
 require_once(INCLUDE_DIR . "database.inc.php");
 
-// TODO implement
 class User
 {
     // region fields
@@ -40,22 +39,7 @@ class User
         $this->default_address_id = $default_address_id;
     }
 
-    // region getter
-
-    public static function getByEmail(string $email): ?User
-    {
-        $stmt = getDB()->prepare("SELECT * FROM user WHERE email = ?;");
-        $stmt->bind_param("s", $email);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) return null;
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new User($res["id"], $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
-    }
+    // region getter & setter
 
     /**
      * @return int
@@ -121,10 +105,6 @@ class User
         return $this->password_hash;
     }
 
-    // endregion
-
-    // region setter
-
     /**
      * @param string $password_hash
      */
@@ -178,8 +158,6 @@ class User
         return $this->default_address_id;
     }
 
-    // endregion
-
     /**
      * @param int|null $default_address_id
      */
@@ -187,6 +165,7 @@ class User
     {
         $this->default_address_id = $default_address_id;
     }
+    // endregion
 
     public function insert(): ?User
     {
@@ -219,7 +198,7 @@ class User
     {
         $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -230,17 +209,32 @@ class User
         return new User($id, $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
     }
 
+    public static function getByEmail(string $email): ?User
+    {
+        $stmt = getDB()->prepare("SELECT * FROM user WHERE email = ?;");
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) return null;
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) return null;
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new User($res["id"], $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
+    }
+
     public function update(): ?User
     {
         $stmt = getDB()->prepare("UPDATE user 
-                                    SET password = ?,
-                                        email = ?,
-                                        userRole = ?,
-                                        firstname = ?,
-                                        lastname = ?,
-                                        defaultAddress = ?,
-                                        active = ?
-                                    WHERE id = ?;");
+                                        SET password = ?,
+                                            email = ?,
+                                            userRole = ?,
+                                            firstname = ?,
+                                            lastname = ?,
+                                            defaultAddress = ?,
+                                            active = ?
+                                        WHERE id = ?;");
         $stmt->bind_param("ssissiii",
             $this->password_hash,
             $this->email,
@@ -267,7 +261,7 @@ class User
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM user;");
 
-        if (!$stmt->execute()) return 0;     // TODO ERROR handling
+        if (!$stmt->execute()) return 0;
 
         // get result
         $res = $stmt->get_result();
@@ -290,7 +284,7 @@ class User
 
         $stmt = getDB()->prepare("SELECT id FROM user ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
 
@@ -310,7 +304,7 @@ class User
         $stmt = getDB()->prepare("DELETE FROM user WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) return false;     // TODO ERROR handling
+        if (!$stmt->execute()) return false;
 
         $stmt->close();
 

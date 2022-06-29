@@ -1,6 +1,6 @@
 <!-- site header resumed all over the website -->
 
-<!-- TODO make links work -->
+<!-- TODO comment -->
 
 <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -15,8 +15,7 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="<?= ROOT_DIR ?>" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="<?= PAGES_DIR . 'page_products.php' ?>" class="nav-link px-2 text-white">Products</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Categories</a></li>
-                <!-- TODO do link -->
+                <li><a href="<?= PAGES_DIR . 'page_categories.php' ?>" class="nav-link px-2 text-white">Categories</a></li>
                 <li><a href="<?= PAGES_DIR . "page_about.php" ?>" class="nav-link px-2 text-white">About</a></li>
             </ul>
 
@@ -47,8 +46,8 @@
                    class="d-flex align-items-center text-decoration-none me-3">
                     <i class='fa fa-shopping-cart link-warning' style='font-size:38px'></i>
                 </a>
+
                 <!-- show profile action -->
-                <!-- TODO add links -->
                 <div class="dropdown text-end">
                     <a href="" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,6 +56,7 @@
                     </a>
                     <!-- drop down list -->
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
+                        <!-- user area -->
                         <li>
                             <p class="dropdown-item-text mb-1 text-muted"><?= $_SESSION["first_name"] . " " . $_SESSION["last_name"] ?></p>
                         </li>
@@ -68,7 +68,6 @@
                         </li>
 
                         <!-- admin area -->
-                        <!--TODO Maybe add Dashboard?-->
                         <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) { ?>
                             <li>
                                 <hr class="dropdown-divider">
@@ -90,10 +89,10 @@
                             </li>
                         <?php } ?>
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <!------------------>
+                        <li><hr class="dropdown-divider"></li>
 
+                        <!-- logout -->
                         <li>
                             <a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . "helper_logout.inc.php" ?>">Logout</a>
                         </li>

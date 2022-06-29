@@ -46,7 +46,7 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT * FROM address WHERE user = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -70,7 +70,7 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
         $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
@@ -91,7 +91,7 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT * FROM address WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) return null;     // TODO ERROR handling
+        if (!$stmt->execute()) return null;
 
         // get result
         $res = $stmt->get_result();
