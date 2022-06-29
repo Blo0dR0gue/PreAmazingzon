@@ -10,10 +10,21 @@ function getDB(): mysqli
 
     require_once CONFIG_DIR . "database_config.php";
 
-    $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
+    try {
+        $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
+    } catch (mysqli_sql_exception $e) {
+        //Redirect to error page.
+        require_once "paths.inc.php";
+        header("LOCATION: " . PAGES_DIR . 'page_error.php');
+        die();
+    }
 
     if ($db->connect_errno) {
-        echo $db->connect_error; //TODO Errorhandling
+        //echo $db->connect_error;
+        //Redirect to error page.
+        require_once "paths.inc.php";
+        header("LOCATION: " . PAGES_DIR . 'page_error.php');
+        die();
     }
 
     return $db;
