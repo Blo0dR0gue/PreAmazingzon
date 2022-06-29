@@ -264,8 +264,20 @@ class Order
         // TODO
     }
 
-    public function delete(): void
+    /**
+     * Deletes itself from the database.
+     * @return bool true, if the order got deleted.
+     * @throws Exception Will not be called
+     */
+    public function delete(): bool
     {
-        // TODO
+        $stmt = getDB()->prepare("DELETE FROM `order` WHERE id = ?;");
+        $stmt->bind_param("i",
+            $this->id);
+        if (!$stmt->execute()) return false;     // TODO ERROR handling
+
+        $stmt->close();
+
+        return self::getById($this->id) == null;
     }
 }

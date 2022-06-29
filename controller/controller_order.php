@@ -73,4 +73,15 @@ class OrderController
         }
     }
 
+    public static function delete(Order $order): bool
+    {
+        try {
+            return $order->delete();
+        } catch (Exception $e) {
+            //TODO 500 error
+            header("LOCATION: " . PAGES_DIR . 'page_error.php');
+            die();
+        }
+    }
+
 }
