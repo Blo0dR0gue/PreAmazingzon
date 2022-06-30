@@ -51,7 +51,7 @@ class CategoryController
         return Category::getCategoriesInRange($offset, $amount);
     }
 
-    public static function getPathToCategoryL(?int $categoryID): string
+    public static function getPathToCategory(?int $categoryID): string
     {
         if (!isset($categoryID)) { return ""; }
         return Category::getPathToCategory($categoryID);

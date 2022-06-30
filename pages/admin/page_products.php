@@ -39,19 +39,19 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All products</h1>
         <!-- add button -->
         <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_product_add.php" ?>">
-            <i class="fa fa-plus"></i> Add product
+            <em class="fa fa-plus"></em> Add product
         </a>
     </div>
     <hr class="mt-2">
 
     <!-- product table -->
-    <table class="table">
+    <table class="table" aria-label="Product Table">
         <!-- table head -->
         <thead class="thead-light">
         <tr>
             <th scope="col" style="width: 3%"></th>
             <th scope="col" style="width: 5%">#</th>
-            <th scope="col" style="width: 15%; text-align: center"><i class="fa fa-image"></i></th>
+            <th scope="col" style="width: 15%; text-align: center"><em class="fa fa-image"></em></th>
             <th scope="col" style="width: 40%">Title</th>
             <th scope="col" style="width: 7%">Price</th>
             <th scope="col" style="width: 7%">Shipping</th>
@@ -64,26 +64,25 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
         <tbody>
         <?php
         if (isset($products)):
-            foreach ($products as $product):
-                ?>
+            foreach ($products as $product): ?>
                 <tr>
                     <td class="align-middle" data-th="">
                         <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                            class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                            title="Edit product">
-                            <i class="fa fa-pencil"></i>
+                            <em class="fa fa-pencil"></em>
                         </a>
                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Delete product"
                            onclick="openConfirmModal(<?= "'Do you really want to delete the Product: \'" . $product->getTitle() . "\', with ID: " . $product->getId() . "?'" ?>,
                                    'Delete Product?',
                                    '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                            <i class="fa fa-trash "></i>
+                            <em class="fa fa-trash "></em>
                         </a>
                     </td>
 
                     <td data-th="#">
-                        <b><?= $product->getID(); ?></b>
+                        <strong><?= $product->getID(); ?></strong>
                     </td>
 
                     <td style="text-align: center" data-th="">
@@ -117,17 +116,13 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
                         <?= $product->getStock(); ?>
                     </td>
                 </tr>
-            <?php
-            endforeach;
-        else:
-            ?>
-
+            <?php endforeach;
+        else: ?>
             <tr>
                 <td colspan="8" style="text-align: center">
                     <p><em class="mb-3">No products are available.</em></p>
                 </td>
             </tr>
-
         <?php endif; ?>
         </tbody>
     </table>
