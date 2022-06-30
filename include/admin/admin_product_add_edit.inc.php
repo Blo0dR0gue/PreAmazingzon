@@ -32,7 +32,7 @@
             <!-- category select -->
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Category</label>
-                <select class="form-select" aria-label="Default select example" name="cat" required>
+                <select class="form-select" name="cat" required>
                     <!-- TODO Rework -> tree like?; Replace button next with selected -->
                     <option value="" hidden>Select Category</option>
 
@@ -56,8 +56,7 @@
                 <label for="description">Product Description</label>
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
                 <textarea class="form-control" id="description" name="description" placeholder="My Product" required
-                          rows="3"><?php if (isset($product) && $product instanceof Product) { echo $product->getDescription(); } ?>
-                </textarea>
+                          rows="3"><?php if (isset($product) && $product instanceof Product) { echo $product->getDescription(); } ?></textarea>
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
             </div>
 
