@@ -56,7 +56,9 @@ $users = UserController::getUsersInRange($offset)
 
         <!-- table body -->
         <tbody>
-        <?php foreach ($users as $user): ?>
+        <?php
+        if(isset($users)):
+        foreach ($users as $user): ?>
             <tr>
                 <td class="align-middle" data-th="">
                     <button
@@ -101,7 +103,16 @@ $users = UserController::getUsersInRange($offset)
                     <?= $user->isActive() ? "Yes" : "No"; ?>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach;
+        else:?>
+
+            <tr>
+                <td colspan="7" style="text-align: center">
+                    <p><em class="mb-3">No users are available.</em></p>
+                </td>
+            </tr>
+
+        <?php endif;?>
         </tbody>
     </table>
 </main>
