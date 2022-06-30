@@ -23,12 +23,12 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     $category = CategoryController::update(
         $category,
         $_POST["title"],
-        $_POST["cat"],
-        $_POST["description"]
+        $_POST["description"],
+        $_POST["cat"]
     );
 
     if (isset($category)) {
-        header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
+        header("LOCATION: " . ADMIN_PAGES_DIR . 'page_categories.php');  // go to admin categories page
         // TODO success msg?
         die();
     }

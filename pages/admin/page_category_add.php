@@ -11,8 +11,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     $category = CategoryController::insert(
         $_POST["title"],
-        $_POST["cat"],
-        $_POST["description"]
+        $_POST["description"],
+        $_POST["cat"]
     );
 
     if (isset($category)) {
