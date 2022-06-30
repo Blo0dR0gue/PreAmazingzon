@@ -79,7 +79,7 @@
                 </a>
 
                 <?php if (!$order->isPaid()) { ?>
-                    <button class="col-5 btn btn-warning" onclick="onItemPayBtn(this, <?= $order->getId(); ?>)">Pay <!--TODO--></button>
+                    <button class="col-5 btn btn-warning" onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay <!--TODO--></button>
                 <?php } else { ?>
                     <div class="col-5 alert alert-success text-center mb-0">Paid</div>
                 <?php } ?>
