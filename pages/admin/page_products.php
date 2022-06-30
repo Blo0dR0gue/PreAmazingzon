@@ -62,59 +62,73 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
 
         <!-- table body -->
         <tbody>
-        <?php foreach ($products as $product): ?>
+        <?php
+        if (isset($products)):
+            foreach ($products as $product):
+                ?>
+                <tr>
+                    <td class="align-middle" data-th="">
+                        <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
+                           class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
+                           title="Edit product">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
+                           title="Delete product"
+                           onclick="openConfirmModal(<?= "'Do you really want to delete the Product: \'" . $product->getTitle() . "\', with ID: " . $product->getId() . "?'" ?>,
+                                   'Delete Product?',
+                                   '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
+                            <i class="fa fa-trash "></i>
+                        </a>
+                    </td>
+
+                    <td data-th="#">
+                        <b><?= $product->getID(); ?></b>
+                    </td>
+
+                    <td style="text-align: center" data-th="">
+                        <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
+                             style="height: 150px;">
+                            <img src="<?= $product->getMainImg(); ?>" class="mh-100 mw-100" alt="main img"/>
+                        </div>
+                    </td>
+
+                    <td data-th="Title">
+                        <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
+                           class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
+                    </td>
+
+                    <td data-th="Price">
+                        <?= $product->getPriceFormatted(); ?>
+                    </td>
+
+                    <td data-th="Shipping">
+                        <?= $product->getShippingCostFormatted(); ?>
+                    </td>
+
+                    <td data-th="Category">
+                        <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
+                           class="text-decoration-none text-blue">
+                            <?= CategoryController::getNameById($product->getCategoryID()) ?>
+                        </a>
+                    </td>
+
+                    <td data-th="Stock">
+                        <?= $product->getStock(); ?>
+                    </td>
+                </tr>
+            <?php
+            endforeach;
+        else:
+            ?>
+
             <tr>
-                <td class="align-middle" data-th="">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
-                       class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
-                       title="Edit product">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
-                       title="Delete product"
-                       onclick="openConfirmModal(<?= "'Do you really want to delete the Product: \'" . $product->getTitle() . "\', with ID: " . $product->getId() . "?'" ?>,
-                               'Delete Product?',
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                        <i class="fa fa-trash "></i>
-                    </a>
-                </td>
-
-                <td data-th="#">
-                    <b><?= $product->getID(); ?></b>
-                </td>
-
-                <td style="text-align: center" data-th="">
-                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
-                         style="height: 150px;">
-                        <img src="<?= $product->getMainImg(); ?>" class="mh-100 mw-100" alt="main img"/>
-                    </div>
-                </td>
-
-                <td data-th="Title">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
-                       class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
-                </td>
-
-                <td data-th="Price">
-                    <?= $product->getPriceFormatted(); ?>
-                </td>
-
-                <td data-th="Shipping">
-                    <?= $product->getShippingCostFormatted(); ?>
-                </td>
-
-                <td data-th="Category">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
-                       class="text-decoration-none text-blue">
-                        <?= CategoryController::getNameById($product->getCategoryID()) ?>
-                    </a>
-                </td>
-
-                <td data-th="Stock">
-                    <?= $product->getStock(); ?>
+                <td colspan="8" style="text-align: center">
+                    <p><em class="mb-3">No products are available.</em></p>
                 </td>
             </tr>
-        <?php endforeach; ?>
+
+        <?php endif; ?>
         </tbody>
     </table>
 </main>
