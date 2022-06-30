@@ -20,6 +20,7 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 <head>
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Orders</title>
+    <script src="<?= SCRIPT_DIR . "user_order_page.js" ?>"></script>
 </head>
 
 <body class="d-flex flex-column h-100">

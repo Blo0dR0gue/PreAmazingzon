@@ -214,6 +214,16 @@ class Order
     }
 
     /**
+     * @param int $orderStateId
+     */
+    public function setOrderStateId(int $orderStateId): void
+    {
+        $this->orderStateId = $orderStateId;
+    }
+
+
+
+    /**
      * Calls an insert statement for this object.
      * @throws Exception If it is not possible to convert a string to a datetime object.
      */
@@ -261,9 +271,36 @@ class Order
         return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
     }
 
-    public function update(): void
+    /**
+     * Updates an order inside the database
+     * @throws Exception If it is not possible to cast the dates from the result to an DateTime object.
+     */
+    public function update(): ?Order
     {
-        // TODO
+        $stmt = getDB()->prepare("UPDATE `order` SET
+                                          orderDate = ?,
+                                          deliveryDate = ?,
+                                          paid = ?,
+                                          orderState = ?,
+                                          user = ?,
+                                          shippingAddress = ?");
+
+        $orderDateString = $this->orderDate->format("Y-m-d H:i:s");
+        $deliveryDateString = $this->deliveryDate->format("Y-m-d H:i:s");
+
+        $stmt->bind_param("ssiiii",
+            $orderDateString,
+            $deliveryDateString,
+            $this->paid,
+            $this->orderStateId,
+            $this->userId,
+            $this->shippingAddressId);
+        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+
+        // get result
+        $stmt->close();
+
+        return self::getById($this->id);
     }
 
     /**
