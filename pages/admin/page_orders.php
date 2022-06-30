@@ -21,6 +21,10 @@ $orderStates = OrderStateController::getAll();
 <head>
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Orders</title>
+
+    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <script src="<?= SCRIPT_DIR . "admin_order_page.js" ?>"></script>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -112,7 +116,7 @@ $orderStates = OrderStateController::getAll();
                         <td data-th="State">
 
                             <select class="form-select" aria-label="Default select example" name="stateSelector"
-                                    data-orderid="<?= $order->getId() ?>" onchange=""><!--TODO onchange-->
+                                    onchange="onOrderStateChange(this, <?= $order->getId() ?>, <?= $order->getOrderStateId(); ?>)"><!--TODO onchange-->
 
                                 <?php foreach ($orderStates as $orderStateItem): ?>
                                     <option value="<?= $orderStateItem->getId(); ?>"
