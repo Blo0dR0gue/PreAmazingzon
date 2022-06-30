@@ -193,14 +193,6 @@ class Category
 
     // region getter
 
-    public function getImg(): string
-    {
-        $images = glob(IMAGE_CATEGORIES_DIR . $this->id . DS . "*");
-        if (!empty($images)) { return $images[0]; }
-
-        return IMAGE_PRODUCT_DIR . "notfound.jpg";
-    }
-
     /**
      * @return int
      */
