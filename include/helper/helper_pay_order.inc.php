@@ -1,0 +1,2 @@
+<?php
+//Pays an order
