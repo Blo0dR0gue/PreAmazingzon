@@ -33,11 +33,15 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -48,16 +52,41 @@ class OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
         $stmt->bind_param("s", $label);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
         return new OrderState($res["id"], $res["label"]);
     }
+
+    public static function getAll(): array
+    {
+        $orderStates = [];
+
+        // No need for prepared statement, because we do not use inputs.
+        $result = getDB()->query("SELECT id FROM orderstate ORDER BY id;");
+
+        if (!$result) {
+            return [];
+        }
+
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rows as $orderState) {
+            $orderStates[] = self::getByID($orderState["id"]);
+        }
+
+        return $orderStates;
+    }
+
     // endregion
 
     /**

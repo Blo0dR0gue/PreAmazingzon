@@ -16,4 +16,9 @@ class OrderStateController
         return OrderState::getById($id);
     }
 
+    public static function getAll(): array
+    {
+        return OrderState::getAll();
+    }
+
 }

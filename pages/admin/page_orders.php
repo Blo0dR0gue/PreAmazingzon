@@ -11,6 +11,9 @@ $userCount = OrderController::getAmountOfUsers();                              /
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
 $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+
+$orderStates = OrderStateController::getAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -41,9 +44,10 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
             <th scope="col" style="width: 5%">#</th>
             <th scope="col" style="width: 8%">User ID</th>
             <th scope="col" style="width: 25%;">Username</th>
-            <th scope="col" style="width: 15%">Delivery Date</th>
-            <th scope="col" style="width: 15%">Order Date</th>
+            <th scope="col" style="width: 17%">Delivery Date</th>
+            <th scope="col" style="width: 17%">Order Date</th>
             <th scope="col" style="width: 5%;">Paid?</th>
+            <th scope="col" style="width: 15%;">State</th>
         </tr>
         </thead>
 
@@ -57,6 +61,7 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 
                     <?php
                     $user = UserController::getById($order->getUserId());
+                    $orderState = OrderStateController::getById($order->getOrderStateId());
                     ?>
                     <tr>
                         <td class="align-middle" data-th="">
@@ -104,6 +109,23 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
                         <td data-th="Paid?">
                             <?= $order->isPaid() ? "Yes" : "No"; ?>
                         </td>
+                        <td data-th="State">
+
+                            <select class="form-select" aria-label="Default select example" name="stateSelector"
+                                    data-orderid="<?= $order->getId() ?>" onchange=""><!--TODO onchange-->
+
+                                <?php foreach ($orderStates as $orderStateItem): ?>
+                                    <option value="<?= $orderStateItem->getId(); ?>"
+                                        <?php
+                                        if ($orderStateItem->getId() == $orderState->getId()) {
+                                            echo "selected";
+                                        } ?>
+                                    >
+                                        <?= $orderStateItem->getLabel(); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
                     </tr>
                 <?php
                 endif;
@@ -111,7 +133,7 @@ $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
         else:
             ?>
             <tr>
-                <td colspan="7" style="text-align: center">
+                <td colspan="8" style="text-align: center">
                     <p><em class="mb-3">No orders are available.</em></p>
                 </td>
             </tr>
