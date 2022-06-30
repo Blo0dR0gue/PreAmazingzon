@@ -12,10 +12,8 @@ if (isset($productID) && is_numeric($productID)) {
         die();
     }
 
+    // Variable, which is used by the radio buttons // TODO do we use that?
     $category = CategoryController::getById($product->getCategoryID());
-    // Variable, which is used by the radio buttons
-    // $cat = $category;
-
 } else {
     header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no number is passed.
     die();
