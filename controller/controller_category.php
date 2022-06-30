@@ -72,4 +72,28 @@ class CategoryController
         return Category::getAmountOfCategories($searchFilter);
     }
 
+    public static function update(Category $category, string $title, string $description, int $parent): ?Category
+    {
+        $category->setName(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
+        $category->setDescription(htmlspecialchars($description, ENT_QUOTES, 'UTF-8'));
+        $category->setParentID($parent);
+
+        return $category->update();
+    }
+
+    public static function insert(string $title, string $description, int $parent): ?Category
+    {
+        // TODO validation
+        $category = new Category(
+            0,
+            htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($description, ENT_QUOTES, 'UTF-8'),
+            $parent
+        );
+
+        $category = $category->insert();
+
+        return $category;
+    }
+
 }

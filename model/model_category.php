@@ -41,8 +41,8 @@ class Category
 
         $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-        foreach ($rows as $product) {
-            $categories[] = self::getById($product["id"]);
+        foreach ($rows as $category) {
+            $categories[] = self::getById($category["id"]);
         }
 
         return $categories;
@@ -191,7 +191,7 @@ class Category
         return $categories;
     }
 
-    // region getter
+    // region getter & setter
 
     /**
      * @return int
@@ -225,16 +225,68 @@ class Category
         return $this->parentID;
     }
 
-    // endregion
-
-    public function insert(): void
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
     {
-        // TODO
+        $this->name = $name;
     }
 
-    public function update(): void
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
     {
-        // TODO
+        $this->description = $description;
+    }
+
+    /**
+     * @param int|null $parentID
+     */
+    public function setParentID(?int $parentID): void
+    {
+        $this->parentID = $parentID;
+    }
+
+    // endregion
+
+    public function insert(): ?Category
+    {
+        $stmt = getDB()->prepare("INSERT INTO category(name, description, parent) 
+                                        VALUES (?, ?, ?);");
+        $stmt->bind_param("ssi",
+            $this->name,
+            $this->description,
+            $this->parentID
+        );
+        if (!$stmt->execute()) { return null; }
+
+        // get result
+        $newId = $stmt->insert_id;
+        $stmt->close();
+
+        return self::getById($newId);
+    }
+
+    public function update(): ?Category
+    {
+        $stmt = getDB()->prepare("UPDATE category 
+                                        SET name = ?,
+                                            description = ?,
+                                            parent = ?
+                                        WHERE id = ?;");
+        $stmt->bind_param("ssii",
+            $this->name,
+            $this->description,
+            $this->parentID,
+            $this->id
+        );
+        if (!$stmt->execute()) { return null; }
+
+        $stmt->close();
+
+        return self::getById($this->id);
     }
 
     public function delete(): void
