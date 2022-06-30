@@ -5,17 +5,14 @@
 <?php
 UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
-// TODO change pagination to categories
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$categoryCount = CategoryController::getAmountOfCategories(null);       // Get the total amount of categories   // TODO search?
-$totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
+$categoryCount = CategoryController::getAmountOfCategories(null);                 // Get the total amount of categories
+$totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                       // Calculate the total amount of pages
 
-$products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+$categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
-
-<!-- TODO if deleted pagination triggered modal each time -->
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -39,7 +36,7 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
     <div class="d-flex align-items-end">
         <h1 class="mt-4 ms-2 mb-0 mr-auto">All categories</h1>
         <!-- add button -->
-        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_product_add.php" // TODO change?>">
+        <a type="button" class="btn btn-warning ms-auto" href="<?= ADMIN_PAGES_DIR . "page_category_add.php" ?>">
             <em class="fa fa-plus"></em> Add category
         </a>
     </div>
@@ -52,7 +49,6 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
         <tr>
             <th scope="col" style="width: 5%"></th>
             <th scope="col" style="width: 10%">#</th>
-            <th scope="col" style="width: 20%; text-align: center"><em class="fa fa-image"></em></th>
             <th scope="col" style="width: 45%">Title</th>
             <th scope="col" style="width: 20%">Super</th>
         </tr>
@@ -60,43 +56,30 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
 
         <!-- table body -->
         <tbody>
-        <?php foreach ($products as $product): ?>
+        <?php foreach ($categories as $category): ?>
             <tr>
                 <td class="align-middle" data-th="">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
+                    <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                        class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                        title="Edit category">
                         <em class="fa fa-pencil"></em>
                     </a>
-                    <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
-                       title="Delete category"
-                       onclick="openConfirmModal(<?= "'Do you really want to delete the Category: '" . $product->getTitle() . "', with ID: " . $product->getId() . "?'" ?>,
-                               'Delete Category?',
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                        <em class="fa fa-trash "></em>
-                    </a>
+                <!-- TODO toggle active? or simply no delete? -->
                 </td>
 
                 <td data-th="#">
-                    <strong><?= $product->getID(); ?></strong>
-                </td>
-
-                <td style="text-align: center" data-th="">
-                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
-                         style="height: 160px;">
-                        <img src="<?= $product->getMainImg(); ?>" class="mh-100 mw-100" alt="main img"/>
-                    </div>
+                    <strong><?= $category->getID(); ?></strong>
                 </td>
 
                 <td data-th="Title">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
-                       class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
+                    <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
+                       class="mb-0 h5 text-decoration-none text-blue"><?= $category->getName() ?></a>
                 </td>
 
                 <td data-th="Super">
-                    <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
-                       class="text-decoration-none text-blue">
-                        <?= CategoryController::getNameById($product->getCategoryID()) ?>
+                    <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($category->getParentID() ?? "") ?>"
+                       class="text-decoration-none text-blue text-black">
+                        <?= CategoryController::getNameById($category->getParentID()) ?>
                     </a>
                 </td>
             </tr>
@@ -116,17 +99,6 @@ $products = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_IT
 
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
-
-<!-- show info popup -->
-<?php
-if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
-    $msg = "";
-    if (isset($_GET["deleted"])) {
-        $msg = "The category got deleted!";
-    }
-    show_popup("Categories", $msg);
-}
-?>
 
 </body>
 </html>
