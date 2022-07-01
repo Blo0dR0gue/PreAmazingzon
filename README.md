@@ -34,7 +34,7 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] change personal data e.g. email
     - [x] change password
     - [ ] manage multiple delivery addresses
-    - [ ] order overview / history
+    - [x] order overview / history
     - [ ] invoice generation (as pdf)
     - [x] shopping cart
 - [ ] admin area
@@ -44,7 +44,7 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] user management
         - [x] deactivate or delete users
     - [ ] category management
-    - [ ] order management
+    - [x] order management
 - [ ] ~~auctions~~
 
 ## Technical Details
