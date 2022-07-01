@@ -1,4 +1,5 @@
 <!-- Represents a confirm model -->
+<!-- TODO move to sub dir? -->
 <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">

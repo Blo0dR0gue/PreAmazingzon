@@ -1,6 +1,8 @@
+<!-- TODO move to sub dir? -->
+
 <?php
 function show_popup(
-    $popup_title = "Error occurred",
+    $popup_title = "Error occurred",    // TODO both unused
     $popup_text = "While executing the task an error occurred, please retry."
 ): void
 {
@@ -13,6 +15,4 @@ function show_popup(
         showPopup();
     </script>
 
-<?php
-}
-?>
+<?php } ?>

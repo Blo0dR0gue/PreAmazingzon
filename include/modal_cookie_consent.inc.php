@@ -1,4 +1,5 @@
 <!-- modal loaded to obtain the user's consent to the use of cookies -->
+<!-- TODO move to sub dir? -->
 
 <?php if (!isset($_COOKIE["cookie_consent"])) { ?>
     <!-- cookie modal -->
