@@ -9,6 +9,7 @@ function onToggleProductActivation(button, productId) {
         type: "post",
         data: {productId: productId},
         success: function (result) {
+            //parse the response data
             const response_data = $.parseJSON(result);
 
             //IF request was successfully
@@ -19,9 +20,11 @@ function onToggleProductActivation(button, productId) {
 
                 $("td[data-id=" + productId + "]").text(response_data.active ? "Yes" : "No");
                 console.log(response_data.msg); //TODO log
+
                 showPopup("Success", "The active state of the product got changed successfully.")
             } else if (response_data.state === "error") {
                 console.log(response_data.msg); //TODO log
+
                 showPopup("Error", "An error occurred.")
             }
         }

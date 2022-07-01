@@ -62,13 +62,35 @@ const DATE_TIME_ZONE = "Europe/Berlin";
 
 // region invoice
 
+/**
+ * The street where your company is located.
+ */
 const COMPANY_STREET = "Musterstraße";
-const COMPANY_STREET_NR = "1";
-const COMPANY_CITY = "Musterstadt";
-const COMPANY_ZIP_CODE = "12345";
-const COMPANY_COUNTRY = "Germany";
-const INVOICE_FOOTER = "We ask that you settle the invoice within 14 days of receipt.";
 
+/**
+ * The street number of your company.
+ */
+const COMPANY_STREET_NR = "1";
+
+/**
+ * The city where your business is located.
+ */
+const COMPANY_CITY = "Musterstadt";
+
+/**
+ * The zip code of the city.
+ */
+const COMPANY_ZIP_CODE = "12345";
+
+/**
+ * The country in which your company is located.
+ */
+const COMPANY_COUNTRY = "Germany";
+
+/**
+ * The footer for each invoice
+ */
+const INVOICE_FOOTER = "We ask that you settle the invoice within 14 days of receipt.";
 
 // endregion
 

@@ -1,6 +1,6 @@
 <?php
-//TODO Comments
 
+//Add the required category model
 require_once MODEL_DIR . 'model_category.php';
 
 class CategoryController

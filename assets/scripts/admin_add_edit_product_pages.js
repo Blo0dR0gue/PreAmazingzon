@@ -58,8 +58,7 @@ function getTemplate(templateSelector) {
         dataType: "html",
         async: false,
         success: function (data) {
-            //console.log($(data).filter("div"));
-            //The container is at position 2 in this jquery object
+            //Gets the template fragment
             fragment.appendChild($(data).filter("div")[0]);
         }
     });
@@ -72,6 +71,11 @@ function getTemplate(templateSelector) {
  */
 const FILES = new Map();
 
+/**
+ * Contains all ids of deleted images. <br>
+ * Used on submit
+ * @type {*[]}
+ */
 const DELETED_IMAGES_IDS = [];
 
 /**
