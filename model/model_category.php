@@ -107,6 +107,28 @@ class Category
         return $res["category_path"];
     }
 
+    public static function getSubCategories(?int $superId): ?array
+    {
+        $categories = [];
+
+        if($superId){
+            $stmt = getDB()->prepare("SELECT id FROM category WHERE parent = ? ORDER BY id;");
+            $stmt->bind_param("i",
+                $superId
+            );
+        } else {
+            $stmt = getDB()->prepare("SELECT id FROM category WHERE parent IS NULL ORDER BY id;");
+        }
+        if (!$stmt->execute()) { return null; }
+
+        // get result
+        foreach ($stmt->get_result() as $category) {
+            $categories[] = self::getByID($category["id"]);
+        }
+        $stmt->close();
+        return $categories;
+    }
+
     public static function getCategoryTree(): array
     {
         $categoryIDs = [];
@@ -287,10 +309,5 @@ class Category
         $stmt->close();
 
         return self::getById($this->id);
-    }
-
-    public function delete(): void
-    {
-        // TODO
     }
 }

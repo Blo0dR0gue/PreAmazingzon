@@ -26,12 +26,21 @@ class CategoryController
         return Category::getByName($name); //TODO error handling; validation
     }
 
-    public static function getCategoryPathAsString(Product $product): string
+    public static function getSubCategories(int $superId): ?array
+    {
+        if($superId != -1){
+            return Category::getSubCategories($superId);
+        } else {
+            return Category::getSubCategories(null);
+        }
+    }
+
+    public static function getCategoryPathAsString(Product $product): string    // TODO not used?
     {
         return implode(" > ", self::getCategoryPathByProduct($product));
     }
 
-    public static function getCategoryPathByProduct(Product $product): array
+    public static function getCategoryPathByProduct(Product $product): array    // TODO not used?
     {
         $tmpProductCat = Category::getById($product->getCategoryID());
 

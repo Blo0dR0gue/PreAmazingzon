@@ -4,17 +4,28 @@
 <?php require_once "../include/site_php_head.inc.php"; ?>
 
 <?php
-$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
-$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
-$productCount = ProductController::getAmountOfActiveProducts($_GET["search"] ?? null);      // Get the total Amount of Products
-$totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
+// get category
+if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+    $category = CategoryController::getByID(intval($_GET["id"]));
 
-$products = [];
-if (isset($_GET["search"])) {
-    $products = ProductController::searchProductsInRange($_GET["search"], true, $offset, LIMIT_OF_SHOWED_ITEMS);
+    if (!isset($category)) {
+        header("LOCATION: " . ROOT_DIR);   // redirect, if no category is found.
+        die();
+    }
 } else {
-    $products = ProductController::getProductsInRange(true, $offset, LIMIT_OF_SHOWED_ITEMS);
+    $category = new Category(-1, "Root", "", null);
 }
+
+// get sub categories
+$subCategories = CategoryController::getSubCategories($category->getId());
+
+// get products
+$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;                // Current pagination page number
+$offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                                  // Calculate offset for pagination
+$productCount = ProductController::getAmountOfActiveProductsInCategory($category->getId());     // Get the total Amount of products in category
+$totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                                      // Calculate the total amount of pages
+
+$products = ProductController::getProductsByCategoryIDInRange($category->getId(), $offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
 <!DOCTYPE html>
@@ -34,21 +45,23 @@ if (isset($_GET["search"])) {
         <!-- category row -->
         <?php if ($page == 1) { ?>
             <div class="row mb-4">
-                <h2>Categories in Root</h2>
-                <!-- TODO make it work -->
+                <h2>Categories in '<?= $category->getName() ?>'</h2>
                 <hr>
                 <?php
-                $category = CategoryController::getByName("Test");
-                // TODO include categories
-                require INCLUDE_ELEMENTS_DIR . "elem_category_card.inc.php";
+                if(count($subCategories) > 0){
+                    foreach ($subCategories as $subCategory){
+                        require INCLUDE_ELEMENTS_DIR . "elem_subcategory_card.inc.php";
+                    }
+                } else {
+                    echo "<h5 class='text-center text-muted mb-5'><i>no subcategories found</i></h5>";
+                }
                 ?>
             </div>
         <?php } ?>
 
         <!-- product row -->
         <div class="row">
-            <h2>Products in Root</h2>
-            <!-- TODO make it work and use name of category -->
+            <h2>Products in '<?= $category->getName() ?>'</h2>
             <hr>
             <?php
             if (count($products) > 0) {
