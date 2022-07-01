@@ -24,7 +24,9 @@
             <div class="form-group position-relative mb-1">
                 <label for="title">Category Title</label>
                 <input type="text" name="title" id="title" class="form-control" placeholder="A Category Title"
-                       value="<?php if (isset($category) && $category instanceof Category) { echo $category->getName(); } ?>"
+                       value="<?php if (isset($category) && $category instanceof Category) {
+                           echo $category->getName();
+                       } ?>"
                        required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid category name!</div>
             </div>
@@ -32,21 +34,30 @@
             <!-- super category select -->
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Super Category</label>
-                <select class="form-select" name="cat" required>
-                    <!-- TODO Rework -> tree like?; Replace button next with selected -->
-                    <option value="" hidden>Select Super Category</option>
+                <select class="form-select" name="cat">
+                    <option value="-1" hidden>Select Super Category</option>
 
-                    <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>
-                        <option value="<?= $treeEntry["top"]; ?>"
-                            <?php
-                            if (isset($cat)) {
-                                if (in_array($treeEntry["top"], $cat)) { echo "selected"; }
-                            } else if (isset($category) && $category instanceof Category) {
-                                if ($treeEntry["top"] == $category->getParentID()) { echo "selected"; } // TODO doesnt work for root?
-                            } ?>>
-                            <?= $treeEntry["path"]; ?>
-                        </option>
-                    <?php endforeach; ?>
+                    <?php
+                    foreach (CategoryController::getCategoryTree() as $treeEntry):
+                        if (!isset($category) || !str_contains($treeEntry["path"], $category->getName())):
+                            ?>
+                            <option value="<?= $treeEntry["top"]; ?>"
+                                <?php
+                                if (isset($cat)) {
+                                    if (in_array($treeEntry["top"], $cat)) {
+                                        echo "selected";
+                                    }
+                                } else if (isset($category) && $category instanceof Category) {
+                                    if ($treeEntry["top"] == $category->getParentID()) {
+                                        echo "selected";
+                                    } // TODO doesnt work for root?
+                                } ?>>
+                                <?= $treeEntry["path"]; ?>
+                            </option>
+                        <?php
+                        endif;
+                    endforeach;
+                    ?>
                 </select>
                 <div class="invalid-tooltip opacity-75">Please select a super category!</div>
             </div>
@@ -56,7 +67,9 @@
                 <label for="description">Category Description</label>
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
                 <textarea class="form-control" id="description" name="description" placeholder="My Category" required
-                          rows="3"><?php if (isset($category) && $category instanceof Category) { echo $category->getDescription(); } ?></textarea>
+                          rows="3"><?php if (isset($category) && $category instanceof Category) {
+                        echo $category->getDescription();
+                    } ?></textarea>
                 <div class="invalid-tooltip opacity-75">Please add a category description!</div>
             </div>
         </div>

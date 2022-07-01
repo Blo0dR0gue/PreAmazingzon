@@ -51,10 +51,11 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                     // TODO success msg?
                     die();
                 }
-
             }
         }
     }
+    $processingError = true;
+}else if($isPost){
     $processingError = true;
 }
 ?>
@@ -87,11 +88,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <!-- show error popup -->
 <?php
-if (isset($processingError)) {   // processing error
-    show_popup(
-        "Edit Product Error",
-        "ALARM" // TODO
-    );
+if(isset($processingError) && $processingError){
+    show_popup();
 }
 ?>
 

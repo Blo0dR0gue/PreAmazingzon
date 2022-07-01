@@ -30,6 +30,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     }
 
     $processingError = true;
+}else if($isPost){
+    $processingError = true;
 }
 ?>
 
@@ -57,6 +59,12 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
+
+<?php
+    if(isset($processingError) && $processingError){
+        show_popup();
+    }
+?>
 
 </body>
 </html>

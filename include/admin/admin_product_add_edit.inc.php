@@ -35,7 +35,6 @@
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Category</label>
                 <select class="form-select" name="cat" required>
-                    <!-- TODO Rework -> tree like?; Replace button next with selected -->
                     <option value="" hidden>Select Category</option>
 
                     <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>

@@ -81,7 +81,7 @@ class CategoryController
         return $category->update();
     }
 
-    public static function insert(string $title, string $description, int $parent): ?Category
+    public static function insert(string $title, string $description, ?int $parent): ?Category
     {
         // TODO validation
         $category = new Category(
