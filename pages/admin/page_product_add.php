@@ -16,7 +16,8 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         $_POST["description"],
         $_POST["price"],
         $_POST["shipping"],
-        $_POST["stock"]
+        $_POST["stock"],
+        isset($_POST["active"])
     );
 
     if (isset($product)) {

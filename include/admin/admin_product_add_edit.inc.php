@@ -24,7 +24,9 @@
             <div class="form-group position-relative mb-1">
                 <label for="title">Product Title</label>
                 <input type="text" name="title" id="title" class="form-control" placeholder="A New Product Title"
-                       value="<?php if (isset($product) && $product instanceof Product) { echo $product->getTitle(); } ?>"
+                       value="<?php if (isset($product) && $product instanceof Product) {
+                           echo $product->getTitle();
+                       } ?>"
                        required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Product name!</div>
             </div>
@@ -40,9 +42,13 @@
                         <option value="<?= $treeEntry["top"]; ?>"
                             <?php
                             if (isset($cat)) {
-                                if (in_array($treeEntry["top"], $cat)) { echo "selected"; }
+                                if (in_array($treeEntry["top"], $cat)) {
+                                    echo "selected";
+                                }
                             } else if (isset($category) && $category instanceof Category) {
-                                if ($treeEntry["top"] == $category->getId()) { echo "selected"; }
+                                if ($treeEntry["top"] == $category->getId()) {
+                                    echo "selected";
+                                }
                             } ?>>
                             <?= $treeEntry["path"]; ?>
                         </option>
@@ -56,7 +62,9 @@
                 <label for="description">Product Description</label>
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
                 <textarea class="form-control" id="description" name="description" placeholder="My Product" required
-                          rows="3"><?php if (isset($product) && $product instanceof Product) { echo $product->getDescription(); } ?></textarea>
+                          rows="3"><?php if (isset($product) && $product instanceof Product) {
+                        echo $product->getDescription();
+                    } ?></textarea>
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
             </div>
 
@@ -65,7 +73,9 @@
                 <label for="price">Price</label>
                 <div class="input-group p-0">
                     <input type="number" id="price" name="price" step='0.01' class="form-control"
-                           value="<?php if (isset($product) && $product instanceof Product) { echo $product->getPrice(); } ?>"
+                           value="<?php if (isset($product) && $product instanceof Product) {
+                               echo $product->getPrice();
+                           } ?>"
                            required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00" min="0">
                     <span class="input-group-text rounded-end"><?= CURRENCY_SYMBOL ?></span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
@@ -78,7 +88,9 @@
                 <div class="input-group p-0">
                     <input type="number" id="shipping" name="shipping" placeholder="3.50" min="0" step='0.01'
                            class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$"
-                           value="<?php if (isset($product) && $product instanceof Product) { echo $product->getShippingCost(); } ?>">
+                           value="<?php if (isset($product) && $product instanceof Product) {
+                               echo $product->getShippingCost();
+                           } ?>">
                     <span class="input-group-text rounded-end"><?= CURRENCY_SYMBOL ?></span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct shipping price!</div>
                 </div>
@@ -90,9 +102,26 @@
                 <div class="input-group p-0">
                     <input type="number" id="stock" name="stock" class="form-control" placeholder="42" min="0" required
                            pattern="[1-9][0-9]*|0"
-                           value="<?php if (isset($product) && $product instanceof Product) { echo $product->getStock(); } ?>">
+                           value="<?php if (isset($product) && $product instanceof Product) {
+                               echo $product->getStock();
+                           } ?>">
                     <span class="input-group-text rounded-end">Pcs.</span>
                     <div class="invalid-tooltip opacity-75">Please choose a correct stock amount!</div>
+                </div>
+            </div>
+
+            <div class="form-group position-relative mb-1">
+                <label for="">Activate Product</label>
+                <div class="input-group p-0">
+                    <input class="form-check-input" type="checkbox" id="active" name="active" <?php
+                    if (isset($product) && $product->isActive())
+                        echo "checked";
+                    else if (!isset($product))
+                        echo "checked" ?>
+                    >
+                    <label class="form-check-label" for="active">
+                        Active?
+                    </label>
                 </div>
             </div>
 
@@ -116,7 +145,9 @@
 
                     <!-- show instructions -->
                     <div class="drop-texts" id="dropTexts"
-                        <?php if (isset($allIMGs) && sizeof($allIMGs) > 0) { echo "style='display: none'"; } ?>>
+                        <?php if (isset($allIMGs) && sizeof($allIMGs) > 0) {
+                            echo "style='display: none'";
+                        } ?>>
                         <!-- Hide the text, if we add images to the dropZone (edit mode) -->
                         <span class="drop-text text-muted" style="pointer-events: none;">Click here or drag and drop images</span>
                         <!-- pointer-events: none makes the text 'click transparent' -->
@@ -138,7 +169,9 @@
                                 foreach ($allIMGs as $img) {
                                     $imgPaths = explode(DS, $img);
                                     $imgID = end($imgPaths);
-                                    if (isset($mainImg) && $img == $mainImg) { $isMainImg = true; }
+                                    if (isset($mainImg) && $img == $mainImg) {
+                                        $isMainImg = true;
+                                    }
 
                                     require INCLUDE_ADMIN_DIR . "admin_product_img.inc.php";
                                     $isMainImg = null;

@@ -483,7 +483,7 @@ class Product
     {
         $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category, active) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssdidi",
+        $stmt->bind_param("ssdidii",
             $this->title,
             $this->description,
             $this->price,
@@ -514,15 +514,15 @@ class Product
                                         category = ?,
                                         active = ?
                                     WHERE id = ?;");
-        $stmt->bind_param("ssddiii",
+        $stmt->bind_param("ssddiiii",
             $this->title,
             $this->description,
             $this->price,
             $this->shippingCost,
             $this->stock,
             $this->categoryID,
-            $this->id,
-            $this->active);
+            $this->active,
+            $this->id);
         if (!$stmt->execute()) {
             return null;
         }    // TODO ERROR handling

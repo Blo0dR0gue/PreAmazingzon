@@ -47,7 +47,7 @@ class ProductController
         }
     }
 
-    public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
+    public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
         $product->setCategoryID($categoryID);
         $product->setTitle(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
@@ -55,11 +55,12 @@ class ProductController
         $product->setPrice($price);
         $product->setShippingCost($shippingCost);
         $product->setStock($stock);
+        $product->setActive($active);
 
         return $product->update();
     }
 
-    public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock): ?Product
+    public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
         // TODO validation
         $product = new Product(
@@ -69,7 +70,8 @@ class ProductController
             $price,
             $stock,
             $shippingCost,
-            $categoryID
+            $categoryID,
+            $active
         );
 
         $product = $product->insert();
