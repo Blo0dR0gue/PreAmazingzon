@@ -18,22 +18,22 @@ function logData(string $caller, string $message, int $level = LOG_LVL_INFO, ?ar
     switch ($level) {
         default:
         case LOG_LVL_INFO:
-            $lvl = "[INFO]";
+            $lvl = "INFO";
             break;
         case LOG_LVL_NOTICE:
-            $lvl = "[NOTICE]";
+            $lvl = "NOTICE";
             break;
         case LOG_LVL_WARNING:
-            $lvl = "[WARNING]";
+            $lvl = "WARNING";
             break;
         case LOG_LVL_CRITICAL:
-            $lvl = "[CRITICAL]";
+            $lvl = "CRITICAL";
             break;
         case LOG_LVL_EMERGENCY:
-            $lvl = "[EMERGENCY]";
+            $lvl = "EMERGENCY";
             break;
         case LOG_LVL_DEBUG:
-            $lvl = "[DEBUG]";
+            $lvl = "DEBUG";
             break;
     }
 
