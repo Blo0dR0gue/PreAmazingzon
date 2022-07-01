@@ -19,7 +19,6 @@ if (isset($productID) && is_numeric($productID)) {
             die();
         }
     }
-
 } else {
     header("LOCATION: " . ROOT_DIR);   // Redirect, if no number is passed.
     die();
