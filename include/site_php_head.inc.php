@@ -16,6 +16,9 @@ require_once $root_file_path . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARA
 //Load paths
 require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR . "paths.inc.php";
 
+// Load logger
+require_once INCLUDE_DIR . "logger.inc.php";
+
 // include controllers
 require_once CONTROLLER_DIR . 'controller_address.php';
 require_once CONTROLLER_DIR . 'controller_cart_product.php';

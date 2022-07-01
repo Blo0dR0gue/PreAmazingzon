@@ -40,3 +40,5 @@ const MODEL_DIR = ROOT_DIR . "model" . DS;
 const PAGES_DIR = ROOT_DIR . "pages" . DS;
 const ADMIN_PAGES_DIR = PAGES_DIR . 'admin' . DS;
 const USER_PAGES_DIR = PAGES_DIR . 'user' . DS;
+
+const LOG_DIR = ROOT_DIR . "logs" . DS;
