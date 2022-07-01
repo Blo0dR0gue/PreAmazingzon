@@ -23,6 +23,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     if (isset($product)) {
         $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
         if (!$errors) {
+            logData("Add Product", "Product with id " . $product->getId() . " got created!");
             header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
             // TODO success msg?
             die();
@@ -31,6 +32,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     $processingError = true;
 }else if($isPost){
+    logData("Add Product", "Missing values!", LOG_LVL_WARNING);
     $processingError = true;
 }
 ?>

@@ -8,6 +8,7 @@ if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
+        logData("Edit Product", "Product with id " . $productID . "not found!", LOG_LVL_WARNING);
         header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no product is found.
         die();
     }
@@ -15,6 +16,7 @@ if (isset($productID) && is_numeric($productID)) {
     // Variable, which is used by the radio buttons // TODO do we use that?
     $category = CategoryController::getById($product->getCategoryID());
 } else {
+    logData("Edit Product", "Missing value!", LOG_LVL_WARNING);
     header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no number is passed.
     die();
 }
@@ -37,16 +39,20 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     if (isset($product)) {
 
+        logData("Edit Product", "Product with id " . $product->getId() . " got updated.");
         $error = ProductController::deleteSelectedImages($product->getId(), $_POST["deletedImgIDs"]);
 
         if (!$error) {
+            logData("Edit Product", "Selected images got deleted.");
             $error = ProductController::updateMainImg($product->getId(), $_POST["mainImgID"]);
 
             if (!$error) {
 
+                logData("Edit Product", "Main image got updated.");
                 $error = ProductController::uploadImages($product->getId(), $_FILES["files"] ?? null, $_POST["mainImgID"]);
 
                 if (!$error) {
+                    logData("Edit Product", "Images got uploaded.");
                     header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
                     // TODO success msg?
                     die();
@@ -56,6 +62,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     }
     $processingError = true;
 }else if($isPost){
+    logData("Edit Product", "Missing value!", LOG_LVL_WARNING);
     $processingError = true;
 }
 ?>

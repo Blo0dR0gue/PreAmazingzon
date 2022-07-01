@@ -16,10 +16,15 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     );
 
     if (isset($category)) {
+        logData("Add Category", "Category with id " . $category->getId() . "got created.");
         header("LOCATION: " . ADMIN_PAGES_DIR . 'page_categories.php');  // go to admin categories page
         // TODO success msg?
         die();
     }
+    $processingError = true;
+    logData("Add Category", "Category could not be created!", LOG_LVL_CRITICAL);
+}else if($isPost){
+    logData("Add Category", "Missing values!", LOG_LVL_WARNING);
     $processingError = true;
 }
 ?>
