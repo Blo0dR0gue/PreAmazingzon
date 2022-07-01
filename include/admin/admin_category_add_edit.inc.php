@@ -35,7 +35,7 @@
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Super Category</label>
                 <select class="form-select" name="cat">
-                    <option value="-1" hidden>Select Super Category</option>
+                    <option value="-1" hidden>Select Super Category - leave empty for root</option>
 
                     <?php
                     foreach (CategoryController::getCategoryTree() as $treeEntry):
@@ -50,7 +50,7 @@
                                 } else if (isset($category) && $category instanceof Category) {
                                     if ($treeEntry["top"] == $category->getParentID()) {
                                         echo "selected";
-                                    } // TODO doesnt work for root?
+                                    }
                                 } ?>>
                                 <?= $treeEntry["path"]; ?>
                             </option>
