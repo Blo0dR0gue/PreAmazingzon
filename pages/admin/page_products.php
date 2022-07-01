@@ -140,19 +140,5 @@ $products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
-<!-- show info popup -->
-<?php
-if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
-    $msg = "";
-    if (isset($_GET["deleted"])) {
-        $msg = "The product got deleted!";
-    } else if (isset($_GET["other"])) {
-        $msg = "test";  // TODO remove
-    }
-
-    show_popup("Products", $msg);
-}
-?>
-
 </body>
 </html>
