@@ -11,7 +11,7 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products   // TODO search?
 $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
-$products = ProductController::getProductsInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+$products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
 <!-- TODO if deleted pagination triggered modal each time -->

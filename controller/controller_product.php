@@ -7,9 +7,14 @@ require_once MODEL_DIR . "model_category.php";
 class ProductController
 {
 
-    public static function searchProducts(string $search): array
-    {// TODO validation
-        return Product::searchProducts($search);
+    public static function searchProducts(string $search, bool $onlyActiveProducts): array
+    {
+        return Product::searchProducts($search, $onlyActiveProducts);
+    }
+
+    public static function searchProductsInRange(string $search, int $offset = 0, int $amount = 8): array
+    {
+        return Product::searchProductsInRange($search, true, $offset, $amount);
     }
 
     public static function getAllProducts(): array
@@ -17,9 +22,9 @@ class ProductController
         return Product::getAllProducts();
     }
 
-    public static function getProductsInRange(int $offset = 0, int $amount = 8): array
+    public static function getProductsInRange(bool $onlyActiveProducts, int $offset = 0, int $amount = 8): array
     {
-        return Product::getProductsInRange($offset, $amount);
+        return Product::getProductsInRange($offset, $amount, $onlyActiveProducts);
     }
 
     public static function getRandomProducts(int $amount = 4): array
@@ -129,7 +134,17 @@ class ProductController
      */
     public static function getAmountOfProducts(?string $searchFilter): int
     {
-        return Product::getAmountOfProducts($searchFilter);
+        return Product::getAmountOfProducts($searchFilter, false);
+    }
+
+    /**
+     * Returns the amounts of active of products stored in the database using a filter, if it is defined.
+     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @return int  The amount of found products
+     */
+    public static function getAmountOfActiveProducts(?string $searchFilter): int
+    {
+        return Product::getAmountOfProducts($searchFilter, true);
     }
 
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool

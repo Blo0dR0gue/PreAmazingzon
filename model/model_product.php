@@ -89,13 +89,24 @@ class Product
      * Select a specified amount of products starting at an offset.
      * @param int $offset The first row, which should be selected.
      * @param int $amount The amount of rows, which should be selected.
+     * @param bool $onlyActiveProducts Set it to true, if only active products should be selected.
      * @return array|null An array with the found products or null, if an error occurred.
      */
-    public static function getProductsInRange(int $offset, int $amount): ?array
+    public static function getProductsInRange(int $offset, int $amount, bool $onlyActiveProducts): ?array
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id FROM product ORDER BY id LIMIT ? OFFSET ?;");
+        $sql = "SELECT id FROM product";
+
+        if ($onlyActiveProducts) {
+            $sql .= " WHERE active = 1 ";
+        } else {
+            $sql .= " ";
+        }
+
+        $sql .= "ORDER BY id LIMIT ? OFFSET ?;";
+
+        $stmt = getDB()->prepare($sql);
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
             return null;
@@ -158,17 +169,65 @@ class Product
     /**
      * Selects all products containing the passed string in either the description, the title or in the name of the category.
      * @param string $searchString The string which should be in the defined texts.
+     * @param bool $onlyActiveProducts Set it to true to only search for active products.
      * @return array|null An array with the found products or null, if an error occurred.
      */
-    public static function searchProducts(string $searchString): ?array
+    public static function searchProducts(string $searchString, bool $onlyActiveProducts): ?array
     {
         $products = [];
 
         $searchFilter = strtolower($searchString);  // TODO never used?
         $searchString = "%$searchString%";
 
-        $stmt = getDB()->prepare("SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;");
+        $sql = "SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?";
+
+        if ($onlyActiveProducts) {
+            $sql .= " AND active = 1;";
+        } else {
+            $sql .= ";";
+        }
+
+        $stmt = getDB()->prepare($sql);
+
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
+        if (!$stmt->execute()) {
+            return null;
+        }    // TODO ERROR handling
+
+        // get result
+        foreach ($stmt->get_result() as $product) {
+            $products[] = self::getByID($product["id"]);
+        }
+        $stmt->close();
+        return $products;
+    }
+
+    /**
+     * Selects all products containing the passed string in either the description, the title or in the name of the category.
+     * @param string $searchString The string which should be in the defined texts.
+     * @param bool $onlyActiveProducts Set it to true to only search for active products.
+     * @return array|null An array with the found products or null, if an error occurred.
+     */
+    public static function searchProductsInRange(string $searchString, bool $onlyActiveProducts, int $offset, int $amount): ?array
+    {
+        $products = [];
+
+        $searchFilter = strtolower($searchString);  // TODO never used?
+        $searchString = "%$searchString%";
+
+        $sql = "SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?";
+
+        if ($onlyActiveProducts) {
+            $sql .= " AND active = 1 ";
+        } else {
+            $sql .= " ";
+        }
+
+        $sql .= "ORDER BY id LIMIT ? OFFSET ?;";
+
+        $stmt = getDB()->prepare($sql);
+
+        $stmt->bind_param("sssii", $searchString, $searchString, $searchString, $amount, $offset);
         if (!$stmt->execute()) {
             return null;
         }    // TODO ERROR handling
@@ -184,17 +243,26 @@ class Product
     /**
      * Returns the amounts of products stored in the database using a filter, if it is defined.
      * @param string|null $searchString A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @param bool $onlyActiveProducts Set it to true to only count active products
      * @return int  The amount of found products
      */
-    public static function getAmountOfProducts(?string $searchString): int
+    public static function getAmountOfProducts(?string $searchString, bool $onlyActiveProducts): int
     {
         if (isset($searchString)) {
             $searchFilter = strtolower($searchString);
             $searchString = "%$searchString%";
-            $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?;";
+            $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE (LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?)";
         } else {
-            $sql = "SELECT COUNT(DISTINCT id) AS count FROM product;";
+            //We use 1=1 to make it possible to add the AND later
+            $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE 1=1";
         }
+
+        if ($onlyActiveProducts) {
+            $sql .= " AND active = 1;";
+        } else {
+            $sql .= ";";
+        }
+
         $stmt = getDB()->prepare($sql);
 
         if (isset($searchFilter)) {
