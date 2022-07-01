@@ -19,8 +19,8 @@ let _redirectUrl;
  * @param redirectUrl The url, to we redirect, if we click confirm.
  */
 function openConfirmModal(text, title, redirectUrl) {
-    $("#confirmModalHead")[0].textContent = title;
-    $("#confirmModalBody")[0].textContent = text;
+    $("#confirmModalHead").text(title);
+    $("#confirmModalBody").text(text);
     _redirectUrl = redirectUrl;
     confirmModal.show();
 }
