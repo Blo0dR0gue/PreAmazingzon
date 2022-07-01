@@ -1,4 +1,10 @@
-function onOrderStateChange(elem, orderId, oldValue){
+/**
+ * Changes a status for an order.
+ * @param elem The dom element e.g. the button
+ * @param orderId   The id for the order
+ * @param oldValue  The old order state for reset reasons.
+ */
+function onOrderStateChange(elem, orderId, oldValue) {
     let value = elem.value;
 
     $.ajax({
@@ -13,8 +19,9 @@ function onOrderStateChange(elem, orderId, oldValue){
 
             if (response_data.state === "success") {
                 console.log(response_data.msg); //TODO show modal?
-            }else if(response_data.state === "error"){
+            } else if (response_data.state === "error") {
                 console.log(response_data.msg); //TODO show modal?
+                //Reset the select element
                 elem.value = oldValue;
             }
         }

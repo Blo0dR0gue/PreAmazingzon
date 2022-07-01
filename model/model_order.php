@@ -221,7 +221,13 @@ class Order
         $this->orderStateId = $orderStateId;
     }
 
-
+    /**
+     * @param bool $paid
+     */
+    public function setPaid(bool $paid): void
+    {
+        $this->paid = $paid;
+    }
 
     /**
      * Calls an insert statement for this object.

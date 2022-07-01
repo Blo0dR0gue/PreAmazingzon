@@ -1,3 +1,6 @@
+/**
+ * JQuery load function
+ */
 $(function () {
     /**
      * Add the click-event to the img drop zone that opens the file explorer

@@ -9,8 +9,8 @@
             <p class="mb-0 col-2 ps-2">
                 <span class="text-muted">Status: </span><?= OrderStateController::getById($order->getOrderStateId())->getLabel() ?>
             </p>
-            <p class="mb-0 col-2">
-                <span class="text-muted">Paid: </span><?= $order->isPaid() ? "Paid" : "Not Paid" ?>
+            <p class="mb-0 col-2" >
+                <span class="text-muted">Paid: </span><span id="paidTxt<?=$order->getId();?>"><?= $order->isPaid() ? "Paid" : "Not Paid" ?></span>
             </p>
             <p class="mb-0 col-4">
                 <span class="text-muted">Order Time: </span><?= $order->getFormattedOrderDate(); ?>
@@ -78,12 +78,14 @@
                     Invoice
                 </a>
 
-                <?php if (!$order->isPaid()) { ?>
-                    <button class="col-5 btn btn-warning" onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay <!--TODO--></button>
-                <?php } else { ?>
-                    <div class="col-5 alert alert-success text-center mb-0">Paid</div>
-                <?php } ?>
-            </div>
+                    <?php if (!$order->isPaid()) { ?>
+                        <button class="col-5 btn btn-warning"
+                                onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay
+                            <!--TODO--></button>
+                    <?php } else { ?>
+                        <button class="col-5 btn btn-success" disabled>Paid</button>
+                    <?php } ?>
+                </div>
 
             <div class="col-1 text-end pe-2">
                 <h6><strong>Total:</strong></h6>
