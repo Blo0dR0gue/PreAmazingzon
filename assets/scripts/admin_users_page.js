@@ -18,9 +18,11 @@ function onToggleUserActivation(button, userId) {
                 button.classList.toggle("btn-warning");
 
                 $("td[data-id=" + userId + "]").text(response_data.active ? "Yes" : "No");
-                console.log(response_data.msg); //TODO show modal?
+                console.log(response_data.msg); //TODO log
+                showPopup("Success", "The active state of the user got changed successfully.")
             } else if (response_data.state === "error") {
-                console.log(response_data.msg); //TODO show modal?
+                console.log(response_data.msg); //TODO log
+                showPopup("Error", "An error occurred.")
             }
         }
     });
