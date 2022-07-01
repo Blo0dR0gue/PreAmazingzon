@@ -58,7 +58,7 @@ $orderStates = OrderStateController::getAll();
         <!-- table body -->
         <tbody>
         <?php
-        if (isset($orders)):
+        if (isset($orders) && count($orders) > 0):
             foreach ($orders as $order):
                 if ($order instanceof Order):
                     ?>

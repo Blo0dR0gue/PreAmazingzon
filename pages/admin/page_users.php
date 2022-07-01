@@ -58,7 +58,7 @@ $users = UserController::getUsersInRange($offset)
         <!-- table body -->
         <tbody>
         <?php
-        if (isset($users)) {
+        if (isset($users) && count($users) > 0) {
             foreach ($users as $user): ?>
                 <tr>
                     <td class="align-middle" data-th="">

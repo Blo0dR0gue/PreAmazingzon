@@ -66,7 +66,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
         <!-- table body -->
         <tbody>
         <?php
-        if (isset($products)):
+        if (isset($products) && count($products) > 0):
             foreach ($products as $product): ?>
                 <tr>
                     <td class="align-middle" data-th="">
