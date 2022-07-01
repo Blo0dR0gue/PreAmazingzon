@@ -5,7 +5,7 @@ function show_popup(
 ): void
 {
     //Load the popup
-    include_once "modal_popup_content.inc.php";
+    require_once "modal_popup_content.inc.php";
     ?>
 
     <script>
