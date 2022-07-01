@@ -1,7 +1,7 @@
 // script for handling the popup modal
 
 /**
- * By default, show the modal if it was loaded on the page.
+ * The modal
  * @type {Modal}
  */
 popupModal = new bootstrap.Modal(document.getElementById("modalPopup"), {
@@ -9,24 +9,14 @@ popupModal = new bootstrap.Modal(document.getElementById("modalPopup"), {
     keyboard: false,
     focus: true
 });
-popupModal.show();
 
-// region button handler
 /**
- * Button handler for "close"-button.
- * Hides modal and saves consent.
+ * Shows the popup modal.
+ * @param title The title for the modal (Can also be set via php: $popup_title)
+ * @param text The text for the modal  (Can also be set via php: $popup_text)
  */
-function closePopup() {
-    popupModal.hide();
+function showPopup(title, text){
+    $("#popupModalHead").text(title);
+    $("#popupModalBody").text(text);
+    popupModal.show();
 }
-
-/**
- * Event-Listener for removing the modal backdrop onClose.
- * In its default state this stays and prevents the user from interacting with the page.
- */
-$("#modalPopup").on("hidden.bs.modal", function () {
-    // remove remaining back-drop
-    $("#modalPopup").remove()
-    $(document.body).removeClass("modal-open");
-})
-// endregion
