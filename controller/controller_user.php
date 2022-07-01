@@ -1,18 +1,29 @@
 <?php
-//TODO Comments
 
+//Add the user model
 require_once MODEL_DIR . "model_user.php";
 
 class UserController
 {
 
+    /**
+     * Gets the formatted name of a {@link User}. (Firstname Lastname)
+     * @param User $user The {@link User}
+     * @return string The formatted name.
+     */
     public static function getFormattedName(User $user): string
     {
         return $user->getFirstName() . " " . $user->getLastName();
     }
 
+    /**
+     * Login a {@link User}.
+     * @param User $user The {@link User}.
+     * @param string $password The password.
+     * @return bool true, if it was successfully.
+     */
     public static function login(User $user, string $password): bool
-    {   // TODO validate
+    {
 
         if ($user->isActive()) {    // only login active users
             if (password_verify($password, $user->getPasswordHash())) {     // valid credentials?
@@ -29,6 +40,19 @@ class UserController
         return false;   // failure
     }
 
+    /**
+     * Registers a new {@link User}.
+     * @param string $firstName The firstname
+     * @param string $lastName The lastname.
+     * @param string $email The email address.
+     * @param string $password The password.
+     * @param string $zip The primary zip code.
+     * @param string $city The primary city.
+     * @param string $street The primary street name
+     * @param string $number The primary street number
+     * @param int $roleId The role of the user.
+     * @return User|null A new {@link User} object or null, if an error occurred.
+     */
     public static function register(string $firstName, string $lastName, string $email, string $password, string $zip, string $city, string $street, string $number, int $roleId): ?User
     {   // TODO validate
 
@@ -54,20 +78,41 @@ class UserController
         return null; // email not unique
     }
 
+    /**
+     * Checks, if an email address is available. (Is not already used)
+     * @param string $email The email address.
+     * @return bool true, if email is free to use.
+     */
     public static function emailAvailable(string $email): bool
-    {   // TODO validate
+    {
         // user with mail exists?
         if (UserController::getByEmail($email)) { return false; }   // user exists
         return true;    // user not exists
     }
 
+    /**
+     * Gets an {@link User} by its email address.
+     * @param string $email The email.
+     * @return User|null The specific {@link User} or null, if not found.
+     */
     public static function getByEmail(string $email): ?User
-    {   // TODO validate?
+    {
         return User::getByEmail($email);
     }
 
+    /**
+     * Updates a {@link User}
+     * @param User $user The {@link User}.
+     * @param string $firstName The new firstname
+     * @param string $lastName The new lastname
+     * @param string $email The new email
+     * @param string $password The new password.
+     * @param int|null $roleId The new user role or null, if the current one should be used.
+     * @param int|null $defaultAddressId The new id of the default address or null, if the current one should be used.
+     * @return User|null The updated {@link User} or null, if an error occured.
+     */
     public static function update(User $user, string $firstName, string $lastName, string $email, string $password, int $roleId = null, int $defaultAddressId = null): ?User
-    { // TODO validate?
+    {
         if ($user->getEmail() === $email || self::emailAvailable($email)) {     // email unique?
             // update user
             $user->setFirstName($firstName);
@@ -113,6 +158,11 @@ class UserController
         return false;
     }
 
+    /**
+     * Gets an {@link User} by its id.
+     * @param int|null $id The id of the user.
+     * @return User|null The {@link User} object or null, if not found.
+     */
     public static function getById(?int $id): ?User
     {
         if (isset($id)){
@@ -154,16 +204,30 @@ class UserController
         return false;
     }
 
+    /**
+     * Gets the amount of users.
+     * @return int The amount.
+     */
     public static function getAmountOfUsers(): int
     {
         return User::getAmountOfUsers();
     }
 
+    /**
+     * Gets all @link User}s in range.
+     * @param int $offset The offset from where to select from the database
+     * @return array An array with all {@link User}s in range.
+     */
     public static function getUsersInRange(int $offset): array
     {
         return User::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
     }
 
+    /**
+     * Deletes an @link User}.
+     * @param User $user The @link User}.
+     * @return bool true, if it was successfully.
+     */
     public static function delete(User $user): bool
     {
         return $user->delete();

@@ -7,21 +7,47 @@ require_once MODEL_DIR . "model_category.php";
 class ProductController
 {
 
+    /**
+     * Search for {@link Product}s an only show a specific amount.
+     * @param string $search The search string.
+     * @param bool $onlyActiveProducts true, if only active products should be selected.
+     * @param int $offset The offset from where to select from the database
+     * @param int $amount The amount of products, which should be selected.
+     * @return array An array with all found {@link Product}s in range.
+     */
     public static function searchProductsInRange(string $search, bool $onlyActiveProducts, int $offset = 0, int $amount = 8): array
     {
         return Product::searchProductsInRange($search, $onlyActiveProducts, $offset, $amount);
     }
 
+    /**
+     * Gets all {@link Product}s.
+     * @return array An array with all {@link Product}s.
+     */
     public static function getAllProducts(): array
     {
         return Product::getAllProducts();
     }
 
+    /**
+     * Gets all {@link Product} in range
+     * @param bool $onlyActiveProducts true, if only active {@link Product}s should be selected.
+     * @param int $offset The offset from where to select from the database
+     * @param int $amount The amount of products, which should be selected.
+     * @return array An array with all found {@link Product}s in range.
+     */
     public static function getProductsInRange(bool $onlyActiveProducts, int $offset = 0, int $amount = 8): array
     {
         return Product::getProductsInRange($offset, $amount, $onlyActiveProducts);
     }
 
+    /**
+     * Gets all {@link Product} for a category in a specific range.
+     * @param int $categoryId The id of the category
+     * @param int $offset The offset from where to select from the database
+     * @param int $amount The amount of products, which should be selected.
+     * @return array An array with all found {@link Product}s in range.
+     */
     public static function getProductsByCategoryIDInRange(int $categoryId, int $offset = 0, int $amount = 8): array
     {
         if($categoryId != -1){
@@ -31,11 +57,21 @@ class ProductController
         }
     }
 
+    /**
+     * Gets random {@link Product}s.
+     * @param int $amount The amount of how many should be selected.
+     * @return array An array random {@link Product}s.
+     */
     public static function getRandomProducts(int $amount = 4): array
     {
         return Product::getRandomProducts($amount);
     }
 
+    /**
+     * Gets a {@link Product} by its id.
+     * @param int $productID The id of the product.
+     * @return Product|null The {@link Product} or null, if not found.
+     */
     public static function getByID(int $productID): ?Product
     {
         if ($productID == null || $productID == 0) {
@@ -45,6 +81,12 @@ class ProductController
         return Product::getByID($productID);
     }
 
+    /**
+     * Decreases the stock amount for a {@link Product}.
+     * @param int $amount The decrease amount.
+     * @param Product $product The {@link Product}.
+     * @return Product|null The updated {@link Product} or null, if an error occurred.
+     */
     public static function decreaseStockAmount(int $amount, Product $product): ?Product
     {
         $currentStock = $product->getStock();
@@ -58,6 +100,18 @@ class ProductController
         }
     }
 
+    /**
+     * Updates an {@link Product}.
+     * @param Product $product The {@link Product}.
+     * @param string $title The new title.
+     * @param int $categoryID The new category id.
+     * @param string $description The new description.
+     * @param float $price The new price.
+     * @param float $shippingCost The new shipping cost.
+     * @param int $stock The new stock amount.
+     * @param bool $active Is the product active?
+     * @return Product|null The updated {@link Product} or null, if an error occurred.
+     */
     public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
         $product->setCategoryID($categoryID == -1 ? null : $categoryID);
@@ -71,6 +125,17 @@ class ProductController
         return $product->update();
     }
 
+    /**
+     * Creates an new {@link Product}.
+     * @param string $title The title.
+     * @param int $categoryID The category id.
+     * @param string $description The description.
+     * @param float $price The price.
+     * @param float $shippingCost The shipping cost.
+     * @param int $stock The stock amount.
+     * @param bool $active Is the prompt active?
+     * @return Product|null
+     */
     public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
         // TODO validation
@@ -173,9 +238,15 @@ class ProductController
     }
 
     // region image related
+
+    /**
+     * Deletes images from the filesystem.
+     * @param int|null $productID The id of the product, from which the images should be deleted.
+     * @param array|null $fileNames The names of the images, which should be deleted.
+     * @return bool true, if an error occurred.
+     */
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
     {
-        // TODO validation
         if (!isset($fileNames) || !count($fileNames) > 0 || $fileNames[0] == "" || !isset($productID)) {
             return false;
         }
@@ -186,6 +257,7 @@ class ProductController
         foreach ($fileNames as $fileName) {
             $targetFile = $targetDir . DS . $fileName;
             if (file_exists($targetFile)) {
+                //Delete the file.
                 unlink($targetFile);
             } else {
                 $errors = true;
@@ -195,6 +267,12 @@ class ProductController
         return $errors;
     }
 
+    /**
+     * Sets/Updates the maint image for a product
+     * @param int|null $productID The id of the product.
+     * @param string|null $newMainImgFileName The image name of the new main image.
+     * @return bool true, if an error occurred.
+     */
     public static function updateMainImg(?int $productID, ?string $newMainImgFileName): bool
     {
         if (!isset($productID) || !isset($newMainImgFileName) || $newMainImgFileName == "") {
@@ -220,6 +298,11 @@ class ProductController
         return true;     //Error
     }
 
+    /**
+     * Removes all main image tags from each image for a product.
+     * @param int $productID The if of the product.
+     * @return void
+     */
     private static function removeAllMainImgTags(int $productID): void
     {
         $mainImages = glob(IMAGE_PRODUCT_DIR . $productID . DS . "*main.*");
@@ -232,9 +315,15 @@ class ProductController
         }
     }
 
+    /**
+     * Uploads images for a product.
+     * @param int|null $productID The id of the product.
+     * @param array|null $files The images, which should be uploaded.
+     * @param string|null $mainImgID The id of the main image.
+     * @return bool true, if an error occurred.
+     */
     public static function uploadImages(?int $productID, ?array $files, ?string $mainImgID): bool
     {
-        // TODO validation
         if (!isset($files) || !count($files) > 0 || !isset($productID)) {
             return false;
         }
@@ -252,14 +341,24 @@ class ProductController
         return $errors;
     }
 
-    // TODO cleanup methods?
+    /**
+     * Uploads an image.
+     * @param string $tmpFile The name of the temporary file inside the cache.
+     * @param string $targetUploadDir The upload dir.
+     * @param int $productID The id of the product.
+     * @param bool $isMainImg true, if this image should be the main image.
+     * @return bool true, if successfully.
+     */
     private static function uploadImage(string $tmpFile, string $targetUploadDir, int $productID, bool $isMainImg): bool
-    {// TODO validation
+    {
+        //Get the size of the image.
         $fileSize = filesize($tmpFile);
 
+        //Get all infos for the image file.
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
         $type = finfo_file($fInfo, $tmpFile);
 
+        //Error, if the filesize is 0.
         if ($fileSize === 0) {
             return false;
         }
@@ -270,23 +369,30 @@ class ProductController
             "image/jpeg" => "jpg"
         ];
 
+        //Is the datatype allowed?
         if (!in_array($type, array_keys($allowed))) {
             return false;
         }
 
+        /**
+         * Create the upload dir, if it doesn't exist.
+         */
         if (!file_exists($targetUploadDir)) {
             mkdir($targetUploadDir, 0777, true);
         }
 
+        //Get the ending for a file.
         $expand = $allowed[$type];
 
+        //Get the amount of images in the dir for the product.
         $imageCounter = count(glob(IMAGE_PRODUCT_DIR . $productID . DS . "*"));
 
+        //Is the max image amount reached?
         if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) {
             return false;
         }
 
-        $pictureID = "";    // TODO unused?
+        //Define the name of the new image.
         if ($isMainImg) {
             self::removeAllMainImgTags($productID);
             $pictureID = ($imageCounter + 1) . "_" . $productID . "_" . self::generateRandomImageName() . "_main";
@@ -294,17 +400,25 @@ class ProductController
             $pictureID = ($imageCounter + 1) . "_" . $productID . "_" . self::generateRandomImageName();
         }
 
+        //Define the path to the file.
         $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;
 
+        //The to create the file.
         if (!copy($tmpFile, $filePath)) {
             return false;
         }
 
+        //Delete the cached file.
         unlink($tmpFile);
 
         return true;
     }
 
+    /**
+     * Generates a random name for an image.
+     * @param $length The length of the name.
+     * @return string The random name.
+     */
     private static function generateRandomImageName($length = 10): string
     {
         $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';

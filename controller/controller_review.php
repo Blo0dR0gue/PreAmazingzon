@@ -1,11 +1,20 @@
 <?php
-//TODO Comments
 
+//Add the review model.
 require_once MODEL_DIR . "model_review.php";
 
 class ReviewController
 {
 
+    /**
+     * Creates a new {@link Review}
+     * @param string $title The title.
+     * @param string $text The text.
+     * @param int $stars The amount of stars.
+     * @param int $userId The id of the user, who created the review.
+     * @param int $productId The id of the product.
+     * @return Review|null A new {@link Review} object or null, if an error occurred.
+     */
     public static function insert(string $title, string $text, int $stars, int $userId, int $productId): ?Review
     {
         $review = new Review(0, $title, $text, $stars, $userId, $productId);
@@ -14,8 +23,8 @@ class ReviewController
 
     /**
      * Returns the amount of reviews for a product
-     * @param int $productId
-     * @return int
+     * @param int $productId The id of the product.
+     * @return int The amount of reviews.
      */
     public static function getNumberOfReviewsForProduct(int $productId): int
     {
@@ -54,6 +63,11 @@ class ReviewController
         }
     }
 
+    /**
+     * Calculates the average rating for a product.
+     * @param int $productId The id of the product
+     * @return float The avg.
+     */
     public static function getAvgRating(int $productId): float
     {
         $avgRating = Review::getAvgRating($productId);
@@ -104,11 +118,21 @@ class ReviewController
         return Review::getStatsForEachStarForAProduct($productId);
     }
 
+    /**
+     * Gets an {@link Review} by its id.
+     * @param int $id The id.
+     * @return Review|null The {@link Review} or null, if not found.
+     */
     public static function getById(int $id): ?Review
     {
         return Review::getById($id);
     }
 
+    /**
+     * Deletes an {@link Review}.
+     * @param Review $review The {@link Review}.
+     * @return bool true, if it was successfully
+     */
     public static function delete(Review $review): bool
     {
         return $review->delete();

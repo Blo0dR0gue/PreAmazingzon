@@ -1,5 +1,3 @@
-<!-- TODO Comment -->
-
 <?php // inspired by https://www.php.net/session_destroy
 
 // Don't include the php header via this path, if the php header is already loaded.

@@ -2,7 +2,7 @@
 
 <?php
 function show_popup(
-    $popup_title = "Error occurred",    // TODO both unused
+    $popup_title = "Error occurred",
     $popup_text = "While executing the task an error occurred, please retry."
 ): void
 {

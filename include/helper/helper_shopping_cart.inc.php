@@ -1,5 +1,3 @@
-<!-- TODO Comment -->
-
 <?php
 require_once "../site_php_head.inc.php";
 

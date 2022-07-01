@@ -1,16 +1,30 @@
 <?php
-//TODO Comments
-
+//Add the address model
 require_once MODEL_DIR . "model_address.php";
 
 class AddressController
 {
+
+    /**
+     * Inserts a new address to the database
+     * @param string $street The street name.
+     * @param string $number The street number.
+     * @param string $zip The zip code.
+     * @param string $city The city.
+     * @param int $userId The user to which this address belongs.
+     * @return Address|null A new {@link Address} object or null, if an error occurred.
+     */
     public static function insert(string $street, string $number, string $zip, string $city, int $userId): ?Address
-    {   // TODO validate
+    {
         $address = new Address(0, $street, $number, $zip, $city, $userId);
         return $address->insert();
     }
 
+    /**
+     * Gets an {@link Address} by the id.
+     * @param int|null $id The id of the required address.
+     * @return Address|null The {@link Address} object or null, if not found.
+     */
     public static function getById(?int $id): ?Address
     {
         if ($id != null) {
@@ -20,8 +34,18 @@ class AddressController
         }
     }
 
+    /**
+     * Updates an {@link Address} object
+     * @param Address $address The new address
+     * @param string $street The new street
+     * @param string $zipCode The new zip code
+     * @param string $streetNumber The new street number
+     * @param string $city The new city
+     * @param int|null $userId The new user id. Set it to null to use the current user id of the address.
+     * @return Address|null The updated Address or null, if an error occurred.
+     */
     public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address
-    { // TODO validate?
+    {
         $address->setStreet($street);
         $address->setZip($zipCode);
         $address->setNumber($streetNumber);

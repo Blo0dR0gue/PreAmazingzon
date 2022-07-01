@@ -1,6 +1,5 @@
 <?php
 //php head file included in all necessary files at the beginning
-//TODO Comments
 
 // php error display
 // TODO work out how reporting works; disable for prod?
@@ -17,8 +16,7 @@ require_once $root_file_path . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARA
 //Load paths
 require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR . "paths.inc.php";
 
-// includes
-// TODO
+// include controllers
 require_once CONTROLLER_DIR . 'controller_address.php';
 require_once CONTROLLER_DIR . 'controller_cart_product.php';
 require_once CONTROLLER_DIR . 'controller_category.php';

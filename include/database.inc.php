@@ -1,6 +1,9 @@
 <?php
-//TODO Comment - Error handling?
 
+/**
+ * Gets the database object.
+ * @return mysqli
+ */
 function getDB(): mysqli
 {
     static $db;     // single instance of a db connection

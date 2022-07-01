@@ -1,9 +1,9 @@
 <!-- Adds a dynamic pagination to a site -->
-<!-- TODO comment -->
 
 <?php if (isset($page) && isset($totalPages) && $page <= $totalPages): ?>
 
     <?php
+    //Create the get parameters for the url.
     if (isset($_GET) && !empty($_GET) && !(count($_GET) == 1 && isset($_GET["page"]))) {
         $urlExtend = "";
         foreach ($_GET as $key => $value) {
@@ -24,6 +24,7 @@
     <nav aria-label="Page navigation example mt-5">
         <ul class="pagination justify-content-center mb-5">
 
+            <!-- Add the previous button -->
             <li class="page-item <?php if ($page <= 1) { echo 'disabled'; } ?>">
                 <a class="page-link"
                    href="<?php if ($page <= 1) { echo '#'; } else { echo $urlExtend . $page - 1; } ?>">Previous</a>
@@ -35,6 +36,7 @@
             $end_x = $page + PAGINATION_RANGE;
             ?>
 
+            <!-- Add the first pagination item -->
             <?php if ($start_x > 1): ?>
                 <li class="page-item">
                     <a class="page-link"
@@ -57,6 +59,7 @@
                 <?php endif;
             endfor; ?>
 
+            <!-- Add the last pagination item -->
             <?php if ($end_x < $totalPages && $end_x != $start_x): ?>
                 <li class="page-item disabled">
                     <a class="page-link">...</a>
@@ -68,6 +71,7 @@
                 </li>
             <?php endif; ?>
 
+            <!-- Add the next button -->
             <li class=" page-item <?php if ($page >= $totalPages) { echo 'disabled'; } ?>">
                 <a class="page-link"
                    href="<?php if ($page >= $totalPages) { echo '#'; } else { echo $urlExtend . $page + 1; } ?>">Next</a>

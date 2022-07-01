@@ -1,8 +1,9 @@
 /**
- * Needs to be replaced with an actual pay function.
+ * Needs to be replaced with an actual pay function. <br>
+ * Requires modal_popup_content.inc.php for the popups
  * @param elem  The dom element e.g. the button
  * @param orderId   The id of the order
- * @param userId    TODO
+ * @param userId The id of the user
  */
 function onItemPayBtn(elem, orderId, userId) {
 
@@ -14,7 +15,10 @@ function onItemPayBtn(elem, orderId, userId) {
             userId: userId
         },
         success: function (result) {
+            //parse the response data
             const response_data = $.parseJSON(result);
+
+            //Get the parent element of the button
             const parentElem = elem.parentElement;
 
             if (response_data.state === "success") {
@@ -31,12 +35,16 @@ function onItemPayBtn(elem, orderId, userId) {
                 //Add the style classes
                 paidBtn.classList.add("col-5", "btn", "btn-success");
 
-                //Add the paid text
+                //Add the paid button to the parent.
                 parentElem.appendChild(paidBtn);
 
-                $("#paidTxt"+orderId).text("Paid");
+                //Update the header text
+                $("#paidTxt" + orderId).text("Paid");
 
                 showPopup("Success", "The order got paid.");
+
+                console.log(response_data.msg); //TODO log
+
             } else if (response_data.state === "error") {
                 showPopup("Error", "An error occurred!");
                 console.log(response_data.msg); //TODO log
