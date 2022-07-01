@@ -10,6 +10,16 @@ if (isset($productID) && is_numeric($productID)) {
         header("LOCATION: " . ROOT_DIR);   // Redirect, if no product is found.
         die();
     }
+
+    //Product not active
+    if (!$product->isActive()) {
+        //Session is not an admin
+        if (!UserController::isCurrentSessionAnAdmin()) {
+            header("LOCATION: " . ROOT_DIR);   // Redirect, if product is inactive and the user is not an admin.
+            die();
+        }
+    }
+
 } else {
     header("LOCATION: " . ROOT_DIR);   // Redirect, if no number is passed.
     die();
@@ -72,7 +82,8 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
                 <p class="small mb-2">
-                    <a href="#" class="text-muted"><?= CategoryController::getPathToCategory($product->getCategoryID()); ?></a>
+                    <a href="#"
+                       class="text-muted"><?= CategoryController::getPathToCategory($product->getCategoryID()); ?></a>
                     <!-- TODO make link work -->
                 </p>
 
@@ -108,7 +119,8 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                         <label class="d-none" for="quantity"></label>
                         <input class="form-control w-25" type="number" id="quantity" name="quantity" value="1" min="1"
                                max="<?= $product->getStock() ?>">
-                        <button type="submit" class="btn btn-warning"<?= $product->getStock() === 0 ? "disabled" : "" ?>>
+                        <button type="submit"
+                                class="btn btn-warning"<?= $product->getStock() === 0 ? "disabled" : "" ?>>
                             Add to Cart
                         </button>
                     </div>
