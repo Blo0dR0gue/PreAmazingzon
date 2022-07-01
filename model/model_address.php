@@ -50,7 +50,10 @@ class Address
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Address Model", "No items were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            return null;
+        }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -70,7 +73,10 @@ class Address
     {
         $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
         $stmt->bind_param("i", $userId);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Address Model", "No default address were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -95,7 +101,10 @@ class Address
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Address Model", "No items were found for id: ". $id . "!", LOG_LVL_NOTICE);
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -206,7 +215,10 @@ class Address
             $this->number,
             $this->city,
             $this->userId);
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Address Model", "A new address could not be created", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $newId = $stmt->insert_id;
@@ -231,7 +243,10 @@ class Address
             $this->city,
             $this->userId,
             $this->id);
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Address Model", "Address with id: " . $this->id . " could not be updated!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         $stmt->close();
 

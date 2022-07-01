@@ -36,11 +36,17 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $userId);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "Execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Cart Product Model", "No items were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            return null;
+        }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -64,7 +70,10 @@ class CartProduct
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            logData("Cart Product Model", "No items were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -116,7 +125,10 @@ class CartProduct
             $this->userId,
             $this->prodId,
             $this->amount);
-        if (!$stmt->execute()) { return null; }    // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "A new item could not be created!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $stmt->close();
@@ -132,7 +144,10 @@ class CartProduct
             $this->amount,
             $this->userId,
             $this->prodId);
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "A new item could not be created!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         $stmt->close();
 
@@ -154,7 +169,10 @@ class CartProduct
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Cart Product Model", "No items got selected for id: " . $productId, LOG_LVL_CRITICAL);
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -168,7 +186,10 @@ class CartProduct
         $stmt->bind_param("ii",
             $this->userId,
             $this->prodId);
-        if (!$stmt->execute()) { return false; }
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "Item with user id: " . $this->userId . " and product id: " . $this->prodId . " could not be deleted!", LOG_LVL_CRITICAL);
+            return false;
+        }
 
         $stmt->close();
 

@@ -37,7 +37,10 @@ class Category
         // No need for prepared statement, because we do not use inputs.
         $result = getDB()->query("SELECT id FROM category;");
 
-        if (!$result) { return []; }
+        if (!$result) {
+            logData("Category Model", "No items were found!", LOG_LVL_NOTICE);
+            return [];
+        }
 
         $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -50,15 +53,23 @@ class Category
 
     public static function getById(?int $id): ?Category
     {
-        if ($id == null) { return null; }
+        if ($id == null) {
+            return null;
+        }
 
         $stmt = getDB()->prepare("SELECT * FROM category WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Category Model", "No items were found for id: " . $id, LOG_LVL_NOTICE);
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -69,11 +80,17 @@ class Category
     {
         $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
         $stmt->bind_param("s", $name);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Category Model", "No items were found for name: " . $name, LOG_LVL_NOTICE);
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -96,11 +113,16 @@ class Category
                     from tree t
                     WHERE t.id = ?;");
         $stmt->bind_param("i", $categoryID);
-        if (!$stmt->execute()) { return ""; }    // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return "";
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return ""; }
+        if ($res->num_rows === 0) {
+            return "";
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -111,7 +133,7 @@ class Category
     {
         $categories = [];
 
-        if($superId){
+        if ($superId) {
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent = ? ORDER BY id;");
             $stmt->bind_param("i",
                 $superId
@@ -119,7 +141,10 @@ class Category
         } else {
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent IS NULL ORDER BY id;");
         }
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         foreach ($stmt->get_result() as $category) {
@@ -148,11 +173,17 @@ class Category
                     from tree t
                     ORDER BY t.category_path;");
 
-        if (!$stmt->execute()) { return []; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return [];
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return []; }
+        if ($res->num_rows === 0) {
+            logData("Category Model", "Tree could not be created. No Categories found!", LOG_LVL_NOTICE);
+            return [];
+        }
 
         $rows = $res->fetch_all(MYSQLI_ASSOC);
 
@@ -180,11 +211,16 @@ class Category
             $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category;");
         }
 
-        if (!$stmt->execute()) { return 0; }
+        if (!$stmt->execute()) {
+            return 0;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            logData("Category Model", "No Items were found for search.", LOG_LVL_NOTICE);
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -203,7 +239,10 @@ class Category
 
         $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         foreach ($stmt->get_result() as $category) {
@@ -282,7 +321,10 @@ class Category
             $this->description,
             $this->parentID
         );
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error! (insert)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $newId = $stmt->insert_id;
@@ -304,7 +346,10 @@ class Category
             $this->parentID,
             $this->id
         );
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error! (update)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         $stmt->close();
 
