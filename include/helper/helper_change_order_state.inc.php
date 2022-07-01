@@ -34,8 +34,10 @@ try {
 }
 
 if (!isset($order)) {
-    logData("Change Order State", "Order " . $order->getId() . " could not be updated!", LOG_LVL_CRITICAL);
+    logData("Change Order State", "Order " . $_POST["orderId"] . " could not be updated!", LOG_LVL_CRITICAL);
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
+
+logData("Change Order State", "Order with id: " . $order->getId() . " has now the status: " . $orderState->getLabel());
 
 exit(json_encode(array("state" => "success", "msg" => "done", "orderStateId" => $order->getOrderStateId())));
