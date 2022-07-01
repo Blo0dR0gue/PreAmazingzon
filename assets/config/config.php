@@ -68,6 +68,21 @@ const DATE_TIME_ZONE = "Europe/Berlin";
 const COMPANY_STREET = "Musterstraße";
 
 /**
+ * The legal form of the company.
+ */
+const LEGAL_FORM = "inc.";
+
+/**
+ * The contact email address
+ */
+const CONTACT_EMAIL = "info@amazingzon.com";
+
+/**
+ * The contact phone number
+ */
+const CONTACT_PHONE = "02973 974430";
+
+/**
  * The street number of your company.
  */
 const COMPANY_STREET_NR = "1";
