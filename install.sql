@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Product`
     `stock`        INT                     NOT NULL DEFAULT 0,
     `shippingCost` DECIMAL(15, 2)          NOT NULL,
     `category`     INT                     NULL,
+    `active`       TINYINT                 NOT NULL DEFAULT 1,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_Product_Category1`
         FOREIGN KEY (`category`)
@@ -186,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Order`
     `paid`            TINYINT      NOT NULL DEFAULT 0,
     `orderState`      INT          NOT NULL,
     `user`            INT UNSIGNED NOT NULL,
-    `shippingAddress` INT          ,
+    `shippingAddress` INT,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_Order_OrderState1`
         FOREIGN KEY (`orderState`)
