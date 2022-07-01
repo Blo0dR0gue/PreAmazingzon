@@ -13,7 +13,6 @@ $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // 
 
 $users = UserController::getUsersInRange($offset)
 ?>
-<!-- TODO if deleted pagination triggered modal each time -->
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">

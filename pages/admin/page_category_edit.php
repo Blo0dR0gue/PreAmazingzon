@@ -1,4 +1,7 @@
 <?php
+
+// TODO COMMENT
+
 require_once "../../include/site_php_head.inc.php";
 
 UserController::redirectIfNotAdmin();   // User is not allowed to be here.

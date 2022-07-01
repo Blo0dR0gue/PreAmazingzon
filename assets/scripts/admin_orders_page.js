@@ -31,5 +31,4 @@ function onOrderStateChange(elem, orderId, oldValue) {
             }
         }
     });
-
 }

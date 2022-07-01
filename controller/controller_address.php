@@ -53,5 +53,4 @@ class AddressController
     {
         return Address::getAllByUser($userId);
     }
-
 }

@@ -14,8 +14,6 @@ $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                  // C
 $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
-<!-- TODO if deleted pagination triggered modal each time -->
-
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>

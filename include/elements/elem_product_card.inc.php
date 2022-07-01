@@ -29,7 +29,7 @@ if (isset($product) && $product instanceof Product): ?>
                         $cat = CategoryController::getNameById($product->getCategoryID());
 
                         if ($cat !== "No Category") {
-                            echo "<a href='#' class='text-muted'>$cat</a>";   // TODO insert cat link
+                            echo "<a href='" . PAGES_DIR . 'page_categories.php?id=' . $product->getCategoryID() . "' class='text-muted'>$cat</a>";
                         } else {
                             echo "<a class='text-decoration-none'><i class='text-muted'>$cat</i></a>";
                         }

@@ -1,5 +1,7 @@
-<!-- TODO COMMENT  -->
+<!-- Main entry point of website  -->
 <?php require_once "include/site_php_head.inc.php" ?>
+
+<!-- TODO general: use http_build_query instead of '?id=' -->
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -14,6 +16,7 @@
 
 <!-- main body -->
 <main class="flex-shrink-0">
+    <!-- welcome banner -->
     <section class="text-center bg-secondary">
         <div class="row py-lg-5 justify-content-center mx-0">
             <div class="col-lg-6 col-md-8">
@@ -28,14 +31,13 @@
         </div>
     </section>
 
+    <!-- random products -->
     <section class="container py-4" id="products">
         <h2>Products of the Second . . .</h2>
         <div class="row">
-            <?php
-            foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
+            <?php foreach (ProductController::getRandomProducts(INDEX_PRODUCTS_AMOUNT) as $product) {
                 require INCLUDE_ELEMENTS_DIR . "elem_product_card.inc.php";
-            }
-            ?>
+            } ?>
         </div>
     </section>
 </main>

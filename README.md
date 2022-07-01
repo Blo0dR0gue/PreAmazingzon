@@ -20,13 +20,13 @@ For setting up the MySQL database there is an `install.sql` file located in the 
 
 Below is the list of agreed features, their implementation state and where to find them if necessary.
 
-- [ ] products
-    - [ ] categories
+- [x] products
+    - [x] categories
     - [x] price inclusive shipping cost
     - [x] description
     - [x] quantity / stock
     - [x] multiple images
-    - [ ] search
+    - [x] search
     - [x] ratings including comments
 - [ ] User area
     - [x] register
@@ -37,13 +37,13 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] order overview / history
     - [x] invoice generation (as pdf)
     - [x] shopping cart
-- [ ] admin area
-    - [ ] product management
+- [x] admin area
+    - [x] product management
         - [x] show & create products
         - [x] edit product e.g. change price, images, description, quantity
     - [x] user management
         - [x] deactivate or delete users
-    - [ ] category management
+    - [x] category management
     - [x] order management
 - [ ] ~~auctions~~
 - [x] use of pagination (where appropriate)

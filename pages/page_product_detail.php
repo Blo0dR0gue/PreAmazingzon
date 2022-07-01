@@ -81,9 +81,8 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             <div class="col-lg-6 p-3 right-side align-content-center h-100">
                 <!-- category -->
                 <p class="small mb-2">
-                    <a href="#"
+                    <a href="<?= PAGES_DIR . 'page_categories.php?id=' . $product->getCategoryID() ?>"
                        class="text-muted"><?= CategoryController::getPathToCategory($product->getCategoryID()); ?></a>
-                    <!-- TODO make link work -->
                 </p>
 
                 <!-- title -->

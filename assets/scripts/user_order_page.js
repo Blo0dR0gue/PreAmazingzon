@@ -2,6 +2,7 @@
  * Needs to be replaced with an actual pay function.
  * @param elem  The dom element e.g. the button
  * @param orderId   The id of the order
+ * @param userId    TODO
  */
 function onItemPayBtn(elem, orderId, userId) {
 
@@ -42,5 +43,4 @@ function onItemPayBtn(elem, orderId, userId) {
             }
         }
     });
-
 }

@@ -137,15 +137,12 @@ $orderStates = OrderStateController::getAll();
             ?>
             <tr>
                 <td colspan="8" style="text-align: center">
-                    <p><em class="mb-3">No orders are available.</em></p>
+                    <p><em class="mb-3 text-muted">No orders are available.</em></p>
                 </td>
             </tr>
-        <?php
-        endif;
-        ?>
+        <?php endif; ?>
         </tbody>
     </table>
-
 </main>
 
 <!-- enable tooltips on this page -->

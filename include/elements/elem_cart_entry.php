@@ -1,5 +1,4 @@
 <!-- TODO comment -->
-<!-- TODO MAKE IT WORK-->
 
 <?php
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {

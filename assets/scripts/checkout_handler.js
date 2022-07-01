@@ -11,5 +11,4 @@ $(function () {
         //Disable the no address text
         $("#noDeliveryText").css("display", "none");
     });
-
 });
