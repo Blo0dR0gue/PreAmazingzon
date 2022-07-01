@@ -35,9 +35,10 @@ function onItemPayBtn(elem, orderId, userId) {
 
                 $("#paidTxt"+orderId).text("Paid");
 
-                console.log(response_data.msg); //TODO show modal?
+                showPopup("Success", "The order got paid.");
             } else if (response_data.state === "error") {
-                console.log(response_data.msg); //TODO show modal?
+                showPopup("Error", "An error occurred!");
+                console.log(response_data.msg); //TODO log
             }
         }
     });
