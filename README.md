@@ -35,7 +35,7 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] change password
     - [ ] manage multiple delivery addresses
     - [x] order overview / history
-    - [ ] invoice generation (as pdf)
+    - [x] invoice generation (as pdf)
     - [x] shopping cart
 - [ ] admin area
     - [ ] product management
