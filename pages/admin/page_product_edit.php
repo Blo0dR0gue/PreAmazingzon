@@ -53,6 +53,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
                 if (!$error) {
                     logData("Edit Product", "Images got uploaded.");
+                    logData("Edit Product", "Update product with id: " . $product->getId() . " done.");
                     header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
                     // TODO success msg?
                     die();
@@ -61,7 +62,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         }
     }
     $processingError = true;
-}else if($isPost){
+} else if ($isPost) {
     logData("Edit Product", "Missing value!", LOG_LVL_WARNING);
     $processingError = true;
 }
@@ -95,7 +96,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
 <!-- show error popup -->
 <?php
-if(isset($processingError) && $processingError){
+if (isset($processingError) && $processingError) {
     show_popup();
 }
 ?>
