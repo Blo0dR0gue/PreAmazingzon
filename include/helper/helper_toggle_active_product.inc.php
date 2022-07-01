@@ -26,5 +26,5 @@ if (!isset($product)) {
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
 
-logData("Toggle Product Activation", "Product with id " . $product->getId() . " now has the status: " . $product->isActive()?"Active":"Disabled");
+logData("Toggle Product Activation", "Product with id " . $product->getId() . " now has the status: " . ($product->isActive()?"Active":"Disabled"));
 exit(json_encode(array("state" => "success", "msg" => "done", "active" => $product->isActive())));

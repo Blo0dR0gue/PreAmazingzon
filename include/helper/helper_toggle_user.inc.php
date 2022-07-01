@@ -26,5 +26,5 @@ if (!isset($user)) {
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
 
-logData("Toggle User Activation", "User with id " . $user->getId() . " now has the status: " . $user->isActive()?"Active":"Disabled");
+logData("Toggle User Activation", "User with id " . $user->getId() . " now has the status: " . ($user->isActive()?"Active":"Disabled"));
 exit(json_encode(array("state" => "success", "msg" => "done", "active" => $user->isActive())));
