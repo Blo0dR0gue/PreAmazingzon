@@ -154,6 +154,9 @@ $orderStates = OrderStateController::getAll();
 <!-- confirm modal -->
 <?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
 
+<!-- dynamic popup modal -->
+<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
