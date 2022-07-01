@@ -76,7 +76,7 @@ class CategoryController
     {
         $category->setName(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
         $category->setDescription(htmlspecialchars($description, ENT_QUOTES, 'UTF-8'));
-        $category->setParentID($parent);
+        $category->setParentID($parent==-1?null:$parent);
 
         return $category->update();
     }
@@ -88,7 +88,7 @@ class CategoryController
             0,
             htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
             htmlspecialchars($description, ENT_QUOTES, 'UTF-8'),
-            $parent
+            $parent==-1?null:$parent
         );
 
         $category = $category->insert();

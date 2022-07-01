@@ -34,8 +34,8 @@
             <!-- category select -->
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Category</label>
-                <select class="form-select" name="cat" required>
-                    <option value="" hidden>Select Category</option>
+                <select class="form-select" name="cat">
+                    <option value="-1" hidden>Select Category</option>
 
                     <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>
                         <option value="<?= $treeEntry["top"]; ?>"

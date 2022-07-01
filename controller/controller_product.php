@@ -29,7 +29,9 @@ class ProductController
 
     public static function getByID(int $productID): ?Product
     {
-        if ($productID == null || $productID == 0){ return null; }
+        if ($productID == null || $productID == 0) {
+            return null;
+        }
 
         return Product::getByID($productID);
     }
@@ -49,7 +51,7 @@ class ProductController
 
     public static function update(Product $product, string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
-        $product->setCategoryID($categoryID);
+        $product->setCategoryID($categoryID == -1 ? null : $categoryID);
         $product->setTitle(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
         $product->setDescription(htmlspecialchars($description, ENT_QUOTES, 'UTF-8'));
         $product->setPrice($price);
@@ -70,13 +72,15 @@ class ProductController
             $price,
             $stock,
             $shippingCost,
-            $categoryID,
+            $categoryID == -1 ? null : $categoryID,
             $active
         );
 
         $product = $product->insert();
 
-        if (!$product) { return null; }
+        if (!$product) {
+            return null;
+        }
 
         return $product;
     }
@@ -147,7 +151,9 @@ class ProductController
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
     {
         // TODO validation
-        if (!isset($fileNames) || !count($fileNames) > 0 || $fileNames[0] == "" || !isset($productID)) { return false; }
+        if (!isset($fileNames) || !count($fileNames) > 0 || $fileNames[0] == "" || !isset($productID)) {
+            return false;
+        }
 
         $errors = false;
 
@@ -166,13 +172,17 @@ class ProductController
 
     public static function updateMainImg(?int $productID, ?string $newMainImgFileName): bool
     {
-        if (!isset($productID) || !isset($newMainImgFileName) || $newMainImgFileName == "") { return false; }    //No error
+        if (!isset($productID) || !isset($newMainImgFileName) || $newMainImgFileName == "") {
+            return false;
+        }    //No error
 
         $targetDirWithSep = IMAGE_PRODUCT_DIR . $productID . DS;
         $targetFile = $targetDirWithSep . $newMainImgFileName;
         $imgNameParts = explode(".", $newMainImgFileName);
 
-        if (sizeof($imgNameParts) < 2) { return false; }   //It's a new image, wait until its uploaded.
+        if (sizeof($imgNameParts) < 2) {
+            return false;
+        }   //It's a new image, wait until its uploaded.
 
         self::removeAllMainImgTags($productID);
 
@@ -200,7 +210,9 @@ class ProductController
     public static function uploadImages(?int $productID, ?array $files, ?string $mainImgID): bool
     {
         // TODO validation
-        if (!isset($files) || !count($files) > 0 || !isset($productID)) { return false; }
+        if (!isset($files) || !count($files) > 0 || !isset($productID)) {
+            return false;
+        }
 
         $targetUploadDir = IMAGE_PRODUCT_DIR . $productID;
 
@@ -208,7 +220,9 @@ class ProductController
 
         for ($i = 0; $i < count($files["tmp_name"]); $i++) {
             $suc = self::uploadImage($files["tmp_name"][$i], $targetUploadDir, $productID, is_numeric($mainImgID) && $i == intval($mainImgID));
-            if (!$suc && !$errors) { $errors = true; }
+            if (!$suc && !$errors) {
+                $errors = true;
+            }
         }
         return $errors;
     }
@@ -221,7 +235,9 @@ class ProductController
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
         $type = finfo_file($fInfo, $tmpFile);
 
-        if ($fileSize === 0) { return false; }
+        if ($fileSize === 0) {
+            return false;
+        }
 
         $allowed = [
             "image/png" => "png",
@@ -229,7 +245,9 @@ class ProductController
             "image/jpeg" => "jpg"
         ];
 
-        if (!in_array($type, array_keys($allowed))) { return false; }
+        if (!in_array($type, array_keys($allowed))) {
+            return false;
+        }
 
         if (!file_exists($targetUploadDir)) {
             mkdir($targetUploadDir, 0777, true);
@@ -239,7 +257,9 @@ class ProductController
 
         $imageCounter = count(glob(IMAGE_PRODUCT_DIR . $productID . DS . "*"));
 
-        if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) { return false; }
+        if ($imageCounter >= MAX_IMAGE_PER_PRODUCT) {
+            return false;
+        }
 
         $pictureID = "";    // TODO unused?
         if ($isMainImg) {
@@ -251,7 +271,9 @@ class ProductController
 
         $filePath = $targetUploadDir . DS . $pictureID . '.' . $expand;
 
-        if (!copy($tmpFile, $filePath)) { return false; }
+        if (!copy($tmpFile, $filePath)) {
+            return false;
+        }
 
         unlink($tmpFile);
 
