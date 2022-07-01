@@ -109,17 +109,17 @@
                 </div>
             </div>
 
+            <!-- active product -->
             <div class="form-group position-relative mb-1">
-                <label for="">Activate Product</label>
+                <label for="">Activate State</label>
                 <div class="input-group p-0">
-                    <input class="form-check-input" type="checkbox" id="active" name="active" <?php
-                    if (isset($product) && $product->isActive())
-                        echo "checked";
-                    else if (!isset($product))
-                        echo "checked" ?>
-                    >
-                    <label class="form-check-label" for="active">
-                        Active?
+                    <input class="form-check-input rounded" type="checkbox" id="active" name="active"
+                        <?php
+                        if ((isset($product) && $product->isActive()) || !isset($product)){
+                            echo "checked";
+                        } ?>>
+                    <label class="form-check-label ms-2" for="active">
+                        Active
                     </label>
                 </div>
             </div>
