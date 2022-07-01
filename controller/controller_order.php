@@ -68,7 +68,7 @@ class OrderController
             return Order::getAllInRange($offset, $LIMIT_OF_SHOWED_ITEMS);
         } catch (Exception $e) {
             //TODO 500 error
-            header("LOCATION: " . PAGES_DIR . 'page_error.php');
+            header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
     }
@@ -79,7 +79,7 @@ class OrderController
             return $order->delete();
         } catch (Exception $e) {
             //TODO 500 error
-            header("LOCATION: " . PAGES_DIR . 'page_error.php');
+            header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
     }

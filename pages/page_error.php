@@ -10,8 +10,13 @@
 <body class="d-flex flex-column h-100">
 
 <?php
-    if(isset($_POST["errorCode"])){
-        switch ($_POST["errorCode"]){ // TODO why?
+    if(isset($_GET["errorCode"])){
+        switch ($_GET["errorCode"]){
+            case "500":
+                $errorCode = "500";
+                $errorHead = "An error has occurred.";
+                $errorMsg = "Internal server error!";
+                break;
             case "503":
             default:
                 $errorCode = "503";
