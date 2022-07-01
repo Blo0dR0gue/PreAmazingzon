@@ -1,5 +1,4 @@
 <!-- html head file included in html head section -->
-<!-- TODO COMMENT -->
 
 <!-- default meta tags -->
 <meta charset="UTF-8"/>

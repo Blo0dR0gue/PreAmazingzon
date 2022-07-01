@@ -1,7 +1,5 @@
 <!-- site header resumed all over the website -->
 
-<!-- TODO comment -->
-
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -20,7 +18,6 @@
             </ul>
 
             <!-- search -->
-            <!-- TODO make search work -->
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get"
                   action="<?= PAGES_DIR . 'page_products.php' ?>">
                 <div class="input-group rounded">

@@ -1,6 +1,4 @@
 <?php
-//TODO Comments
-
 // redefine DIRECTORY_SEPARATOR
 /** Shorter version of DIRECTORY_SEPARATOR */
 const DS = DIRECTORY_SEPARATOR;
