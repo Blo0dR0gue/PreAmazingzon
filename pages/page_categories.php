@@ -42,10 +42,15 @@ $products = ProductController::getProductsByCategoryIDInRange($category->getId()
 <!-- main body -->
 <main class="flex-shrink-0">
     <section class="container py-4">
+        <!-- path -->
+        <?php if($category->getId() != -1){
+            echo "<i class='text-muted mb-2'>" . CategoryController::getPathToCategory($category->getId()) . "</i>";
+        } ?>
+
         <!-- category row -->
         <?php if ($page == 1) { ?>
             <div class="row mb-4">
-                <h2>Categories in '<?= $category->getName() ?>'</h2>
+                <h3>Categories in '<?= $category->getName() ?>'</h3>
                 <hr>
                 <?php
                 if(count($subCategories) > 0){
@@ -61,7 +66,7 @@ $products = ProductController::getProductsByCategoryIDInRange($category->getId()
 
         <!-- product row -->
         <div class="row">
-            <h2>Products in '<?= $category->getName() ?>'</h2>
+            <h3>Products in '<?= $category->getName() ?>'</h3>
             <hr>
             <?php
             if (count($products) > 0) {
