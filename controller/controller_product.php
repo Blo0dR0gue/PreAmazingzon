@@ -7,14 +7,9 @@ require_once MODEL_DIR . "model_category.php";
 class ProductController
 {
 
-    public static function searchProducts(string $search, bool $onlyActiveProducts): array
+    public static function searchProductsInRange(string $search, bool $onlyActiveProducts, int $offset = 0, int $amount = 8): array
     {
-        return Product::searchProducts($search, $onlyActiveProducts);
-    }
-
-    public static function searchProductsInRange(string $search, int $offset = 0, int $amount = 8): array
-    {
-        return Product::searchProductsInRange($search, true, $offset, $amount);
+        return Product::searchProductsInRange($search, $onlyActiveProducts, $offset, $amount);
     }
 
     public static function getAllProducts(): array

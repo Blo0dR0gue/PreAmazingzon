@@ -11,7 +11,7 @@ $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate t
 
 $products = [];
 if (isset($_GET["search"])) {
-    $products = ProductController::searchProductsInRange($_GET["search"], $offset, LIMIT_OF_SHOWED_ITEMS);
+    $products = ProductController::searchProductsInRange($_GET["search"], true, $offset, LIMIT_OF_SHOWED_ITEMS);
 } else {
     $products = ProductController::getProductsInRange(true, $offset, LIMIT_OF_SHOWED_ITEMS);
 }
