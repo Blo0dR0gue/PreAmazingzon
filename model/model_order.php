@@ -47,11 +47,17 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order`;");
 
-        if (!$stmt->execute()) { return 0; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return 0;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found! Amount is 0.", LOG_LVL_NOTICE);
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -68,11 +74,17 @@ class Order
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM `order` WHERE user = ?;");
         $stmt->bind_param("i", $userId);
 
-        if (!$stmt->execute()) { return 0; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return 0;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found for user " . $userId . "!", LOG_LVL_NOTICE);
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -91,11 +103,17 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE user = ? ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("iii", $userId, $amount, $offset);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found for user " . $userId . "!", LOG_LVL_NOTICE);
+            return null;
+        }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -118,11 +136,17 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` ORDER BY orderDate DESC limit ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error!", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found.", LOG_LVL_NOTICE);
+            return null;
+        }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -173,7 +197,7 @@ class Order
      */
     public function getFormattedDeliveryDate(): string
     {
-        if (isset($this->deliveryDate)){
+        if (isset($this->deliveryDate)) {
             return $this->deliveryDate->format("d.m.Y");// TODO constant
         }
         return "Not Set";
@@ -249,7 +273,10 @@ class Order
             $this->userId,
             $this->shippingAddressId
         );
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (insert)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $newId = $stmt->insert_id;
@@ -266,11 +293,17 @@ class Order
     {
         $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
         $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found for id: ".$id, LOG_LVL_NOTICE);
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -301,7 +334,10 @@ class Order
             $this->orderStateId,
             $this->userId,
             $this->shippingAddressId);
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (update)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $stmt->close();
@@ -319,7 +355,10 @@ class Order
         $stmt = getDB()->prepare("DELETE FROM `order` WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) { return false; }
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (delete)", LOG_LVL_CRITICAL);
+            return false;
+        }
 
         $stmt->close();
 

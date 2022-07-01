@@ -18,8 +18,7 @@ class Product
 
 
     /**
-     * Constructor of @link Product
-     * @param int $id
+     * Constructor of @param int $id
      * @param string $title
      * @param string $description
      * @param float $price
@@ -27,6 +26,7 @@ class Product
      * @param float $shippingCost
      * @param int|null $categoryID
      * @param bool $active
+     * @link Product
      */
     public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost, ?int $categoryID, bool $active)
     {
@@ -73,6 +73,7 @@ class Product
         $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -111,8 +112,9 @@ class Product
         $stmt = getDB()->prepare($sql);
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
-        }     // TODO ERROR handling
+        }
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -134,6 +136,7 @@ class Product
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -156,7 +159,7 @@ class Product
     {
         $products = [];
 
-        if($categoryID){
+        if ($categoryID) {
             $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ? ORDER BY id LIMIT ? OFFSET ?;");
             $stmt->bind_param("iii",
                 $categoryID,
@@ -172,6 +175,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -208,8 +212,9 @@ class Product
 
         $stmt->bind_param("sss", $searchString, $searchString, $searchString);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
-        }    // TODO ERROR handling
+        }
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -246,8 +251,9 @@ class Product
 
         $stmt->bind_param("sssii", $searchString, $searchString, $searchString, $amount, $offset);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return null;
-        }    // TODO ERROR handling
+        }
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -287,12 +293,14 @@ class Product
         }
 
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return 0;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
+            //logData("Product Model", "No items were found by search.", LOG_LVL_NOTICE);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -309,7 +317,7 @@ class Product
      */
     public static function getAmountOfProductsInCategory(?int $categoryId, bool $onlyActiveProducts): int
     {
-        if($categoryId){
+        if ($categoryId) {
             $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE category = ?";
         } else {
             $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE category IS NULL";
@@ -322,19 +330,21 @@ class Product
         }
 
         $stmt = getDB()->prepare($sql);
-        if($categoryId){
+        if ($categoryId) {
             $stmt->bind_param("i",
                 $categoryId
             );
         }
 
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
             return 0;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
+            logData("Product Model", "No items were found for category: " . $categoryId, LOG_LVL_NOTICE);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -561,8 +571,9 @@ class Product
             $this->active
         );
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (insert)", LOG_LVL_CRITICAL);
             return null;
-        }    // TODO ERROR handling
+        }
 
         // get result
         $newId = $stmt->insert_id;
@@ -592,8 +603,9 @@ class Product
             $this->active,
             $this->id);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (update)", LOG_LVL_CRITICAL);
             return null;
-        }    // TODO ERROR handling
+        }
 
         $stmt->close();
 
@@ -610,6 +622,7 @@ class Product
         $stmt->bind_param("i",
             $this->id);
         if (!$stmt->execute()) {
+            logData("Product Model", "Query execute error! (delete)", LOG_LVL_CRITICAL);
             return false;
         }
 

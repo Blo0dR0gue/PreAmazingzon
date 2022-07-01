@@ -40,7 +40,11 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -58,7 +62,10 @@ class Review
                                         WHERE product = ?
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -82,7 +89,10 @@ class Review
 
         $stmt = getDB()->prepare("SELECT id FROM review WHERE product = ? ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("iii", $productId, $amount, $offset);
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         foreach ($stmt->get_result() as $review) {
@@ -104,7 +114,10 @@ class Review
 
         $stmt->bind_param("i", $id);
 
-        if (!$stmt->execute()) { return null; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -120,7 +133,10 @@ class Review
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
         $stmt->bind_param("i", $productId);
 
-        if (!$stmt->execute()) { return 0; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return 0;
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -141,7 +157,10 @@ class Review
         $stmt = getDB()->prepare("SELECT stars AS star, COUNT(*) AS amount, ROUND(COUNT(*)/(SELECT COUNT(DISTINCT id) FROM review WHERE product = ?)*100, 2) AS percentage FROM review WHERE product = ? GROUP BY stars;");
         $stmt->bind_param("ii", $productId, $productId);
 
-        if (!$stmt->execute()) { return []; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return [];
+        }
 
         // get result
         $res = $stmt->get_result();
@@ -221,7 +240,10 @@ class Review
             $this->text,
             $this->userId,
             $this->productId);
-        if (!$stmt->execute()) { return null; }     // TODO ERROR handling
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (insert)", LOG_LVL_CRITICAL);
+            return null;
+        }
 
         // get result
         $newId = $stmt->insert_id;
@@ -239,7 +261,10 @@ class Review
         $stmt = getDB()->prepare("DELETE FROM review WHERE id = ?;");
         $stmt->bind_param("i",
             $this->id);
-        if (!$stmt->execute()) { return false; }
+        if (!$stmt->execute()) {
+            logData("Review Model", "Query execute error! (delete)", LOG_LVL_CRITICAL);
+            return false;
+        }
 
         $stmt->close();
 
