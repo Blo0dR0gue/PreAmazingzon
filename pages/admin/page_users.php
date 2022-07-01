@@ -23,7 +23,8 @@ $users = UserController::getUsersInRange($offset)
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
-    <script src="<?= SCRIPT_DIR . "admin_user_page.js" ?>"></script>
+    <!--Add page script-->
+    <script src="<?= SCRIPT_DIR . "admin_users_page.js" ?>"></script>
     <!-- Add php modal functionality -->
     <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
 </head>

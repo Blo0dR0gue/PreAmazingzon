@@ -24,6 +24,10 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
+
+    <!--Add page script-->
+    <script src="<?= SCRIPT_DIR . "admin_products_page.js" ?>"></script>
+
     <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
 </head>
 
@@ -55,8 +59,9 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
             <th scope="col" style="width: 40%">Title</th>
             <th scope="col" style="width: 7%">Price</th>
             <th scope="col" style="width: 7%">Shipping</th>
-            <th scope="col" style="width: 15%">Category</th>
+            <th scope="col" style="width: 13%">Category</th>
             <th scope="col" style="width: 5%">Stock</th>
+            <th scope="col" style="width: 5%">Active</th>
         </tr>
         </thead>
 
@@ -72,13 +77,13 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                            title="Edit product">
                             <em class="fa fa-pencil"></em>
                         </a>
-                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
-                           title="Delete product"
-                           onclick="openConfirmModal(<?= "'Do you really want to delete the Product: \'" . $product->getTitle() . "\', with ID: " . $product->getId() . "?'" ?>,
-                                   'Delete Product?',
-                                   '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_product.inc.php?id=" . $product->getId()); ?>')">
-                            <em class="fa fa-trash "></em>
-                        </a>
+                        <button
+                                class="btn btn-sm <?= $product->isActive() ? "btn-success" : "btn-warning" ?>"
+                                data-toggle="tooltip" data-placement="left"
+                                title="(De-) Activate Product"
+                                onclick="onToggleProductActivation(this, <?= $product->getId(); ?>)">
+                            <em class="fa fa-toggle-on"></em>
+                        </button>
                     </td>
 
                     <td data-th="#">
@@ -115,11 +120,16 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                     <td data-th="Stock">
                         <?= $product->getStock(); ?>
                     </td>
+
+                    <td data-th="Activce" data-id="<?= $product->getId(); ?>">
+                        <?= $product->isActive() ? 'Yes' : 'No'; ?>
+                    </td>
+
                 </tr>
             <?php endforeach;
         else: ?>
             <tr>
-                <td colspan="8" style="text-align: center">
+                <td colspan="9" style="text-align: center">
                     <p><em class="mb-3">No products are available.</em></p>
                 </td>
             </tr>
@@ -133,6 +143,9 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 
 <!-- confirm modal -->
 <?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
+
+<!-- dynamic popup modal -->
+<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>

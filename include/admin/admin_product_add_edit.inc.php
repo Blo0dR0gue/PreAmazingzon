@@ -203,4 +203,4 @@
 <!-- enable tooltips on this page (by default disabled for performance) -->
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 <!-- enable admin page tools -->
-<script src="<?= SCRIPT_DIR . "admin_pages.js" ?>"></script>
+<script src="<?= SCRIPT_DIR . "admin_add_edit_product_pages.js" ?>"></script>

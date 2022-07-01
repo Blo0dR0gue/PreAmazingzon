@@ -23,7 +23,7 @@ $orderStates = OrderStateController::getAll();
     <title><?= PAGE_NAME ?> - Admin - Orders</title>
 
     <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
-    <script src="<?= SCRIPT_DIR . "admin_order_page.js" ?>"></script>
+    <script src="<?= SCRIPT_DIR . "admin_orders_page.js" ?>"></script>
 
 </head>
 
