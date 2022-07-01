@@ -22,6 +22,15 @@ class ProductController
         return Product::getProductsInRange($offset, $amount, $onlyActiveProducts);
     }
 
+    public static function getProductsByCategoryIDInRange(int $categoryId, int $offset = 0, int $amount = 8): array
+    {
+        if($categoryId != -1){
+            return Product::getProductsByCategoryIDInRange($categoryId, $offset, $amount);
+        } else {
+            return Product::getProductsByCategoryIDInRange(null, $offset, $amount);
+        }
+    }
+
     public static function getRandomProducts(int $amount = 4): array
     {
         return Product::getRandomProducts($amount);
@@ -148,6 +157,22 @@ class ProductController
         return Product::getAmountOfProducts($searchFilter, true);
     }
 
+    /**
+     * Returns the amounts of products stored in a given category.
+     * @param int $categoryId CategoryId in which to count the products
+     * @return int  The amount of found products
+     */
+    public static function getAmountOfActiveProductsInCategory(int $categoryId): int
+    {
+        if($categoryId != -1) {
+            return Product::getAmountOfProductsInCategory($categoryId, true);
+        } else {
+            return Product::getAmountOfProductsInCategory(null, true);
+        }
+
+    }
+
+    // region image related
     public static function deleteSelectedImages(?int $productID, ?array $fileNames): bool
     {
         // TODO validation
@@ -290,4 +315,5 @@ class ProductController
         }
         return $randomString;
     }
+    // endregion
 }

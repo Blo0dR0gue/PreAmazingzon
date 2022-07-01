@@ -18,6 +18,7 @@ class Product
 
 
     /**
+     * Constructor of @link Product
      * @param int $id
      * @param string $title
      * @param string $description
@@ -25,6 +26,7 @@ class Product
      * @param int $stock
      * @param float $shippingCost
      * @param int|null $categoryID
+     * @param bool $active
      */
     public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost, ?int $categoryID, bool $active)
     {
@@ -144,19 +146,34 @@ class Product
     }
 
     /**
-     * Selects all products with the passed category id.
-     * @param int $categoryID The id of the category.
+     * Selects all **active** products within a given category and range (for paging).
+     * @param int|null $categoryID The id of the category.
+     * @param int $offset The first row, which should be selected.
+     * @param int $amount The amount of rows, which should be selected.
      * @return array|null An Array of the found products or null, if an error occurred.
      */
-    public static function getProductsByCategoryID(int $categoryID): ?array
+    public static function getProductsByCategoryIDInRange(?int $categoryID, int $offset, int $amount): ?array
     {
         $products = [];
 
-        $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ?;");
-        $stmt->bind_param("i", $categoryID);
+        if($categoryID){
+            $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ? ORDER BY id LIMIT ? OFFSET ?;");
+            $stmt->bind_param("iii",
+                $categoryID,
+                $amount,
+                $offset
+            );
+        } else {
+            $stmt = getDB()->prepare("SELECT id FROM product WHERE category IS NULL ORDER BY id LIMIT ? OFFSET ?;");
+            $stmt->bind_param("ii",
+                $amount,
+                $offset
+            );
+        }
+
         if (!$stmt->execute()) {
             return null;
-        }     // TODO ERROR handling
+        }
 
         // get result
         foreach ($stmt->get_result() as $product) {
@@ -172,7 +189,7 @@ class Product
      * @param bool $onlyActiveProducts Set it to true to only search for active products.
      * @return array|null An array with the found products or null, if an error occurred.
      */
-    public static function searchProducts(string $searchString, bool $onlyActiveProducts): ?array
+    public static function searchProducts(string $searchString, bool $onlyActiveProducts): ?array   // TODO unused?
     {
         $products = [];
 
@@ -284,6 +301,48 @@ class Product
         return $res["count"];
     }
 
+    /**
+     * Returns the amounts of products stored in a given category.
+     * @param int|null $categoryId CategoryId in which to count the products
+     * @param bool $onlyActiveProducts Set it to true to only count active products
+     * @return int  The amount of found products
+     */
+    public static function getAmountOfProductsInCategory(?int $categoryId, bool $onlyActiveProducts): int
+    {
+        if($categoryId){
+            $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE category = ?";
+        } else {
+            $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE category IS NULL";
+        }
+
+        if ($onlyActiveProducts) {
+            $sql .= " AND active = 1;";
+        } else {
+            $sql .= ";";
+        }
+
+        $stmt = getDB()->prepare($sql);
+        if($categoryId){
+            $stmt->bind_param("i",
+                $categoryId
+            );
+        }
+
+        if (!$stmt->execute()) {
+            return 0;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            return 0;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["count"];
+    }
+
     // region getter & setter
 
     /**
@@ -318,7 +377,6 @@ class Product
         return $this->description;
     }
 
-
 // TODO deal with shipping cost? per amount or add after?
 
     /**
@@ -329,6 +387,10 @@ class Product
         $this->description = $description;
     }
 
+    /**
+     * @param int $amount Amount of items of this product
+     * @return string Formatted price for $amount products
+     */
     public function getPriceFormatted(int $amount = 1): string
     {
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
@@ -350,6 +412,9 @@ class Product
         $this->price = $price;
     }
 
+    /**
+     * @return string Formatted 'original' before 'discount' price
+     */
     public function getOriginalPriceFormatted(): string
     {
         $originalPrice = $this->getPrice() + rand(1, DISCOUNT_VARIATION);
@@ -372,6 +437,9 @@ class Product
         $this->stock = $stock;
     }
 
+    /**
+     * @return string Formatted Shipping Cost
+     */
     public function getShippingCostFormatted(): string
     {
         return number_format($this->getShippingCost(), 2, ".", "") . CURRENCY_SYMBOL;
@@ -428,7 +496,7 @@ class Product
     // endregion
 
 
-    // region extra attributes
+    // region image attribute
 
     /**
      * Gets the mainImg.
@@ -532,7 +600,6 @@ class Product
         return self::getById($this->id);
     }
 
-
     /**
      * Deletes itself from the database.
      * @return bool true, if the product got deleted.
@@ -550,5 +617,4 @@ class Product
 
         return self::getById($this->id) == null;
     }
-
 }
