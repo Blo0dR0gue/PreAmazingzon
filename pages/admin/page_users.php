@@ -24,6 +24,7 @@ $users = UserController::getUsersInRange($offset)
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
     <script src="<?= SCRIPT_DIR . "admin_user_page.js" ?>"></script>
+    <!-- Add php modal functionality -->
     <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
 </head>
 
@@ -57,60 +58,59 @@ $users = UserController::getUsersInRange($offset)
         <!-- table body -->
         <tbody>
         <?php
-        if(isset($users)) {
-        foreach ($users as $user): ?>
-            <tr>
-                <td class="align-middle" data-th="">
-                    <button
-                            class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
-                            data-toggle="tooltip" data-placement="left"
-                            title="(De-) Activate User"
-                            onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
-                        <em class="fa fa-toggle-on"></em>
-                    </button>
-                    <!--TODO make admin button?-->
-                    <!--TODO user delete -->
-                    <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
-                       title="Delete user"
-                       onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
-                               'Delete User?',
-                               '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
-                        <em class="fa fa-trash "></em>
-                    </a>
-                </td>
+        if (isset($users)) {
+            foreach ($users as $user): ?>
+                <tr>
+                    <td class="align-middle" data-th="">
+                        <button
+                                class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
+                                data-toggle="tooltip" data-placement="left"
+                                title="(De-) Activate User"
+                                onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
+                            <em class="fa fa-toggle-on"></em>
+                        </button>
+                        <!--TODO make admin button?-->
+                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
+                           title="Delete user"
+                           onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
+                                   'Delete User?',
+                                   '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_user.inc.php?id=" . $user->getId()); ?>')">
+                            <em class="fa fa-trash "></em>
+                        </a>
+                    </td>
 
-                <td data-th="#">
-                    <strong><?= $user->getID(); ?></strong>
-                </td>
+                    <td data-th="#">
+                        <strong><?= $user->getID(); ?></strong>
+                    </td>
 
-                <td data-th="E-Mail">
-                    <?= $user->getEmail(); ?>
-                </td>
+                    <td data-th="E-Mail">
+                        <?= $user->getEmail(); ?>
+                    </td>
 
-                <td data-th="Firstname">
-                    <?= $user->getFirstName(); ?>
-                </td>
+                    <td data-th="Firstname">
+                        <?= $user->getFirstName(); ?>
+                    </td>
 
-                <td data-th="Lastname">
-                    <?= $user->getLastName(); ?>
-                </td>
+                    <td data-th="Lastname">
+                        <?= $user->getLastName(); ?>
+                    </td>
 
-                <td data-th="Primary Address ID">
-                    <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
-                </td>
+                    <td data-th="Primary Address ID">
+                        <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
+                    </td>
 
-                <td data-th="Active" data-id="<?= $user->getId(); ?>">
-                    <?= $user->isActive() ? "Yes" : "No"; ?>
-                </td>
-            </tr>
-        <?php endforeach;
+                    <td data-th="Active" data-id="<?= $user->getId(); ?>">
+                        <?= $user->isActive() ? "Yes" : "No"; ?>
+                    </td>
+                </tr>
+            <?php endforeach;
         } else { ?>
             <tr>
                 <td colspan="7" style="text-align: center">
                     <p><em class="mb-3">No users are available.</em></p>
                 </td>
             </tr>
-        <?php }?>
+        <?php } ?>
         </tbody>
     </table>
 </main>
@@ -121,25 +121,14 @@ $users = UserController::getUsersInRange($offset)
 <!-- confirm modal -->
 <?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
 
+<!-- dynamic popup modal -->
+<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
-
-<!-- show info popup -->
-<?php
-if (isset($_GET["deleted"]) || isset($_GET["other"])) {   // success messages
-    $msg = "";
-    if (isset($_GET["deleted"])) {
-        $msg = "The user got deleted!";
-    } else if (isset($_GET["other"])) {
-        $msg = "test";  // TODO remove
-    }
-
-    show_popup("Users", $msg);
-}
-?>
 
 </body>
 </html>
