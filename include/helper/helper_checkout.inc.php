@@ -7,7 +7,7 @@ require_once "../site_php_head.inc.php";
 UserController::redirectIfNotLoggedIn();
 
 // Redirect back or to the shopping cart, if a post variable is not set.
-if (!isset($_POST["delivery"]) || empty($_POST["delivery"]) || !isset($_POST["payment"]) || // TODO Condition is unnecessary because it is checked by 'empty($_POST["delivery"])
+if (empty($_POST["delivery"]) || !isset($_POST["payment"]) ||
     !is_string($_POST["delivery"]) || !is_string($_POST["payment"])) {
 
     logData("Checkout", "Value is missing or does not have the correct datatype!", LOG_LVL_CRITICAL);
