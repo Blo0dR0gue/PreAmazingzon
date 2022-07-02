@@ -235,8 +235,8 @@ class Category
     public static function getAmountOfCategories(?string $searchString): int
     {
         if (isset($searchString)) {
-            $searchFilter = strtolower($searchString);  // TODO unused?
-            $searchString = "%$searchString%";
+            $searchFilter = strtolower($searchString);
+            $searchString = "%$searchFilter%";
             $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) as count FROM category AS c WHERE LOWER(c.description) LIKE ? OR LOWER(c.name) LIKE ?;");
 
             $stmt->bind_param("sss", $searchString, $searchString, $searchString);
