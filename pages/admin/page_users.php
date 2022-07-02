@@ -60,16 +60,16 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
 
         <!-- table body -->
         <tbody>
-        <?php
-        if (isset($users) && count($users) > 0) {
-            foreach ($users as $user): ?>
+        <?php if (isset($users) && count($users) > 0) {
+            foreach ($users as $user) { ?>
+                <!-- table row -->
                 <tr>
-                    <td class="align-middle" data-th="">
+                    <!-- buttons -->
+                    <td data-th="" class="align-middle">
                         <!--Enable/Disable user-->
                         <button
                                 class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
-                                data-toggle="tooltip" data-placement="left"
-                                title="(De-) Activate User"
+                                data-toggle="tooltip" data-placement="left" title="(De-) Activate User"
                                 onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
                             <em class="fa <?= $user->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>"
                                 id="activeBtnImg<?= $user->getId() ?>"></em>
@@ -78,8 +78,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                         <!--Toggle admin status-->
                         <button
                                 class="btn btn-sm <?= $user->getRoleId() == $adminUserRole->getId() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Toggle User Admin"
+                                data-toggle="tooltip" data-placement="left" title="Toggle User Admin"
                                 onclick="onToggleUserRole(this, <?= $user->getId(); ?>)">
                             <em class="fa <?= $user->getRoleId() == $adminUserRole->getId() ? "fa-toggle-on" : "fa-toggle-off" ?>"
                                 id="adminBtnImg<?= $user->getId() ?>"></em>
@@ -95,36 +94,35 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                         </a>
                     </td>
 
-                    <td data-th="#">
+                    <td data-th="#" class="align-middle">
                         <strong><?= $user->getID(); ?></strong>
                     </td>
 
-                    <td data-th="E-Mail">
+                    <td data-th="E-Mail" class="align-middle">
                         <?= $user->getEmail(); ?>
                     </td>
 
-                    <td data-th="Firstname">
+                    <td data-th="Firstname" class="align-middle">
                         <?= $user->getFirstName(); ?>
                     </td>
 
-                    <td data-th="Lastname">
+                    <td data-th="Lastname" class="align-middle">
                         <?= $user->getLastName(); ?>
                     </td>
 
-                    <td data-th="Primary Address ID">
+                    <td data-th="Primary Address ID" class="align-middle">
                         <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
                     </td>
 
-                    <td data-th="Active" data-activeUserId="<?= $user->getId(); ?>">
+                    <td data-th="Active" class="align-middle" data-activeUserId="<?= $user->getId(); ?>">
                         <?= $user->isActive() ? "Yes" : "No"; ?>
                     </td>
 
-                    <td data-th="Role" data-roleUserId="<?= $user->getId(); ?>">
+                    <td data-th="Role" class="align-middle" data-roleUserId="<?= $user->getId(); ?>">
                         <?= $user->getRoleId() == $adminUserRole->getId() ? $adminUserRole->getName() : $defaultUserRole->getName(); ?>
                     </td>
-
                 </tr>
-            <?php endforeach;
+            <?php }
         } else { ?>
             <tr>
                 <td colspan="8" style="text-align: center">
