@@ -7,6 +7,14 @@ const LOG_LVL_CRITICAL = 3;
 const LOG_LVL_EMERGENCY = 4;
 const LOG_LVL_DEBUG = 5;
 
+/**
+ * Creates a log entry
+ * @param string $caller The caller for the log.
+ * @param string $message The message of the log.
+ * @param int $level The log level. (Use the defined constants)
+ * @param array|null $data A data array which should be added to the log.
+ * @return void
+ */
 function logData(string $caller, string $message, int $level = LOG_LVL_INFO, ?array $data = null): void
 {
     $today = date("Y-m-d");
