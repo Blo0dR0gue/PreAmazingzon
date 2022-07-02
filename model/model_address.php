@@ -1,9 +1,7 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add database
 require_once(INCLUDE_DIR . "database.inc.php");
-
 
 class Address
 {
@@ -112,6 +110,7 @@ class Address
     }
 
     /**
+     * Gets the database id for the object.
      * @return int
      */
     public function getId(): int
@@ -120,7 +119,8 @@ class Address
     }
 
     /**
-     * @return string
+     * Gets the street name.
+     * @return string The street name.
      */
     public function getStreet(): string
     {
@@ -128,19 +128,8 @@ class Address
     }
 
     /**
-     * @param string $street
-     */
-    public function setStreet(string $street): void
-    {
-        $this->street = $street;
-    }
-
-    // endregion
-
-    // region setter
-
-    /**
-     * @return string
+     * Gets the street number.
+     * @return string The street number
      */
     public function getNumber(): string
     {
@@ -148,15 +137,8 @@ class Address
     }
 
     /**
-     * @param string $number
-     */
-    public function setNumber(string $number): void
-    {
-        $this->number = $number;
-    }
-
-    /**
-     * @return string
+     * Gets the zip code.
+     * @return string The zip code.
      */
     public function getZip(): string
     {
@@ -164,7 +146,48 @@ class Address
     }
 
     /**
-     * @param string $zip
+     * Gets the name of the city.
+     * @return string The citiy name.
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * Gets the id of the user to which this address belongs.
+     * @return int The user id.
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    // endregion
+
+    // region setter
+
+    /**
+     * Sets the street name
+     * @param string $street The street name.
+     */
+    public function setStreet(string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * Sets the street number.
+     * @param string $number The street number.
+     */
+    public function setNumber(string $number): void
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * Sets the zip code.
+     * @param string $zip The zip code.
      */
     public function setZip(string $zip): void
     {
@@ -172,17 +195,8 @@ class Address
     }
 
     /**
-     * @return string
-     */
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    // endregion
-
-    /**
-     * @param string $city
+     * Sets the name of the city.
+     * @param string $city The name
      */
     public function setCity(string $city): void
     {
@@ -190,21 +204,20 @@ class Address
     }
 
     /**
-     * @return int
-     */
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @param int $userId
+     * Sets the id of the user to which this address belongs.
+     * @param int $userId The user id.
      */
     public function setUserId(int $userId): void
     {
         $this->userId = $userId;
     }
 
+    // endregion
+
+    /**
+     * Creates a new {@link Address} inside the database.
+     * @return Address|null The created {@link Address} or null, if an error occurred.
+     */
     public function insert(): ?Address
     {
         $stmt = getDB()->prepare("INSERT INTO address(street, zipCode, streetNumber, city, user) 
@@ -227,6 +240,10 @@ class Address
         return self::getById($newId);
     }
 
+    /**
+     * Updates an {@link Address} in the database.
+     * @return Address|null The updated {@link Address} or null, if an error occurred.
+     */
     public function update(): ?Address
     {
         $stmt = getDB()->prepare("UPDATE address 
@@ -253,8 +270,23 @@ class Address
         return self::getById($this->id);
     }
 
-    public function delete(): void
+    /**
+     * Deletes an {@link Address} from the database.
+     * @return bool true, if it was successfully.
+     */
+    public function delete(): bool
     {
-        // TODO
+        $stmt = getDB()->prepare("DELETE FROM address 
+                                        WHERE id = ?;");
+        $stmt->bind_param("i",
+            $this->userId);
+        if (!$stmt->execute()) {
+            logData("Address Model", "Item with id: " . $this->userId . " could not be deleted!", LOG_LVL_CRITICAL);
+            return false;
+        }
+
+        $stmt->close();
+
+        return true;
     }
 }

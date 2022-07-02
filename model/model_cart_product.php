@@ -1,7 +1,6 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class CartProduct
@@ -44,7 +43,7 @@ class CartProduct
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_LVL_NOTICE);
             return null;
         }
 
@@ -66,12 +65,14 @@ class CartProduct
     {
         $stmt = getDB()->prepare("SELECT COUNT(*) AS count FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $userId);
-        if (!$stmt->execute()) { return 0; }
+        if (!$stmt->execute()) {
+            return 0;
+        }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items were found for user with id: ". $userId . "!", LOG_LVL_NOTICE);
+            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_LVL_NOTICE);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -81,11 +82,57 @@ class CartProduct
     }
 
     /**
-     * @return int
+     * Get an existing cartProduct by its id combination.
+     *
+     * @param int $productId related product id
+     * @param int $userId related user id
+     * @return CartProduct|null corresponding cartProduct
+     */
+    public static function getById(int $productId, int $userId): ?CartProduct
+    {
+        $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
+        $stmt->bind_param("ii", $userId, $productId);
+        if (!$stmt->execute()) {
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Cart Product Model", "No items got selected for id: " . $productId, LOG_LVL_CRITICAL);
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new CartProduct($res["user"], $res["product"], $res["amount"]);
+    }
+
+    /**
+     * Gets the user id for this cart entry.
+     * @return int The user id.
      */
     public function getUserId(): int
     {
         return $this->userId;
+    }
+
+    /**
+     * Gets the product id for this cart entry.
+     * @return int The product id.
+     */
+    public function getProdId(): int
+    {
+        return $this->prodId;
+    }
+
+    /**
+     * Gets the amount of the product for this cart entry.
+     * @return int The amount.
+     */
+    public function getAmount(): int
+    {
+        return $this->amount;
     }
 
     // endregion
@@ -93,31 +140,20 @@ class CartProduct
     // region setter
 
     /**
-     * @return int
-     */
-    public function getProdId(): int
-    {
-        return $this->prodId;
-    }
-
-    // endregion
-
-    /**
-     * @return int
-     */
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param int $amount
+     * Sets the amount for the product of this cart entry.
+     * @param int $amount The amount.
      */
     public function setAmount(int $amount): void
     {
         $this->amount = $amount;
     }
 
+    //endregion
+
+    /**
+     * Creates a new {@link CartProduct} inside the database.
+     * @return $this|null The created {@link CartProduct} or null, if an error occurred.
+     */
     public function insert(): ?CartProduct
     {
         $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?);");
@@ -135,6 +171,10 @@ class CartProduct
         return $this;        // no e.g. autoincrement values, object is inserted as is
     }
 
+    /**
+     * Updates the {@link CartProduct} inside the database.
+     * @return CartProduct|null The updated {@link CartProduct} or null, if an error occurred.
+     */
     public function update(): ?CartProduct
     {
         $stmt = getDB()->prepare("UPDATE shoppingcart_product 
@@ -155,30 +195,9 @@ class CartProduct
     }
 
     /**
-     * Get an existing cartProduct by its id combination.
-     *
-     * @param int $productId related product id
-     * @param int $userId related user id
-     * @return CartProduct|null corresponding cartProduct
+     * Deletes the {@link CartProduct} from the database
+     * @return bool true, if the item got deleted successfully.
      */
-    public static function getById(int $productId, int $userId): ?CartProduct
-    {
-        $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
-        $stmt->bind_param("ii", $userId, $productId);
-        if (!$stmt->execute()) { return null; }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items got selected for id: " . $productId, LOG_LVL_CRITICAL);
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new CartProduct($res["user"], $res["product"], $res["amount"]);
-    }
-
     public function delete(): bool
     {
         $stmt = getDB()->prepare("DELETE FROM shoppingcart_product 

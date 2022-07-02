@@ -1,7 +1,6 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Category
@@ -30,6 +29,12 @@ class Category
         $this->parentID = $parentID;
     }
 
+    //region getter
+
+    /**
+     * Gets all categories stored inside the database.
+     * @return array An array with all {@link Category} objects
+     */
     public static function getAll(): array
     {
         $categories = [];
@@ -51,6 +56,11 @@ class Category
         return $categories;
     }
 
+    /**
+     * Gets a {@link Category} by its id.
+     * @param int|null $id The id of the category.
+     * @return Category|null The {@link Category} from the database or null, if not found.
+     */
     public static function getById(?int $id): ?Category
     {
         if ($id == null) {
@@ -76,6 +86,11 @@ class Category
         return new Category($id, $res["name"], $res["description"], $res["parent"]);
     }
 
+    /**
+     * Gets a {@link Category} by its name.
+     * @param string $name The id of the category.
+     * @return Category|null The {@link Category} from the database or null, if not found.
+     */
     public static function getByName(string $name): ?Category
     {
         $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
@@ -97,6 +112,11 @@ class Category
         return new Category($res["id"], $name, $res["description"], $res["parent"]);
     }
 
+    /**
+     * Gets the full path to a {@link Category} from the root {@link Category}.
+     * @param int $categoryID The id of the searched category.
+     * @return string The path string.
+     */
     public static function getPathToCategory(int $categoryID): string
     {
         $stmt = getDB()->prepare("with recursive tree as (
@@ -114,7 +134,7 @@ class Category
                     WHERE t.id = ?;");
         $stmt->bind_param("i", $categoryID);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            logData("Category Model", "Query execute error! (get path)", LOG_LVL_CRITICAL);
             return "";
         }
 
@@ -129,6 +149,11 @@ class Category
         return $res["category_path"];
     }
 
+    /**
+     * Gets all sub {@link Category} objects for a specific {@link Category}
+     * @param int|null $superId The id of the root {@link Category}.
+     * @return array|null An array with all sub {@link Category} objects.
+     */
     public static function getSubCategories(?int $superId): ?array
     {
         $categories = [];
@@ -142,7 +167,7 @@ class Category
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent IS NULL ORDER BY id;");
         }
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            logData("Category Model", "Query execute error! (get subs)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -154,6 +179,14 @@ class Category
         return $categories;
     }
 
+    /**
+     * Gets the full tree for all categories. <br>
+     * Each entry has the key "root", "top" and "path" <br>
+     * "root" is the lowest point of the subtree. <br>
+     * "top" is the head of the subtree. <br>
+     * "path" is the full path for this subtree.
+     * @return array An array witch each subtree.
+     */
     public static function getCategoryTree(): array
     {
         $categoryIDs = [];
@@ -174,7 +207,7 @@ class Category
                     ORDER BY t.category_path;");
 
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            logData("Category Model", "Query execute error! (create tree)", LOG_LVL_CRITICAL);
             return [];
         }
 
@@ -197,7 +230,7 @@ class Category
     /**
      * Returns the amounts of categories stored in the database using a filter, if it is defined.
      * @param string|null $searchString Filter used to test, if the passed string is in the description, the title of a category.
-     * @return int  The amount of found categories.
+     * @return int The amount of found categories.
      */
     public static function getAmountOfCategories(?string $searchString): int
     {
@@ -212,6 +245,7 @@ class Category
         }
 
         if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error! (get amount by search)", LOG_LVL_CRITICAL);
             return 0;
         }
 
@@ -240,7 +274,7 @@ class Category
         $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_LVL_CRITICAL);
+            logData("Category Model", "Query execute error (get in range)!", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -255,7 +289,8 @@ class Category
     // region getter & setter
 
     /**
-     * @return int
+     * Gets the database id.
+     * @return int The id.
      */
     public function getId(): int
     {
@@ -263,7 +298,8 @@ class Category
     }
 
     /**
-     * @return string
+     * Gets the name of the category.
+     * @return string The name.
      */
     public function getName(): string
     {
@@ -271,7 +307,8 @@ class Category
     }
 
     /**
-     * @return string
+     * Gets the description of the category.
+     * @return string The description
      */
     public function getDescription(): string
     {
@@ -279,15 +316,21 @@ class Category
     }
 
     /**
-     * @return null|int
+     * Gets the parent category id.
+     * @return null|int The id or null, if root.
      */
     public function getParentID(): ?int
     {
         return $this->parentID;
     }
 
+    //endregion
+
+    //region setter
+
     /**
-     * @param string $name
+     * Sets the name of the category.
+     * @param string $name The name.
      */
     public function setName(string $name): void
     {
@@ -295,7 +338,8 @@ class Category
     }
 
     /**
-     * @param string $description
+     * Sets the description of the category.
+     * @param string $description The description
      */
     public function setDescription(string $description): void
     {
@@ -303,7 +347,8 @@ class Category
     }
 
     /**
-     * @param int|null $parentID
+     * Sets the parent category id.
+     * @param int|null $parentID The parent id or null for root.
      */
     public function setParentID(?int $parentID): void
     {
@@ -312,6 +357,10 @@ class Category
 
     // endregion
 
+    /**
+     * Creates a new {@link Category} inside the database.
+     * @return Category|null The created {@link Category} or null, if an error occurred.
+     */
     public function insert(): ?Category
     {
         $stmt = getDB()->prepare("INSERT INTO category(name, description, parent) 
@@ -333,6 +382,10 @@ class Category
         return self::getById($newId);
     }
 
+    /**
+     * Updates an {@link Category} inside the database.
+     * @return Category|null The updated {@link Category} or null, if an error occurred.
+     */
     public function update(): ?Category
     {
         $stmt = getDB()->prepare("UPDATE category 
