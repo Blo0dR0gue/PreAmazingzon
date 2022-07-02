@@ -1,10 +1,10 @@
-<!-- TODO comment -->
-
 <?php
+//Is the cart product set and an CartProduct object
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
     ?>
     <tr>
+        <!--region product details-->
         <td data-th="Product">
             <div class="row">
                 <a href="<?= PAGES_DIR . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
@@ -24,7 +24,13 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
                 </div>
             </div>
         </td>
+        <!--endregion-->
+
+        <!--region product price-->
         <td data-th="Price"><?= $product->getPriceFormatted() ?></td>
+        <!--endregion-->
+
+        <!--region product amount-->
         <td data-th="Quantity">
             <div class="d-flex justify-content-center">
                 <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
@@ -38,16 +44,22 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
                 </a>
             </div>
         </td>
+        <!--endregion-->
+        <!--Cost for the amount of this product-->
         <td data-th="Subtotal"><?= $product->getPriceFormatted($cartProduct->getAmount()) ?></td>
+
+        <!--Action buttons-->
         <td data-th="" class="actions">
             <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
                class="btn btn-close btn-md mb-2"></a>
         </td>
+
     </tr>
     <?php
     // save price for super script calculating total
     $subtotal = $product->getPrice($cartProduct->getAmount());
 } else {
+    //If product not found
     $subtotal = 0;
 }
 ?>

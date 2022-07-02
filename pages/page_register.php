@@ -1,8 +1,8 @@
-<!-- TODO COMMENT -->
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home
+//if already logged in redirect to home
+if (UserController::isCurrentSessionLoggedIn()) {
     header("LOCATION: " . ROOT_DIR);
     die();
 }
@@ -152,7 +152,7 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <!-- enable tooltips on this page (by default disabled for performance)-->
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
-<!-- show error popup -->
+<!-- show message popups -->
 <?php
 if (isset($registerError)) {
     show_popup(
