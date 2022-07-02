@@ -18,7 +18,7 @@ require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPAR
 
 // load logger
 require_once INCLUDE_DIR . "logger.inc.php";
-const MIN_LOG_LEVEL = LOG_INFO;
+const MIN_LOG_LEVEL = INFO_LOG;
 
 // include controllers
 require_once CONTROLLER_DIR . 'controller_address.php';

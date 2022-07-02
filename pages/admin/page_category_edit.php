@@ -11,12 +11,12 @@ if (isset($categoryID) && is_numeric($categoryID)) {
     $category = CategoryController::getByID(intval($categoryID));
 
     if (!isset($category)) {
-        logData("Edit Category", "Category with id " . $categoryID . "not found!", LOG_WARNING);
+        logData("Edit Category", "Category with id " . $categoryID . "not found!", WARNING_LOG);
         header("LOCATION: " . ADMIN_PAGES_DIR . "page_categories.php"); // Redirect, if no category is found.
         die();
     }
 } else {
-    logData("Edit Category", "Missing value!", LOG_WARNING);
+    logData("Edit Category", "Missing value!", WARNING_LOG);
     header("LOCATION: " . ADMIN_PAGES_DIR . "page_categories.php"); // Redirect, if no number is passed.
     die();
 }
@@ -40,7 +40,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     }
     $processingError = true;
 }else if($isPost){
-    logData("Edit Category", "Missing values!", LOG_WARNING);
+    logData("Edit Category", "Missing values!", WARNING_LOG);
     $processingError = true;
 }
 ?>

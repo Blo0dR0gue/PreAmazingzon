@@ -16,7 +16,7 @@ function getDB(): mysqli
     try {
         $db = new MYSQLI(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT);
     } catch (mysqli_sql_exception $e) {
-        logData("Database", "Connection error.", LOG_CRITICAL);
+        logData("Database", "Connection error.", CRITICAL_LOG);
         //Redirect to error page.
         require_once "paths.inc.php";
         header("LOCATION: " . PAGES_DIR . 'page_error.php');
@@ -25,7 +25,7 @@ function getDB(): mysqli
 
     if ($db->connect_errno) {
         //echo $db->connect_error;
-        logData("Database", "Connection error.", LOG_CRITICAL);
+        logData("Database", "Connection error.", CRITICAL_LOG);
         //Redirect to error page.
         require_once "paths.inc.php";
         header("LOCATION: " . PAGES_DIR . 'page_error.php');

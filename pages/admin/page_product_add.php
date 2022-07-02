@@ -32,7 +32,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     $processingError = true;
 }else if($isPost){
-    logData("Add Product", "Missing values!", LOG_WARNING);
+    logData("Add Product", "Missing values!", WARNING_LOG);
     $processingError = true;
 }
 ?>

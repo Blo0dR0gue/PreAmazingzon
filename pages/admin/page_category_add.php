@@ -22,9 +22,9 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         die();
     }
     $processingError = true;
-    logData("Add Category", "Category could not be created!", LOG_CRITICAL);
+    logData("Add Category", "Category could not be created!", CRITICAL_LOG);
 }else if($isPost){
-    logData("Add Category", "Missing values!", LOG_WARNING);
+    logData("Add Category", "Missing values!", WARNING_LOG);
     $processingError = true;
 }
 ?>

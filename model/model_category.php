@@ -43,7 +43,7 @@ class Category
         $result = getDB()->query("SELECT id FROM category;");
 
         if (!$result) {
-            logData("Category Model", "No items were found!", LOG_NOTICE);
+            logData("Category Model", "No items were found!", NOTICE_LOG);
             return [];
         }
 
@@ -70,14 +70,14 @@ class Category
         $stmt = getDB()->prepare("SELECT * FROM category WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_CRITICAL);
+            logData("Category Model", "Query execute error!", CRITICAL_LOG);
             return null;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Category Model", "No items were found for id: " . $id, LOG_NOTICE);
+            logData("Category Model", "No items were found for id: " . $id, NOTICE_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -96,14 +96,14 @@ class Category
         $stmt = getDB()->prepare("SELECT * FROM category WHERE name = ?;");
         $stmt->bind_param("s", $name);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error!", LOG_CRITICAL);
+            logData("Category Model", "Query execute error!", CRITICAL_LOG);
             return null;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Category Model", "No items were found for name: " . $name, LOG_NOTICE);
+            logData("Category Model", "No items were found for name: " . $name, NOTICE_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -134,7 +134,7 @@ class Category
                     WHERE t.id = ?;");
         $stmt->bind_param("i", $categoryID);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (get path)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (get path)", CRITICAL_LOG);
             return "";
         }
 
@@ -167,7 +167,7 @@ class Category
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent IS NULL ORDER BY id;");
         }
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (get subs)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (get subs)", CRITICAL_LOG);
             return null;
         }
 
@@ -207,14 +207,14 @@ class Category
                     ORDER BY t.category_path;");
 
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (create tree)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (create tree)", CRITICAL_LOG);
             return [];
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Category Model", "Tree could not be created. No Categories found!", LOG_NOTICE);
+            logData("Category Model", "Tree could not be created. No Categories found!", NOTICE_LOG);
             return [];
         }
 
@@ -245,14 +245,14 @@ class Category
         }
 
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (get amount by search)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (get amount by search)", CRITICAL_LOG);
             return 0;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Category Model", "No Items were found for search.", LOG_NOTICE);
+            logData("Category Model", "No Items were found for search.", NOTICE_LOG);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -274,7 +274,7 @@ class Category
         $stmt = getDB()->prepare("SELECT id FROM category ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error (get in range)!", LOG_CRITICAL);
+            logData("Category Model", "Query execute error (get in range)!", CRITICAL_LOG);
             return null;
         }
 
@@ -371,7 +371,7 @@ class Category
             $this->parentID
         );
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (insert)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
         }
 
@@ -400,7 +400,7 @@ class Category
             $this->id
         );
         if (!$stmt->execute()) {
-            logData("Category Model", "Query execute error! (update)", LOG_CRITICAL);
+            logData("Category Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
         }
 

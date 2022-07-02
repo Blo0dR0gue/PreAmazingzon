@@ -2,11 +2,11 @@
 // module for logging all server internal errors and information to a central file
 
 // define log lovely constraints
-const LOG_DEBUG = 1;
-const LOG_INFO = 2;
-const LOG_NOTICE = 3;
-const LOG_WARNING = 4;
-const LOG_CRITICAL = 5;
+const DEBUG_LOG = 1;
+const INFO_LOG = 2;
+const NOTICE_LOG = 3;
+const WARNING_LOG = 4;
+const CRITICAL_LOG = 5;
 
 /**
  * Creates a log entry in './assets/logs/'
@@ -16,7 +16,7 @@ const LOG_CRITICAL = 5;
  * @param array|null $data A data array which should be added to the log.
  * @return void
  */
-function logData(string $caller, string $message, int $level = LOG_INFO, ?array $data = null): void
+function logData(string $caller, string $message, int $level = INFO_LOG, ?array $data = null): void
 {
     // only log if min log level is less or equal the given level
     if (MIN_LOG_LEVEL <= $level){
@@ -31,19 +31,19 @@ function logData(string $caller, string $message, int $level = LOG_INFO, ?array 
 
         switch ($level) {
             default:
-            case LOG_INFO:
+            case INFO_LOG:
                 $lvl = "INFO";
                 break;
-            case LOG_DEBUG:
+            case DEBUG_LOG:
                 $lvl = "DEBUG";
                 break;
-            case LOG_NOTICE:
+            case NOTICE_LOG:
                 $lvl = "NOTICE";
                 break;
-            case LOG_WARNING:
+            case WARNING_LOG:
                 $lvl = "WARNING";
                 break;
-            case LOG_CRITICAL:
+            case CRITICAL_LOG:
                 $lvl = "CRITICAL";
                 break;
         }

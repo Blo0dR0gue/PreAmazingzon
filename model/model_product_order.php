@@ -40,7 +40,7 @@ class ProductOrder
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE product = ? AND `order` = ?;");
         $stmt->bind_param("ii", $productId, $orderId);
         if (!$stmt->execute()) {
-            logData("Product Order Model", "Query execute error! (get by ids)", LOG_CRITICAL);
+            logData("Product Order Model", "Query execute error! (get by ids)", CRITICAL_LOG);
 
             return null;
         }
@@ -64,7 +64,7 @@ class ProductOrder
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE `order` = ?;");
         $stmt->bind_param("i", $orderId);
         if (!$stmt->execute()) {
-            logData("Product Order Model", "Query execute error! (get by order)", LOG_CRITICAL);
+            logData("Product Order Model", "Query execute error! (get by order)", CRITICAL_LOG);
             return null;
         }
 
@@ -163,7 +163,7 @@ class ProductOrder
             $this->price
         );
         if (!$stmt->execute()) {
-            logData("Product Order Model", "Query execute error! (insert)", LOG_CRITICAL);
+            logData("Product Order Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
         }
 

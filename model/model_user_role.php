@@ -33,7 +33,7 @@ class UserRole
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("User Role Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Role Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
@@ -58,7 +58,7 @@ class UserRole
         $stmt = getDB()->prepare("SELECT * FROM userrole WHERE name = ?;");
         $stmt->bind_param("s", $name);
         if (!$stmt->execute()) {
-            logData("User Role Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Role Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 

@@ -51,7 +51,7 @@ class User
         $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
@@ -76,7 +76,7 @@ class User
         $stmt = getDB()->prepare("SELECT * FROM user WHERE email = ?;");
         $stmt->bind_param("s", $email);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
@@ -100,7 +100,7 @@ class User
         $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM user;");
 
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
             return 0;
         }
 
@@ -128,7 +128,7 @@ class User
         $stmt = getDB()->prepare("SELECT id FROM user ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
@@ -307,7 +307,7 @@ class User
             $this->defaultAddressId,
             $this->active);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (insert)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
         }
 
@@ -343,7 +343,7 @@ class User
             $this->active,
             $this->id);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (update)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
         }
 
@@ -364,7 +364,7 @@ class User
         $stmt->bind_param("i",
             $this->id);
         if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (delete)", LOG_CRITICAL);
+            logData("User Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;
         }
 

@@ -76,7 +76,7 @@ class Product
         $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get by id)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get by id)", CRITICAL_LOG);
             return null;
         }
 
@@ -115,7 +115,7 @@ class Product
         $stmt = getDB()->prepare($sql);
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get in range)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get in range)", CRITICAL_LOG);
             return null;
         }
 
@@ -139,7 +139,7 @@ class Product
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get random)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get random)", CRITICAL_LOG);
             return null;
         }
 
@@ -178,7 +178,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get by category)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get by category)", CRITICAL_LOG);
             return null;
         }
 
@@ -217,7 +217,7 @@ class Product
 
         $stmt->bind_param("sssii", $searchString, $searchString, $searchString, $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get by search with range)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get by search with range)", CRITICAL_LOG);
             return null;
         }
 
@@ -259,7 +259,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get amount)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get amount)", CRITICAL_LOG);
             return 0;
         }
 
@@ -303,14 +303,14 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get amount for category)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (get amount for category)", CRITICAL_LOG);
             return 0;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Product Model", "No items were found for category: " . $categoryId, LOG_NOTICE);
+            logData("Product Model", "No items were found for category: " . $categoryId, NOTICE_LOG);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -564,7 +564,7 @@ class Product
             $this->active
         );
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (insert)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
         }
 
@@ -600,7 +600,7 @@ class Product
             $this->active,
             $this->id);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (update)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
         }
 
@@ -619,7 +619,7 @@ class Product
         $stmt->bind_param("i",
             $this->id);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (delete)", LOG_CRITICAL);
+            logData("Product Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;
         }
 

@@ -33,14 +33,14 @@ class OrderState
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("Order State Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("Order State Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Order State Model", "No items were found for id: " . $id, LOG_NOTICE);
+            logData("Order State Model", "No items were found for id: " . $id, NOTICE_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -59,14 +59,14 @@ class OrderState
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
         $stmt->bind_param("s", $label);
         if (!$stmt->execute()) {
-            logData("Order State Model", "Query execute error! (get)", LOG_CRITICAL);
+            logData("Order State Model", "Query execute error! (get)", CRITICAL_LOG);
             return null;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Order State Model", "No items were found for label: " . $label, LOG_NOTICE);
+            logData("Order State Model", "No items were found for label: " . $label, NOTICE_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -87,7 +87,7 @@ class OrderState
         $result = getDB()->query("SELECT id FROM orderstate ORDER BY id;");
 
         if (!$result) {
-            logData("Order State Model", "No items were found", LOG_NOTICE);
+            logData("Order State Model", "No items were found", NOTICE_LOG);
             return [];
         }
 

@@ -49,7 +49,7 @@ class Address
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Address Model", "No items were found for user with id: ". $userId . "!", LOG_NOTICE);
+            logData("Address Model", "No items were found for user with id: ". $userId . "!", NOTICE_LOG);
             return null;
         }
 
@@ -72,7 +72,7 @@ class Address
         $stmt = getDB()->prepare("SELECT defaultAddress FROM user WHERE id = ?;");
         $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) {
-            logData("Address Model", "No default address were found for user with id: ". $userId . "!", LOG_NOTICE);
+            logData("Address Model", "No default address were found for user with id: ". $userId . "!", NOTICE_LOG);
             return null;
         }
 
@@ -100,7 +100,7 @@ class Address
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Address Model", "No items were found for id: ". $id . "!", LOG_NOTICE);
+            logData("Address Model", "No items were found for id: ". $id . "!", NOTICE_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -229,7 +229,7 @@ class Address
             $this->city,
             $this->userId);
         if (!$stmt->execute()) {
-            logData("Address Model", "A new address could not be created", LOG_CRITICAL);
+            logData("Address Model", "A new address could not be created", CRITICAL_LOG);
             return null;
         }
 
@@ -261,7 +261,7 @@ class Address
             $this->userId,
             $this->id);
         if (!$stmt->execute()) {
-            logData("Address Model", "Address with id: " . $this->id . " could not be updated!", LOG_CRITICAL);
+            logData("Address Model", "Address with id: " . $this->id . " could not be updated!", CRITICAL_LOG);
             return null;
         }
 
@@ -281,7 +281,7 @@ class Address
         $stmt->bind_param("i",
             $this->userId);
         if (!$stmt->execute()) {
-            logData("Address Model", "Item with id: " . $this->userId . " could not be deleted!", LOG_CRITICAL);
+            logData("Address Model", "Item with id: " . $this->userId . " could not be deleted!", CRITICAL_LOG);
             return false;
         }
 

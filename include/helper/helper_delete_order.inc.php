@@ -6,7 +6,7 @@ UserController::redirectIfNotAdmin();
 
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 
-    logData("Delete Order", "Value is missing or does not have the correct datatype!", LOG_CRITICAL);
+    logData("Delete Order", "Value is missing or does not have the correct datatype!", CRITICAL_LOG);
 
     // Go back to previous page, if it got set, else to the index.php
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -21,7 +21,7 @@ $order = OrderController::getById($_GET["id"]);
 
 if (!isset($order)) {
 
-    logData("Delete Order", "Order with id: " . $_GET["id"] . " not found!", LOG_CRITICAL);
+    logData("Delete Order", "Order with id: " . $_GET["id"] . " not found!", CRITICAL_LOG);
 
     // Go back to previous page, if it got set, else go back to the page_users.php page
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -35,7 +35,7 @@ if (!isset($order)) {
 $suc = OrderController::delete($order);
 
 if(!$suc){
-    logData("Delete Order", "Order with id: " . $order->getId() . " could not be deleted!", LOG_CRITICAL);
+    logData("Delete Order", "Order with id: " . $order->getId() . " could not be deleted!", CRITICAL_LOG);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
