@@ -16,7 +16,8 @@ if (isset($product) && $product instanceof Product): ?>
                     <!-- title -->
                     <a href="<?= PAGES_DIR . "page_product_detail.php?id=" . $product->getId(); ?>"
                        class="mb-0 h5 text-decoration-none text-black web"
-                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+                              min-height: 3.75em">
                         <?= $product->getTitle() ?>
                     </a>
                 </div>
@@ -49,7 +50,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <div>
                         <?php
                         echo ReviewController::getAvgRating($product->getId());
-                        ReviewController::calcAndIncAvgProductStars($product->getId());     // TODO change to echo too for better overview
+                        echo ReviewController::calcAndIncAvgProductStars($product->getId());
                         ?>
                     </div>
                 </div>

@@ -101,7 +101,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                 <div class="ratings d-flex flex-row align-items-center mt-3">
                     <p>
                         <?= $avgRating ?> Stars
-                        <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
+                        <?= ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
                         (<?= ReviewController::getAmountOfReviewsForProduct($product->getId()) ?> reviews)
                     </p>
                 </div>
@@ -223,7 +223,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                             <div class="ratings d-flex flex-row align-items-center ">
                                 <p class="mb-1 me-3"><u>Author</u>: <?= UserController::getFormattedName($user); ?></p>
                                 <p class="mb-1 me-3">
-                                    <u>Rating</u>: <?php ReviewController::calcAndIncProductStars($review) ?>
+                                    <u>Rating</u>: <?= ReviewController::calcAndIncProductStars($review) ?>
                                 </p>
                                 <?php if (UserController::isCurrentSessionAnAdmin()): ?>
                                     <a href="<?= INCLUDE_HELPER_DIR . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"

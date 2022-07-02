@@ -24,30 +24,32 @@ class ReviewController
     /**
      * Calculate and set the average star rating using full and half stars.
      * @param int $productId The ProductID, for which the Stars should be included.
-     * @return void HTML-Tags
+     * @return string HTML-Tags
      */
-    public static function calcAndIncAvgProductStars(int $productId): void
+    public static function calcAndIncAvgProductStars(int $productId): string
     {
-        self::createStarsRating(self::getAvgRating($productId));
+        return self::createStarsRating(self::getAvgRating($productId));
     }
 
     /**
      * Creates the stars rating html based on the passed rating
      * @param float $rating
-     * @return void
+     * @return string Generated HTML Code for echoing
      */
-    private static function createStarsRating(float $rating): void
+    private static function createStarsRating(float $rating): string
     {
+        $html = "";
         for ($i = 1; $i <= 5; $i++) {
             $difference = $rating - $i;
             if ($difference >= 0) {
-                echo "<i class='fa fa-star rating-color ms-1'></i>";     // full star
+                $html .= "<i class='fa fa-star rating-color ms-1'></i>";     // full star
             } elseif (-0.25 > $difference && $difference > -0.75) {
-                echo "<i class='fa fa-star-half-full rating-color ms-1'></i>";   // half star
+                $html .= "<i class='fa fa-star-half-full rating-color ms-1'></i>";   // half star
             } else {
-                echo "<i class='fa fa-star-o rating-color ms-1'></i>";      // empty star
+                $html .= "<i class='fa fa-star-o rating-color ms-1'></i>";      // empty star
             }
         }
+        return $html;
     }
 
     /**
@@ -68,11 +70,11 @@ class ReviewController
     /**
      * Calculate and set the star rating using full and half stars.
      * @param Review $review The review object, for which the Stars should be created.
-     * @return void HTML-Tags
+     * @return string HTML-Tags
      */
-    public static function calcAndIncProductStars(Review $review): void
+    public static function calcAndIncProductStars(Review $review): string
     {
-        self::createStarsRating($review->getStars());
+        return self::createStarsRating($review->getStars());
     }
 
     /**

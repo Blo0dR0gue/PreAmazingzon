@@ -118,7 +118,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                         <?= $product->getStock(); ?>
                     </td>
 
-                    <td data-th="Activce" data-id="<?= $product->getId(); ?>">
+                    <td data-th="Active" data-id="<?= $product->getId(); ?>">
                         <?= $product->isActive() ? 'Yes' : 'No'; ?>
                     </td>
 
