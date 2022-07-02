@@ -1,8 +1,11 @@
-<!-- TODO COMMENT -->
+<!--Admin order management page-->
+
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
 <?php
-UserController::redirectIfNotAdmin();   // User is not allowed to be here.
+
+//Is the user allowed to be here?
+UserController::redirectIfNotAdmin();
 
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
@@ -10,7 +13,10 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $userCount = OrderController::getAmountOfUsers();                                 // Get the total amount of users
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
+//Get the orders in range. (From an offset a specific amount)
 $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+
+//Get all order states.
 $orderStates = OrderStateController::getAll();
 ?>
 
@@ -55,15 +61,17 @@ $orderStates = OrderStateController::getAll();
         <!-- table body -->
         <tbody>
         <?php if (isset($orders) && count($orders) > 0) {
+            //Add each order to the table
             foreach ($orders as $order) {
                 if ($order instanceof Order) {
                     $user = UserController::getById($order->getUserId());
                     $orderState = OrderStateController::getById($order->getOrderStateId());
                     ?>
 
-                    <!-- table row -->
+                    <!-- action buttons -->
                     <tr>
                         <td data-th="" class="align-middle">
+                            <!-- delete order button -->
                             <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                                title="Delete order"
                                onclick="openConfirmModal(<?= "'Do you really want to delete the order with ID: \'" . $order->getId() . "\'and all its information?'" ?>,
@@ -73,10 +81,12 @@ $orderStates = OrderStateController::getAll();
                             </a>
                         </td>
 
+                        <!-- Order id -->
                         <td data-th="#" class="align-middle">
                             <strong><?= $order->getID(); ?></strong>
                         </td>
 
+                        <!-- User id who created this order -->
                         <td data-th="User ID" class="align-middle">
                             <?php if (isset($user)) {
                                 echo $user->getId();
@@ -85,6 +95,7 @@ $orderStates = OrderStateController::getAll();
                             } ?>
                         </td>
 
+                        <!-- The name of the user-->
                         <td data-th="Username" class="align-middle">
                             <?php if (isset($user)) {
                                 echo $user->getFormattedName();
@@ -93,18 +104,22 @@ $orderStates = OrderStateController::getAll();
                             } ?>
                         </td>
 
+                        <!-- The delivery date for the order -->
                         <td data-th="Delivery Date" class="align-middle">
                             <?= $order->getFormattedDeliveryDate(); ?>
                         </td>
 
+                        <!-- The date on which this order was created -->
                         <td data-th="Order Date" class="align-middle">
                             <?= $order->getFormattedOrderDate(); ?>
                         </td>
 
+                        <!-- Is the order paid? -->
                         <td data-th="Paid" class="align-middle">
                             <?= $order->isPaid() ? "Yes" : "No"; ?>
                         </td>
 
+                        <!-- In which state is the order? -->
                         <td data-th="State" class="align-middle">
                             <select class="form-select" name="stateSelector"
                                     onchange="onOrderStateChange(this, <?= $order->getId() ?>, <?= $order->getOrderStateId(); ?>)">
@@ -118,6 +133,7 @@ $orderStates = OrderStateController::getAll();
                                 <?php } ?>
                             </select>
                         </td>
+
                     </tr>
                 <?php }
             }
