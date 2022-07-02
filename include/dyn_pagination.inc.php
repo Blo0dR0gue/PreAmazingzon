@@ -7,7 +7,8 @@
     if (isset($_GET) && !empty($_GET) && !(count($_GET) == 1 && isset($_GET["page"]))) {
         $urlExtend = "";
         foreach ($_GET as $key => $value) {
-            if ($key != "page") {
+            //Don't add the page or the message get parameter again to the url.
+            if ($key != "page" && $key != "message") {
                 if ($urlExtend == "") {
                     $urlExtend = $urlExtend . "?" . $key . "=" . $value;
                 } else {

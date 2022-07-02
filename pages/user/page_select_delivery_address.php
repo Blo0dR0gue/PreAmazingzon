@@ -62,6 +62,7 @@ $totalProductPrice = 0;
                         </ul>
 
                     </div>
+
                     <?php if (!isset($primaryAddress)): ?>
                         <div id="noDeliveryText">
                             <h5 class='mb-5 text-danger'>
@@ -74,34 +75,27 @@ $totalProductPrice = 0;
                     <div class="collapse w-100" id="collapseChooseDeliveryOption">
                         <div class="form-group position-relative">
 
-                            <?php if (isset($primaryAddress)): ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="defaultDelivery"
-                                           value="<?= $primaryAddress->getId(); ?>"
-                                           checked required>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $primaryAddress->getStreet() . " " . $primaryAddress->getNumber() .
-                                        ", " . $primaryAddress->getCity() . ", " . $primaryAddress->getZip() ?>
-                                    </label>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (isset($deliveryAddresses) && count($deliveryAddresses) > 1): ?>
+                            <?php if (isset($deliveryAddresses) && count($deliveryAddresses) > 0): ?>
                                 <?php foreach ($deliveryAddresses as $deliveryOption): ?>
-                                    <?php if (isset($primaryAddress) && $primaryAddress->getId() != $deliveryOption->getId() || !isset($primaryAddress)): ?>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="delivery"
-                                                   data-user="<?= UserController::getFormattedName($user) ?>"
-                                                   data-street="<?= $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() ?>"
-                                                   data-city="<?= $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>"
-                                                   value="<?= $deliveryOption->getId(); ?>"
-                                                   required>
-                                            <label class="form-check-label">
-                                                <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() .
-                                                ", " . $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>
-                                            </label>
-                                        </div>
-                                    <?php endif ?>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="delivery"
+                                               data-user="<?= UserController::getFormattedName($user) ?>"
+                                               data-street="<?= $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() ?>"
+                                               data-city="<?= $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>"
+                                               value="<?= $deliveryOption->getId(); ?>"
+                                               required
+                                            <?php
+                                            //Select the default address
+                                            if (isset($primaryAddress) && $deliveryOption->getId() === $primaryAddress->getId())
+                                                echo "checked";
+                                            ?>
+                                        >
+                                        <label class="form-check-label">
+                                            <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $deliveryOption->getStreet() . " " . $deliveryOption->getNumber() .
+                                            ", " . $deliveryOption->getCity() . ", " . $deliveryOption->getZip() ?>
+                                        </label>
+                                    </div>
                                 <?php endforeach; ?>
                             <?php elseif (!isset($primaryAddress)): ?>
                                 <h5 class='text-muted mb-5'><em>There are no addresses in your profile.</em></h5>

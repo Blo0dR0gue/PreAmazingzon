@@ -117,15 +117,18 @@ class UserController
      * @param int|null $defaultAddressId The new id of the default address or null, if the current one should be used.
      * @return User|null The updated {@link User} or null, if an error occured.
      */
-    public static function update(User $user, string $firstName, string $lastName, string $email, string $password, int $roleId = null, int $defaultAddressId = null): ?User
+    public static function update(User $user, string $firstName, string $lastName, string $email, string $password, int $roleId = null, int $defaultAddressId = null, bool $active = null): ?User
     {
         if ($user->getEmail() === $email || self::emailAvailable($email)) {     // email unique?
             // update user
-            $user->setFirstName($firstName);
-            $user->setLastName($lastName);
-            $user->setEmail($email);
+            $user->setFirstName(htmlspecialchars($firstName, ENT_QUOTES, "UTF-8"));
+            $user->setLastName(htmlspecialchars($lastName, ENT_QUOTES, "UTF-8"));
+            $user->setEmail(htmlspecialchars($email, ENT_QUOTES, "UTF-8"));
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
-            $user->setActive(true);
+
+            if ($active != null)
+                $user->setActive($active);
+
             if ($roleId != null) {
                 $user->setRoleId($roleId);
             }
@@ -144,7 +147,9 @@ class UserController
      */
     public static function redirectIfNotLoggedIn(): void
     {
-        if (UserController::isCurrentSessionLoggedIn()) { return; } //User is logged in
+        if (UserController::isCurrentSessionLoggedIn()) {
+            return;
+        } //User is logged in
 
         //delete all session variables
         header("Location: " . PAGES_DIR . "page_login.php");
@@ -190,7 +195,9 @@ class UserController
      */
     public static function redirectIfNotAdmin(): void
     {
-        if (UserController::isCurrentSessionAnAdmin()) { return; } //User is admin
+        if (UserController::isCurrentSessionAnAdmin()) {
+            return;
+        } //User is admin
 
         header("Location: " . ROOT_DIR);
         die();
