@@ -99,7 +99,6 @@ $html = '
     <tbody>';
 // endregion
 
-// TODO shipping?
 // total sum of all products for this invoice
 $sum = 0;
 

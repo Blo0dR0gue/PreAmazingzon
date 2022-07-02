@@ -29,7 +29,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
         <!--endregion-->
 
         <!--region product price-->
-        <td data-th="Price"><?= $product->getPriceFormatted() ?></td>
+        <td data-th="Price"><?= $product->getPriceTotalFormatted() ?></td>
         <!--endregion-->
 
         <!--region product amount-->
@@ -49,7 +49,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
         <!--endregion-->
 
         <!--Cost for the amount of this product-->
-        <td data-th="Subtotal"><?= $product->getPriceFormatted($cartProduct->getAmount()) ?></td>
+        <td data-th="Subtotal"><?= $product->getPriceTotalFormatted($cartProduct->getAmount()) ?></td>
 
         <!--Action buttons-->
         <td data-th="" class="actions">
@@ -60,7 +60,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     </tr>
     <?php
     // save price for super script calculating total
-    $subtotal = $product->getPrice($cartProduct->getAmount());
+    $subtotal = $product->getPriceTotal($cartProduct->getAmount());
 } else {
     //If product not found
     $subtotal = 0;

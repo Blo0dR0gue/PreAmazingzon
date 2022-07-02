@@ -39,7 +39,9 @@ if (isset($product) && $product instanceof Product): ?>
                     <!-- 'discount' -->
                     <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?></s></p>
                     <!-- price -->
-                    <h5 class="text-dark mb-0 ms-1"><?= $product->getPriceFormatted() ?></h5>
+                    <h5 class="text-dark mb-0 ms-1">
+                        <?= $product->getPriceFormatted() // intentionally without shipping ?>
+                    </h5>
                 </div>
 
                 <!-- third row -->
