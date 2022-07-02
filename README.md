@@ -23,7 +23,7 @@ Inside the `assets/config` folder are the configuration files. <br>
 
 ## Database installation via phpmyadmin
 Step-by-step setup:
-1. To setup the database login to your mysql using phpmyadmin. 
+1. To setup the database login to your mysql server using phpmyadmin. 
 2. Click on "Import" in the header.
 3. Click on "Browse".
 4. Select the `install.sql` file located in the project root.
