@@ -22,15 +22,13 @@ function onOrderStateChange(elem, orderId, oldValue) {
 
             //If the request was successfully
             if (response_data.state === "success") {
-                console.log(response_data.msg); //TODO log?
+                //console.log(response_data.msg);
 
                 //Show success popup
                 showPopup("Success", "State changed successfully");
             } else if (response_data.state === "error") {
                 //Show error popup
-                showPopup("Error", "An error occurred.");
-
-                //TODO log error to file?
+                showPopup("Error", "An error occurred! See log files for more information.");
 
                 //Reset the select element
                 elem.value = oldValue;

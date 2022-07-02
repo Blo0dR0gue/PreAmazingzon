@@ -22,14 +22,14 @@ function onToggleUserActivation(button, userId) {
                 //Update the active text for the table row
                 $("td[data-id=" + userId + "]").text(response_data.active ? "Yes" : "No");
 
-                console.log(response_data.msg); //TODO log
+                //console.log(response_data.msg);
 
                 showPopup("Success", "The active state of the user got changed successfully.")
             } else if (response_data.state === "error") {
 
-                console.log(response_data.msg); //TODO log
+                //console.log(response_data.msg);
 
-                showPopup("Error", "An error occurred.")
+                showPopup("Error", "An error occurred! See log files for more information.")
             }
         }
     });

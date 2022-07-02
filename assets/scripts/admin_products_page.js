@@ -19,13 +19,13 @@ function onToggleProductActivation(button, productId) {
                 button.classList.toggle("btn-warning");
 
                 $("td[data-id=" + productId + "]").text(response_data.active ? "Yes" : "No");
-                console.log(response_data.msg); //TODO log
+                //console.log(response_data.msg);
 
                 showPopup("Success", "The active state of the product got changed successfully.")
             } else if (response_data.state === "error") {
-                console.log(response_data.msg); //TODO log
+                //console.log(response_data.msg);
 
-                showPopup("Error", "An error occurred.")
+                showPopup("Error", "An error occurred! See log files for more information.")
             }
         }
     });
