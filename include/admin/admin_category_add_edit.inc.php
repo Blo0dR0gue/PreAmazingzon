@@ -1,5 +1,3 @@
-<!-- TODO comment -->
-
 <form action="" id="catForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card my-4">
         <!-- HEADER -->
@@ -34,12 +32,11 @@
             <div class="form-group position-relative mb-1">
                 <label for="selectedRadio">Super Category</label>
                 <select class="form-select" name="cat">
+                    <!-- fill options -->
                     <option value="-1" hidden>Select Super Category - leave empty for root</option>
 
-                    <?php
-                    foreach (CategoryController::getCategoryTree() as $treeEntry):
-                        if (!isset($category) || !str_contains($treeEntry["path"], $category->getName())):
-                            ?>
+                    <?php foreach (CategoryController::getCategoryTree() as $treeEntry) {
+                        if (!isset($category) || !str_contains($treeEntry["path"], $category->getName())) { ?>
                             <option value="<?= $treeEntry["top"]; ?>"
                                 <?php
                                 if (isset($cat)) {
@@ -53,10 +50,8 @@
                                 } ?>>
                                 <?= $treeEntry["path"]; ?>
                             </option>
-                        <?php
-                        endif;
-                    endforeach;
-                    ?>
+                        <?php }
+                    } ?>
                 </select>
                 <div class="invalid-tooltip opacity-75">Please select a super category!</div>
             </div>
