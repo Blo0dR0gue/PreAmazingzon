@@ -290,7 +290,7 @@ class ProductController
 
         if (file_exists($targetFile)) {
             if (sizeof($imgNameParts) == 2) {
-                rename($targetFile, $targetDirWithSep . $imgNameParts[0] . 'main' . "." . $imgNameParts[1]);
+                rename($targetFile, $targetDirWithSep . $imgNameParts[0] . '_main' . "." . $imgNameParts[1]);
                 return false;   //No error
             }
         }
@@ -304,10 +304,10 @@ class ProductController
      */
     private static function removeAllMainImgTags(int $productID): void
     {
-        $mainImages = glob(IMAGE_PRODUCT_DIR . $productID . DS . "*main.*");
+        $mainImages = glob(IMAGE_PRODUCT_DIR . $productID . DS . "*_main.*");
         if (count($mainImages) > 0) {
             foreach ($mainImages as $mainImage) {
-                $newName = str_replace("main", "", $mainImages);
+                $newName = str_replace("_main", "", $mainImages);
                 //just override the file, even if it exists, because this should never happen. There should never be two files named e.g. 4.png and 4main.png at the same time.
                 rename($mainImage, $newName[0]);
             }
@@ -415,7 +415,7 @@ class ProductController
 
     /**
      * Generates a random name for an image.
-     * @param $length The length of the name.
+     * @param int $length The length of the name.
      * @return string The random name.
      */
     private static function generateRandomImageName($length = 10): string

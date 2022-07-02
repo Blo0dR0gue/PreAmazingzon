@@ -3,8 +3,6 @@
 
 <!-- TODO general: use http_build_query instead of '?id=' -->
 
-<!-- TODO Change main image, breaks img name: _ / main-->
-
 <!-- TODO unify comments spaces -->
 
 <!DOCTYPE html>

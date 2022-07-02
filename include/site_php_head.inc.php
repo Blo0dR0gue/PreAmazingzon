@@ -2,10 +2,9 @@
 // php head file included in all necessary files at the beginning
 
 // php error display
-// TODO work out how reporting works; disable for prod?
-ini_set("display_errors", "On");
-ini_set("display_startup_errors", "On");
-error_reporting(-1);
+ini_set("display_errors", "On"); //TODO set to off
+ini_set("display_startup_errors", "On"); //TODO set to off
+error_reporting(-1);    //TODO set to 0 to disable error reporting
 
 // in this var you will get the absolute file path of the current file
 $current_file_path = __DIR__;
