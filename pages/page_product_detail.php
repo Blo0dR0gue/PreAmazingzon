@@ -153,8 +153,8 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
             <!-- RIGHT -->
             <div class="col-lg-9 right-side align-content-center h-100 pt-2">
-                <?php if (UserController::isCurrentSessionLoggedIn()): ?>
-                    <!-- TODO check if user bought this item or already reviewed it -->
+                <!--Only allow to write a review, if the user is logged in, already bought this item once-->
+                <?php if (UserController::isCurrentSessionLoggedIn() && ProductOrder::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
 
                     <div class="p-3 right-side align-content-center h-100">
                         <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse"
