@@ -1,12 +1,17 @@
-<!-- TODO COMMENT -->
+<!--A detailed product-->
+
 <?php require_once "../include/site_php_head.inc.php" ?>
 
-<?php // get product
+<?php
+//get product
 $productID = $_GET["id"];
 if (isset($productID) && is_numeric($productID)) {
+
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
+        //Product with id does not exist
+        logData("Detailed Product", "Product with id " . $productID . " does not exist", DEBUG_LOG);
         header("LOCATION: " . ROOT_DIR);   // Redirect, if no product is found.
         die();
     }
@@ -15,20 +20,25 @@ if (isset($productID) && is_numeric($productID)) {
     if (!$product->isActive()) {
         //Session is not an admin
         if (!UserController::isCurrentSessionAnAdmin()) {
+            logData("Detailed Product", "User with id" . $_SESSION["uid"] . " tried to access inactive product with id: " . $productID, DEBUG_LOG);
             header("LOCATION: " . ROOT_DIR);   // Redirect, if product is inactive and the user is not an admin.
             die();
         }
     }
 } else {
+    //No product id passed.
+    logData("Detailed Product", "No product id passed", DEBUG_LOG);
     header("LOCATION: " . ROOT_DIR);   // Redirect, if no number is passed.
     die();
 }
 
+//pagination init
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
 $reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
 $totalPages = ceil($reviewCount / LIMIT_OF_SHOWED_ITEMS);        // Calculate the total amount of pages
 
+//Load required data
 $reviewStats = ReviewController::getStatsForEachStarForAProduct($product->getId());
 $avgRating = ReviewController::getAvgRating($product->getId());
 ?>
@@ -167,6 +177,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                               class="collapse needs-validation" id="collapseRating" novalidate>
                             <input type="hidden" value="<?= $product->getId(); ?>" name="productId">
 
+                            <!--Review title-->
                             <div class="form-group position-relative mt-2">
                                 <label for="title">Title</label>
                                 <input type="text" value="" name="title" id="title" class="form-control" required
@@ -176,6 +187,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 </div>
                             </div>
 
+                            <!--Stare rating for the review-->
                             <div class="form-group position-relative">
                                 <label>Rating</label>
                                 <div id="ratings d-flex flex-row align-items-center mt-3">
@@ -204,6 +216,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 </div>
                             </div>
 
+                            <!--Review text-->
                             <div class="form-group position-relative">
                                 <label for="description">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="3"
@@ -211,12 +224,15 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 <div class="invalid-tooltip opacity-75">Please enter a valid description!</div>
                             </div>
                             <br>
+
                             <button class="w-100 btn btn-sm btn-primary" type="submit">Save Review</button>
+
                         </form>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($reviewCount > 0): ?>
+                    <!--Show all reviews in range-->
                     <?php foreach (ReviewController::getReviewsForProductInRange($product->getId(), $offset, LIMIT_OF_SHOWED_ITEMS) as $review): ?>
                         <?php $user = UserController::getById($review->getUserId()); ?>
                         <div class="p-3 right-side align-content-center h-100 border-bottom">
@@ -226,6 +242,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                     <u>Rating</u>: <?= ReviewController::calcAndIncProductStars($review) ?>
                                 </p>
                                 <?php if (UserController::isCurrentSessionAnAdmin()): ?>
+                                    <!--Admins can delete this review-->
                                     <a href="<?= INCLUDE_HELPER_DIR . "helper_delete_review.inc.php?id=" . $review->getId() . "&productId=" . $product->getId(); ?>"
                                        class="btn btn-danger btn-sm ms-auto">
                                         <em class="fa fa-trash "></em> Delete review
@@ -233,12 +250,21 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                                 <?php endif; ?>
                             </div>
 
+                            <!--Review title-->
                             <h4 class=""><?= $review->getTitle(); ?></h4>
+
+                            <!--Review text-->
                             <p class="mt-1 mb-0"><?= $review->getText(); ?></p>
+
                         </div>
+
                     <?php endforeach; ?>
-                <?php elseif (UserController::isCurrentSessionLoggedIn()): ?>
+
+                <?php elseif (UserController::isCurrentSessionLoggedIn() && ProductOrder::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
+                    <!--There is no review and the user bought this item-->
                     <h5 class='text-center text-muted my-3'><em>No reviews found. Be the first.</em></h5>
+                <?php elseif(UserController::isCurrentSessionLoggedIn()): ?>
+                    <h5 class='text-center text-muted my-3'><em>No reviews found. <br> You must have purchased the product at least once to write a review</em></h5>
                 <?php else: ?>
                     <h5 class='text-center text-muted my-3'><em>No reviews found. Login and be the first.</em></h5>
                 <?php endif; ?>
