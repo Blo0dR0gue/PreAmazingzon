@@ -199,7 +199,9 @@ class UserController
             if (isset($user) && $user->isActive()) {
                 //Check if user is really an admin
                 if ($user->getRoleId() === UserRoleController::getAdminUserRole()->getId()){
-                    return true; // user is admin
+                    //user is admin
+                    $_SESSION["isAdmin"] = $user->getRoleId() === UserRoleController::getAdminUserRole()->getId();  //Update the role status if changed.
+                    return true;
                 }
             }
         }
