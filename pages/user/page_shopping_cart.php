@@ -37,7 +37,7 @@
                         <tr>
                             <th style="width:60%">Product</th>
                             <th style="width:10%">Price</th>
-                            <th style="width:10%">Quantity</th>
+                            <th style="width:10%; text-align: center">Quantity</th>
                             <th style="width:10%">Subtotal</th>
                             <th style="width:2%"></th>
                         </tr>
