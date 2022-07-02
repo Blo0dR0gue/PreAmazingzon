@@ -1,5 +1,5 @@
 <?php
-//php head file included in all necessary files at the beginning
+// php head file included in all necessary files at the beginning
 
 // php error display
 // TODO work out how reporting works; disable for prod?
@@ -11,13 +11,14 @@ error_reporting(-1);
 $current_file_path = __DIR__;
 $root_file_path = $current_file_path . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR;
 
-//Load default config
+// load default config
 require_once $root_file_path . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "config.php";
-//Load paths
+// load paths
 require_once $root_file_path . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR . "paths.inc.php";
 
-// Load logger
+// load logger
 require_once INCLUDE_DIR . "logger.inc.php";
+const MIN_LOG_LEVEL = LOG_INFO;
 
 // include controllers
 require_once CONTROLLER_DIR . 'controller_address.php';

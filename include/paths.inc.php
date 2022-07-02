@@ -22,7 +22,6 @@ const IMAGE_DIR = ASSETS_DIR . "images" . DS;
 // ./assets/image
 const IMAGE_LOGO_DIR = IMAGE_DIR . "logo" . DS;
 const IMAGE_PRODUCT_DIR = IMAGE_DIR . "products" . DS;
-const IMAGE_CATEGORIES_DIR = IMAGE_DIR . "categories" . DS;
 
 // ./controller
 const CONTROLLER_DIR = ROOT_DIR . "controller" . DS;
