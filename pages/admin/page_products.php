@@ -72,15 +72,14 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                     <td class="align-middle" data-th="">
                         <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                            class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
-                           title="Edit product">
+                           title="Edit product" style="padding-inline: 10px">
                             <em class="fa fa-pencil"></em>
                         </a>
-                        <button
-                                class="btn btn-sm <?= $product->isActive() ? "btn-success" : "btn-warning" ?>"
-                                data-toggle="tooltip" data-placement="left"
-                                title="(De-) Activate Product"
+                        <button class="btn btn-sm <?= $product->isActive() ? "btn-success" : "btn-warning" ?>"
+                                data-toggle="tooltip" data-placement="left" title="(De-) Activate Product"
                                 onclick="onToggleProductActivation(this, <?= $product->getId(); ?>)">
-                            <em class="fa <?= $product->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="activeBtnImg<?=$product->getId()?>"></em>
+                            <em class="fa <?= $product->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>"
+                                id="activeBtnImg<?=$product->getId()?>"></em>
                         </button>
                     </td>
 
