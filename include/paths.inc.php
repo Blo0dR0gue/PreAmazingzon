@@ -32,6 +32,7 @@ const INCLUDE_HELPER_DIR = INCLUDE_DIR . "helper" . DS;
 const INCLUDE_TCPDF_DIR = INCLUDE_DIR . "tcpdf" . DS;
 const INCLUDE_ADMIN_DIR = INCLUDE_DIR . "admin" . DS;
 const INCLUDE_ELEMENTS_DIR = INCLUDE_DIR . "elements" . DS;
+const INCLUDE_MODAL_DIR = INCLUDE_DIR . "modal" . DS;
 
 // ./model
 const MODEL_DIR = ROOT_DIR . "model" . DS;

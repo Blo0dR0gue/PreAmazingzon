@@ -11,7 +11,7 @@
 
     <!-- form preload script -->
     <?php
-    require_once INCLUDE_DIR . "modal_popup.inc.php";
+    require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php";
 
     // get user
     $user = UserController::getById($_SESSION["uid"]);
@@ -33,7 +33,7 @@
 
     <!-- form processing script -->
     <?php
-    require_once INCLUDE_DIR . "modal_popup.inc.php";
+    require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php";
 
     if (!empty($_POST["type"])) {   // data set?
         if ($_POST["email"] === $user->getEmail() || UserController::emailAvailable($_POST["email"])) { // email available?

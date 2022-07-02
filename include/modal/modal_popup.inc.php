@@ -1,5 +1,3 @@
-<!-- TODO move to sub dir? -->
-
 <?php
 function show_popup(
     $popup_title = "Error occurred",

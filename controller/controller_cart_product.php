@@ -83,7 +83,7 @@ class CartProductController
      */
     public static function handleOtherUserBoughtItemInCart(CartProduct $cartProduct): bool
     {
-        require_once INCLUDE_DIR . "modal_popup.inc.php";
+        require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php";
         $product = ProductController::getByID($cartProduct->getProdId());
 
         if (!isset($product)) {

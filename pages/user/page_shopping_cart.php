@@ -7,7 +7,7 @@
 <html class="h-100" lang="en">
 <head>
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
-    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Cart</title>
 
     <!-- load data for shopping cart -->

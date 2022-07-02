@@ -26,7 +26,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
     <!--Add page script-->
     <script src="<?= SCRIPT_DIR . "admin_products_page.js" ?>"></script>
 
-    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -139,10 +139,10 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- dynamic popup modal -->
-<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>

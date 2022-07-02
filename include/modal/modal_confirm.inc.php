@@ -1,5 +1,4 @@
 <!-- Represents a confirm model -->
-<!-- TODO move to sub dir? -->
 <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -13,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="onConfirm()">Understood</button>
+                <button type="button" class="btn btn-primary" onclick="onConfirm()">OK</button>
             </div>
         </div>
     </div>

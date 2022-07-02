@@ -27,7 +27,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
     <!--Add page script-->
     <script src="<?= SCRIPT_DIR . "admin_users_page.js" ?>"></script>
     <!-- Add php modal functionality -->
-    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -78,7 +78,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                         <button
                                 class="btn btn-sm <?= $user->getRoleId() == $adminUserRole->getId() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                                 data-toggle="tooltip" data-placement="left"
-                                title="Toggle User Role"
+                                title="Toggle User Admin"
                                 onclick="onToggleUserRole(this, <?= $user->getId(); ?>)">
                             <em class="fa <?= $user->getRoleId() == $adminUserRole->getId() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="adminBtnImg<?=$user->getId()?>"></em>
                         </button>
@@ -138,10 +138,10 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- dynamic popup modal -->
-<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>

@@ -57,7 +57,7 @@ $orders = OrderController::getAllForUserInRange($_SESSION["uid"], $offset);
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
 
 <!-- dynamic popup modal -->
-<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>

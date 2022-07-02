@@ -73,7 +73,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <head>
     <?php
     require_once INCLUDE_DIR . "site_html_head.inc.php";
-    require_once INCLUDE_DIR . "modal_popup.inc.php";
+    require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php";
     ?>
     <title><?= PAGE_NAME ?> - Admin - Product - Edit</title>
 

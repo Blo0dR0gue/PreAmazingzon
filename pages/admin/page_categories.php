@@ -22,7 +22,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 
     <!-- file specific includes-->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
-    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -104,7 +104,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>

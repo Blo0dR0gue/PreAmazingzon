@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-require_once INCLUDE_DIR . "modal_popup.inc.php";
+require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php";
 
 if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in redirect to home
     header("LOCATION: " . ROOT_DIR);

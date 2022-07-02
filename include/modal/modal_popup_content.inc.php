@@ -1,5 +1,4 @@
 <!-- (Dynamic) content for the popup modal (Does not open the popup modal on load) -->
-<!-- TODO move to sub dir? -->
 
 <div class="modal fade" id="modalPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">

@@ -22,7 +22,7 @@ $orderStates = OrderStateController::getAll();
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Orders</title>
 
-    <?php require_once INCLUDE_DIR . "modal_popup.inc.php"; ?>
+    <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
     <script src="<?= SCRIPT_DIR . "admin_orders_page.js" ?>"></script>
 
 </head>
@@ -148,10 +148,10 @@ $orderStates = OrderStateController::getAll();
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 
 <!-- confirm modal -->
-<?php require_once INCLUDE_DIR . "modal_confirm.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_confirm.inc.php"; ?>
 
 <!-- dynamic popup modal -->
-<?php require_once INCLUDE_DIR . "modal_popup_content.inc.php"; ?>
+<?php require_once INCLUDE_MODAL_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
