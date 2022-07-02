@@ -243,12 +243,13 @@ class UserController
 
     /**
      * Gets all {@link User}s in range.
-     * @param int $offset The offset from where to select from the database
+     * @param int $offset The offset from where to select from the database.
+     * @param int $amount The amount of items, which should be selected.
      * @return array An array with all {@link User}s in range.
      */
-    public static function getUsersInRange(int $offset): array
+    public static function getUsersInRange(int $offset, int $amount): array
     {
-        return User::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
+        return User::getUsersInRange($offset, $amount);
     }
 
     /**

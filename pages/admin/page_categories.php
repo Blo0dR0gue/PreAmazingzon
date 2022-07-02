@@ -1,9 +1,10 @@
-<!-- TODO COMMENT-->
+<!--Admin category management page-->
 
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-UserController::redirectIfNotAdmin();   // User is not allowed to be here.
+//Is the user allowed to be here?
+UserController::redirectIfNotAdmin();
 
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
@@ -11,6 +12,7 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $categoryCount = CategoryController::getAmountOfCategories(null);                 // Get the total amount of categories
 $totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                       // Calculate the total amount of pages
 
+//Get all categories from an offset to a specific amount.
 $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
@@ -57,15 +59,20 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
         <!-- table body -->
         <tbody>
         <?php if (isset($categories) && count($categories) > 0) {
+            //Add each category to the table
             foreach ($categories as $category) { ?>
+                <!--Action buttons-->
                 <tr>
                     <td data-th="" class="align-middle">
+
+                        <!--Edit button-->
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Edit category">
                             <em class="fa fa-pencil"></em>
                         </a>
-                        <!-- delete category -->
+
+                        <!-- delete button -->
                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Delete category"
                            onclick="openConfirmModal(<?= "'Do you really want to delete the category: \'" . $category->getName() . "\', with ID: " . $category->getId() . " and all its subcategories? Products in this categories get moved to root.'" ?>,
@@ -73,26 +80,32 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
                                    '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_category.inc.php?id=" . $category->getId()); ?>')">
                             <em class="fa fa-trash "></em>
                         </a>
+
                     </td>
 
+                    <!--Category id-->
                     <td data-th="#" class="align-middle">
                         <strong><?= $category->getID(); ?></strong>
                     </td>
 
+                    <!--Category name-->
                     <td data-th="Title" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="mb-0 h5 text-decoration-none text-blue"><?= $category->getName() ?></a>
                     </td>
 
+                    <!--Super category-->
                     <td data-th="Super" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($category->getParentID() ?? "") ?>"
                            class="text-decoration-none text-blue text-black">
                             <?= CategoryController::getNameById($category->getParentID()) ?>
                         </a>
                     </td>
+
                 </tr>
             <?php }
         } else { ?>
+            <!--No categories found-->
             <tr>
                 <td colspan="4" style="text-align: center">
                     <p><em class="mb-3 text-muted">No categories found.</em></p>
