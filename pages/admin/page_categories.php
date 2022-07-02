@@ -118,5 +118,17 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
+<!--Status messages-->
+<?php
+
+if (!empty($_GET["message"])) {
+    show_popup(
+        "Information",
+        $_GET["message"]
+    );
+}
+
+?>
+
 </body>
 </html>
