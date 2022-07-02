@@ -26,8 +26,7 @@
                 <input type="text" name="title" id="title" class="form-control" placeholder="A Category Title"
                        value="<?php if (isset($category) && $category instanceof Category) {
                            echo $category->getName();
-                       } ?>"
-                       required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
+                       } ?>" required pattern="[a-zäöüA-ZÄÖÜ0-9 ,.'-:]{5,}">
                 <div class="invalid-tooltip opacity-75">Please enter a valid category name!</div>
             </div>
 

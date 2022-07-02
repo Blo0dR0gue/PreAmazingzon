@@ -3,6 +3,11 @@
 
 <!-- TODO general: use http_build_query instead of '?id=' -->
 
+<!-- TODO Product edit: Line breaks in Description? -->
+<!-- TODO Change main image, breaks img name: _ / main-->
+
+<!-- TODO unify comments spaces -->
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>

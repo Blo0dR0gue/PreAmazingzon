@@ -17,6 +17,7 @@ const CONFIG_DIR = ASSETS_DIR . "config" . DS;
 const SCRIPT_DIR = ASSETS_DIR . "scripts" . DS;
 const STYLE_DIR = ASSETS_DIR . "style" . DS;
 const INVOICES_DIR = ASSETS_DIR . "invoices" . DS;
+const LOG_DIR = ASSETS_DIR . "logs" . DS;
 const IMAGE_DIR = ASSETS_DIR . "images" . DS;
 // ./assets/image
 const IMAGE_LOGO_DIR = IMAGE_DIR . "logo" . DS;
@@ -40,5 +41,3 @@ const MODEL_DIR = ROOT_DIR . "model" . DS;
 const PAGES_DIR = ROOT_DIR . "pages" . DS;
 const ADMIN_PAGES_DIR = PAGES_DIR . 'admin' . DS;
 const USER_PAGES_DIR = PAGES_DIR . 'user' . DS;
-
-const LOG_DIR = ASSETS_DIR . "logs" . DS;
