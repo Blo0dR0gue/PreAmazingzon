@@ -1,4 +1,5 @@
-<!-- TODO COMMENT -->
+<!--Login page-->
+
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
@@ -35,24 +36,32 @@ if (UserController::isCurrentSessionLoggedIn()) {    // if already logged in red
 <!-- main body -->
 <main class="m-auto w-100 px-3" style="max-width: 370px">
     <form action="" method="post" class="needs-validation" novalidate>
+
+        <!-- Shop logo -->
         <a href="<?= ROOT_DIR ?>" class="mb-0">
             <img class="mb-4" src="<?= IMAGE_LOGO_DIR . "logo_long.svg" ?>" alt="Company Logo"
                  width="" height="64">
         </a>
+
         <h3 class="mb-3 fw-normal">Please login</h3>
 
+        <!-- E-Mail-Address input field -->
         <div class="form-floating">
             <input type="email" name="email" class="form-control" id="emailInput" placeholder="name@example.com"
                    style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: -1px" required>
             <label for="emailInput">Email address</label>
             <div class="invalid-tooltip opacity-75">Please enter a valid Email!</div>
         </div>
+
+        <!-- Password input field -->
         <div class="form-floating">
             <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password"
                    style="border-top-left-radius: 0; border-top-right-radius: 0" required>
             <label for="passwordInput">Password</label>
             <div class="invalid-tooltip opacity-75">Please enter a password!</div>
         </div>
+
+        <!-- Terms message -->
         <p class="text-muted"><small>By logging in, you accept the terms of use.</small></p>
 
         <!-- buttons -->
