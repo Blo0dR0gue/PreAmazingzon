@@ -19,10 +19,15 @@
 
         <div class="border-bottom pb-4">
             <h3 class="mb-3">Information according to § 5 TMG</h3>
+            <!-- address -->
             <p><strong><?= PAGE_NAME ?> <?= LEGAL_FORM ?></strong></p>
             <p><?= COMPANY_STREET ?> <?= COMPANY_STREET_NR ?><br><?= COMPANY_ZIP_CODE ?> <?= COMPANY_CITY ?></p>
-            <p class="mb-1"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp &nbsp<?= CONTACT_PHONE ?></p>
-            <i class="fa fa-envelope" aria-hidden="true">&nbsp &nbsp</i><a href="mailto:<?= CONTACT_EMAIL ?>"><?= CONTACT_EMAIL ?></a>
+            <!-- phone -->
+            <p class="mb-1"><i class="fa fa-phone" aria-hidden="true">&nbsp &nbsp</i><?= CONTACT_PHONE ?></p>
+            <!-- mail -->
+            <a href="mailto:<?= CONTACT_EMAIL ?>">
+                <i class="fa fa-envelope" aria-hidden="true">&nbsp &nbsp</i><?= CONTACT_EMAIL ?>
+            </a>
         </div>
 
         <!------------>

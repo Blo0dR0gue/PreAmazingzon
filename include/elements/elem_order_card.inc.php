@@ -74,19 +74,20 @@
             <!-- Buttons -->
             <div class="col-7 d-flex flex-wrap justify-content-around">
                 <!-- TODO make it save so a user cant download a invoice of a other user? -->
+                <!-- invoice -->
                 <a class="btn btn-light border col-5" download=""
                    href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">
                     Invoice
                 </a>
 
-                    <?php if (!$order->isPaid()) { ?>
-                        <button class="col-5 btn btn-warning"
-                                onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay
-                            <!--TODO--></button>
-                    <?php } else { ?>
-                        <button class="col-5 btn btn-success" disabled>Paid</button>
-                    <?php } ?>
-                </div>
+                <!-- pay -->
+                <?php if (!$order->isPaid()) { ?>
+                    <button class="col-5 btn btn-warning"
+                            onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay</button>
+                <?php } else { ?>
+                    <button class="col-5 btn btn-success" disabled>Paid</button>
+                <?php } ?>
+            </div>
 
             <div class="col-1 text-end pe-2">
                 <h6><strong>Total:</strong></h6>
