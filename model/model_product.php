@@ -1,6 +1,6 @@
 <?php
-// TODO Comments
 
+//Add database
 require_once INCLUDE_DIR . "database.inc.php";
 
 class Product
@@ -18,7 +18,8 @@ class Product
 
 
     /**
-     * Constructor of @param int $id
+     * Constructor of {@link Product}
+     * @param int $id
      * @param string $title
      * @param string $description
      * @param float $price
@@ -26,7 +27,6 @@ class Product
      * @param float $shippingCost
      * @param int|null $categoryID
      * @param bool $active
-     * @link Product
      */
     public function __construct(int $id, string $title, string $description, float $price, int $stock, float $shippingCost, ?int $categoryID, bool $active)
     {
@@ -40,40 +40,43 @@ class Product
         $this->active = $active;
     }
 
+    //region getter
+
     /**
-     * @return array an array with all Products in the Database
+     * Gets all {@link Product}s from the database.
+     * @return array An array with all {@link Product}s from the database.
      */
     public static function getAllProducts(): array
     {
-        try {
-            $products = [];
+        $products = [];
 
-            // No need for prepared statement, because we do not use inputs.
-            $result = getDB()->query("SELECT id FROM product ORDER BY id;");
+        // No need for prepared statement, because we do not use inputs.
+        $result = getDB()->query("SELECT id FROM product ORDER BY id;");
 
-            if (!$result) {
-                return [];
-            }
-
-            $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($rows as $product) {
-                $products[] = self::getByID($product["id"]);
-            }
-
-            return $products;
-        } catch (Exception $e) {
-            echo $e; // TODO Error Handling
+        if (!$result) {
+            return [];
         }
-        return [];
+
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rows as $product) {
+            $products[] = self::getByID($product["id"]);
+        }
+
+        return $products;
     }
 
+    /**
+     * Gets an {@link Product} by its id.
+     * @param int $id The id.
+     * @return Product|null The {@link Product} or null, if not found.
+     */
     public static function getByID(int $id): ?Product
     {
         $stmt = getDB()->prepare("SELECT * FROM product WHERE id = ?;");
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get by id)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -112,7 +115,7 @@ class Product
         $stmt = getDB()->prepare($sql);
         $stmt->bind_param("ii", $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get in range)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -136,7 +139,7 @@ class Product
         $stmt = getDB()->prepare("SELECT id FROM product ORDER BY RAND() LIMIT ?;");
         $stmt->bind_param("i", $amount);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get random)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -175,44 +178,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
-            return null;
-        }
-
-        // get result
-        foreach ($stmt->get_result() as $product) {
-            $products[] = self::getByID($product["id"]);
-        }
-        $stmt->close();
-        return $products;
-    }
-
-    /**
-     * Selects all products containing the passed string in either the description, the title or in the name of the category.
-     * @param string $searchString The string which should be in the defined texts.
-     * @param bool $onlyActiveProducts Set it to true to only search for active products.
-     * @return array|null An array with the found products or null, if an error occurred.
-     */
-    public static function searchProducts(string $searchString, bool $onlyActiveProducts): ?array   // TODO unused?
-    {
-        $products = [];
-
-        $searchFilter = strtolower($searchString);  // TODO never used?
-        $searchString = "%$searchString%";
-
-        $sql = "SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?";
-
-        if ($onlyActiveProducts) {
-            $sql .= " AND active = 1;";
-        } else {
-            $sql .= ";";
-        }
-
-        $stmt = getDB()->prepare($sql);
-
-        $stmt->bind_param("sss", $searchString, $searchString, $searchString);
-        if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get by category)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -234,8 +200,8 @@ class Product
     {
         $products = [];
 
-        $searchFilter = strtolower($searchString);  // TODO never used?
-        $searchString = "%$searchString%";
+        $searchFilter = strtolower($searchString);
+        $searchString = "%$searchFilter%";
 
         $sql = "SELECT DISTINCT p.id FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?";
 
@@ -251,7 +217,7 @@ class Product
 
         $stmt->bind_param("sssii", $searchString, $searchString, $searchString, $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get by search with range)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -293,7 +259,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get amount)", LOG_LVL_CRITICAL);
             return 0;
         }
 
@@ -337,7 +303,7 @@ class Product
         }
 
         if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Model", "Query execute error! (get amount for category)", LOG_LVL_CRITICAL);
             return 0;
         }
 
@@ -353,10 +319,9 @@ class Product
         return $res["count"];
     }
 
-    // region getter & setter
-
     /**
-     * @return int The ID of the modelProduct
+     * Gets the id of the {@link Product}.
+     * @return int The id.
      */
     public function getId(): int
     {
@@ -364,7 +329,8 @@ class Product
     }
 
     /**
-     * @return string The Title of the modelProduct
+     * Gets the title of the {@link Product}.
+     * @return string The title.
      */
     public function getTitle(): string
     {
@@ -372,33 +338,17 @@ class Product
     }
 
     /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string The Description of the modelProduct
+     * Gets the description of the {@link Product}.
+     * @return string The description.
      */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-// TODO deal with shipping cost? per amount or add after?
-
     /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @param int $amount Amount of items of this product
+     * Gets the formatted price.
+     * @param int $amount Amount of items of this product.
      * @return string Formatted price for $amount products
      */
     public function getPriceFormatted(int $amount = 1): string
@@ -406,8 +356,11 @@ class Product
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
+
     /**
-     * @return float The Price for this modelProduct
+     * Gets the price of the {@link Product} multiplied by an amount.
+     * @param int $amount The multiplier.
+     * @return float The price for this {@link Product}/s.
      */
     public function getPrice(int $amount = 1): float
     {
@@ -415,14 +368,8 @@ class Product
     }
 
     /**
-     * @param float $price
-     */
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
+     * Gets the formatted original price. <br>
+     * Is random generated.
      * @return string Formatted 'original' before 'discount' price
      */
     public function getOriginalPriceFormatted(): string
@@ -432,7 +379,8 @@ class Product
     }
 
     /**
-     * @return int The Amount of Items in Stock
+     * Gets the stock amount of an {@link Product}.
+     * @return int The stock amount.
      */
     public function getStock(): int
     {
@@ -440,15 +388,8 @@ class Product
     }
 
     /**
-     * @param int $stock
-     */
-    public function setStock(int $stock): void
-    {
-        $this->stock = $stock;
-    }
-
-    /**
-     * @return string Formatted Shipping Cost
+     * Gets the formatted shipping costs.
+     * @return string The formatted shipping costs
      */
     public function getShippingCostFormatted(): string
     {
@@ -456,6 +397,7 @@ class Product
     }
 
     /**
+     * Gets the shipping costs of the {@link Product}.
      * @return float The Cost for Shipping this modelProduct
      */
     public function getShippingCost(): float
@@ -464,7 +406,59 @@ class Product
     }
 
     /**
-     * @param float $shippingCost
+     * Is the {@link Product} active?
+     * @return bool True, if it is active.
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    //endregion
+
+    //region setter
+
+    /**
+     * Sets the title of the {@link Product}.
+     * @param string $title The title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+// TODO deal with shipping cost? per amount or add after?
+
+    /**
+     * Sets the description of the {@link Product}.
+     * @param string $description The description.
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Sets the price of the {@link Product}.
+     * @param float $price The price.
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * Sets the stock amount of the {@link Product}.
+     * @param int $stock The stock amount.
+     */
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+    /**
+     * Sets the shipping costs for the {@link Product}.
+     * @param float $shippingCost The shipping costs.
      */
     public function setShippingCost(float $shippingCost): void
     {
@@ -472,7 +466,8 @@ class Product
     }
 
     /**
-     * @return int|null
+     * Gets the id of the {@link Category}.
+     * @return int|null The id or null, if root.
      */
     public function getCategoryID(): ?int
     {
@@ -480,7 +475,8 @@ class Product
     }
 
     /**
-     * @param int|null $categoryID
+     * Sets the id of the {@link Category}.
+     * @param int|null $categoryID The id of the category or null, if root.
      */
     public function setCategoryID(?int $categoryID): void
     {
@@ -488,15 +484,8 @@ class Product
     }
 
     /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    /**
-     * @param bool $active
+     * Sets the active status of the {@link Product}.
+     * @param bool $active Set it to true, if the {@link Product} should be active and visible.
      */
     public function setActive(bool $active): void
     {
@@ -543,7 +532,7 @@ class Product
 
     /**
      * Returns all image paths in an array or null, if there are no images uploaded.
-     * @return array|null
+     * @return array|null An array with all image paths or null of no image were found.
      */
     public function getAllImgsOrNull(): ?array
     {
@@ -557,6 +546,10 @@ class Product
     // endregion
 
 
+    /**
+     * Creates a new {@link Product} inside the database.
+     * @return Product|null The created {@link Product} or null, if an error occurred.
+     */
     public function insert(): ?Product
     {
         $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category, active) 
@@ -582,6 +575,10 @@ class Product
         return self::getById($newId);
     }
 
+    /**
+     * Updates an {@link Product} inside the databse.
+     * @return Product|null The updated {@link Product} or null, if an error occurred.
+     */
     public function update(): ?Product
     {
         $stmt = getDB()->prepare("UPDATE product 
@@ -613,8 +610,8 @@ class Product
     }
 
     /**
-     * Deletes itself from the database.
-     * @return bool true, if the product got deleted.
+     * Deletes an {@link Product} from the database.
+     * @return bool true, if the {@link Product} got deleted.
      */
     public function delete(): bool
     {

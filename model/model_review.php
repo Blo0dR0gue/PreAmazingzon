@@ -1,7 +1,6 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add databse
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Review
@@ -16,6 +15,7 @@ class Review
     // endregion
 
     /**
+     * Constructor for {@link Review}.
      * @param int $id
      * @param string $title
      * @param string $text
@@ -33,6 +33,13 @@ class Review
         $this->productId = $productId;
     }
 
+    //region getter
+
+    /**
+     * Gets the average rating for an {@link Product}
+     * @param int $productId The {@link Product} id
+     * @return float|null The average rating or null, if an error occurred.
+     */
     public static function getAvgRating(int $productId): ?float
     {
         $stmt = getDb()->prepare("SELECT ROUND(AVG(stars), 1) as rating
@@ -41,7 +48,7 @@ class Review
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get avg)", LOG_LVL_CRITICAL);
 
             return null;
         }
@@ -55,16 +62,19 @@ class Review
         return $res["rating"];
     }
 
-    public static function getNumberOfReviewsForProduct(int $productId): ?int
+    /**
+     * Gets the amount of {@link Review}s for a {@link Product}.
+     * @param int $productId The id of the {@link Product}.
+     * @return int The amount.
+     */
+    public static function getAmountOfReviewsForProduct(int $productId): int
     {
-        $stmt = getDb()->prepare("SELECT COUNT(*) as reviews
-                                        FROM review
-                                        WHERE product = ?
-                                        GROUP BY product;");
+        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
         $stmt->bind_param("i", $productId);
+
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
-            return null;
+            logData("Review Model", "Query execute error! (get amount for product)", LOG_LVL_CRITICAL);
+            return 0;
         }
 
         // get result
@@ -73,15 +83,15 @@ class Review
         $res = $res->fetch_assoc();
         $stmt->close();
 
-        return $res["reviews"];
+        return $res["count"];
     }
 
     /**
-     * Selects a specified amount of reviews of a product starting at an offset.
+     * Selects a specified amount of {@link Review}s of a product starting at an offset.
      * @param int $productId The product id of the product from which the reviews should be selected
      * @param int $offset The first row, which should be selected.
      * @param int $amount The amount of rows, which should be selected.
-     * @return array|null An array with the found reviews or null, if an error occurred.
+     * @return array|null An array with the found {@link Review}s or null, if an error occurred.
      */
     public static function getReviewsForProductInRange(int $productId, int $offset, int $amount): ?array
     {
@@ -103,10 +113,10 @@ class Review
     }
 
     /**
-     * Get an existing review by its id.
+     * Get an existing {@link Review} by its id.
      *
-     * @param int $id ID of a review
-     * @return Review|null corresponding review
+     * @param int $id The id.
+     * @return Review|null The {@link Review} or null, if not found.
      */
     public static function getById(int $id): ?Review
     {
@@ -126,25 +136,6 @@ class Review
         $stmt->close();
 
         return new Review($id, $res["title"], $res["text"], $res["stars"], $res["user"], $res["product"]);
-    }
-
-    public static function getAmountOfReviewsForProduct(int $productId): int
-    {
-        $stmt = getDB()->prepare("SELECT COUNT(DISTINCT id) AS count FROM review WHERE product = ?;");
-        $stmt->bind_param("i", $productId);
-
-        if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
-            return 0;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return $res["count"];
     }
 
     /**
@@ -178,10 +169,9 @@ class Review
         return $result;
     }
 
-    // region getter
-
     /**
-     * @return int The id of this review.
+     * Gets the id of this {@link Review}.
+     * @return int The id.
      */
     public function getId(): int
     {
@@ -189,7 +179,8 @@ class Review
     }
 
     /**
-     * @return string The title for this review.
+     * Gets the title of this {@link Review}.
+     * @return string The title.
      */
     public function getTitle(): string
     {
@@ -197,7 +188,8 @@ class Review
     }
 
     /**
-     * @return string The description resp. text for this review.
+     * Gets the text of this {@link Review}
+     * @return string The text.
      */
     public function getText(): string
     {
@@ -205,6 +197,7 @@ class Review
     }
 
     /**
+     * Gets the stars for this {@link Review}.
      * @return int The amount of full stars given in this review.
      */
     public function getStars(): int
@@ -213,7 +206,8 @@ class Review
     }
 
     /**
-     * @return int The user id of the user who created this review.
+     * Gets the id of the {@link User} who created this {@link Review}.
+     * @return int The user id.
      */
     public function getUserId(): int
     {
@@ -221,7 +215,8 @@ class Review
     }
 
     /**
-     * @return int The product id of the product this review is for.
+     * Gets the {@link Product} id this {@link Review} is for.
+     * @return int The product id.
      */
     public function getProductId(): int
     {
@@ -230,6 +225,10 @@ class Review
 
     // endregion
 
+    /**
+     * Creates a new {@link Review} inside the database.
+     * @return Review|null The created {@link Review} or null, if an error occurred.
+     */
     public function insert(): ?Review
     {
         $stmt = getDB()->prepare("INSERT INTO review(title, stars, text, user, product)
@@ -253,8 +252,8 @@ class Review
     }
 
     /**
-     * Deletes itself from the database.
-     * @return bool true, if the product got deleted.
+     * Deletes the {@link Review} from the database.
+     * @return bool true, if the {@link Review} got deleted.
      */
     public function delete(): bool
     {

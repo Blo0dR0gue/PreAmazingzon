@@ -22,19 +22,6 @@ class ReviewController
     }
 
     /**
-     * Returns the amount of reviews for a product
-     * @param int $productId The id of the product.
-     * @return int The amount of reviews.
-     */
-    public static function getNumberOfReviewsForProduct(int $productId): int
-    {
-        $number = Review::getNumberOfReviewsForProduct($productId);
-
-        if (!$number) { return 0; }
-        return $number;
-    }
-
-    /**
      * Calculate and set the average star rating using full and half stars.
      * @param int $productId The ProductID, for which the Stars should be included.
      * @return void HTML-Tags

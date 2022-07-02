@@ -1,6 +1,6 @@
 <?php
-// TODO Comments
 
+//Add databse
 require_once INCLUDE_DIR . "database.inc.php";
 
 class ProductOrder
@@ -13,6 +13,7 @@ class ProductOrder
     // endregion
 
     /**
+     * Constructor for {@link ProductOrder}.
      * @param int $productId
      * @param int $orderId
      * @param int $amount
@@ -26,14 +27,20 @@ class ProductOrder
         $this->price = $price;
     }
 
-    // region getter & setter
+    // region getter
 
+    /**
+     * Gets an {@link ProductOrder} by its ids.
+     * @param int $productId The id of the {@link Product}.
+     * @param int $orderId The id of the {@link Order}
+     * @return ProductOrder|null The {@link ProductOrder} or null, if not found.
+     */
     public static function getByIDs(int $productId, int $orderId): ?ProductOrder
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE product = ? AND `order` = ?;");
         $stmt->bind_param("ii", $productId, $orderId);
         if (!$stmt->execute()) {
-            logData("Product Order Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Order Model", "Query execute error! (get by ids)", LOG_LVL_CRITICAL);
 
             return null;
         }
@@ -47,12 +54,17 @@ class ProductOrder
         return new ProductOrder($productId, $orderId, $res["amount"], $res["price"]);
     }
 
+    /**
+     * Gets all {@link ProductOrder} of an order.
+     * @param int $orderId The id of the {@link Order}
+     * @return array|null An array with all {@link ProductOrder} or null, if an error occurred.
+     */
     public static function getAllByOrder(int $orderId): ?array
     {
         $stmt = getDB()->prepare("SELECT * FROM product_order WHERE `order` = ?;");
         $stmt->bind_param("i", $orderId);
         if (!$stmt->execute()) {
-            logData("Product Order Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Product Order Model", "Query execute error! (get by order)", LOG_LVL_CRITICAL);
             return null;
         }
 
@@ -70,7 +82,8 @@ class ProductOrder
     }
 
     /**
-     * @return int
+     * Gets the id of the {@link Product}.
+     * @return int The product id.
      */
     public function getProductId(): int
     {
@@ -78,7 +91,8 @@ class ProductOrder
     }
 
     /**
-     * @return int
+     * Gets the id of the {@link Order}
+     * @return int The order id.
      */
     public function getOrderId(): int
     {
@@ -86,13 +100,18 @@ class ProductOrder
     }
 
     /**
-     * @return float
+     * Gets the price of the {@link Product}
+     * @return float The price.
      */
     public function getPrice(): float
     {
         return $this->price;
     }
 
+    /**
+     * Gets the formatted price including the currency symbol.
+     * @return string The formatted price.
+     */
     public function getFormattedUnitPrice(): string
     {
         return number_format($this->price, 2, ".", "") . CURRENCY_SYMBOL;
@@ -119,13 +138,20 @@ class ProductOrder
     }
 
     /**
-     * @return int
+     * Gets the amount of the {@link Product} for this {@link ProductOrder}.
+     * @return int The amount.
      */
     public function getAmount(): int
     {
         return $this->amount;
     }
 
+    //endregion
+
+    /**
+     * Creates a new {@link ProductOrder} inside the database.
+     * @return $this|null The created {@link ProductOrder} or null, if an error occurred.
+     */
     public function insert(): ?ProductOrder
     {
         $stmt = getDB()->prepare("INSERT INTO product_order(product, `order`, amount, price)

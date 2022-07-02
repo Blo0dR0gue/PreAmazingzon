@@ -1,7 +1,6 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class UserRole
@@ -12,7 +11,7 @@ class UserRole
     // endregion
 
     /**
-     * Constructor for UserRole.
+     * Constructor for {@link UserRole}.
      * @param int $id
      * @param string $name
      */
@@ -25,9 +24,9 @@ class UserRole
     // region getter
 
     /**
-     * Get an existing UserRole by its id.
-     * @param int $id ID of UserRole
-     * @return UserRole|null found UserRole
+     * Get an existing {@link UserRole} by its id.
+     * @param int $id The id.
+     * @return UserRole|null The {@link UserRole} or null, if not found.
      */
     public static function getById(int $id): ?UserRole
     {
@@ -40,7 +39,9 @@ class UserRole
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -48,9 +49,9 @@ class UserRole
     }
 
     /**
-     * Get an existing UserRole by its name.
-     * @param string $name Name of Role
-     * @return UserRole|null found UserRole
+     * Get an existing {@link UserRole} by its name.
+     * @param string $name The name
+     * @return UserRole|null The {@link UserRole} or null, if not found.
      */
     public static function getByName(string $name): ?UserRole
     {
@@ -63,16 +64,18 @@ class UserRole
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
         return new UserRole($res["id"], $res["name"]);
     }
-    // endregion
 
     /**
-     * @return int
+     * Gets the id of this {@link UserRole}.
+     * @return int The id.
      */
     public function getId(): int
     {
@@ -80,11 +83,14 @@ class UserRole
     }
 
     /**
-     * @return string
+     * Gets the name of this {@link UserRole}.
+     * @return string The name.
      */
     public function getName(): string
     {
         return $this->name;
     }
+
+    // endregion
 }
 

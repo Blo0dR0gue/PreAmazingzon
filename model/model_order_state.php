@@ -1,7 +1,6 @@
 <?php
-// TODO Comments
 
-// load required files
+//Add databse
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class OrderState
@@ -12,7 +11,7 @@ class OrderState
     // endregion
 
     /**
-     * Constructor of OrderState.
+     * Constructor of {@link OrderState}.
      * @param int $id
      * @param string $label
      */
@@ -25,9 +24,9 @@ class OrderState
     // region getter
 
     /**
-     * Get an existing OrderState by its id.
-     * @param int $id ID of OrderState
-     * @return OrderState|null found OrderState
+     * Get an existing {@link OrderState} by its id.
+     * @param int $id ID of {@link OrderState}
+     * @return OrderState|null The {@link OrderState} or null, if not found.
      */
     public static function getById(int $id): ?OrderState
     {
@@ -50,6 +49,11 @@ class OrderState
         return new OrderState($id, $res["label"]);
     }
 
+    /**
+     * Get an existing {@link OrderState} by its label.
+     * @param string $label Label of {@link OrderState}.
+     * @return OrderState|null The {@link OrderState} or null, if not found.
+     */
     public static function getByName(string $label): ?OrderState
     {
         $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE label = ?;");
@@ -71,6 +75,10 @@ class OrderState
         return new OrderState($res["id"], $res["label"]);
     }
 
+    /**
+     * Gets all stored {@link OrderState}s
+     * @return array An array with all {@link OrderState} objects stored inside the database.
+     */
     public static function getAll(): array
     {
         $orderStates = [];
@@ -92,10 +100,9 @@ class OrderState
         return $orderStates;
     }
 
-    // endregion
-
     /**
-     * @return int
+     * Gets the id of the {@link OrderState}.
+     * @return int The id.
      */
     public function getId(): int
     {
@@ -103,11 +110,14 @@ class OrderState
     }
 
     /**
-     * @return string
+     * Gets the label of the {@link OrderState}
+     * @return string The label.
      */
     public function getLabel(): string
     {
         return $this->label;
     }
+
+    // endregion
 
 }

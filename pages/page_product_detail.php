@@ -103,7 +103,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
                     <p>
                         <?= $avgRating ?> Stars
                         <?php ReviewController::calcAndIncAvgProductStars($product->getId()) ?>
-                        (<?= ReviewController::getNumberOfReviewsForProduct($product->getId()) ?> reviews)
+                        (<?= ReviewController::getAmountOfReviewsForProduct($product->getId()) ?> reviews)
                     </p>
                 </div>
 
