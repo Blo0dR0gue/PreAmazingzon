@@ -73,7 +73,6 @@
         <div class="d-flex flex-wrap mb-2 align-items-center">
             <!-- Buttons -->
             <div class="col-7 d-flex flex-wrap justify-content-around">
-                <!-- TODO make it save so a user cant download a invoice of a other user? -->
                 <!-- invoice -->
                 <a class="btn btn-light border col-5" download=""
                    href="<?= INVOICES_DIR . $_SESSION["uid"] . DS . "invoice_" . $_SESSION["uid"] . "_" . $order->getId() . ".pdf" ?>">

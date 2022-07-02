@@ -38,7 +38,7 @@ class Address
     /**
      * Get all existing addresses related to one user.
      * @param int $userId user of interest
-     * @return array<Address>|null array of addresses
+     * @return array<Address>|null array of addresses or null, if an error occurred.
      */
     public static function getAllByUser(int $userId): ?array
     {
@@ -52,7 +52,7 @@ class Address
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
             logData("Address Model", "No items were found for user with id: " . $userId . "!", NOTICE_LOG);
-            return null;
+            return [];
         }
 
         $arr = array();
