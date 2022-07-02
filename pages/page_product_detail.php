@@ -2,7 +2,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php // get product
-$productID = $_GET["id"];   // TODO html special chars?
+$productID = $_GET["id"];
 if (isset($productID) && is_numeric($productID)) {
     $product = ProductController::getByID(intval($productID));
 
@@ -24,7 +24,6 @@ if (isset($productID) && is_numeric($productID)) {
     die();
 }
 
-// TODO vereinheitlichen und in dyn_pagination.inc.php auslagern
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;      // Calculate offset for pagination
 $reviewCount = ReviewController::getAmountOfReviewsForProduct($product->getId());      // Get the total Amount of Reviews
