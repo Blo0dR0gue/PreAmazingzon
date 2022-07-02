@@ -1,5 +1,3 @@
-<!-- TODO COMMENT-->
-
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
@@ -11,7 +9,11 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $userCount = UserController::getAmountOfUsers();                                  // Get the total amount of users
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
-$users = UserController::getUsersInRange($offset)
+$users = UserController::getUsersInRange($offset);
+
+//Get roles
+$adminUserRole = UserRoleController::getAdminUserRole();
+$defaultUserRole = UserRoleController::getDefaultUserRole();
 ?>
 
 <!DOCTYPE html>
@@ -45,13 +47,14 @@ $users = UserController::getUsersInRange($offset)
         <!-- table head -->
         <thead class="thead-light">
         <tr>
-            <th scope="col" style="width: 8%"></th>
+            <th scope="col" style="width: 10%"></th>
             <th scope="col" style="width: 5%">#</th>
-            <th scope="col" style="width: 25%">E-Mail</th>
+            <th scope="col" style="width: 20%">E-Mail</th>
             <th scope="col" style="width: 15%;">Firstname</th>
             <th scope="col" style="width: 15%">Lastname</th>
-            <th scope="col" style="width: 10%">Primary Address ID</th>
+            <th scope="col" style="width: 15%">Primary Address ID</th>
             <th scope="col" style="width: 5%">Active</th>
+            <th scope="col" style="width: 5%">Role</th>
         </tr>
         </thead>
 
@@ -62,14 +65,25 @@ $users = UserController::getUsersInRange($offset)
             foreach ($users as $user): ?>
                 <tr>
                     <td class="align-middle" data-th="">
+                        <!--Enable/Disable user-->
                         <button
                                 class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                                 data-toggle="tooltip" data-placement="left"
                                 title="(De-) Activate User"
                                 onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
-                            <em class="fa fa-toggle-on"></em>
+                            <em class="fa <?= $user->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="activeBtnImg<?=$user->getId()?>"></em>
                         </button>
-                        <!--TODO make admin button?-->
+
+                        <!--Toggle admin status-->
+                        <button
+                                class="btn btn-sm <?= $user->getRoleId() == $adminUserRole->getId() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
+                                data-toggle="tooltip" data-placement="left"
+                                title="Toggle User Role"
+                                onclick="onToggleUserRole(this, <?= $user->getId(); ?>)">
+                            <em class="fa <?= $user->getRoleId() == $adminUserRole->getId() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="adminBtnImg<?=$user->getId()?>"></em>
+                        </button>
+
+                        <!--Delete user-->
                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Delete user"
                            onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,
@@ -99,14 +113,19 @@ $users = UserController::getUsersInRange($offset)
                         <?= $user->getDefaultAddressId() ?? "Not Set"; ?>
                     </td>
 
-                    <td data-th="Active" data-id="<?= $user->getId(); ?>">
+                    <td data-th="Active" data-activeUserId="<?= $user->getId(); ?>">
                         <?= $user->isActive() ? "Yes" : "No"; ?>
                     </td>
+
+                    <td data-th="Role" data-roleUserId="<?= $user->getId(); ?>">
+                        <?= $user->getRoleId() == $adminUserRole->getId() ? $adminUserRole->getName() : $defaultUserRole->getName(); ?>
+                    </td>
+
                 </tr>
             <?php endforeach;
         } else { ?>
             <tr>
-                <td colspan="7" style="text-align: center">
+                <td colspan="8" style="text-align: center">
                     <p><em class="mb-3">No users are available.</em></p>
                 </td>
             </tr>
