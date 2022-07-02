@@ -79,7 +79,7 @@ foreach ($cartProducts as $cartProduct) {
         $cartProduct->getProdId(),
         $order->getId(),
         $cartProduct->getAmount(),
-        $product->getPrice()
+        $product->getPriceTotal()
     );
 
     if (isset($productOrder)) {

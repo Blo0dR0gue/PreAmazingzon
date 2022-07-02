@@ -10,14 +10,13 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
         <div class="col-md-6 mt-1">
             <h5><?= $product->getTitle(); ?></h5>
             <div class="mt-1 mb-1">
-                Price: <?= $product->getPriceFormatted($cartProduct->getAmount()) . " + " . $product->getShippingCostFormatted(); ?></div>
+                Price: <?= $product->getPriceFormatted() . " + " . $product->getShippingCostFormatted(); ?></div>
             <div class="mt-1 mb-1">Amount: <?= $cartProduct->getAmount() ?></div>
         </div>
     </div>
 
     <?php
     // save price for super script calculating total
-    $subtotal = $product->getPrice($cartProduct->getAmount());
-
+    $subtotal = $product->getPriceTotal($cartProduct->getAmount());
 }
 ?>

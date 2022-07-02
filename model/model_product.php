@@ -1,6 +1,6 @@
 <?php
 
-//Add database
+// include database
 require_once INCLUDE_DIR . "database.inc.php";
 
 class Product
@@ -15,7 +15,6 @@ class Product
     private ?int $categoryID;
     private bool $active;
     // endregion
-
 
     /**
      * Constructor of {@link Product}
@@ -385,6 +384,26 @@ class Product
     }
 
     /**
+     * Gets the formatted price inklusiv costs.
+     * @param int $amount Amount of items of this product.
+     * @return string Formatted price for $amount products
+     */
+    public function getPriceTotalFormatted(int $amount = 1): string
+    {
+        return number_format($this->getPriceTotal($amount), 2, ".", "") . CURRENCY_SYMBOL;
+    }
+
+    /**
+     * Gets the price of the {@link Product} multiplied by an amount and added shipping cost.
+     * @param int $amount The multiplier.
+     * @return float The price for this {@link Product}/s.
+     */
+    public function getPriceTotal(int $amount = 1): float
+    {
+        return ($this->price + $this->shippingCost) * $amount ;
+    }
+
+    /**
      * Sets the price of the {@link Product}.
      * @param float $price The price.
      */
@@ -421,8 +440,6 @@ class Product
     {
         $this->stock = $stock;
     }
-
-// TODO deal with shipping cost? per amount or add after?
 
     /**
      * Gets the formatted shipping costs.
