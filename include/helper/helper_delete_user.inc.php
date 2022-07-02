@@ -21,7 +21,7 @@ $user = UserController::getById($_GET["id"]);
 
 if (!isset($user)) {
 
-    logData("Delete User", "User wit id: " . $_GET["id"] . " not found!", CRITICAL_LOG);
+    logData("Delete User", "User with id: " . $_GET["id"] . " not found!", CRITICAL_LOG);
 
     // Go back to previous page, if it got set, else go back to the page_users.php page
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -35,7 +35,7 @@ if (!isset($user)) {
 $suc = UserController::delete($user);
 
 if (!$suc) {
-    logData("Delete User", "User wit id: " . $user->getId() . " could not be deleted!", CRITICAL_LOG);
+    logData("Delete User", "User with id: " . $user->getId() . " could not be deleted!", CRITICAL_LOG);
 }
 
 logData("Delete User", "User with id: " . $_GET["id"] . "deleted!");
