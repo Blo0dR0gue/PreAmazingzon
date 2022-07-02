@@ -162,7 +162,7 @@ if (!$primaryAddress) { // user default address could not be found?
         </div>
         <!-- endregion -->
 
-        <h4 class="mb-2 mt-3">Address Information</h4>
+        <h4 class="mb-2 mt-3">(Default) Address Information</h4>
         <?php if (isset($addresses)) { // Are addresses available ?>
             <!-- region address 1 row -->
             <div class="form-group position-relative">
