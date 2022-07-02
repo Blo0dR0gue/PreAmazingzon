@@ -5,17 +5,20 @@ UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
 $productID = $_GET["id"];
 if (isset($productID) && is_numeric($productID)) {
+    //Get the product
     $product = ProductController::getByID(intval($productID));
 
     if (!isset($product)) {
+        //Product not found
         logData("Edit Product", "Product with id " . $productID . "not found!", WARNING_LOG);
         header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no product is found.
         die();
     }
 
-    // Variable, which is used by the radio buttons // TODO do we use that?
+    // Variable, which is used by the radio buttons (inside the template)
     $category = CategoryController::getById($product->getCategoryID());
 } else {
+    //Variables are missing
     logData("Edit Product", "Missing value!", WARNING_LOG);
     header("LOCATION: " . ADMIN_PAGES_DIR . "page_products.php"); // Redirect, if no number is passed.
     die();
@@ -26,6 +29,7 @@ $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"]) && is_numeric($_POST["price"])
     && isset($_POST["shipping"]) && is_numeric($_POST["shipping"]) && isset($_POST["stock"]) && is_numeric($_POST["stock"]) && $isPost) {
 
+    //Update the product
     $product = ProductController::update(
         $product,
         $_POST["title"],
@@ -38,20 +42,23 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     );
 
     if (isset($product)) {
+        //Update was successful
 
         logData("Edit Product", "Product with id " . $product->getId() . " got updated.");
         $error = ProductController::deleteSelectedImages($product->getId(), $_POST["deletedImgIDs"]);
 
         if (!$error) {
+            //Images got deleted.
             logData("Edit Product", "Selected images got deleted.");
             $error = ProductController::updateMainImg($product->getId(), $_POST["mainImgID"]);
 
             if (!$error) {
-
+                //Main image got changed
                 logData("Edit Product", "Main image got updated.");
                 $error = ProductController::uploadImages($product->getId(), $_FILES["files"] ?? null, $_POST["mainImgID"]);
 
                 if (!$error) {
+                    //New images got uploaded
                     logData("Edit Product", "Images got uploaded.");
                     logData("Edit Product", "Update product with id: " . $product->getId() . " done.");
                     header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php?message=Product%20updated');  // go to admin products page

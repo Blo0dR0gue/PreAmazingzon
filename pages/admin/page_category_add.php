@@ -17,8 +17,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     if (isset($category)) {
         logData("Add Category", "Category with id " . $category->getId() . "got created.");
-        header("LOCATION: " . ADMIN_PAGES_DIR . 'page_categories.php');  // go to admin categories page
-        // TODO success msg?
+        header("LOCATION: " . ADMIN_PAGES_DIR . 'page_categories.php?message=Category%20updated');  // go to admin categories page
         die();
     }
     $processingError = true;

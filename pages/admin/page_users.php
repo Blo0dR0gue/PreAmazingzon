@@ -1,7 +1,10 @@
+<!--Admin user management page-->
+
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-UserController::redirectIfNotAdmin();   // User is not allowed to be here.
+//Is the user allowed to be here?
+UserController::redirectIfNotAdmin();
 
 // pagination stuff
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
@@ -9,7 +12,8 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $userCount = UserController::getAmountOfUsers();                                  // Get the total amount of users
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
-$users = UserController::getUsersInRange($offset);
+//Get all users from an offset to a specific amount.
+$users = UserController::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 
 //Get roles
 $adminUserRole = UserRoleController::getAdminUserRole();
