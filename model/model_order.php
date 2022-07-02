@@ -1,6 +1,6 @@
 <?php
 
-// load required files
+//Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Order
@@ -17,6 +17,7 @@ class Order
     // endregion
 
     /**
+     * Constructor for an order.
      * @param int $id
      * @param DateTime $orderDate
      * @param DateTime $deliveryDate
@@ -36,8 +37,7 @@ class Order
         $this->shippingAddressId = $shippingAddressId;
     }
 
-    // region getter & setter
-
+    // region getter
 
     /**
      * Gets the amount of orders.
@@ -158,6 +158,33 @@ class Order
     }
 
     /**
+     * Gets a specific order by his id.
+     * @return Order|null The {@link Order} stored inside the database or null, if not found.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
+     */
+    public static function getById(int $id): ?Order
+    {
+        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found for id: " . $id, LOG_LVL_NOTICE);
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
+    }
+
+    /**
+     * Gets the id of the {@link Order} inside the database.
      * @return int The id of the object.
      */
     public function getId(): int
@@ -166,6 +193,7 @@ class Order
     }
 
     /**
+     * Gets the create date of the {@link Order}.
      * @return DateTime The datetime object for the order data.
      */
     public function getOrderDate(): DateTime
@@ -174,17 +202,19 @@ class Order
     }
 
     /**
+     * Gets the formatted create date of the {@link Order}.
      * @return string The formatted order date as a string in the format: d.m.Y H:i:s
      */
     public function getFormattedOrderDate(): string
     {
         if (isset($this->orderDate)) {
-            return $this->orderDate->format("d.m.Y H:i:s");// TODO constant
+            return $this->orderDate->format(DATA_FORMAT);
         }
         return "Not Set";
     }
 
     /**
+     * Gets the delivery date of the {@link Order}.
      * @return DateTime The datetime object for the delivery date.
      */
     public function getDeliveryDate(): DateTime
@@ -193,17 +223,19 @@ class Order
     }
 
     /**
+     * Gets the formatted delivery date of the {@link Order}.
      * @return string The formatted delivery date as a string in the format: d.m.Y H:i:s.
      */
     public function getFormattedDeliveryDate(): string
     {
         if (isset($this->deliveryDate)) {
-            return $this->deliveryDate->format("d.m.Y");// TODO constant
+            return $this->deliveryDate->format(DATE_FORMAT_SHORT);
         }
         return "Not Set";
     }
 
     /**
+     * Is the {@link Order} paid?
      * @return bool true, if the order is paid
      */
     public function isPaid(): bool
@@ -212,6 +244,7 @@ class Order
     }
 
     /**
+     * Gets the {@link OrderState} id of the {@link Order}.
      * @return int The state id in which the order currently is.
      */
     public function getOrderStateId(): int
@@ -222,7 +255,8 @@ class Order
     // endregion
 
     /**
-     * @return int The id of the user who placed this order
+     * Gets the user id who created this order.
+     * @return int The id of the {@link User} who placed this order
      */
     public function getUserId(): int
     {
@@ -230,15 +264,21 @@ class Order
     }
 
     /**
-     * @return int The id of the address, to which this order gets shipped.
+     * Gets the id of the shipping address.
+     * @return int The id of the {@link Address}, to which this order gets shipped.
      */
     public function getShippingAddressId(): int
     {
         return $this->shippingAddressId;
     }
 
+    //endregion
+
+    //region setter
+
     /**
-     * @param int $orderStateId
+     * Sets the state of the order.
+     * @param int $orderStateId The id of the {@link OrderState}. (From the databse)
      */
     public function setOrderStateId(int $orderStateId): void
     {
@@ -246,15 +286,19 @@ class Order
     }
 
     /**
-     * @param bool $paid
+     * Sets the paid status of the order.
+     * @param bool $paid Set it to true, if the order is paid.
      */
     public function setPaid(bool $paid): void
     {
         $this->paid = $paid;
     }
 
+    //endregion
+
     /**
-     * Calls an insert statement for this object.
+     * Creates an {@link Order} inside tha database.
+     * @return Order|null The created {@link Order} or null, if an error occurred.
      * @throws Exception If it is not possible to convert a string to a datetime object.
      */
     public function insert(): ?Order
@@ -286,32 +330,8 @@ class Order
     }
 
     /**
-     * Gets a specific order by his id.
-     * @throws Exception If it is not possible to convert a string to a datetime object.
-     */
-    public static function getById(int $id): ?Order
-    {
-        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) {
-            logData("Order Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
-            return null;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            logData("Order Model", "No Items were found for id: ".$id, LOG_LVL_NOTICE);
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
-    }
-
-    /**
-     * Updates an order inside the database
+     * Updates an {@link Order} inside the database
+     * @return Order|null The updated {@link Order} or null, if an error occurred.
      * @throws Exception If it is not possible to cast the dates from the result to an DateTime object.
      */
     public function update(): ?Order
@@ -346,8 +366,8 @@ class Order
     }
 
     /**
-     * Deletes itself from the database.
-     * @return bool true, if the order got deleted.
+     * Deletes an {@link Order} from the database.
+     * @return bool true, if the {@link Order} got deleted.
      * @throws Exception Will not be called
      */
     public function delete(): bool

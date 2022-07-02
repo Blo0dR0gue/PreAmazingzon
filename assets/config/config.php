@@ -37,6 +37,17 @@ const LIMIT_OF_SHOWED_ITEMS = 8;
  */
 const PAGINATION_RANGE = 2;
 
+/**
+ * Defines the format of the displayed dates. <br>
+ * @see https://www.php.net/manual/en/datetime.format.php
+ */
+const DATA_FORMAT = "d.m.Y H:i:s";
+
+/**
+ * Defines the short date format used for e.g. the delivery date.
+ */
+const DATE_FORMAT_SHORT = "d.m.Y";
+
 // endregion
 
 // region ########## Central Strings ##########
