@@ -43,7 +43,7 @@ class CategoryController
      */
     public static function getByName(string $name): ?Category
     {
-        return Category::getByName($name); //TODO error handling; validation
+        return Category::getByName($name);
     }
 
     /**

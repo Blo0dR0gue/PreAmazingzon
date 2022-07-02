@@ -92,7 +92,7 @@ class ProductController
         $currentStock = $product->getStock();
 
         if ($currentStock < $amount) {
-            //TODO error
+            header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             return null;
         } else {
             $product->setStock($product->getStock() - $amount);
