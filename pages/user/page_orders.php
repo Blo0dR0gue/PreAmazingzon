@@ -1,9 +1,10 @@
-<!-- TODO COMMENT -->
 <?php
 require_once "../../include/site_php_head.inc.php";
 
+//Check if no user is logged-in or the logged-in user got blocked. Redirect to root if not.
 UserController::redirectIfNotLoggedIn();
 
+//Pagination init
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;    // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                      // Calculate offset for pagination
 $orderCount = OrderController::getAmountForUser($_SESSION["uid"]);                  // Get the total amount of order for the user

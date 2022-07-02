@@ -205,7 +205,7 @@ if (!$primaryAddress) { // user default address could not be found?
                                onclick="openConfirmModal(<?= "'Do you really want to delete this Address?'" ?>,
                                        'Delete Address?',
                                        '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_address.inc.php?addressId=" . $address->getId() . "&userId=" . $user->getId()); ?>')">
-                                <em class="fa fa-trash "></em> <!--TODO-->
+                                <em class="fa fa-trash "></em>
                             </a>
 
                         </div>
