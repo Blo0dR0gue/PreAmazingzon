@@ -1,29 +1,31 @@
 <?php
 // Helper page to create an invoice after the order complete.
 
-// Redirect, if this page got called directly and not via "request"
+// redirect, if this page got called directly and not via "request"
 if (str_contains($_SERVER["REQUEST_URI"], basename(__FILE__))) {
     header("Location: " . ROOT_DIR);
     die();
 }
 
-// Load Header
+// load Header
 require_once "../site_php_head.inc.php";
 
 UserController::redirectIfNotLoggedIn();
 
-// Redirect, if information to create the invoice are missing or the information do not have the correct datatype
-// The most information could be got by the order object, but we only want to use this page after order creation and there this information should already be set.
+// Redirect, if information to create the invoice are missing or the information do not have the correct datatype.
+// The most information could be retrieved by the order object, but we only want to use this page after order creation
+// in this case this information should already be set.
 if (!isset($order) || !$order instanceof Order || empty($productOrders) ||
     !$productOrders[0] instanceof ProductOrder || !isset($deliveryAddress) || !$deliveryAddress instanceof Address) {
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
 
-// Load tcpdf
+// load tcpdf
 require_once INCLUDE_TCPDF_DIR . "tcpdf.php";
 
-// It's safe to user this here, because we check the user information in the function redirectIfNotLoggedIn
+// region load data
+// it's safe to use this here, because we check the user information in the function redirectIfNotLoggedIn
 $user = UserController::getById($_SESSION["uid"]);
 
 $orderId = $order->getId();
@@ -32,17 +34,7 @@ $orderDate = $order->getFormattedOrderDate();
 $deliveryDate = $order->getFormattedDeliveryDate();
 $pdfAuthor = PAGE_NAME;
 
-$targetDir = INVOICES_DIR . $userId;
-
-// The sender of this invoice
-$invoice_header =
-    "<img src='" . IMAGE_LOGO_DIR . "logo_long.svg" . "' height='32'> \n " .
-    PAGE_NAME . "\n" .
-    COMPANY_STREET . " " . COMPANY_STREET_NR . "\n" .
-    COMPANY_ZIP_CODE . " " . COMPANY_CITY . "\n" .
-    COMPANY_COUNTRY;
-
-// Recipient information for invoice
+// recipient of invoice
 $invoice_recipient =
     $user->getFormattedName() . "\n" .
     $deliveryAddress->getStreet() . " " . $deliveryAddress->getNumber() . "\n" .
@@ -52,45 +44,63 @@ $invoice_footer = INVOICE_FOOTER;
 
 // value added tax (0.19 = 19%)
 $tax = SHOP_TAX;
+// endregion
 
+// load file information
+$targetDir = INVOICES_DIR . $userId;
 $pdfName = "invoice_" . $userId . "_" . $orderId . ".pdf";
 
-// Invoice body (The use of css is limited in tcpdf)
-$html = ' 
+
+// region invoice body (use of css is limited in tcpdf)
+$html = '
 <table style="width: 100%; ">
- <tr>
- <td>' . nl2br(trim($invoice_header)) . '</td>
-    <td style="text-align: right">
-Bill Number ' . $orderId . '<br>
-Invoice Date: ' . $orderDate . '<br>
-Delivery Date: ' . $deliveryDate . '<br>
- </td>
- </tr>
+    <tr>
+        <td style="width: 60%">
+            <img src="' . IMAGE_LOGO_DIR . 'logo_long.svg" height="34" alt="Logo"> <br><br>
+        </td>
+        
+        <td style="width: 40%">
+            <!-- invoice information -->
+            Bill Number ' . $orderId . '<br>
+            Invoice Date: ' . $orderDate . '<br>
+            Delivery Date: ' . $deliveryDate . '<br><br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>' . nl2br(trim($invoice_recipient)) . '</td>
+        
+        <td>  
+            <!-- sender of invoice -->
+            '. PAGE_NAME . '<br>
+            ' . COMPANY_STREET . ' ' . COMPANY_STREET_NR  . '<br>
+            ' . COMPANY_ZIP_CODE . ' ' . COMPANY_CITY . '<br>
+            ' . COMPANY_COUNTRY . '
+        </td>
+    </tr>
  
- <tr>
- <td style="font-size:1.3em; font-weight: bold;">
-<br><br>
-Invoice
-<br>
- </td>
- </tr>
- 
- 
- <tr>
- <td colspan="2">' . nl2br(trim($invoice_recipient)) . '</td>
- </tr>
+    <tr>
+        <td>
+            <p style="font-size:1.4em; font-weight: bold; margin-top: 15px">Invoice<br><br></p>
+        </td>
+    </tr>
 </table>
-<br><br><br>
  
 <table style="width: 100%; border: none;">
- <tr style="background-color: #cccccc; padding:5px;">
- <td style="padding:5px;"><b>Name</b></td>
- <td style="text-align: center;"><b>Amount</b></td>
- <td style="text-align: center;"><b>Unit Price</b></td>
- <td style="text-align: center;"><b>Price</b></td>
- </tr>';
+    <thead>
+        <tr style="background-color: #bbbbbb;">
+            <th scope="col" style="width: 61%">Name</th>
+            <th scope="col" style="width: 13%; text-align: center;">Amount</th>
+            <th scope="col" style="width: 13%; text-align: center;">Unit Price</th>
+            <th scope="col" style="width: 13%; text-align: center;">Price</th>
+        </tr>
+    </thead>
+    
+    <tbody>';
+// endregion
 
-// Total sum of all products for this invoice
+// TODO shipping?
+// total sum of all products for this invoice
 $sum = 0;
 
 foreach ($productOrders as $item) {
@@ -99,39 +109,42 @@ foreach ($productOrders as $item) {
     $sum += $item->getFullPrice();
 
     $html .= '<tr>
-                <td>' . $product->getTitle() . '</td>
-                <td style="text-align: center;">' . $item->getAmount() . " pcs." . '</td> 
-                <td style="text-align: center;">' . $item->getFormattedUnitPrice() . '</td>	
-                <td style="text-align: center;">' . $item->getFormattedFullPrice() . '</td>
+                <td data-th="Name" style="width: 61%; margin-bottom: 10px">' . $product->getTitle() . '<br></td>
+                <td data-th="Amount" style="width: 13%; text-align: center;">' . $item->getAmount() . " pcs." . '</td> 
+                <td data-th="Unit Price" style="width: 13%; text-align: center;">' . $item->getFormattedUnitPrice() . '</td>	
+                <td data-th="Price" style="width: 13%; text-align: center;">' . $item->getFormattedFullPrice() . '</td>
               </tr>';
 }
-$html .= "</table>";
-
 
 $html .= '
+    </tbody>
+</table>
 <hr>
+
 <table style="width: 100%; border: none">';
+
 if ($tax > 0) {
     $net = $sum / (1 + $tax);
     $tax_amount = $sum - $net;
 
     $html .= '
  <tr>
- <td colspan="3">Subtotal (net)</td>
- <td style="text-align: center;">' . number_format($net, 2, ',', '') . CURRENCY_SYMBOL . '</td>
+    <td style="width: 87%;">Subtotal (net)</td>
+    <td style="width: 13%; text-align: center;">' . number_format($net, 2, ',', '') . CURRENCY_SYMBOL . '</td>
  </tr>
+ 
  <tr>
- <td colspan="3">Tax (' . intval($tax * 100) . '%)</td>
- <td style="text-align: center;">' . number_format($tax_amount, 2, ',', '') . CURRENCY_SYMBOL . '</td>
+    <td style="width: 87%;">Tax (' . intval($tax * 100) . '%)</td>
+    <td style="width: 13%; text-align: center;">' . number_format($tax_amount, 2, ',', '') . CURRENCY_SYMBOL . '</td>
  </tr>';
 }
 
 $html .= '
-            <tr>
-                <td colspan="3"><b>Total: </b></td>
-                <td style="text-align: center;"><b>' . number_format($sum, 2, ',', '') . CURRENCY_SYMBOL . '</b></td>
-            </tr> 
-        </table>
+    <tr>
+        <td style="width: 87%;"><b>Total: </b></td>
+        <td style="width: 13%; text-align: center;"><b>' . number_format($sum, 2, ',', '') . CURRENCY_SYMBOL . '</b></td>
+    </tr> 
+</table>
 <br><br><br>';
 
 if ($tax == 0) {
@@ -162,7 +175,7 @@ $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
-// New page, if needed
+// new page, if needed
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 // scale the images
