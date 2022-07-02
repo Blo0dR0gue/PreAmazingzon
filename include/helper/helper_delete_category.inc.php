@@ -38,7 +38,7 @@ if (!$suc) {
     logData("Delete Category", "Category with id: " . $category->getId() . " could not be deleted!", CRITICAL_LOG);
 }
 
-logData("Delete Category", "Category with id: " . $_GET["id"] . "deleted!");
+logData("Delete Category", "Category with id: " . $_GET["id"] . " deleted!");
 
 // Go back to previous page, if it got set, else go back to the page_categories.php page
 if (isset($_SERVER["HTTP_REFERER"])) {
