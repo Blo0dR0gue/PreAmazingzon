@@ -1,5 +1,3 @@
-<!-- TODO comment -->
-
 <form action="" id="prodForm" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="card my-4">
         <!-- HEADER -->
@@ -36,23 +34,24 @@
                 <label for="selectedRadio">Category</label>
                 <select class="form-select" name="cat">
                     <option value="-1" hidden>Select Category</option>
-
+                    <!-- Add the category tree -->
                     <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>
                         <option value="<?= $treeEntry["top"]; ?>"
                             <?php
                             if (isset($cat)) {
                                 if (in_array($treeEntry["top"], $cat)) {
-                                    echo "selected";
+                                    echo "selected";    //Select the selected category
                                 }
                             } else if (isset($category) && $category instanceof Category) {
                                 if ($treeEntry["top"] == $category->getId()) {
-                                    echo "selected";
+                                    echo "selected";    //Select the selected category
                                 }
                             } ?>>
                             <?= $treeEntry["path"]; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <!-- Invalid category tooltip -->
                 <div class="invalid-tooltip opacity-75">Please select a category!</div>
             </div>
 
@@ -62,8 +61,10 @@
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
                 <textarea class="form-control" id="description" name="description" placeholder="My Product" required
                           rows="3"><?php if (isset($product) && $product instanceof Product) {
+                              //Add the current product description (edit mode)
                         echo $product->getDescription();
                     } ?></textarea>
+                <!-- Invalid description tooltip -->
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
             </div>
 
@@ -73,10 +74,12 @@
                 <div class="input-group p-0">
                     <input type="number" id="price" name="price" step='0.01' class="form-control"
                            value="<?php if (isset($product) && $product instanceof Product) {
+                               //Add the current product price (edit mode)
                                echo $product->getPrice();
                            } ?>"
                            required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00" min="0">
                     <span class="input-group-text rounded-end"><?= CURRENCY_SYMBOL ?></span>
+                    <!-- Invalid price tooltip -->
                     <div class="invalid-tooltip opacity-75">Please choose a correct price!</div>
                 </div>
             </div>
@@ -88,9 +91,11 @@
                     <input type="number" id="shipping" name="shipping" placeholder="3.50" min="0" step='0.01'
                            class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$"
                            value="<?php if (isset($product) && $product instanceof Product) {
+                               //Add the current product shipping cost (edit mode)
                                echo $product->getShippingCost();
                            } ?>">
                     <span class="input-group-text rounded-end"><?= CURRENCY_SYMBOL ?></span>
+                    <!-- Invalid shipping price tooltip -->
                     <div class="invalid-tooltip opacity-75">Please choose a correct shipping price!</div>
                 </div>
             </div>
@@ -102,9 +107,11 @@
                     <input type="number" id="stock" name="stock" class="form-control" placeholder="42" min="0" required
                            pattern="[1-9][0-9]*|0"
                            value="<?php if (isset($product) && $product instanceof Product) {
+                               //Add the current product stock amount (edit mode)
                                echo $product->getStock();
                            } ?>">
                     <span class="input-group-text rounded-end">Pcs.</span>
+                    <!-- Invalid stock amount tooltip -->
                     <div class="invalid-tooltip opacity-75">Please choose a correct stock amount!</div>
                 </div>
             </div>
@@ -116,6 +123,7 @@
                     <input class="form-check-input rounded" type="checkbox" id="active" name="active"
                         <?php
                         if ((isset($product) && $product->isActive()) || !isset($product)){
+                            //By default, a product is active / Set the active status of the product in edit mode
                             echo "checked";
                         } ?>>
                     <label class="form-check-label ms-2" for="active">
@@ -128,7 +136,6 @@
             <div class="form-group">
                 <label for="pictures" class="form-label fs-5 mt-2">Product Images</label>
                 <!-- image drop zone -->
-                <!-- TODO deprecated name event-->
                 <div id="dropZone" class="drop-zone rounded border-secondary p-3"
                      ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)" ondragover="dragOverHandler(event)">
                     <!-- prepare to show uploaded images in edit mode -->
