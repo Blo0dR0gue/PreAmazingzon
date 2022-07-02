@@ -49,7 +49,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <div>
                         <?php
                         echo ReviewController::getAvgRating($product->getId());
-                        ReviewController::calcAndIncAvgProductStars($product->getId());     // TODO change to echo too for better overview
+                        echo ReviewController::calcAndIncAvgProductStars($product->getId());
                         ?>
                     </div>
                 </div>
