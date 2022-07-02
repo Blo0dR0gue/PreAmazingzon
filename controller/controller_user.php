@@ -54,14 +54,21 @@ class UserController
      * @return User|null A new {@link User} object or null, if an error occurred.
      */
     public static function register(string $firstName, string $lastName, string $email, string $password, string $zip, string $city, string $street, string $number, int $roleId): ?User
-    {   // TODO validate
+    {
 
         if (self::emailAvailable($email)) {     // email unique
             // hash password
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             // create user
-            $user = new User(0, $firstName, $lastName, $email, $passwordHash, true, $roleId, null);
+            $user = new User(0,
+                htmlspecialchars($firstName, ENT_QUOTES, "UTF-8"),
+                htmlspecialchars($lastName, ENT_QUOTES, "UTF-8"),
+                htmlspecialchars($email, ENT_QUOTES, "UTF-8"),
+                $passwordHash,
+                true,
+                $roleId,
+                null);
             $user = $user->insert();
             if (!$user) {
                 return null;
