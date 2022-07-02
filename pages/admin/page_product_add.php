@@ -24,8 +24,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
         if (!$errors) {
             logData("Add Product", "Product with id " . $product->getId() . " got created!");
-            header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
-            // TODO success msg?
+            header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php?message=Product%20created');  // go to admin products page
             die();
         }
     }

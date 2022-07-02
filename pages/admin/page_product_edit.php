@@ -54,8 +54,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
                 if (!$error) {
                     logData("Edit Product", "Images got uploaded.");
                     logData("Edit Product", "Update product with id: " . $product->getId() . " done.");
-                    header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php');  // go to admin products page
-                    // TODO success msg?
+                    header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php?message=Product%20updated');  // go to admin products page
                     die();
                 }
             }
