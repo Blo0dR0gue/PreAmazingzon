@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `amazingzon`.`Category`
     CONSTRAINT `fk_categorie_categorie1`
         FOREIGN KEY (`parent`)
             REFERENCES `amazingzon`.`Category` (`id`)
-            ON DELETE RESTRICT
+            ON DELETE CASCADE
             ON UPDATE CASCADE
 )
     ENGINE = InnoDB;

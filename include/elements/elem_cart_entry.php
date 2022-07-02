@@ -1,17 +1,19 @@
 <?php
 //Is the cart product set and an CartProduct object
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
-    $product = ProductController::getByID($cartProduct->getProdId());
-    ?>
+    $product = ProductController::getByID($cartProduct->getProdId()); ?>
+    <!-- shopping cart row -->
     <tr>
         <!--region product details-->
         <td data-th="Product">
             <div class="row">
+                <!-- main product image -->
                 <a href="<?= PAGES_DIR . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
                    class="col-md-3 d-flex justify-content-center">
                     <img src="<?= $product->getMainImg() ?>" alt="Image"
                          class="img-fluid d-none d-md-block rounded align-self-center" style="max-height: 180px">
                 </a>
+                <!-- product information -->
                 <div class="col-md-9 text-left mt-sm-2">
                     <a href="<?= PAGES_DIR . "page_product_detail.php?" . http_build_query(["id" => $product->getId()]) ?>"
                        class="text-decoration-none text-black">
@@ -45,6 +47,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
             </div>
         </td>
         <!--endregion-->
+
         <!--Cost for the amount of this product-->
         <td data-th="Subtotal"><?= $product->getPriceFormatted($cartProduct->getAmount()) ?></td>
 
@@ -61,5 +64,4 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
 } else {
     //If product not found
     $subtotal = 0;
-}
-?>
+} ?>

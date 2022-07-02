@@ -47,7 +47,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
         <!-- table head -->
         <thead class="thead-light">
         <tr>
-            <th scope="col" style="width: 5%"></th>
+            <th scope="col" style="width: 6%"></th>
             <th scope="col" style="width: 10%">#</th>
             <th scope="col" style="width: 45%">Title</th>
             <th scope="col" style="width: 20%">Super</th>
@@ -61,11 +61,18 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
                 <tr>
                     <td data-th="" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
-                           class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
+                           class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Edit category">
                             <em class="fa fa-pencil"></em>
                         </a>
-                        <!-- TODO toggle active? or simply no delete? -->
+                        <!-- delete category -->
+                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
+                           title="Delete category"
+                           onclick="openConfirmModal(<?= "'Do you really want to delete the category: \'" . $category->getName() . "\', with ID: " . $category->getId() . " and all its subcategories? Products in this categories get moved to root.'" ?>,
+                                   'Delete Category?',
+                                   '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_category.inc.php?id=" . $category->getId()); ?>')">
+                            <em class="fa fa-trash "></em>
+                        </a>
                     </td>
 
                     <td data-th="#" class="align-middle">
@@ -101,6 +108,9 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 
 <!-- confirm modal -->
 <?php require_once INCLUDE_MODAL_DIR . "modal_confirm.inc.php"; ?>
+
+<!-- dynamic popup modal -->
+<?php require_once INCLUDE_MODAL_DIR . "modal_popup_content.inc.php"; ?>
 
 <!-- pagination -->
 <?php require INCLUDE_DIR . "dyn_pagination.inc.php" ?>
