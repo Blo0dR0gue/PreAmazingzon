@@ -88,15 +88,5 @@
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
-<!-- show error popup -->
-<?php
-if (isset($processingError)) {   // processing error
-    show_popup(
-        "Edit Product Error",
-        "ALARM" // TODO
-    );
-}
-?>
-
 </body>
 </html>

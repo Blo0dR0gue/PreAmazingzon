@@ -69,7 +69,6 @@ $orderStates = OrderStateController::getAll();
                     ?>
                     <tr>
                         <td class="align-middle" data-th="">
-                            <!--TODO user delete -->
                             <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                                title="Delete order"
                                onclick="openConfirmModal(<?= "'Do you really want to delete the order with ID: \'" . $order->getId() . "\'and all its information?'" ?>,

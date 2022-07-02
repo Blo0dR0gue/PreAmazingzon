@@ -75,7 +75,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 if (isset($processingError)) {   // processing error
     show_popup(
         "Edit Category Error",
-        "ALARM" // TODO
+        "An error occurred while updating the category."
     );
 }
 ?>
