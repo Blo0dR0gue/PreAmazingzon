@@ -80,7 +80,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                                 data-toggle="tooltip" data-placement="left"
                                 title="(De-) Activate Product"
                                 onclick="onToggleProductActivation(this, <?= $product->getId(); ?>)">
-                            <em class="fa fa-toggle-on"></em>
+                            <em class="fa <?= $product->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="activeBtnImg<?=$product->getId()?>"></em>
                         </button>
                     </td>
 

@@ -18,6 +18,11 @@ function onToggleProductActivation(button, productId) {
                 button.classList.toggle("btn-success");
                 button.classList.toggle("btn-warning");
 
+                const child = button.querySelector("#activeBtnImg"+productId);
+
+                child.classList.toggle("fa-toggle-on");
+                child.classList.toggle("fa-toggle-off");
+
                 $("td[data-id=" + productId + "]").text(response_data.active ? "Yes" : "No");
                 //console.log(response_data.msg);
 
