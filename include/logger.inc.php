@@ -32,16 +32,16 @@ function logData(string $caller, string $message, int $level = INFO_LOG, ?array 
         switch ($level) {
             default:
             case INFO_LOG:
-                $lvl = "INFO";
+                $lvl = "INFO    ";
                 break;
             case DEBUG_LOG:
-                $lvl = "DEBUG";
+                $lvl = "DEBUG   ";
                 break;
             case NOTICE_LOG:
-                $lvl = "NOTICE";
+                $lvl = "NOTICE  ";
                 break;
             case WARNING_LOG:
-                $lvl = "WARNING";
+                $lvl = "WARNING ";
                 break;
             case CRITICAL_LOG:
                 $lvl = "CRITICAL";
@@ -50,7 +50,7 @@ function logData(string $caller, string $message, int $level = INFO_LOG, ?array 
 
         $logFile = LOG_DIR . "/log-" . $today . ".log";
 
-        $logData = "[" . $now . "-" . $lvl . "] [" . $caller . "]" . $message . "\n";
+        $logData = $now . " - " . $lvl . " [" . $caller . "] " . $message . "\n";
 
         if ($data) {
             $dataString = print_r($data, true) . "\n";
