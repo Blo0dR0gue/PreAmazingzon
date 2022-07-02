@@ -50,7 +50,9 @@ class AddressController
         $address->setZip($zipCode);
         $address->setNumber($streetNumber);
         $address->setCity($city);
-        if ($userId != null) { $address->setUserId($userId); }
+        if ($userId != null) {
+            $address->setUserId($userId);
+        }
 
         return $address->update();
     }

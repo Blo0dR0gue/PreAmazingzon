@@ -31,7 +31,8 @@
                     </p>
 
                     <!-- table -->
-                    <table id="shoppingCart" class="table table-condensed table-responsive" aria-label="Shopping Cart List">
+                    <table id="shoppingCart" class="table table-condensed table-responsive"
+                           aria-label="Shopping Cart List">
                         <thead>
                         <tr>
                             <th style="width:60%">Product</th>

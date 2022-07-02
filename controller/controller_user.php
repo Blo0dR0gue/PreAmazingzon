@@ -63,11 +63,15 @@ class UserController
             // create user
             $user = new User(0, $firstName, $lastName, $email, $passwordHash, true, $roleId, null);
             $user = $user->insert();
-            if (!$user) { return null; }
+            if (!$user) {
+                return null;
+            }
 
             // create address
             $address = AddressController::insert($street, $number, $zip, $city, $user->getId());
-            if (!$address) { return null; }
+            if (!$address) {
+                return null;
+            }
 
             // save address to user
             $user->setDefaultAddressId($address->getId());
@@ -86,7 +90,9 @@ class UserController
     public static function emailAvailable(string $email): bool
     {
         // user with mail exists?
-        if (UserController::getByEmail($email)) { return false; }   // user exists
+        if (UserController::getByEmail($email)) {
+            return false;
+        }   // user exists
         return true;    // user not exists
     }
 
@@ -120,8 +126,12 @@ class UserController
             $user->setEmail($email);
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
             $user->setActive(true);
-            if ($roleId != null) { $user->setRoleId($roleId); }
-            if ($defaultAddressId != null) { $user->setDefaultAddressId($defaultAddressId); }
+            if ($roleId != null) {
+                $user->setRoleId($roleId);
+            }
+            if ($defaultAddressId != null) {
+                $user->setDefaultAddressId($defaultAddressId);
+            }
 
             return $user->update();
         }
@@ -167,7 +177,7 @@ class UserController
      */
     public static function getById(?int $id): ?User
     {
-        if (isset($id)){
+        if (isset($id)) {
             return User::getById($id);
         } else {
             return null;
@@ -198,7 +208,7 @@ class UserController
             //Check, if this user even exist and if he is active
             if (isset($user) && $user->isActive()) {
                 //Check if user is really an admin
-                if ($user->getRoleId() === UserRoleController::getAdminUserRole()->getId()){
+                if ($user->getRoleId() === UserRoleController::getAdminUserRole()->getId()) {
                     //user is admin
                     $_SESSION["isAdmin"] = $user->getRoleId() === UserRoleController::getAdminUserRole()->getId();  //Update the role status if changed.
                     return true;
@@ -218,7 +228,7 @@ class UserController
     }
 
     /**
-     * Gets all @link User}s in range.
+     * Gets all {@link User}s in range.
      * @param int $offset The offset from where to select from the database
      * @return array An array with all {@link User}s in range.
      */
@@ -228,8 +238,8 @@ class UserController
     }
 
     /**
-     * Deletes an @link User}.
-     * @param User $user The @link User}.
+     * Deletes an {@link User}.
+     * @param User $user The {@link User}.
      * @return bool true, if it was successfully.
      */
     public static function delete(User $user): bool

@@ -71,7 +71,8 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                                 data-toggle="tooltip" data-placement="left"
                                 title="(De-) Activate User"
                                 onclick="onToggleUserActivation(this, <?= $user->getId(); ?>)">
-                            <em class="fa <?= $user->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="activeBtnImg<?=$user->getId()?>"></em>
+                            <em class="fa <?= $user->isActive() ? "fa-toggle-on" : "fa-toggle-off" ?>"
+                                id="activeBtnImg<?= $user->getId() ?>"></em>
                         </button>
 
                         <!--Toggle admin status-->
@@ -80,7 +81,8 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                                 data-toggle="tooltip" data-placement="left"
                                 title="Toggle User Admin"
                                 onclick="onToggleUserRole(this, <?= $user->getId(); ?>)">
-                            <em class="fa <?= $user->getRoleId() == $adminUserRole->getId() ? "fa-toggle-on" : "fa-toggle-off" ?>" id="adminBtnImg<?=$user->getId()?>"></em>
+                            <em class="fa <?= $user->getRoleId() == $adminUserRole->getId() ? "fa-toggle-on" : "fa-toggle-off" ?>"
+                                id="adminBtnImg<?= $user->getId() ?>"></em>
                         </button>
 
                         <!--Delete user-->

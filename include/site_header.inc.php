@@ -66,23 +66,30 @@
 
                         <!-- admin area -->
                         <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) { ?>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><hr class="dropdown-divider"></li>
+
                             <li>
                                 <p class="dropdown-item-text mb-1 text-muted">Admin Tools:</p>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . 'page_products.php'?>">Manage Products</a>
+                                <a class="dropdown-item" href="<?= ADMIN_PAGES_DIR . 'page_products.php' ?>">
+                                    Manage Products
+                                </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . 'page_categories.php'?>">Manage Categories</a>
+                                <a class="dropdown-item" href="<?= ADMIN_PAGES_DIR . 'page_categories.php' ?>">
+                                    Manage Categories
+                                </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . 'page_users.php'?>">Manage Users</a>
+                                <a class="dropdown-item" href="<?= ADMIN_PAGES_DIR . 'page_users.php' ?>">
+                                    Manage Users
+                                </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?=ADMIN_PAGES_DIR . 'page_orders.php'?>">Manage Orders</a>
+                                <a class="dropdown-item" href="<?= ADMIN_PAGES_DIR . 'page_orders.php' ?>">
+                                    Manage Orders
+                                </a>
                             </li>
                         <?php } ?>
 
@@ -91,7 +98,8 @@
 
                         <!-- logout -->
                         <li>
-                            <a class="dropdown-item" href="<?= INCLUDE_HELPER_DIR . "helper_logout.inc.php" ?>">Logout</a>
+                            <a class="dropdown-item"
+                               href="<?= INCLUDE_HELPER_DIR . "helper_logout.inc.php" ?>">Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -61,8 +61,7 @@
                 <!-- textarea value MUST be in one line, hence the placeholder does not work -->
                 <textarea class="form-control" id="description" name="description" placeholder="My Product" required
                           rows="3"><?php if (isset($product) && $product instanceof Product) {
-                              //Add the current product description (edit mode)
-                        echo $product->getDescription();
+                        echo $product->getDescription();    // add the current product description (edit mode)
                     } ?></textarea>
                 <!-- Invalid description tooltip -->
                 <div class="invalid-tooltip opacity-75">Please add a product description!</div>
@@ -122,8 +121,8 @@
                 <div class="input-group p-0">
                     <input class="form-check-input rounded" type="checkbox" id="active" name="active"
                         <?php
-                        if ((isset($product) && $product->isActive()) || !isset($product)){
-                            //By default, a product is active / Set the active status of the product in edit mode
+                        if ((isset($product) && $product->isActive()) || !isset($product)) {
+                            // by default, a product is active / set the active status of the product in edit mode
                             echo "checked";
                         } ?>>
                     <label class="form-check-label ms-2" for="active">

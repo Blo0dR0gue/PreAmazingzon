@@ -19,7 +19,7 @@ function onToggleUserActivation(button, userId) {
                 button.classList.toggle("btn-success");
                 button.classList.toggle("btn-warning");
 
-                const child = button.querySelector("#activeBtnImg"+userId);
+                const child = button.querySelector("#activeBtnImg" + userId);
 
                 child.classList.toggle("fa-toggle-on");
                 child.classList.toggle("fa-toggle-off");
@@ -45,7 +45,7 @@ function onToggleUserActivation(button, userId) {
  * @param btn
  * @param userId
  */
-function onToggleUserRole(btn, userId){
+function onToggleUserRole(btn, userId) {
 
     //Send AJAX request
     $.ajax({
@@ -63,7 +63,7 @@ function onToggleUserRole(btn, userId){
                 btn.classList.toggle("btn-success");
                 btn.classList.toggle("btn-warning");
 
-                const child = btn.querySelector("#adminBtnImg"+userId);
+                const child = btn.querySelector("#adminBtnImg" + userId);
 
                 child.classList.toggle("fa-toggle-on");
                 child.classList.toggle("fa-toggle-off");

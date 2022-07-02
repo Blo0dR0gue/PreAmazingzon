@@ -47,7 +47,7 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] order management
 - [ ] ~~auctions~~
 - [x] use of pagination (where appropriate)
-- [x] modern design 
+- [x] modern design
 - [x] logging system
 
 ## Technical Details

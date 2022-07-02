@@ -9,8 +9,9 @@
             <p class="mb-0 col-2 ps-2">
                 <span class="text-muted">Status: </span><?= OrderStateController::getById($order->getOrderStateId())->getLabel() ?>
             </p>
-            <p class="mb-0 col-2" >
-                <span class="text-muted">Paid: </span><span id="paidTxt<?=$order->getId();?>"><?= $order->isPaid() ? "Paid" : "Not Paid" ?></span>
+            <p class="mb-0 col-2">
+                <span class="text-muted">Paid: </span>
+                <span id="paidTxt<?= $order->getId(); ?>"><?= $order->isPaid() ? "Paid" : "Not Paid" ?></span>
             </p>
             <p class="mb-0 col-4">
                 <span class="text-muted">Order Time: </span><?= $order->getFormattedOrderDate(); ?>

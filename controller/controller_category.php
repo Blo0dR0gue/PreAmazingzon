@@ -22,7 +22,9 @@ class CategoryController
      */
     public static function getNameById(?int $id): string
     {
-        if (!isset($id)) { return "No Category"; }
+        if (!isset($id)) {
+            return "No Category";
+        }
         return self::getById($id)->getName();
     }
 
@@ -53,7 +55,7 @@ class CategoryController
      */
     public static function getSubCategories(int $superId): ?array
     {
-        if($superId != -1){
+        if ($superId != -1) {
             return Category::getSubCategories($superId);
         } else {
             return Category::getSubCategories(null);
@@ -79,7 +81,9 @@ class CategoryController
     {
         $tmpProductCat = Category::getById($product->getCategoryID());
 
-        if (!isset($tmpProductCat)) { return []; }
+        if (!isset($tmpProductCat)) {
+            return [];
+        }
         $path = [];
 
         while ($tmpProductCat != null) {
@@ -108,7 +112,9 @@ class CategoryController
      */
     public static function getPathToCategory(?int $categoryID): string
     {
-        if (!isset($categoryID)) { return ""; }
+        if (!isset($categoryID)) {
+            return "";
+        }
         return Category::getPathToCategory($categoryID);
     }
 
@@ -147,7 +153,7 @@ class CategoryController
     {
         $category->setName(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
         $category->setDescription(htmlspecialchars($description, ENT_QUOTES, 'UTF-8'));
-        $category->setParentID($parent==-1?null:$parent);
+        $category->setParentID($parent == -1 ? null : $parent);
 
         return $category->update();
     }
@@ -165,7 +171,7 @@ class CategoryController
             0,
             htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
             htmlspecialchars($description, ENT_QUOTES, 'UTF-8'),
-            $parent==-1?null:$parent
+            $parent == -1 ? null : $parent
         );
 
         return $category->insert();

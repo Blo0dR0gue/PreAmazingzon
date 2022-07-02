@@ -50,7 +50,7 @@ class ProductController
      */
     public static function getProductsByCategoryIDInRange(int $categoryId, int $offset = 0, int $amount = 8): array
     {
-        if($categoryId != -1){
+        if ($categoryId != -1) {
             return Product::getProductsByCategoryIDInRange($categoryId, $offset, $amount);
         } else {
             return Product::getProductsByCategoryIDInRange(null, $offset, $amount);
@@ -203,16 +203,6 @@ class ProductController
     }
 
     /**
-     * Returns the amounts of products stored in the database using a filter, if it is defined.
-     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
-     * @return int  The amount of found products
-     */
-    public static function getAmountOfProducts(?string $searchFilter): int
-    {
-        return Product::getAmountOfProducts($searchFilter, false);
-    }
-
-    /**
      * Returns the amounts of active of products stored in the database using a filter, if it is defined.
      * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
      * @return int  The amount of found products
@@ -223,13 +213,23 @@ class ProductController
     }
 
     /**
+     * Returns the amounts of products stored in the database using a filter, if it is defined.
+     * @param string|null $searchFilter A filter, which is used to test, if the passed string is either in the description, the title or in the name of the category of a product.
+     * @return int  The amount of found products
+     */
+    public static function getAmountOfProducts(?string $searchFilter): int
+    {
+        return Product::getAmountOfProducts($searchFilter, false);
+    }
+
+    /**
      * Returns the amounts of products stored in a given category.
      * @param int $categoryId CategoryId in which to count the products
      * @return int  The amount of found products
      */
     public static function getAmountOfActiveProductsInCategory(int $categoryId): int
     {
-        if($categoryId != -1) {
+        if ($categoryId != -1) {
             return Product::getAmountOfProductsInCategory($categoryId, true);
         } else {
             return Product::getAmountOfProductsInCategory(null, true);

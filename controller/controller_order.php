@@ -16,7 +16,7 @@ class OrderController
         try {
             return Order::getById($id);
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (get by id)", CRITICAL_LOG,$e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (get by id)", CRITICAL_LOG, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }

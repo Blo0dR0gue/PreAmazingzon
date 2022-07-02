@@ -59,7 +59,9 @@ class ReviewController
     {
         $avgRating = Review::getAvgRating($productId);
 
-        if (!$avgRating) { return 0; }
+        if (!$avgRating) {
+            return 0;
+        }
         return $avgRating;
     }
 
