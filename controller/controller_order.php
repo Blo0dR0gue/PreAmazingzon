@@ -56,7 +56,7 @@ class OrderController
             $dt = new DateTime('now', $dtZone);
             $dt->setTime(0, 0, 0, 0);
             //Now plus 10 days
-            $dt->add(new DateInterval("P10D")); //TODO constant / random?
+            $dt->add(new DateInterval("P10D"));
             return $dt;
         } catch (Exception $e) {
             logData("Order Controller", "Date could not be parsed! (calculate delivery date)", LOG_LVL_CRITICAL, $e->getTrace());
