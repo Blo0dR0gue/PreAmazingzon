@@ -285,7 +285,7 @@ class Address
         $stmt = getDB()->prepare("DELETE FROM address 
                                         WHERE id = ?;");
         $stmt->bind_param("i",
-                          $this->userId);
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Address Model", "Item with id: " . $this->userId . " could not be deleted!", CRITICAL_LOG);
             return false;

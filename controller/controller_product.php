@@ -138,7 +138,6 @@ class ProductController
      */
     public static function insert(string $title, int $categoryID, string $description, float $price, float $shippingCost, int $stock, bool $active): ?Product
     {
-        // TODO validation
         $product = new Product(
             0,
             htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),

@@ -27,6 +27,11 @@ const DISCOUNT_VARIATION = 50;
 const MAX_IMAGE_PER_PRODUCT = 6;
 
 /**
+ * Max number of addresses a user can have.
+ */
+const MAX_AMOUNT_OF_ADDRESSES_PER_USER = 5;
+
+/**
  * Defines, how many items are displayed on a page. For example, how many products are showed on one page on the all products page.
  * Its recommender to set the value to multiples of four.
  */

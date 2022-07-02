@@ -1,7 +1,9 @@
-<!-- TODO COMMENT -->
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
-<?php UserController::redirectIfNotLoggedIn();   // if not logged in redirect to home ?>
+<?php
+//Check if no user is logged-in or the logged-in user got blocked. If not redirect to root.
+UserController::redirectIfNotLoggedIn();
+?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -45,9 +47,11 @@
 
                         <tbody>
                         <?php
+                        //The total sum of the cart.
                         $total = 0.0;
                         if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
+                                //Reset parameter used by the template.
                                 $subtotal = 0;
                                 // decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
                                 if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct)) {    // if it got removed, don't show the item
@@ -59,7 +63,9 @@
                         ?>
                         </tbody>
                     </table>
-                    <h5 class="text-center text-muted mb-5"><em><?php if (!$cartProducts) { echo "empty"; } ?></em></h5>
+                    <h5 class="text-center text-muted mb-5"><em><?php if (!$cartProducts) {
+                                echo "empty";
+                            } ?></em></h5>
 
                     <div class="float-end text-end">
                         <h1 class="mb-0">
