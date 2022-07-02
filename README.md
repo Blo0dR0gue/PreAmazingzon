@@ -44,12 +44,12 @@ Below is the list of agreed features, their implementation state and where to fi
     - [x] multiple images
     - [x] search
     - [x] ratings including comments
-- [ ] User area
+- [x] User area
     - [x] register
     - [x] login and logout
     - [x] change personal data e.g. email
     - [x] change password
-    - [ ] manage multiple delivery addresses
+    - [x] manage multiple delivery addresses
     - [x] order overview / history
     - [x] invoice generation (as pdf)
     - [x] shopping cart
