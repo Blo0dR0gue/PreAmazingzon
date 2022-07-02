@@ -41,7 +41,7 @@
                 <!-- shopping cart -->
                 <a href="<?= USER_PAGES_DIR . "page_shopping_cart.php" ?>"
                    class="d-flex align-items-center text-decoration-none me-3">
-                    <em class='fa fa-shopping-cart link-warning' style='font-size:38px'></em>
+                    <em class='fa fa-shopping-cart link-warning' style='font-size:32px'></em>
                 </a>
 
                 <!-- show profile action -->
