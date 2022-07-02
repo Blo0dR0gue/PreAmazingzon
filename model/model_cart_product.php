@@ -36,14 +36,14 @@ class CartProduct
         $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ?;");
         $stmt->bind_param("i", $userId);
         if (!$stmt->execute()) {
-            logData("Cart Product Model", "Execute error!", LOG_LVL_CRITICAL);
+            logData("Cart Product Model", "Execute error!", LOG_CRITICAL);
             return null;
         }
 
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_LVL_NOTICE);
+            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_NOTICE);
             return null;
         }
 
@@ -72,7 +72,7 @@ class CartProduct
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_LVL_NOTICE);
+            logData("Cart Product Model", "No items were found for user with id: " . $userId . "!", LOG_NOTICE);
             return 0;
         }
         $res = $res->fetch_assoc();
@@ -99,7 +99,7 @@ class CartProduct
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items got selected for id: " . $productId, LOG_LVL_CRITICAL);
+            logData("Cart Product Model", "No items got selected for id: " . $productId, LOG_CRITICAL);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -162,7 +162,7 @@ class CartProduct
             $this->prodId,
             $this->amount);
         if (!$stmt->execute()) {
-            logData("Cart Product Model", "A new item could not be created!", LOG_LVL_CRITICAL);
+            logData("Cart Product Model", "A new item could not be created!", LOG_CRITICAL);
             return null;
         }
 
@@ -185,7 +185,7 @@ class CartProduct
             $this->userId,
             $this->prodId);
         if (!$stmt->execute()) {
-            logData("Cart Product Model", "A new item could not be created!", LOG_LVL_CRITICAL);
+            logData("Cart Product Model", "A new item could not be created!", LOG_CRITICAL);
             return null;
         }
 
@@ -206,7 +206,7 @@ class CartProduct
             $this->userId,
             $this->prodId);
         if (!$stmt->execute()) {
-            logData("Cart Product Model", "Item with user id: " . $this->userId . " and product id: " . $this->prodId . " could not be deleted!", LOG_LVL_CRITICAL);
+            logData("Cart Product Model", "Item with user id: " . $this->userId . " and product id: " . $this->prodId . " could not be deleted!", LOG_CRITICAL);
             return false;
         }
 

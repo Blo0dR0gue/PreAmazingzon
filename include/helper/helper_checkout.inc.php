@@ -10,7 +10,7 @@ UserController::redirectIfNotLoggedIn();
 if (empty($_POST["delivery"]) || !isset($_POST["payment"]) ||
     !is_string($_POST["delivery"]) || !is_string($_POST["payment"])) {
 
-    logData("Checkout", "Value is missing or does not have the correct datatype!", LOG_LVL_CRITICAL);
+    logData("Checkout", "Value is missing or does not have the correct datatype!", LOG_CRITICAL);
 
     // Go back to previous page, if it got set, else go back to the shopping cart page
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -25,7 +25,7 @@ $cartProducts = CartProductController::getAllByUser($_SESSION["uid"]);
 
 // Redirect to shopping cart, if no products are in it.
 if (!isset($cartProducts) && count($cartProducts) > 0) {
-    logData("Checkout", "No products found in cart for user with id: " . $_SESSION["uid"] . "!", LOG_LVL_CRITICAL);
+    logData("Checkout", "No products found in cart for user with id: " . $_SESSION["uid"] . "!", LOG_CRITICAL);
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
@@ -34,7 +34,7 @@ $deliveryAddress = AddressController::getById($_POST["delivery"]);
 
 // Redirect to shopping cart, if the passed delivery address does not belong to the user or its null
 if (isset($deliveryAddress) && !AddressController::doesThisAddressBelongsToUser($_SESSION["uid"], $deliveryAddress)) {
-    logData("Checkout", "Address not found or does not belong to the user!", LOG_LVL_CRITICAL);
+    logData("Checkout", "Address not found or does not belong to the user!", LOG_CRITICAL);
     header("Location: " . USER_PAGES_DIR . "page_shopping_cart.php");
     die();
 }
@@ -51,13 +51,13 @@ try {
         $deliveryAddress->getId()
     );
 } catch (Exception $e) {
-    logData("Checkout", "Date could not be parsed!", LOG_LVL_CRITICAL, $e->getTrace());
+    logData("Checkout", "Date could not be parsed!", LOG_CRITICAL, $e->getTrace());
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
 
 if (!isset($order)) {
-    logData("Checkout", "Order could not be created!" , LOG_LVL_CRITICAL);
+    logData("Checkout", "Order could not be created!" , LOG_CRITICAL);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
@@ -70,7 +70,7 @@ foreach ($cartProducts as $cartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
 
     if (!isset($product)) {
-        logData("Checkout", "Product with id: " . $cartProduct->getProdId() . " not found!" , LOG_LVL_CRITICAL);
+        logData("Checkout", "Product with id: " . $cartProduct->getProdId() . " not found!" , LOG_CRITICAL);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
         die();
     }
@@ -91,7 +91,7 @@ foreach ($cartProducts as $cartProduct) {
         // Remove product from cart.
         CartProductController::delete($cartProduct);
     } else {
-        logData("Checkout", "Product with id: " . $product->getId() . " could not be added to the order with id: " . $order->getId() , LOG_LVL_CRITICAL);
+        logData("Checkout", "Product with id: " . $product->getId() . " could not be added to the order with id: " . $order->getId() , LOG_CRITICAL);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
         die();
     }

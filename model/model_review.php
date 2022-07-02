@@ -48,7 +48,7 @@ class Review
                                         GROUP BY product;");
         $stmt->bind_param("i", $productId);
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get avg)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get avg)", LOG_CRITICAL);
 
             return null;
         }
@@ -73,7 +73,7 @@ class Review
         $stmt->bind_param("i", $productId);
 
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get amount for product)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get amount for product)", LOG_CRITICAL);
             return 0;
         }
 
@@ -100,7 +100,7 @@ class Review
         $stmt = getDB()->prepare("SELECT id FROM review WHERE product = ? ORDER BY id LIMIT ? OFFSET ?;");
         $stmt->bind_param("iii", $productId, $amount, $offset);
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get)", LOG_CRITICAL);
             return null;
         }
 
@@ -125,7 +125,7 @@ class Review
         $stmt->bind_param("i", $id);
 
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get)", LOG_CRITICAL);
             return null;
         }
 
@@ -149,7 +149,7 @@ class Review
         $stmt->bind_param("ii", $productId, $productId);
 
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (get)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (get)", LOG_CRITICAL);
             return [];
         }
 
@@ -240,7 +240,7 @@ class Review
             $this->userId,
             $this->productId);
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (insert)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (insert)", LOG_CRITICAL);
             return null;
         }
 
@@ -261,7 +261,7 @@ class Review
         $stmt->bind_param("i",
             $this->id);
         if (!$stmt->execute()) {
-            logData("Review Model", "Query execute error! (delete)", LOG_LVL_CRITICAL);
+            logData("Review Model", "Query execute error! (delete)", LOG_CRITICAL);
             return false;
         }
 

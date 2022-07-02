@@ -16,7 +16,7 @@ class OrderController
         try {
             return Order::getById($id);
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (get by id)", LOG_LVL_CRITICAL,$e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (get by id)", LOG_CRITICAL,$e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -38,7 +38,7 @@ class OrderController
         try {
             return $order->insert();
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (insert)", LOG_LVL_CRITICAL, $e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (insert)", LOG_CRITICAL, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -59,7 +59,7 @@ class OrderController
             $dt->add(new DateInterval("P10D"));
             return $dt;
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (calculate delivery date)", LOG_LVL_CRITICAL, $e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (calculate delivery date)", LOG_CRITICAL, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -86,7 +86,7 @@ class OrderController
         try {
             return Order::getAllForUserInRange($userId, $offset, LIMIT_OF_SHOWED_ITEMS);
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (get for user)", LOG_LVL_CRITICAL, $e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (get for user)", LOG_CRITICAL, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -112,7 +112,7 @@ class OrderController
         try {
             return Order::getAllInRange($offset, $LIMIT_OF_SHOWED_ITEMS);
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (get in range)", LOG_LVL_CRITICAL, $e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (get in range)", LOG_CRITICAL, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -128,7 +128,7 @@ class OrderController
         try {
             return $order->delete();
         } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (delete)", LOG_LVL_CRITICAL, $e->getTrace());
+            logData("Order Controller", "Date could not be parsed! (delete)", LOG_CRITICAL, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }

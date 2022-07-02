@@ -1,11 +1,11 @@
 <?php
 
-const LOG_LVL_INFO = 0;
-const LOG_LVL_NOTICE = 1;
-const LOG_LVL_WARNING = 2;
-const LOG_LVL_CRITICAL = 3;
-const LOG_LVL_EMERGENCY = 4;
-const LOG_LVL_DEBUG = 5;
+// define log lovely constraints
+const LOG_DEBUG = 1;
+const LOG_INFO = 2;
+const LOG_NOTICE = 3;
+const LOG_WARNING = 4;
+const LOG_CRITICAL = 5;
 
 /**
  * Creates a log entry

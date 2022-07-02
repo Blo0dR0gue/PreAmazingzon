@@ -6,7 +6,7 @@ UserController::redirectIfNotAdmin();
 
 if (!isset($_GET["productId"]) || !is_numeric($_GET["productId"])) {
 
-    logData("Delete Review", "Value productId is missing or does not have the correct datatype!", LOG_LVL_CRITICAL);
+    logData("Delete Review", "Value productId is missing or does not have the correct datatype!", LOG_CRITICAL);
 
     //Go back to previous page, if it got set, else to the index.php
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -19,7 +19,7 @@ if (!isset($_GET["productId"]) || !is_numeric($_GET["productId"])) {
 
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 
-    logData("Delete Review", "Value id is missing or does not have the correct datatype!", LOG_LVL_CRITICAL);
+    logData("Delete Review", "Value id is missing or does not have the correct datatype!", LOG_CRITICAL);
 
     //Go back to previous page, if it got set, else go back to the page_product_detail.php page
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -34,7 +34,7 @@ $review = ReviewController::getById($_GET["id"]);
 
 if (!isset($review)) {
 
-    logData("Delete Review", "Review with id: " . $_GET["id"] . " not found!", LOG_LVL_CRITICAL);
+    logData("Delete Review", "Review with id: " . $_GET["id"] . " not found!", LOG_CRITICAL);
 
     //Go back to previous page, if it got set, else go back to the page_product_detail.php page
     if (isset($_SERVER["HTTP_REFERER"])) {
@@ -48,7 +48,7 @@ if (!isset($review)) {
 $suc = ReviewController::delete($review);
 
 if(!$suc){
-    logData("Delete Review", "Review with id: " . $review->getId() . " could not be deleted!", LOG_LVL_CRITICAL);
+    logData("Delete Review", "Review with id: " . $review->getId() . " could not be deleted!", LOG_CRITICAL);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
