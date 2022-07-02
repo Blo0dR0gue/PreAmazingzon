@@ -48,6 +48,7 @@ class ProductOrder
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
+            logData("Product Order Model", "No product order found. (get by ids)", DEBUG_LOG);
             return null;
         }
         $res = $res->fetch_assoc();
@@ -73,6 +74,7 @@ class ProductOrder
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
+            logData("Product Order Model", "No product orders were found. (get all by order)", DEBUG_LOG);
             return null;
         }
 
@@ -83,6 +85,33 @@ class ProductOrder
         $stmt->close();
 
         return $arr;
+    }
+
+    /**
+     * Checks, if a {@link User} already bought a specific {@link Product}.
+     * @param int $userId The id of the user.
+     * @param int $productId The id of the product.
+     * @return bool true, if the user bought this product at least once.
+     */
+    public static function doesUserBoughtThisProduct(int $userId, int $productId): bool
+    {
+        $stmt = getDB()->prepare("SELECT COUNT(*) as amount FROM product_order po JOIN `order` o on po.`order` = o.id WHERE o.user = ? AND po.product = ?;");
+        $stmt->bind_param("ii", $userId, $productId);
+        if (!$stmt->execute()) {
+            logData("Product Order Model", "Query execute error! (check if user bought item)", CRITICAL_LOG);
+            return false;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Product Order Model", "User did not bought this item once.", DEBUG_LOG);
+            return 0;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return $res["amount"] > 0;
     }
 
     /**

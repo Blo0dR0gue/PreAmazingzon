@@ -8,7 +8,7 @@ UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 // pagination stuff TODO do pagination uniformly
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
-$productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products   // TODO search?
+$productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products
 $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
 $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWED_ITEMS);
