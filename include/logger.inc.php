@@ -39,7 +39,7 @@ function logData(string $caller, string $message, int $level = LOG_LVL_INFO, ?ar
 
     $logFile = LOG_DIR . "/log-" . $today . ".log";
 
-    $logData = "[" . $caller . "][" . $now . "-" . $lvl . "] " . $message . "\n";
+    $logData = "[" . $now . "-" . $lvl . "] [" . $caller . "]" . $message . "\n";
 
     if ($data) {
         $dataString = print_r($data, true) . "\n";
