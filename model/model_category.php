@@ -408,4 +408,23 @@ class Category
 
         return self::getById($this->id);
     }
+
+    /**
+     * Deletes an {@link Category} from the database.
+     * @return bool true, if the {@link Category} got deleted.
+     */
+    public function delete(): bool
+    {
+        $stmt = getDB()->prepare("DELETE FROM category WHERE id = ?;");
+        $stmt->bind_param("i",
+                          $this->id);
+        if (!$stmt->execute()) {
+            logData("Category Model", "Query execute error! (delete)", CRITICAL_LOG);
+            return false;
+        }
+
+        $stmt->close();
+
+        return self::getById($this->id) == null;
+    }
 }

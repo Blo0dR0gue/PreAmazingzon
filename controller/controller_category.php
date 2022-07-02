@@ -177,4 +177,14 @@ class CategoryController
         return $category->insert();
     }
 
+    /**
+     * Deletes a category.
+     * @param Category $category The category, which should be deleted and all its subcategories.
+     * @return bool true, if it was successfully.
+     */
+    public static function delete(Category $category): bool
+    {
+        return $category->delete();
+    }
+
 }
