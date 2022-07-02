@@ -4,7 +4,7 @@
 
     <?php
     //Create the get parameters for the url.
-    if (isset($_GET) && !empty($_GET) && !(count($_GET) == 1 && isset($_GET["page"]))) {
+    if (isset($_GET) && !empty($_GET) && !(count($_GET) == 2 && isset($_GET["page"]) && isset($_GET["message"])) && !(count($_GET) == 1 && (isset($_GET["page"]) || isset($_GET["message"]))) ) {
         $urlExtend = "";
         foreach ($_GET as $key => $value) {
             //Don't add the page or the message get parameter again to the url.
