@@ -48,6 +48,11 @@ const DATA_FORMAT = "d.m.Y H:i:s";
  */
 const DATE_FORMAT_SHORT = "d.m.Y";
 
+/**
+ * The taxes used in this shop. (1.0 means 100% - 0.19 means 19%)
+ */
+const SHOP_TAX = 0.0;
+
 // endregion
 
 // region ########## Central Strings ##########

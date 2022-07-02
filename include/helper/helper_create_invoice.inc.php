@@ -51,7 +51,7 @@ $invoice_recipient =
 $invoice_footer = INVOICE_FOOTER;
 
 // value added tax (0.19 = 19%)
-$tax = 0.0; // TODO constant
+$tax = SHOP_TAX;
 
 $pdfName = "invoice_" . $userId . "_" . $orderId . ".pdf";
 
