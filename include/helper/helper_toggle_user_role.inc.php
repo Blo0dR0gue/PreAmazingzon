@@ -34,10 +34,10 @@ if (!isset($adminRole)) {
     exit(json_encode(array("state" => "error", "msg" => "admin role not found")));
 }
 
-if($user->getRoleId() == $adminRole->getId()){
+if ($user->getRoleId() == $adminRole->getId()) {
     $isNowDefault = true;
     $user->setRoleId($defaultRole->getId());
-}else{
+} else {
     $user->setRoleId($adminRole->getId());
 }
 
@@ -48,5 +48,5 @@ if (!isset($user)) {
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
 
-logData("Toggle User Role", "User with id " . $user->getId() . " now has the role: " . ($isNowDefault?$defaultRole->getName():$adminRole->getName()));
+logData("Toggle User Role", "User with id " . $user->getId() . " now has the role: " . ($isNowDefault ? $defaultRole->getName() : $adminRole->getName()));
 exit(json_encode(array("state" => "success", "msg" => "done", "admin" => !$isNowDefault, "adminRoleName" => $adminRole->getName(), "defaultRoleName" => $defaultRole->getName())));

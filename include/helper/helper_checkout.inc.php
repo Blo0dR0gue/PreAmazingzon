@@ -44,11 +44,11 @@ $order = null;
 
 try {
     $order = OrderController::insert(new DateTime("NOW", new DateTimeZone(DATE_TIME_ZONE)),
-        OrderController::calculateDeliveryDate(),
-        false,
-        $oderState->getId(),
-        $_SESSION["uid"],
-        $deliveryAddress->getId()
+                                     OrderController::calculateDeliveryDate(),
+                                     false,
+                                     $oderState->getId(),
+                                     $_SESSION["uid"],
+                                     $deliveryAddress->getId()
     );
 } catch (Exception $e) {
     logData("Checkout", "Date could not be parsed!", CRITICAL_LOG, $e->getTrace());
@@ -57,7 +57,7 @@ try {
 }
 
 if (!isset($order)) {
-    logData("Checkout", "Order could not be created!" , CRITICAL_LOG);
+    logData("Checkout", "Order could not be created!", CRITICAL_LOG);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
@@ -70,7 +70,7 @@ foreach ($cartProducts as $cartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId());
 
     if (!isset($product)) {
-        logData("Checkout", "Product with id: " . $cartProduct->getProdId() . " not found!" , CRITICAL_LOG);
+        logData("Checkout", "Product with id: " . $cartProduct->getProdId() . " not found!", CRITICAL_LOG);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
         die();
     }
@@ -91,7 +91,7 @@ foreach ($cartProducts as $cartProduct) {
         // Remove product from cart.
         CartProductController::delete($cartProduct);
     } else {
-        logData("Checkout", "Product with id: " . $product->getId() . " could not be added to the order with id: " . $order->getId() , CRITICAL_LOG);
+        logData("Checkout", "Product with id: " . $product->getId() . " could not be added to the order with id: " . $order->getId(), CRITICAL_LOG);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
         die();
     }

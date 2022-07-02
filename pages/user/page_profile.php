@@ -26,7 +26,9 @@
 
     // get address
     $address = AddressController::getById($user->getDefaultAddressId());
-    if (!$address) { $addressInfo = 1; }    // user address could be found?
+    if (!$address) {    // user address could be found?
+        $addressInfo = 1;
+    }
 
     // TODO add/edit multiple addresses -> separate setting? for overview and complexity reasons?
     ?>

@@ -31,7 +31,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     }
 
     $processingError = true;
-}else if($isPost){
+} else if ($isPost) {
     logData("Add Product", "Missing values!", WARNING_LOG);
     $processingError = true;
 }
@@ -63,9 +63,9 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 <?php require_once INCLUDE_DIR . "site_footer.inc.php" ?>
 
 <?php
-    if(isset($processingError) && $processingError){
-        show_popup();
-    }
+if (isset($processingError) && $processingError) {
+    show_popup();
+}
 ?>
 
 </body>

@@ -34,7 +34,7 @@ if (!isset($order)) {
 
 $suc = OrderController::delete($order);
 
-if(!$suc){
+if (!$suc) {
     logData("Delete Order", "Order with id: " . $order->getId() . " could not be deleted!", CRITICAL_LOG);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();

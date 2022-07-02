@@ -40,7 +40,7 @@ class Product
         $this->active = $active;
     }
 
-    //region getter
+    //region getter & setter
 
     /**
      * Gets all {@link Product}s from the database.
@@ -165,15 +165,15 @@ class Product
         if ($categoryID) {
             $stmt = getDB()->prepare("SELECT id FROM product WHERE category = ? ORDER BY id LIMIT ? OFFSET ?;");
             $stmt->bind_param("iii",
-                $categoryID,
-                $amount,
-                $offset
+                              $categoryID,
+                              $amount,
+                              $offset
             );
         } else {
             $stmt = getDB()->prepare("SELECT id FROM product WHERE category IS NULL ORDER BY id LIMIT ? OFFSET ?;");
             $stmt->bind_param("ii",
-                $amount,
-                $offset
+                              $amount,
+                              $offset
             );
         }
 
@@ -298,7 +298,7 @@ class Product
         $stmt = getDB()->prepare($sql);
         if ($categoryId) {
             $stmt->bind_param("i",
-                $categoryId
+                              $categoryId
             );
         }
 
@@ -338,12 +338,30 @@ class Product
     }
 
     /**
+     * Sets the title of the {@link Product}.
+     * @param string $title The title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
      * Gets the description of the {@link Product}.
      * @return string The description.
      */
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * Sets the description of the {@link Product}.
+     * @param string $description The description.
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
     /**
@@ -356,7 +374,6 @@ class Product
         return number_format($this->getPrice($amount), 2, ".", "") . CURRENCY_SYMBOL;
     }
 
-
     /**
      * Gets the price of the {@link Product} multiplied by an amount.
      * @param int $amount The multiplier.
@@ -365,6 +382,15 @@ class Product
     public function getPrice(int $amount = 1): float
     {
         return $this->price * $amount;
+    }
+
+    /**
+     * Sets the price of the {@link Product}.
+     * @param float $price The price.
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
     }
 
     /**
@@ -388,6 +414,17 @@ class Product
     }
 
     /**
+     * Sets the stock amount of the {@link Product}.
+     * @param int $stock The stock amount.
+     */
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+// TODO deal with shipping cost? per amount or add after?
+
+    /**
      * Gets the formatted shipping costs.
      * @return string The formatted shipping costs
      */
@@ -406,6 +443,15 @@ class Product
     }
 
     /**
+     * Sets the shipping costs for the {@link Product}.
+     * @param float $shippingCost The shipping costs.
+     */
+    public function setShippingCost(float $shippingCost): void
+    {
+        $this->shippingCost = $shippingCost;
+    }
+
+    /**
      * Is the {@link Product} active?
      * @return bool True, if it is active.
      */
@@ -414,55 +460,13 @@ class Product
         return $this->active;
     }
 
-    //endregion
-
-    //region setter
-
     /**
-     * Sets the title of the {@link Product}.
-     * @param string $title The title
+     * Sets the active status of the {@link Product}.
+     * @param bool $active Set it to true, if the {@link Product} should be active and visible.
      */
-    public function setTitle(string $title): void
+    public function setActive(bool $active): void
     {
-        $this->title = $title;
-    }
-
-// TODO deal with shipping cost? per amount or add after?
-
-    /**
-     * Sets the description of the {@link Product}.
-     * @param string $description The description.
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * Sets the price of the {@link Product}.
-     * @param float $price The price.
-     */
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * Sets the stock amount of the {@link Product}.
-     * @param int $stock The stock amount.
-     */
-    public function setStock(int $stock): void
-    {
-        $this->stock = $stock;
-    }
-
-    /**
-     * Sets the shipping costs for the {@link Product}.
-     * @param float $shippingCost The shipping costs.
-     */
-    public function setShippingCost(float $shippingCost): void
-    {
-        $this->shippingCost = $shippingCost;
+        $this->active = $active;
     }
 
     /**
@@ -481,15 +485,6 @@ class Product
     public function setCategoryID(?int $categoryID): void
     {
         $this->categoryID = $categoryID;
-    }
-
-    /**
-     * Sets the active status of the {@link Product}.
-     * @param bool $active Set it to true, if the {@link Product} should be active and visible.
-     */
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
     }
 
     // endregion
@@ -555,13 +550,13 @@ class Product
         $stmt = getDB()->prepare("INSERT INTO product(title, description, price, stock, shippingCost, category, active) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?);");
         $stmt->bind_param("ssdidii",
-            $this->title,
-            $this->description,
-            $this->price,
-            $this->stock,
-            $this->shippingCost,
-            $this->categoryID,
-            $this->active
+                          $this->title,
+                          $this->description,
+                          $this->price,
+                          $this->stock,
+                          $this->shippingCost,
+                          $this->categoryID,
+                          $this->active
         );
         if (!$stmt->execute()) {
             logData("Product Model", "Query execute error! (insert)", CRITICAL_LOG);
@@ -591,14 +586,14 @@ class Product
                                         active = ?
                                     WHERE id = ?;");
         $stmt->bind_param("ssddiiii",
-            $this->title,
-            $this->description,
-            $this->price,
-            $this->shippingCost,
-            $this->stock,
-            $this->categoryID,
-            $this->active,
-            $this->id);
+                          $this->title,
+                          $this->description,
+                          $this->price,
+                          $this->shippingCost,
+                          $this->stock,
+                          $this->categoryID,
+                          $this->active,
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Product Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
@@ -617,7 +612,7 @@ class Product
     {
         $stmt = getDB()->prepare("DELETE FROM product WHERE id = ?;");
         $stmt->bind_param("i",
-            $this->id);
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Product Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;

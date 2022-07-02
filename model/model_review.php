@@ -55,7 +55,9 @@ class Review
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -79,7 +81,9 @@ class Review
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return 0; }
+        if ($res->num_rows === 0) {
+            return 0;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -131,7 +135,9 @@ class Review
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -157,7 +163,9 @@ class Review
         $res = $stmt->get_result();
         $inner = ["star" => 0, "amount" => 0, "percentage" => 0];
         $result = array(0 => $inner, 1 => $inner, 2 => $inner, 3 => $inner, 4 => $inner, 5 => $inner);
-        if ($res->num_rows === 0) { return $result; }
+        if ($res->num_rows === 0) {
+            return $result;
+        }
         $rows = $res->fetch_all(MYSQLI_ASSOC);
 
         foreach ($rows as $row) {
@@ -234,11 +242,11 @@ class Review
         $stmt = getDB()->prepare("INSERT INTO review(title, stars, text, user, product)
                                         VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sisii",
-            $this->title,
-            $this->stars,
-            $this->text,
-            $this->userId,
-            $this->productId);
+                          $this->title,
+                          $this->stars,
+                          $this->text,
+                          $this->userId,
+                          $this->productId);
         if (!$stmt->execute()) {
             logData("Review Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
@@ -259,7 +267,7 @@ class Review
     {
         $stmt = getDB()->prepare("DELETE FROM review WHERE id = ?;");
         $stmt->bind_param("i",
-            $this->id);
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Review Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;

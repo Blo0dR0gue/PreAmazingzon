@@ -14,7 +14,7 @@ if (!isset($_POST["productId"]) || !is_numeric($_POST["productId"])) {
 $product = ProductController::getById($_POST["productId"]);
 
 if (!isset($product)) {
-    logData("Toggle Product Activation", "Product with id: " . $_POST["productId"] ." not found!", CRITICAL_LOG);
+    logData("Toggle Product Activation", "Product with id: " . $_POST["productId"] . " not found!", CRITICAL_LOG);
     exit(json_encode(array("state" => "error", "msg" => "product error")));
 }
 
@@ -22,9 +22,9 @@ $product->setActive(!$product->isActive());
 $product = $product->update();
 
 if (!isset($product)) {
-    logData("Toggle Product Activation", "Product with id: " . $_POST["productId"] ." could not be updated!", CRITICAL_LOG);
+    logData("Toggle Product Activation", "Product with id: " . $_POST["productId"] . " could not be updated!", CRITICAL_LOG);
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
 
-logData("Toggle Product Activation", "Product with id " . $product->getId() . " now has the status: " . ($product->isActive()?"Active":"Disabled"));
+logData("Toggle Product Activation", "Product with id " . $product->getId() . " now has the status: " . ($product->isActive() ? "Active" : "Disabled"));
 exit(json_encode(array("state" => "success", "msg" => "done", "active" => $product->isActive())));

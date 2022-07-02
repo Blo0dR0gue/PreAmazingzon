@@ -24,32 +24,6 @@ class OrderState
     // region getter
 
     /**
-     * Get an existing {@link OrderState} by its id.
-     * @param int $id ID of {@link OrderState}
-     * @return OrderState|null The {@link OrderState} or null, if not found.
-     */
-    public static function getById(int $id): ?OrderState
-    {
-        $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) {
-            logData("Order State Model", "Query execute error! (get)", CRITICAL_LOG);
-            return null;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            logData("Order State Model", "No items were found for id: " . $id, NOTICE_LOG);
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new OrderState($id, $res["label"]);
-    }
-
-    /**
      * Get an existing {@link OrderState} by its label.
      * @param string $label Label of {@link OrderState}.
      * @return OrderState|null The {@link OrderState} or null, if not found.
@@ -98,6 +72,32 @@ class OrderState
         }
 
         return $orderStates;
+    }
+
+    /**
+     * Get an existing {@link OrderState} by its id.
+     * @param int $id ID of {@link OrderState}
+     * @return OrderState|null The {@link OrderState} or null, if not found.
+     */
+    public static function getById(int $id): ?OrderState
+    {
+        $stmt = getDB()->prepare("SELECT * FROM orderstate WHERE id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            logData("Order State Model", "Query execute error! (get)", CRITICAL_LOG);
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Order State Model", "No items were found for id: " . $id, NOTICE_LOG);
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new OrderState($id, $res["label"]);
     }
 
     /**

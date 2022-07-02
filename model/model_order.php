@@ -37,7 +37,33 @@ class Order
         $this->shippingAddressId = $shippingAddressId;
     }
 
-    // region getter
+    // region getter & setter
+
+    /**
+     * Gets a specific order by his id.
+     * @return Order|null The {@link Order} stored inside the database or null, if not found.
+     * @throws Exception If it is not possible to convert a string to a datetime object.
+     */
+    public static function getById(int $id): ?Order
+    {
+        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            logData("Order Model", "Query execute error! (get)", CRITICAL_LOG);
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Order Model", "No Items were found for id: " . $id, NOTICE_LOG);
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
+    }
 
     /**
      * Gets the amount of orders.
@@ -158,32 +184,6 @@ class Order
     }
 
     /**
-     * Gets a specific order by his id.
-     * @return Order|null The {@link Order} stored inside the database or null, if not found.
-     * @throws Exception If it is not possible to convert a string to a datetime object.
-     */
-    public static function getById(int $id): ?Order
-    {
-        $stmt = getDB()->prepare("SELECT * FROM `order` WHERE id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) {
-            logData("Order Model", "Query execute error! (get)", CRITICAL_LOG);
-            return null;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            logData("Order Model", "No Items were found for id: " . $id, NOTICE_LOG);
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new Order($id, new DateTime($res["orderDate"]), new DateTime($res["deliveryDate"]), $res["paid"], $res["orderState"], $res["user"], $res["shippingAddress"]);
-    }
-
-    /**
      * Gets the id of the {@link Order} inside the database.
      * @return int The id of the object.
      */
@@ -244,6 +244,15 @@ class Order
     }
 
     /**
+     * Sets the paid status of the order.
+     * @param bool $paid Set it to true, if the order is paid.
+     */
+    public function setPaid(bool $paid): void
+    {
+        $this->paid = $paid;
+    }
+
+    /**
      * Gets the {@link OrderState} id of the {@link Order}.
      * @return int The state id in which the order currently is.
      */
@@ -252,7 +261,14 @@ class Order
         return $this->orderStateId;
     }
 
-    // endregion
+    /**
+     * Sets the state of the order.
+     * @param int $orderStateId The id of the {@link OrderState}. (From the databse)
+     */
+    public function setOrderStateId(int $orderStateId): void
+    {
+        $this->orderStateId = $orderStateId;
+    }
 
     /**
      * Gets the user id who created this order.
@@ -274,28 +290,6 @@ class Order
 
     //endregion
 
-    //region setter
-
-    /**
-     * Sets the state of the order.
-     * @param int $orderStateId The id of the {@link OrderState}. (From the databse)
-     */
-    public function setOrderStateId(int $orderStateId): void
-    {
-        $this->orderStateId = $orderStateId;
-    }
-
-    /**
-     * Sets the paid status of the order.
-     * @param bool $paid Set it to true, if the order is paid.
-     */
-    public function setPaid(bool $paid): void
-    {
-        $this->paid = $paid;
-    }
-
-    //endregion
-
     /**
      * Creates an {@link Order} inside tha database.
      * @return Order|null The created {@link Order} or null, if an error occurred.
@@ -310,12 +304,12 @@ class Order
         $deliveryDateString = $this->deliveryDate->format("Y-m-d H:i:s");
 
         $stmt->bind_param("ssiiii",
-            $orderDateString,
-            $deliveryDateString,
-            $this->paid,
-            $this->orderStateId,
-            $this->userId,
-            $this->shippingAddressId
+                          $orderDateString,
+                          $deliveryDateString,
+                          $this->paid,
+                          $this->orderStateId,
+                          $this->userId,
+                          $this->shippingAddressId
         );
         if (!$stmt->execute()) {
             logData("Order Model", "Query execute error! (insert)", CRITICAL_LOG);
@@ -348,12 +342,12 @@ class Order
         $deliveryDateString = $this->deliveryDate->format("Y-m-d H:i:s");
 
         $stmt->bind_param("ssiiii",
-            $orderDateString,
-            $deliveryDateString,
-            $this->paid,
-            $this->orderStateId,
-            $this->userId,
-            $this->shippingAddressId);
+                          $orderDateString,
+                          $deliveryDateString,
+                          $this->paid,
+                          $this->orderStateId,
+                          $this->userId,
+                          $this->shippingAddressId);
         if (!$stmt->execute()) {
             logData("Order Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
@@ -374,7 +368,7 @@ class Order
     {
         $stmt = getDB()->prepare("DELETE FROM `order` WHERE id = ?;");
         $stmt->bind_param("i",
-            $this->id);
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Order Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;

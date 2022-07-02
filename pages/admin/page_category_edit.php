@@ -39,7 +39,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
         die();
     }
     $processingError = true;
-}else if($isPost){
+} else if ($isPost) {
     logData("Edit Category", "Missing values!", WARNING_LOG);
     $processingError = true;
 }

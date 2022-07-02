@@ -19,7 +19,7 @@ const CRITICAL_LOG = 5;
 function logData(string $caller, string $message, int $level = INFO_LOG, ?array $data = null): void
 {
     // only log if min log level is less or equal the given level
-    if (MIN_LOG_LEVEL <= $level){
+    if (MIN_LOG_LEVEL <= $level) {
         // gather date information
         $today = date("Y-m-d");
         $now = date("Y-m-d H:i:s");

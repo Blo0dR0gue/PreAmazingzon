@@ -34,7 +34,7 @@ if (!isset($user)) {
 
 $suc = UserController::delete($user);
 
-if(!$suc){
+if (!$suc) {
     logData("Delete User", "User wit id: " . $user->getId() . " could not be deleted!", CRITICAL_LOG);
 }
 

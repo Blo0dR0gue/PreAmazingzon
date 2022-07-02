@@ -47,7 +47,7 @@ if (!isset($review)) {
 
 $suc = ReviewController::delete($review);
 
-if(!$suc){
+if (!$suc) {
     logData("Delete Review", "Review with id: " . $review->getId() . " could not be deleted!", CRITICAL_LOG);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();

@@ -47,7 +47,9 @@ class ProductOrder
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
         $res = $res->fetch_assoc();
         $stmt->close();
 
@@ -70,7 +72,9 @@ class ProductOrder
 
         // get result
         $res = $stmt->get_result();
-        if ($res->num_rows === 0) { return null; }
+        if ($res->num_rows === 0) {
+            return null;
+        }
 
         $arr = array();
         while ($r = $res->fetch_assoc()) {
@@ -157,10 +161,10 @@ class ProductOrder
         $stmt = getDB()->prepare("INSERT INTO product_order(product, `order`, amount, price)
                                         VALUES (?, ?, ?, ?);");
         $stmt->bind_param("iiid",
-            $this->productId,
-            $this->orderId,
-            $this->amount,
-            $this->price
+                          $this->productId,
+                          $this->orderId,
+                          $this->amount,
+                          $this->price
         );
         if (!$stmt->execute()) {
             logData("Product Order Model", "Query execute error! (insert)", CRITICAL_LOG);

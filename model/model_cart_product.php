@@ -24,7 +24,7 @@ class CartProduct
     }
 
 
-    // region getter
+    // region getter & setter
 
     /**
      * Get all shopping-cart entries (cartProducts) related to one user.
@@ -82,6 +82,88 @@ class CartProduct
     }
 
     /**
+     * Gets the user id for this cart entry.
+     * @return int The user id.
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Gets the product id for this cart entry.
+     * @return int The product id.
+     */
+    public function getProdId(): int
+    {
+        return $this->prodId;
+    }
+
+    /**
+     * Gets the amount of the product for this cart entry.
+     * @return int The amount.
+     */
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Sets the amount for the product of this cart entry.
+     * @param int $amount The amount.
+     */
+    public function setAmount(int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    // endregion
+
+    /**
+     * Creates a new {@link CartProduct} inside the database.
+     * @return $this|null The created {@link CartProduct} or null, if an error occurred.
+     */
+    public function insert(): ?CartProduct
+    {
+        $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?);");
+        $stmt->bind_param("iii",
+                          $this->userId,
+                          $this->prodId,
+                          $this->amount);
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "A new item could not be created!", CRITICAL_LOG);
+            return null;
+        }
+
+        // get result
+        $stmt->close();
+        return $this;        // no e.g. autoincrement values, object is inserted as is
+    }
+
+    /**
+     * Updates the {@link CartProduct} inside the database.
+     * @return CartProduct|null The updated {@link CartProduct} or null, if an error occurred.
+     */
+    public function update(): ?CartProduct
+    {
+        $stmt = getDB()->prepare("UPDATE shoppingcart_product 
+                                    SET amount = ?
+                                    WHERE user = ? AND product = ?;");
+        $stmt->bind_param("iii",
+                          $this->amount,
+                          $this->userId,
+                          $this->prodId);
+        if (!$stmt->execute()) {
+            logData("Cart Product Model", "A new item could not be created!", CRITICAL_LOG);
+            return null;
+        }
+
+        $stmt->close();
+
+        return self::getById($this->prodId, $this->userId);
+    }
+
+    /**
      * Get an existing cartProduct by its id combination.
      *
      * @param int $productId related product id
@@ -109,92 +191,6 @@ class CartProduct
     }
 
     /**
-     * Gets the user id for this cart entry.
-     * @return int The user id.
-     */
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Gets the product id for this cart entry.
-     * @return int The product id.
-     */
-    public function getProdId(): int
-    {
-        return $this->prodId;
-    }
-
-    /**
-     * Gets the amount of the product for this cart entry.
-     * @return int The amount.
-     */
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    // endregion
-
-    // region setter
-
-    /**
-     * Sets the amount for the product of this cart entry.
-     * @param int $amount The amount.
-     */
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
-    }
-
-    //endregion
-
-    /**
-     * Creates a new {@link CartProduct} inside the database.
-     * @return $this|null The created {@link CartProduct} or null, if an error occurred.
-     */
-    public function insert(): ?CartProduct
-    {
-        $stmt = getDB()->prepare("INSERT INTO shoppingcart_product(user, product, amount) VALUES (?, ?, ?);");
-        $stmt->bind_param("iii",
-            $this->userId,
-            $this->prodId,
-            $this->amount);
-        if (!$stmt->execute()) {
-            logData("Cart Product Model", "A new item could not be created!", CRITICAL_LOG);
-            return null;
-        }
-
-        // get result
-        $stmt->close();
-        return $this;        // no e.g. autoincrement values, object is inserted as is
-    }
-
-    /**
-     * Updates the {@link CartProduct} inside the database.
-     * @return CartProduct|null The updated {@link CartProduct} or null, if an error occurred.
-     */
-    public function update(): ?CartProduct
-    {
-        $stmt = getDB()->prepare("UPDATE shoppingcart_product 
-                                    SET amount = ?
-                                    WHERE user = ? AND product = ?;");
-        $stmt->bind_param("iii",
-            $this->amount,
-            $this->userId,
-            $this->prodId);
-        if (!$stmt->execute()) {
-            logData("Cart Product Model", "A new item could not be created!", CRITICAL_LOG);
-            return null;
-        }
-
-        $stmt->close();
-
-        return self::getById($this->prodId, $this->userId);
-    }
-
-    /**
      * Deletes the {@link CartProduct} from the database
      * @return bool true, if the item got deleted successfully.
      */
@@ -203,8 +199,8 @@ class CartProduct
         $stmt = getDB()->prepare("DELETE FROM shoppingcart_product 
                                         WHERE user = ? AND product = ?;");
         $stmt->bind_param("ii",
-            $this->userId,
-            $this->prodId);
+                          $this->userId,
+                          $this->prodId);
         if (!$stmt->execute()) {
             logData("Cart Product Model", "Item with user id: " . $this->userId . " and product id: " . $this->prodId . " could not be deleted!", CRITICAL_LOG);
             return false;

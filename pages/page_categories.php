@@ -43,7 +43,7 @@ $products = ProductController::getProductsByCategoryIDInRange($category->getId()
 <main class="flex-shrink-0">
     <section class="container py-4">
         <!-- path -->
-        <?php if($category->getId() != -1){
+        <?php if ($category->getId() != -1) {
             echo "<i class='text-muted mb-2'>" . CategoryController::getPathToCategory($category->getId()) . "</i>";
         } ?>
 
@@ -53,8 +53,8 @@ $products = ProductController::getProductsByCategoryIDInRange($category->getId()
                 <h3>Categories in '<?= $category->getName() ?>'</h3>
                 <hr>
                 <?php
-                if(count($subCategories) > 0){
-                    foreach ($subCategories as $subCategory){
+                if (count($subCategories) > 0) {
+                    foreach ($subCategories as $subCategory) {
                         require INCLUDE_ELEMENTS_DIR . "elem_subcategory_card.inc.php";
                     }
                 } else {

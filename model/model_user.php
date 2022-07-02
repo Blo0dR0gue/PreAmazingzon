@@ -42,31 +42,6 @@ class User
     // region getter
 
     /**
-     * Get {@link User} by its id.
-     * @param int $id ID of a user
-     * @return User|null The {@link User} or null, if not found.
-     */
-    public static function getById(int $id): ?User
-    {
-        $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
-        $stmt->bind_param("i", $id);
-        if (!$stmt->execute()) {
-            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
-            return null;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new User($id, $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
-    }
-
-    /**
      * Gets an {@link User} by its e-mail.
      * @param string $email The e-mail.
      * @return User|null The {@link User} or null, if not found.
@@ -141,6 +116,31 @@ class User
     }
 
     /**
+     * Get {@link User} by its id.
+     * @param int $id ID of a user
+     * @return User|null The {@link User} or null, if not found.
+     */
+    public static function getById(int $id): ?User
+    {
+        $stmt = getDB()->prepare("SELECT * FROM user WHERE id = ?;");
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            logData("User Model", "Query execute error! (get)", CRITICAL_LOG);
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new User($id, $res["firstname"], $res["lastname"], $res["email"], $res["password"], $res["active"], $res["userRole"], $res["defaultAddress"]);
+    }
+
+    /**
      * Gets the id of the {@link User}.
      * @return int The id.
      */
@@ -159,12 +159,30 @@ class User
     }
 
     /**
+     * Sets the firstname for the {@link User}.
+     * @param string $firstName The firstname.
+     */
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
      * Gets the latname of the {@link User}.
      * @return string The lastname.
      */
     public function getLastName(): string
     {
         return $this->lastName;
+    }
+
+    /**
+     * Sets the lastname for the {@link User}.
+     * @param string $lastName The lastname.
+     */
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
     }
 
     /**
@@ -177,6 +195,15 @@ class User
     }
 
     /**
+     * Sets the e-mail-address of the {@link User}.
+     * @param string $email The e-mail-
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
      * Gets the password hash of the {@link User}.
      * @return string The hash.
      */
@@ -184,6 +211,19 @@ class User
     {
         return $this->passwordHash;
     }
+
+    /**
+     * Sets the password hash for the {@link User}
+     * @param string $passwordHash
+     */
+    public function setPasswordHash(string $passwordHash): void
+    {
+        $this->passwordHash = $passwordHash;
+    }
+
+    //endregion
+
+    //region setter
 
     /**
      * Gets the formatted {@link User} name. (Firstname Lastname)
@@ -204,64 +244,6 @@ class User
     }
 
     /**
-     * Gets the id of the {@link UserRole} of the {@link User}.
-     * @return int The role id.
-     */
-    public function getRoleId(): int
-    {
-        return $this->roleId;
-    }
-
-    /**
-     * Gets the default {@link Address} is of the {@link User}.
-     * @return null|int The default {@link Address} id or null, if the user do not have a default address.
-     */
-    public function getDefaultAddressId(): ?int
-    {
-        return $this->defaultAddressId;
-    }
-
-    //endregion
-
-    //region setter
-
-    /**
-     * Sets the firstname for the {@link User}.
-     * @param string $firstName The firstname.
-     */
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * Sets the lastname for the {@link User}.
-     * @param string $lastName The lastname.
-     */
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
-     * Sets the e-mail-address of the {@link User}.
-     * @param string $email The e-mail-
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * Sets the password hash for the {@link User}
-     * @param string $passwordHash
-     */
-    public function setPasswordHash(string $passwordHash): void
-    {
-        $this->passwordHash = $passwordHash;
-    }
-
-    /**
      * Sets the active status of the {@link User}.
      * @param bool $active Set it to true, if the user should be active.
      */
@@ -271,12 +253,30 @@ class User
     }
 
     /**
+     * Gets the id of the {@link UserRole} of the {@link User}.
+     * @return int The role id.
+     */
+    public function getRoleId(): int
+    {
+        return $this->roleId;
+    }
+
+    /**
      * Sets {@link UserRole} for the {@link User}
      * @param int $roleId The id of the {@link UserRole}
      */
     public function setRoleId(int $roleId): void
     {
         $this->roleId = $roleId;
+    }
+
+    /**
+     * Gets the default {@link Address} is of the {@link User}.
+     * @return null|int The default {@link Address} id or null, if the user do not have a default address.
+     */
+    public function getDefaultAddressId(): ?int
+    {
+        return $this->defaultAddressId;
     }
 
     /**
@@ -299,13 +299,13 @@ class User
         $stmt = getDB()->prepare("INSERT INTO user(password, email, userRole, firstname, lastname, defaultAddress, active) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssissii",
-            $this->passwordHash,
-            $this->email,
-            $this->roleId,
-            $this->firstName,
-            $this->lastName,
-            $this->defaultAddressId,
-            $this->active);
+                          $this->passwordHash,
+                          $this->email,
+                          $this->roleId,
+                          $this->firstName,
+                          $this->lastName,
+                          $this->defaultAddressId,
+                          $this->active);
         if (!$stmt->execute()) {
             logData("User Model", "Query execute error! (insert)", CRITICAL_LOG);
             return null;
@@ -334,14 +334,14 @@ class User
                                             active = ?
                                         WHERE id = ?;");
         $stmt->bind_param("ssissiii",
-            $this->passwordHash,
-            $this->email,
-            $this->roleId,
-            $this->firstName,
-            $this->lastName,
-            $this->defaultAddressId,
-            $this->active,
-            $this->id);
+                          $this->passwordHash,
+                          $this->email,
+                          $this->roleId,
+                          $this->firstName,
+                          $this->lastName,
+                          $this->defaultAddressId,
+                          $this->active,
+                          $this->id);
         if (!$stmt->execute()) {
             logData("User Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
@@ -362,7 +362,7 @@ class User
     {
         $stmt = getDB()->prepare("DELETE FROM user WHERE id = ?;");
         $stmt->bind_param("i",
-            $this->id);
+                          $this->id);
         if (!$stmt->execute()) {
             logData("User Model", "Query execute error! (delete)", CRITICAL_LOG);
             return false;

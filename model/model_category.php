@@ -161,7 +161,7 @@ class Category
         if ($superId) {
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent = ? ORDER BY id;");
             $stmt->bind_param("i",
-                $superId
+                              $superId
             );
         } else {
             $stmt = getDB()->prepare("SELECT id FROM category WHERE parent IS NULL ORDER BY id;");
@@ -307,28 +307,6 @@ class Category
     }
 
     /**
-     * Gets the description of the category.
-     * @return string The description
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Gets the parent category id.
-     * @return null|int The id or null, if root.
-     */
-    public function getParentID(): ?int
-    {
-        return $this->parentID;
-    }
-
-    //endregion
-
-    //region setter
-
-    /**
      * Sets the name of the category.
      * @param string $name The name.
      */
@@ -338,12 +316,34 @@ class Category
     }
 
     /**
+     * Gets the description of the category.
+     * @return string The description
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    //endregion
+
+    //region setter
+
+    /**
      * Sets the description of the category.
      * @param string $description The description
      */
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * Gets the parent category id.
+     * @return null|int The id or null, if root.
+     */
+    public function getParentID(): ?int
+    {
+        return $this->parentID;
     }
 
     /**
@@ -366,9 +366,9 @@ class Category
         $stmt = getDB()->prepare("INSERT INTO category(name, description, parent) 
                                         VALUES (?, ?, ?);");
         $stmt->bind_param("ssi",
-            $this->name,
-            $this->description,
-            $this->parentID
+                          $this->name,
+                          $this->description,
+                          $this->parentID
         );
         if (!$stmt->execute()) {
             logData("Category Model", "Query execute error! (insert)", CRITICAL_LOG);
@@ -394,10 +394,10 @@ class Category
                                             parent = ?
                                         WHERE id = ?;");
         $stmt->bind_param("ssii",
-            $this->name,
-            $this->description,
-            $this->parentID,
-            $this->id
+                          $this->name,
+                          $this->description,
+                          $this->parentID,
+                          $this->id
         );
         if (!$stmt->execute()) {
             logData("Category Model", "Query execute error! (update)", CRITICAL_LOG);

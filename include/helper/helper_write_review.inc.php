@@ -27,7 +27,7 @@ $review = ReviewController::insert(
 );
 
 if (!isset($review)) {
-    logData("Write Review", "Review for user: " . $_SESSION["uid"] ." for product " . $_POST["productId"] ." could not be created!", CRITICAL_LOG);
+    logData("Write Review", "Review for user: " . $_SESSION["uid"] . " for product " . $_POST["productId"] . " could not be created!", CRITICAL_LOG);
     header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
     die();
 }
