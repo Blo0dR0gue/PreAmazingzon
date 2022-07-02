@@ -96,7 +96,7 @@ class ProductOrder
     public static function doesUserBoughtThisProduct(int $userId, int $productId): bool
     {
         $stmt = getDB()->prepare("SELECT COUNT(*) as amount FROM product_order po JOIN `order` o on po.`order` = o.id WHERE o.user = ? AND po.product = ?;");
-        $stmt->bind_param("i", $orderId);
+        $stmt->bind_param("ii", $userId, $productId);
         if (!$stmt->execute()) {
             logData("Product Order Model", "Query execute error! (check if user bought item)", CRITICAL_LOG);
             return false;
