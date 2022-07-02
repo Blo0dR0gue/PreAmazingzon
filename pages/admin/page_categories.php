@@ -56,12 +56,10 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 
         <!-- table body -->
         <tbody>
-        <?php
-        if (isset($categories) && count($categories) > 0):
-            foreach ($categories as $category):
-                ?>
+        <?php if (isset($categories) && count($categories) > 0) {
+            foreach ($categories as $category) { ?>
                 <tr>
-                    <td class="align-middle" data-th="">
+                    <td data-th="" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                            title="Edit category">
@@ -70,32 +68,30 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
                         <!-- TODO toggle active? or simply no delete? -->
                     </td>
 
-                    <td data-th="#">
+                    <td data-th="#" class="align-middle">
                         <strong><?= $category->getID(); ?></strong>
                     </td>
 
-                    <td data-th="Title">
+                    <td data-th="Title" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="mb-0 h5 text-decoration-none text-blue"><?= $category->getName() ?></a>
                     </td>
 
-                    <td data-th="Super">
+                    <td data-th="Super" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($category->getParentID() ?? "") ?>"
                            class="text-decoration-none text-blue text-black">
                             <?= CategoryController::getNameById($category->getParentID()) ?>
                         </a>
                     </td>
                 </tr>
-            <?php
-            endforeach;
-        else:
-            ?>
+            <?php }
+        } else { ?>
             <tr>
                 <td colspan="4" style="text-align: center">
-                    <p><em class="mb-3 text-muted">No categories are available.</em></p>
+                    <p><em class="mb-3 text-muted">No categories found.</em></p>
                 </td>
             </tr>
-        <?php endif; ?>
+        <?php } ?>
         </tbody>
     </table>
 </main>
