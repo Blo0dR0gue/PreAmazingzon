@@ -1,5 +1,4 @@
 <?php
-
 // Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
@@ -39,7 +38,7 @@ class User
         $this->defaultAddressId = $defaultAddressId;
     }
 
-    // region getter
+    // region getter & setter
 
     /**
      * Gets an {@link User} by its e-mail.
@@ -221,9 +220,6 @@ class User
         $this->passwordHash = $passwordHash;
     }
 
-    // endregion
-
-    // region setter
 
     /**
      * Gets the formatted {@link User} name. (Firstname Lastname)

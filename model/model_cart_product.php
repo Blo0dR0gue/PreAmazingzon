@@ -1,5 +1,4 @@
 <?php
-
 // Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
@@ -25,6 +24,33 @@ class CartProduct
 
 
     // region getter & setter
+
+    /**
+     * Get an existing cartProduct by its id combination.
+     *
+     * @param int $productId related product id
+     * @param int $userId related user id
+     * @return CartProduct|null corresponding cartProduct
+     */
+    public static function getById(int $productId, int $userId): ?CartProduct
+    {
+        $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
+        $stmt->bind_param("ii", $userId, $productId);
+        if (!$stmt->execute()) {
+            return null;
+        }
+
+        // get result
+        $res = $stmt->get_result();
+        if ($res->num_rows === 0) {
+            logData("Cart Product Model", "No items got selected for product id: " . $productId . " and user id: " . $userId, WARNING_LOG);
+            return null;
+        }
+        $res = $res->fetch_assoc();
+        $stmt->close();
+
+        return new CartProduct($res["user"], $res["product"], $res["amount"]);
+    }
 
     /**
      * Get all shopping-cart entries (cartProducts) related to one user.
@@ -161,33 +187,6 @@ class CartProduct
         $stmt->close();
 
         return self::getById($this->prodId, $this->userId);
-    }
-
-    /**
-     * Get an existing cartProduct by its id combination.
-     *
-     * @param int $productId related product id
-     * @param int $userId related user id
-     * @return CartProduct|null corresponding cartProduct
-     */
-    public static function getById(int $productId, int $userId): ?CartProduct
-    {
-        $stmt = getDB()->prepare("SELECT * FROM shoppingcart_product WHERE user = ? AND product = ?;");
-        $stmt->bind_param("ii", $userId, $productId);
-        if (!$stmt->execute()) {
-            return null;
-        }
-
-        // get result
-        $res = $stmt->get_result();
-        if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items got selected for product id: " . $productId . " and user id: " . $userId, WARNING_LOG);
-            return null;
-        }
-        $res = $res->fetch_assoc();
-        $stmt->close();
-
-        return new CartProduct($res["user"], $res["product"], $res["amount"]);
     }
 
     /**
