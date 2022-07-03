@@ -1,7 +1,6 @@
 <?php
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
-    $product = ProductController::getByID($cartProduct->getProdId());
-    ?>
+    $product = ProductController::getByID($cartProduct->getProdId()); ?>
 
     <div class="row p-2 bg-white rounded">
         <div class="col-md-2 mt-1">
@@ -19,4 +18,3 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     // save price for super script calculating total
     $subtotal = $product->getPriceTotal($cartProduct->getAmount());
 }
-?>

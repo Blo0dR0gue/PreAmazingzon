@@ -56,7 +56,6 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
             <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
                class="btn btn-close btn-md mb-2"></a>
         </td>
-
     </tr>
     <?php
     // save price for super script calculating total
