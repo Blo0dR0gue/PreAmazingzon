@@ -24,7 +24,6 @@ function getDB(): mysqli
     }
 
     if ($db->connect_errno) {
-        //echo $db->connect_error;
         logData("Database", "Connection error.", CRITICAL_LOG);
         //Redirect to error page.
         require_once "paths.inc.php";
