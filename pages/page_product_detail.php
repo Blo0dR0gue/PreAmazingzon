@@ -11,7 +11,7 @@ if (isset($productID) && is_numeric($productID)) {
 
     if (!isset($product)) {
         // Product with id does not exist
-        logData("Detailed Product", "Product with id " . $productID . " does not exist", DEBUG_LOG);
+        logData("Detailed Product", "Product with id: " . $productID . " does not exist", DEBUG_LOG);
         header("LOCATION: " . ROOT_DIR);   // Redirect, if no product is found.
         die();
     }
@@ -20,7 +20,7 @@ if (isset($productID) && is_numeric($productID)) {
     if (!$product->isActive()) {
         // Session is not an admin
         if (!UserController::isCurrentSessionAnAdmin()) {
-            logData("Detailed Product", "User with id" . $_SESSION["uid"] . " tried to access inactive product with id: " . $productID, DEBUG_LOG);
+            logData("Detailed Product", "User with id: " . $_SESSION["uid"] . " tried to access inactive product with id: " . $productID, DEBUG_LOG);
             header("LOCATION: " . ROOT_DIR);   // Redirect, if product is inactive and the user is not an admin.
             die();
         }

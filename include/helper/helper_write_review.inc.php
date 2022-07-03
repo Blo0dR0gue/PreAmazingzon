@@ -32,5 +32,5 @@ if (!isset($review)) {
     die();
 }
 
-logData("Write Review", "User with id " . $_SESSION["uid"] . " wrote the review " . $review->getId() . ".");
+logData("Write Review", "User with id: " . $_SESSION["uid"] . " just wrote the review with id: " . $review->getId() . ".");
 header("Location: " . PAGES_DIR . "page_product_detail.php?id=" . $_POST["productId"]);
