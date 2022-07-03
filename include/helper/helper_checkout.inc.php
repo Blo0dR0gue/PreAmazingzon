@@ -101,7 +101,7 @@ foreach ($cartProducts as $cartProduct) {
 // Create invoice
 require_once INCLUDE_HELPER_DIR . "helper_create_invoice.inc.php";
 
-logData("Checkout", "Order with id: " . $order->getId() . "created!");
+logData("Checkout", "Order with id: " . $order->getId() . " created!");
 
 header("Location: " . USER_PAGES_DIR . "page_thank_you.php");
 die();

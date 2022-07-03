@@ -181,7 +181,7 @@ class CartProduct
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            logData("Cart Product Model", "No items got selected for id: " . $productId, CRITICAL_LOG);
+            logData("Cart Product Model", "No items got selected for product id: " . $productId, WARNING_LOG);
             return null;
         }
         $res = $res->fetch_assoc();

@@ -43,5 +43,5 @@ if (!isset($order)) {
     exit(json_encode(array("state" => "error", "msg" => "update error")));
 }
 
-logData("Pay Order", "Order with id: " . $_POST["orderId"] . "got paid from user " . $_POST["userId"] . "!");
+logData("Pay Order", "Order with id: " . $_POST["orderId"] . " got paid from user " . $_POST["userId"] . "!");
 exit(json_encode(array("state" => "success", "msg" => "done", "orderStateId" => $order->getOrderStateId())));

@@ -117,7 +117,7 @@ if (UserController::isCurrentSessionLoggedIn()) {
             <div class="col-md-8 mb-3 px-2 position-relative">
                 <label for="street">Street</label>
                 <input type="text" class="form-control" id="street" name="street" placeholder="Street" required
-                       pattern="[a-zöäüA-ZÄÖÜß]+(?:[\s-][a-zöäüA-ZÖÄÜß. ]+)*">
+                       pattern="[a-zöäüA-ZÄÖÜß]+(?:[\s-][a-zöäüA-ZÖÄÜß. ]+)*[1-9]*">
                 <div class="invalid-tooltip opacity-75">Please enter a valid Street!</div>
             </div>
             <div class="col-md-4 mb-4 px-2 position-relative">
