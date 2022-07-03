@@ -106,11 +106,13 @@ Important values for testing are:
 
 **Predefined Users:**
 
-| Role        | Email/Username       | Password    |
-|-------------|----------------------|-------------|
-| normal user | user@user.de         | sh7up#KT!   |
-| admin       | admin@admin.de       | sh7up#KT!   |
-| normal user | tom.harris@gmail.com | pDGi5{7@    |
+| Role        | Email/Username                 | Password       |
+|-------------|--------------------------------|----------------|
+| normal user | user@user.de                   | sh7up#KT!      |
+| admin       | admin@admin.de                 | sh7up#KT!      |
+| normal user | tom.harris@gmail.com           | pDGi5{7@       |
+| normal user | Lisa.Clark@gmail.com           | VLSuj(3DP85y   |
+| admin       | Thomas.Thompson@amazingzon.com | q4G+Nd7-CHAB   |
 
 ## Code Style
 
