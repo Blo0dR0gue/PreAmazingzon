@@ -1,7 +1,7 @@
 <?php require_once "../include/site_php_head.inc.php" ?>
 
 <?php
-//if already logged in redirect to home
+// if already logged in redirect to home
 if (UserController::isCurrentSessionLoggedIn()) {
     header("LOCATION: " . ROOT_DIR);
     die();

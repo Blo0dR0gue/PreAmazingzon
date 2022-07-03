@@ -1,6 +1,6 @@
 <?php
 
-//Add database
+// Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class User
@@ -221,9 +221,9 @@ class User
         $this->passwordHash = $passwordHash;
     }
 
-    //endregion
+    // endregion
 
-    //region setter
+    // region setter
 
     /**
      * Gets the formatted {@link User} name. (Firstname Lastname)

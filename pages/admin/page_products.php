@@ -1,17 +1,17 @@
-<!--Admin products manage page-->
+<!-- Admin products manage page -->
 
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
 UserController::redirectIfNotAdmin();   // User is not allowed to be here.
 
-//pagination init
+// pagination init
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;  // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                    // Calculate offset for pagination
 $productCount = ProductController::getAmountOfProducts(null);           // Get the total amount of products
 $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                  // Calculate the total amount of pages
 
-//Get all products in a specific range. (From an offset a max amount)
+// Get all products in a specific range. (From an offset a max amount)
 $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
@@ -21,10 +21,10 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Products</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
 
-    <!--Add page script-->
+    <!-- Add page script -->
     <script src="<?= SCRIPT_DIR . "admin_products_page.js" ?>"></script>
 
     <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
@@ -68,21 +68,21 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
         <tbody>
         <?php
         if (isset($products) && count($products) > 0):
-            //Add each Product
+            // Add each Product
             foreach ($products as $product): ?>
 
-                <!--Action buttons-->
+                <!-- Action buttons -->
                 <tr>
                     <td class="align-middle" data-th="">
 
-                        <!--Edit button-->
+                        <!-- Edit button -->
                         <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                            class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" data-placement="left"
                            title="Edit product" style="padding-inline: 10px">
                             <em class="fa fa-pencil"></em>
                         </a>
 
-                        <!--Toggle active status button-->
+                        <!-- Toggle active status button -->
                         <button class="btn btn-sm <?= $product->isActive() ? "btn-success" : "btn-warning" ?>"
                                 data-toggle="tooltip" data-placement="left" title="(De-) Activate Product"
                                 onclick="onToggleProductActivation(this, <?= $product->getId(); ?>)">
@@ -92,12 +92,12 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 
                     </td>
 
-                    <!--Product ID-->
+                    <!-- Product ID -->
                     <td data-th="#">
                         <strong><?= $product->getID(); ?></strong>
                     </td>
 
-                    <!--Product main image-->
+                    <!-- Product main image -->
                     <td style="text-align: center" data-th="">
                         <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden mb-1"
                              style="height: 150px;">
@@ -105,23 +105,23 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                         </div>
                     </td>
 
-                    <!--Product title-->
+                    <!-- Product title -->
                     <td data-th="Title">
                         <a href="<?= ADMIN_PAGES_DIR . "page_product_edit.php?id=" . $product->getId(); ?>"
                            class="mb-0 h5 text-decoration-none text-blue"><?= $product->getTitle() ?></a>
                     </td>
 
-                    <!--Product price-->
+                    <!-- Product price -->
                     <td data-th="Price">
                         <?= $product->getPriceFormatted(); ?>
                     </td>
 
-                    <!--Product shipping cost-->
+                    <!-- Product shipping cost -->
                     <td data-th="Shipping">
                         <?= $product->getShippingCostFormatted(); ?>
                     </td>
 
-                    <!--Category id in which the product is-->
+                    <!-- Category id in which the product is -->
                     <td data-th="Category">
                         <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($product->getCategoryID() ?? "") ?>"
                            class="text-decoration-none text-blue">
@@ -129,12 +129,12 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
                         </a>
                     </td>
 
-                    <!--Stock amount-->
+                    <!-- Stock amount -->
                     <td data-th="Stock">
                         <?= $product->getStock(); ?>
                     </td>
 
-                    <!--Is the product active?-->
+                    <!-- Is the product active?-->
                     <td data-th="Active" data-id="<?= $product->getId(); ?>">
                         <?= $product->isActive() ? 'Yes' : 'No'; ?>
                     </td>
@@ -144,7 +144,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
         else: ?>
             <tr>
                 <td colspan="9" style="text-align: center">
-                    <!--No Products found text-->
+                    <!-- No Products found text -->
                     <p><em class="mb-3">No products are available.</em></p>
                 </td>
             </tr>
@@ -168,7 +168,7 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
-<!--Status messages-->
+<!-- Status messages -->
 <?php
 
 if (!empty($_GET["message"])) {

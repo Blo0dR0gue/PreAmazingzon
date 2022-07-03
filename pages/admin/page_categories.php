@@ -1,9 +1,9 @@
-<!--Admin category management page-->
+<!-- Admin category management page -->
 
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-//Is the user allowed to be here?
+// Is the user allowed to be here?
 UserController::redirectIfNotAdmin();
 
 // pagination stuff
@@ -22,7 +22,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Categories</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
     <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
 </head>
@@ -61,11 +61,11 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
         <?php if (isset($categories) && count($categories) > 0) {
             //Add each category to the table
             foreach ($categories as $category) { ?>
-                <!--Action buttons-->
+                <!-- Action buttons -->
                 <tr>
                     <td data-th="" class="align-middle">
 
-                        <!--Edit button-->
+                        <!-- Edit button -->
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Edit category">
@@ -83,18 +83,18 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 
                     </td>
 
-                    <!--Category id-->
+                    <!-- Category id -->
                     <td data-th="#" class="align-middle">
                         <strong><?= $category->getID(); ?></strong>
                     </td>
 
-                    <!--Category name-->
+                    <!-- Category name -->
                     <td data-th="Title" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_category_edit.php?id=" . $category->getId(); ?>"
                            class="mb-0 h5 text-decoration-none text-blue"><?= $category->getName() ?></a>
                     </td>
 
-                    <!--Super category-->
+                    <!-- Super category -->
                     <td data-th="Super" class="align-middle">
                         <a href="<?= ADMIN_PAGES_DIR . "page_categories.php?id=" . ($category->getParentID() ?? "") ?>"
                            class="text-decoration-none text-blue text-black">
@@ -105,7 +105,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
                 </tr>
             <?php }
         } else { ?>
-            <!--No categories found-->
+            <!-- No categories found -->
             <tr>
                 <td colspan="4" style="text-align: center">
                     <p><em class="mb-3 text-muted">No categories found.</em></p>
@@ -131,7 +131,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
 <!-- footer -->
 <?php require_once INCLUDE_DIR . "site_footer.inc.php"; ?>
 
-<!--Status messages-->
+<!-- Status messages -->
 <?php
 
 if (!empty($_GET["message"])) {

@@ -1,7 +1,7 @@
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
 <?php
-//Check if no user is logged-in or the logged-in user got blocked. If not redirect to root.
+// Check if no user is logged-in or the logged-in user got blocked. If not redirect to root.
 UserController::redirectIfNotLoggedIn();
 ?>
 
@@ -47,11 +47,11 @@ UserController::redirectIfNotLoggedIn();
 
                         <tbody>
                         <?php
-                        //The total sum of the cart.
+                        // The total sum of the cart.
                         $total = 0.0;
                         if ($cartProducts) {    // if exist load cart entries into table rows
                             foreach ($cartProducts as $cartProduct) {
-                                //Reset parameter used by the template.
+                                // Reset parameter used by the template.
                                 $subtotal = 0;
                                 // decrease the amount of this product in cart or delete it, if another user bought this item and there a not enough items in stock.
                                 if (!CartProductController::handleOtherUserBoughtItemInCart($cartProduct)) {    // if it got removed, don't show the item

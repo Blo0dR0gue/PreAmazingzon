@@ -1,10 +1,10 @@
-<!--Admin order management page-->
+<!-- Admin order management page -->
 
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
 <?php
 
-//Is the user allowed to be here?
+// Is the user allowed to be here?
 UserController::redirectIfNotAdmin();
 
 // pagination stuff
@@ -95,7 +95,7 @@ $orderStates = OrderStateController::getAll();
                             } ?>
                         </td>
 
-                        <!-- The name of the user-->
+                        <!-- The name of the user -->
                         <td data-th="Username" class="align-middle">
                             <?php if (isset($user)) {
                                 echo $user->getFormattedName();

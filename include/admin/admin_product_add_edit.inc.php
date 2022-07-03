@@ -40,11 +40,11 @@
                             <?php
                             if (isset($cat)) {
                                 if (in_array($treeEntry["top"], $cat)) {
-                                    echo "selected";    //Select the selected category
+                                    echo "selected";    // Select the selected category
                                 }
                             } else if (isset($category) && $category instanceof Category) {
                                 if ($treeEntry["top"] == $category->getId()) {
-                                    echo "selected";    //Select the selected category
+                                    echo "selected";    // Select the selected category
                                 }
                             } ?>>
                             <?= $treeEntry["path"]; ?>
@@ -73,7 +73,7 @@
                 <div class="input-group p-0">
                     <input type="number" id="price" name="price" step='0.01' class="form-control"
                            value="<?php if (isset($product) && $product instanceof Product) {
-                               //Add the current product price (edit mode)
+                               // Add the current product price (edit mode)
                                echo $product->getPrice();
                            } ?>"
                            required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$" placeholder="10.00" min="0">
@@ -90,7 +90,7 @@
                     <input type="number" id="shipping" name="shipping" placeholder="3.50" min="0" step='0.01'
                            class="form-control" required pattern="^([1-9][0-9]*|0)(\.[0-9]{2})?$"
                            value="<?php if (isset($product) && $product instanceof Product) {
-                               //Add the current product shipping cost (edit mode)
+                               // Add the current product shipping cost (edit mode)
                                echo $product->getShippingCost();
                            } ?>">
                     <span class="input-group-text rounded-end"><?= CURRENCY_SYMBOL ?></span>
@@ -106,7 +106,7 @@
                     <input type="number" id="stock" name="stock" class="form-control" placeholder="42" min="0" required
                            pattern="[1-9][0-9]*|0"
                            value="<?php if (isset($product) && $product instanceof Product) {
-                               //Add the current product stock amount (edit mode)
+                               // Add the current product stock amount (edit mode)
                                echo $product->getStock();
                            } ?>">
                     <span class="input-group-text rounded-end">Pcs.</span>

@@ -1,6 +1,6 @@
 <?php
 
-//Add databse
+// Add databse
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class OrderState

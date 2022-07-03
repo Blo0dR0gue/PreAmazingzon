@@ -39,7 +39,7 @@ class Product
         $this->active = $active;
     }
 
-    //region getter & setter
+    // region getter & setter
 
     /**
      * Gets all {@link Product}s from the database.
@@ -241,7 +241,7 @@ class Product
             $searchString = "%$searchString%";
             $sql = "SELECT COUNT(DISTINCT p.id) AS count FROM product AS p LEFT OUTER JOIN category AS c ON p.category = c.id WHERE (LOWER(p.description) LIKE ? OR LOWER(p.title) LIKE ? OR LOWER(c.name) LIKE ?)";
         } else {
-            //We use 1=1 to make it possible to add the AND later
+            // We use 1=1 to make it possible to add the AND later
             $sql = "SELECT COUNT(DISTINCT id) AS count FROM product WHERE 1=1";
         }
 
@@ -265,7 +265,7 @@ class Product
         // get result
         $res = $stmt->get_result();
         if ($res->num_rows === 0) {
-            //logData("Product Model", "No items were found by search.", LOG_LVL_NOTICE);
+            // logData("Product Model", "No items were found by search.", LOG_LVL_NOTICE);
             return 0;
         }
         $res = $res->fetch_assoc();

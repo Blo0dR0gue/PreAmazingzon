@@ -1,6 +1,6 @@
 <?php
 
-//Add database
+// Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Category
@@ -29,7 +29,7 @@ class Category
         $this->parentID = $parentID;
     }
 
-    //region getter
+    // region getter
 
     /**
      * Gets all categories stored inside the database.
@@ -324,9 +324,9 @@ class Category
         return $this->description;
     }
 
-    //endregion
+    // endregion
 
-    //region setter
+    // region setter
 
     /**
      * Sets the description of the category.
