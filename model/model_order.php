@@ -1,6 +1,6 @@
 <?php
 
-//Add database
+// Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Order
@@ -288,7 +288,7 @@ class Order
         return $this->shippingAddressId;
     }
 
-    //endregion
+    // endregion
 
     /**
      * Creates an {@link Order} inside tha database.

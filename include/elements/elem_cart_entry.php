@@ -4,7 +4,7 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId()); ?>
     <!-- shopping cart row -->
     <tr>
-        <!--region product details-->
+        <!-- region product details -->
         <td data-th="Product">
             <div class="row">
                 <!-- main product image -->
@@ -26,13 +26,13 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
                 </div>
             </div>
         </td>
-        <!--endregion-->
+        <!-- endregion -->
 
-        <!--region product price-->
+        <!-- region product price -->
         <td data-th="Price"><?= $product->getPriceTotalFormatted() ?></td>
-        <!--endregion-->
+        <!-- endregion -->
 
-        <!--region product amount-->
+        <!-- region product amount -->
         <td data-th="Quantity">
             <div class="d-flex justify-content-center">
                 <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "dec", "productId" => $product->getId()]) ?>"
@@ -46,12 +46,12 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
                 </a>
             </div>
         </td>
-        <!--endregion-->
+        <!-- endregion -->
 
-        <!--Cost for the amount of this product-->
+        <!-- Cost for the amount of this product -->
         <td data-th="Subtotal"><?= $product->getPriceTotalFormatted($cartProduct->getAmount()) ?></td>
 
-        <!--Action buttons-->
+        <!-- Action buttons -->
         <td data-th="" class="actions">
             <a href="<?= INCLUDE_HELPER_DIR . "helper_shopping_cart.inc.php?" . http_build_query(["action" => "del", "productId" => $product->getId()]) ?>"
                class="btn btn-close btn-md mb-2"></a>

@@ -1,6 +1,6 @@
 <?php
 
-//Add databse
+// Add databse
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Review
@@ -33,7 +33,7 @@ class Review
         $this->productId = $productId;
     }
 
-    //region getter
+    // region getter
 
     /**
      * Gets the average rating for an {@link Product}

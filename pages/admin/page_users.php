@@ -1,9 +1,9 @@
-<!--Admin user management page-->
+<!-- Admin user management page -->
 
 <?php require_once "../../include/site_php_head.inc.php"; ?>
 
 <?php
-//Is the user allowed to be here?
+// Is the user allowed to be here?
 UserController::redirectIfNotAdmin();
 
 // pagination stuff
@@ -12,10 +12,10 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $userCount = UserController::getAmountOfUsers();                                  // Get the total amount of users
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
-//Get all users from an offset to a specific amount.
+// Get all users from an offset to a specific amount.
 $users = UserController::getUsersInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 
-//Get roles
+// Get roles
 $adminUserRole = UserRoleController::getAdminUserRole();
 $defaultUserRole = UserRoleController::getDefaultUserRole();
 ?>
@@ -26,9 +26,9 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
     <?php require_once INCLUDE_DIR . "site_html_head.inc.php"; ?>
     <title><?= PAGE_NAME ?> - Admin - Users</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
-    <!--Add page script-->
+    <!-- Add page script -->
     <script src="<?= SCRIPT_DIR . "admin_users_page.js" ?>"></script>
     <!-- Add php modal functionality -->
     <?php require_once INCLUDE_MODAL_DIR . "modal_popup.inc.php"; ?>
@@ -70,7 +70,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                 <tr>
                     <!-- buttons -->
                     <td data-th="" class="align-middle">
-                        <!--Enable/Disable user-->
+                        <!-- Enable/Disable user -->
                         <button
                                 class="btn btn-sm <?= $user->isActive() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                                 data-toggle="tooltip" data-placement="left" title="(De-) Activate User"
@@ -79,7 +79,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                                 id="activeBtnImg<?= $user->getId() ?>"></em>
                         </button>
 
-                        <!--Toggle admin status-->
+                        <!-- Toggle admin status -->
                         <button
                                 class="btn btn-sm <?= $user->getRoleId() == $adminUserRole->getId() ? "btn-success" : "btn-warning" ?> <?= $user->getId() == $_SESSION["uid"] ? "disabled" : "" ?>"
                                 data-toggle="tooltip" data-placement="left" title="Toggle User Admin"
@@ -88,7 +88,7 @@ $defaultUserRole = UserRoleController::getDefaultUserRole();
                                 id="adminBtnImg<?= $user->getId() ?>"></em>
                         </button>
 
-                        <!--Delete user-->
+                        <!-- Delete user -->
                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left"
                            title="Delete user"
                            onclick="openConfirmModal(<?= "'Do you really want to delete the user: \'" . $user->getFormattedName() . "\', with ID: " . $user->getId() . " and all his information?'" ?>,

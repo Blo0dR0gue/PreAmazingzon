@@ -1,18 +1,18 @@
-<!--Admin add category page-->>
+<!-- Admin add category page -->>
 
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-//Is the user allowed to be here?
+// Is the user allowed to be here?
 UserController::redirectIfNotAdmin();
 
-//Is it a post request?
+// Is it a post request?
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
-//Handle form data
+// Handle form data
 if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && $isPost) {
 
-    //Create category
+    // Create category
     $category = CategoryController::insert(
         $_POST["title"],
         $_POST["description"],
@@ -20,7 +20,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     );
 
     if (isset($category)) {
-        //The category got created
+        // The category got created
         logData("Add Category", "Category with id " . $category->getId() . "got created.");
         header("LOCATION: " . ADMIN_PAGES_DIR . 'page_categories.php?message=Category%20updated');  // go to admin categories page
         die();
@@ -28,7 +28,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     $processingError = true;
     logData("Add Category", "Category could not be created!", CRITICAL_LOG);
 } else if ($isPost) {
-    //Values are missing
+    // Values are missing
     logData("Add Category", "Missing values!", WARNING_LOG);
     $processingError = true;
 }
@@ -43,7 +43,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     ?>
     <title><?= PAGE_NAME ?> - Admin - Category - Add</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
 </head>
 

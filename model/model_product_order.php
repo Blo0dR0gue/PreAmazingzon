@@ -1,6 +1,6 @@
 <?php
 
-//Add databse
+// Add databse
 require_once INCLUDE_DIR . "database.inc.php";
 
 class ProductOrder
@@ -179,7 +179,7 @@ class ProductOrder
         return $this->amount;
     }
 
-    //endregion
+    // endregion
 
     /**
      * Creates a new {@link ProductOrder} inside the database.

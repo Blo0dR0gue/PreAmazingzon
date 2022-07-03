@@ -18,13 +18,13 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
 // get sub categories
 $subCategories = CategoryController::getSubCategories($category->getId());
 
-//pagination init
+// pagination init
 $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;                // Current pagination page number
 $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                                  // Calculate offset for pagination
 $productCount = ProductController::getAmountOfActiveProductsInCategory($category->getId());     // Get the total Amount of products in category
 $totalPages = ceil($productCount / LIMIT_OF_SHOWED_ITEMS);                                      // Calculate the total amount of pages
 
-//Get all products for a category. (Limit by an amount from an offset)
+// Get all products for a category. (Limit by an amount from an offset)
 $products = ProductController::getProductsByCategoryIDInRange($category->getId(), $offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 

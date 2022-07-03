@@ -1,4 +1,4 @@
-<!--Add a product page-->
+<!-- Add a product page -->
 
 <?php
 require_once "../../include/site_php_head.inc.php";
@@ -55,7 +55,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     ?>
     <title><?= PAGE_NAME ?> - Admin - Product - Add</title>
 
-    <!-- file specific includes-->
+    <!-- file specific includes -->
     <link rel="stylesheet" href="<?= STYLE_DIR . "style_admin_pages.css"; ?>">
 </head>
 

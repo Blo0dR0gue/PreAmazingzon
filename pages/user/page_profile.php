@@ -1,7 +1,7 @@
 <?php require_once "../../include/site_php_head.inc.php" ?>
 
 <?php
-//if not logged in redirect to home ?
+// if not logged in redirect to home ?
 UserController::redirectIfNotLoggedIn();
 
 // get user
@@ -22,15 +22,15 @@ if (!$user) {   // user could be found?
 if (!empty($_POST["type"])) {   // data set?
     if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["address"])) {
 
-        //Is the email available?
+        // Is the email available?
         if (UserController::emailAvailable($_POST["email"]) || $user->getEmail() == $_POST["email"]) {
 
             $address = AddressController::getById($_POST["address"]);
 
-            //Address found?
+            // Address found?
             if (isset($address)) {
 
-                //Does the address belong to the user?
+                // Does the address belong to the user?
                 if ($address->getUserId() == $user->getId()) {
 
                     // update user
@@ -44,50 +44,50 @@ if (!empty($_POST["type"])) {   // data set?
                         $_POST["address"]
                     );
 
-                    //User could be updated.
+                    // User could be updated.
                     if (isset($user)) {
                         UserController::login($user, $_POST["password"]);   // login user (update session infos)
 
                         logData("Profile", "User with id: " . $user->getId() . "got updated.", DEBUG_LOG);
 
-                        //Reset latest messages
+                        // Reset latest messages
                         $_GET["message"] = "";
 
                         $updatedUser = 1;
                     } else {
-                        //Update failed.
+                        // Update failed.
                         logData("Profile", "User could not be updated! (update user)", CRITICAL_LOG);
                         $updateError = 1;
                     }
                 } else {
-                    //Address does not belong to the user.
+                    // Address does not belong to the user.
                     logData("Profile", "Address with id " . $address->getId() . " does not belong to user with id: " . $user->getId(), CRITICAL_LOG);
                     $addressNotUser = 1;
                 }
 
             } else {
-                //Address not found.
+                // Address not found.
                 logData("Profile", "Address with id " . $_POST["address"] . " not found.", CRITICAL_LOG);
                 $addressError = 1;
             }
 
         } else {
-            //E-Mail already used.
+            // E-Mail already used.
             logData("Profile", "E-Mail-Address: " . $_POST["email"] . " already used.");
             $emailError = 1;
         }
     } else {
-        //Values are missing
+        // Values are missing
         logData("Profile", "Value is missing or does not have the correct datatype! (update user)", CRITICAL_LOG);
         $valueError = 1;
     }
 }
 ?>
 
-<!--Load form data-->
+<!-- Load form data -->
 <?php
 
-//get all addresses
+// get all addresses
 $addresses = AddressController::getAllByUser($user->getId());
 
 $primaryAddress = AddressController::getById($user->getDefaultAddressId());
@@ -177,7 +177,7 @@ if (!$primaryAddress) { // user default address could not be found?
                                    value="<?= $address->getId(); ?>"
                                    required
                                 <?php
-                                //Select the default address
+                                // Select the default address
                                 if (isset($primaryAddress) && $address->getId() === $primaryAddress->getId())
                                     echo "checked";
                                 ?>

@@ -3,8 +3,6 @@
 
 <!-- TODO general: use http_build_query instead of '?id=' -->
 
-<!-- TODO unify comments spaces -->
-
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>

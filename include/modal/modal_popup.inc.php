@@ -1,5 +1,5 @@
 <?php
-//Load the popup
+// Load the popup
 require_once "modal_popup_content.inc.php";
 
 /**
@@ -16,7 +16,7 @@ function show_popup(
     ?>
 
     <script>
-        //Open the popup by default
+        // Open the popup by default
         showPopup("<?=$popup_title?>", "<?=$popup_text?>");
     </script>
 
