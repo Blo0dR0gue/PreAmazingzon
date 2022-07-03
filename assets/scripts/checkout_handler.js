@@ -1,4 +1,4 @@
-//Load on start (JQuery)
+// Load on start (JQuery)
 $(function () {
     // Check if the delivery address radio select has changed.
     $("#checkoutForm input[type=radio][name='delivery']").on("change", function () {

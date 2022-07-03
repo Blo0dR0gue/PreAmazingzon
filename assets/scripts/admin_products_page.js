@@ -24,11 +24,9 @@ function onToggleProductActivation(button, productId) {
                 child.classList.toggle("fa-toggle-off");
 
                 $("td[data-id=" + productId + "]").text(response_data.active ? "Yes" : "No");
-                // console.log(response_data.msg);
 
                 showPopup("Success", "The active state of the product got changed successfully.")
             } else if (response_data.state === "error") {
-                // console.log(response_data.msg);
 
                 showPopup("Error", "An error occurred! See log files for more information.")
             }

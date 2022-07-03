@@ -56,11 +56,11 @@ $totalProductPrice = 0;
                         <div id="deliveryAddress" class="mb-4">
                             <ul class="list-group">
                                 <li id="selectedDeliveryName"
-                                    class="list-group-item borderless p-0"><?= isset($primaryAddress) ? UserController::getFormattedName($user) : ""; ?></li>
+                                    class="list-group-item border-0 p-0"><?= isset($primaryAddress) ? UserController::getFormattedName($user) : ""; ?></li>
                                 <li id="selectedDeliveryStreet"
-                                    class="list-group-item borderless p-0"><?= isset($primaryAddress) ? $primaryAddress->getStreet() . " " . $primaryAddress->getNumber() : ""; ?></li>
+                                    class="list-group-item border-0 p-0"><?= isset($primaryAddress) ? $primaryAddress->getStreet() . " " . $primaryAddress->getNumber() : ""; ?></li>
                                 <li id="selectedDeliveryCity"
-                                    class="list-group-item borderless p-0"><?= isset($primaryAddress) ? $primaryAddress->getCity() . ", " . $primaryAddress->getZip() : ""; ?></li>
+                                    class="list-group-item border-0 p-0"><?= isset($primaryAddress) ? $primaryAddress->getCity() . ", " . $primaryAddress->getZip() : ""; ?></li>
                             </ul>
                         </div>
 

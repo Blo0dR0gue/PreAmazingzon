@@ -1,7 +1,7 @@
 // script for handling the address-modal
 
 /**
- * The model
+ * The Modal
  * @type {Modal}
  */
 addressModal = new bootstrap.Modal(document.getElementById("addressModal"), {

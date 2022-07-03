@@ -2,8 +2,7 @@
 // config file for general stuff
 
 /**
- * ROOT_PATH_OFFSET
- * offset of project related to server web-root.
+ * Offset of project relative to server web-root.
  * e.g. if the projekt folder is located in the web-root this is "".
  */
 const ROOT_PATH_OFFSET = "";
@@ -11,7 +10,7 @@ const ROOT_PATH_OFFSET = "";
 // region ########## Central Numbers ##########
 /**
  * Amount of random products which are displayed on the index.php.
- * Its recommender to set the value to multiples of four.
+ * Its recommender to set the value to multiples of 4.
  */
 const INDEX_PRODUCTS_AMOUNT = 4;
 
@@ -32,8 +31,9 @@ const MAX_IMAGE_PER_PRODUCT = 6;
 const MAX_AMOUNT_OF_ADDRESSES_PER_USER = 5;
 
 /**
- * Defines, how many items are displayed on a page. For example, how many products are showed on one page on the all products page.
- * Its recommender to set the value to multiples of four.
+ * Defines, how many items are displayed on a page.<br>
+ * For example, how many products are showed on the all products page.
+ * It is recommended to set the value to multiples of four.
  */
 const LIMIT_OF_SHOWED_ITEMS = 8;
 
@@ -43,18 +43,19 @@ const LIMIT_OF_SHOWED_ITEMS = 8;
 const PAGINATION_RANGE = 2;
 
 /**
- * Defines the format of the displayed dates. <br>
+ * Defines the format of the displayed dates.<br>
  * @see https://www.php.net/manual/en/datetime.format.php
  */
 const DATA_FORMAT = "d.m.Y H:i:s";
 
 /**
  * Defines the short date format used for e.g. the delivery date.
+ * @see https://www.php.net/manual/en/datetime.format.php
  */
 const DATE_FORMAT_SHORT = "d.m.Y";
 
 /**
- * The taxes used in this shop. (1.0 means 100% - 0.19 means 19%)
+ * The taxes used in this shop. (1.0 means 100%, 0.19 means 19%)
  */
 const SHOP_TAX = 0.0;
 
@@ -84,24 +85,9 @@ const DATE_TIME_ZONE = "Europe/Berlin";
 // region invoice
 
 /**
- * The street where your company is located.
+ * The street where company is located.
  */
 const COMPANY_STREET = "Musterstraße";
-
-/**
- * The legal form of the company.
- */
-const LEGAL_FORM = "inc.";
-
-/**
- * The contact email address
- */
-const CONTACT_EMAIL = "info@amazingzon.com";
-
-/**
- * The contact phone number
- */
-const CONTACT_PHONE = "02973 974430";
 
 /**
  * The street number of your company.
@@ -122,6 +108,21 @@ const COMPANY_ZIP_CODE = "12345";
  * The country in which your company is located.
  */
 const COMPANY_COUNTRY = "Germany";
+
+/**
+ * The legal form of the company.
+ */
+const LEGAL_FORM = "inc.";
+
+/**
+ * The contact email address.
+ */
+const CONTACT_EMAIL = "info@amazingzon.com";
+
+/**
+ * The contact phone number.
+ */
+const CONTACT_PHONE = "02973 974430";
 
 /**
  * The footer for each invoice

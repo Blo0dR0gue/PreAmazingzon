@@ -27,8 +27,6 @@ function onToggleUserActivation(button, userId) {
                 // Update the active text for the table row
                 $("td[data-activeUserId=" + userId + "]").text(response_data.active ? "Yes" : "No");
 
-                // console.log(response_data.msg);
-
                 showPopup("Success", "The active state of the user got changed successfully.")
             } else if (response_data.state === "error") {
 
@@ -70,8 +68,6 @@ function onToggleUserRole(btn, userId) {
 
                 // Update the active text for the table row
                 $("td[data-roleUserId=" + userId + "]").text(response_data.admin ? response_data.adminRoleName : response_data.defaultRoleName);
-
-                // console.log(response_data.msg);
 
                 showPopup("Success", "The role of the user got changed.")
             } else if (response_data.state === "error") {

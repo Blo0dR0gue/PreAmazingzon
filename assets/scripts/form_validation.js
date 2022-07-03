@@ -1,7 +1,7 @@
 /**
  * Script for disabling form submissions if there are invalid fields.
  * Used by custom boostrap forms.
- * based on https://getbootstrap.com/docs/4.0/components/forms/#custom-styles
+ * @see https://getbootstrap.com/docs/4.0/components/forms/#custom-styles
  */
 (function () {
     "use strict";

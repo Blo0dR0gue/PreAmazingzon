@@ -1,7 +1,7 @@
 // script for handling the confirm-modal
 
 /**
- * The model
+ * The Modal
  * @type {Modal}
  */
 confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"), {
