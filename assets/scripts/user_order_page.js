@@ -15,30 +15,30 @@ function onItemPayBtn(elem, orderId, userId) {
             userId: userId
         },
         success: function (result) {
-            //parse the response data
+            // parse the response data
             const response_data = $.parseJSON(result);
 
-            //Get the parent element of the button
+            // Get the parent element of the button
             const parentElem = elem.parentElement;
 
             if (response_data.state === "success") {
-                //Remove pay button
+                // Remove pay button
                 parentElem.removeChild(elem);
 
                 let paidBtn = document.createElement("button");
                 paidBtn.disabled = true;
 
-                //Create text and add it to the div
+                // Create text and add it to the div
                 let paidText = document.createTextNode("Paid");
                 paidBtn.appendChild(paidText);
 
-                //Add the style classes
+                // Add the style classes
                 paidBtn.classList.add("col-5", "btn", "btn-success");
 
-                //Add the paid button to the parent.
+                // Add the paid button to the parent.
                 parentElem.appendChild(paidBtn);
 
-                //Update the header text
+                // Update the header text
                 $("#paidTxt" + orderId).text("Paid");
 
                 showPopup("Success", "The order got paid.");

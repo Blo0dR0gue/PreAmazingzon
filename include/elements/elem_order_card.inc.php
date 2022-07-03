@@ -37,7 +37,7 @@
             $product = ProductController::getByID($orderItem->getProductId());
             // Add the full price to the total sum
             $sum += $orderItem->getFullPrice();
-            //Add the amount to the total amount
+            // Add the amount to the total amount
             $count += $orderItem->getAmount();
             ?>
             <div class="d-flex flex-wrap mb-2 align-items-center">

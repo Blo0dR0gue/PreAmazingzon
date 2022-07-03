@@ -12,7 +12,7 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $categoryCount = CategoryController::getAmountOfCategories(null);                 // Get the total amount of categories
 $totalPages = ceil($categoryCount / LIMIT_OF_SHOWED_ITEMS);                       // Calculate the total amount of pages
 
-//Get all categories from an offset to a specific amount.
+// Get all categories from an offset to a specific amount.
 $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 ?>
 
@@ -59,7 +59,7 @@ $categories = CategoryController::getCategoriesInRange($offset, LIMIT_OF_SHOWED_
         <!-- table body -->
         <tbody>
         <?php if (isset($categories) && count($categories) > 0) {
-            //Add each category to the table
+            // Add each category to the table
             foreach ($categories as $category) { ?>
                 <!-- Action buttons -->
                 <tr>

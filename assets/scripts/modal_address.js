@@ -19,7 +19,7 @@ addressModal = new bootstrap.Modal(document.getElementById("addressModal"), {
  * @param number The street number. Leaf it blank to create a new address.
  */
 function openAddressModal(addressId = -1, zip = "", city = "", street = "", number = "") {
-    //Set values
+    // Set values
     $("#addressId").val(addressId);
     $("#zip").val(zip);
     $("#city").val(city);

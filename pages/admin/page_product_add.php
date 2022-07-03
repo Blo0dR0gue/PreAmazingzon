@@ -3,17 +3,17 @@
 <?php
 require_once "../../include/site_php_head.inc.php";
 
-//Is the user allowed to be here?
+// Is the user allowed to be here?
 UserController::redirectIfNotAdmin();
 
-//Is the request a post
+// Is the request a post
 $isPost = strtolower($_SERVER["REQUEST_METHOD"]) === "post";
 
-//Handle form inputs
+// Handle form inputs
 if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"]) && isset($_POST["price"])
     && isset($_POST["shipping"]) && isset($_POST["stock"]) && $isPost) {
 
-    //Create the product
+    // Create the product
     $product = ProductController::insert(
         $_POST["title"],
         $_POST["cat"],
@@ -25,13 +25,13 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
     );
 
     if (isset($product)) {
-        //The product got created
+        // The product got created
         logData("Add Product", "Product with id " . $product->getId() . " got created!");
 
         $errors = ProductController::uploadImages($product->getId(), $_FILES["files"], $_POST["mainImgID"]);
 
         if (!$errors) {
-            //Images got uploaded
+            // Images got uploaded
             logData("Add Product", "Images got uploaded for product with id: " . $product->getId());
             header("LOCATION: " . ADMIN_PAGES_DIR . 'page_products.php?message=Product%20created');  // go to admin products page
             die();
@@ -40,7 +40,7 @@ if (isset($_POST["title"]) && isset($_POST["cat"]) && isset($_POST["description"
 
     $processingError = true;
 } else if ($isPost) {
-    //it was a post request but values are missing
+    // it was a post request but values are missing
     logData("Add Product", "Missing values!", WARNING_LOG);
     $processingError = true;
 }

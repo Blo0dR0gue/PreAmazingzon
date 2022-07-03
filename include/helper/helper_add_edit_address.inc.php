@@ -1,5 +1,5 @@
 <?php
-//Create / Edits an address.
+// Create / Edits an address.
 
 require_once "../site_php_head.inc.php";
 
@@ -30,7 +30,7 @@ if (!isset($user)) {
 }
 
 if ($_POST["addressId"] == -1) {
-    //Create a new address
+    // Create a new address
 
     $addresses = AddressController::getAllByUser($user->getId());
 
@@ -57,7 +57,7 @@ if ($_POST["addressId"] == -1) {
 
     $address = $address->insert();
 
-    //Create failed
+    // Create failed
     if (!isset($address)) {
         logData("Add Address", "New address could not be created!", CRITICAL_LOG);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
@@ -65,7 +65,7 @@ if ($_POST["addressId"] == -1) {
     }
 
 } else {
-    //Update a address
+    // Update a address
 
     $address = AddressController::getById($_POST["addressId"]);
 
@@ -88,7 +88,7 @@ if ($_POST["addressId"] == -1) {
 
     $address = $address->update();
 
-    //Update failed
+    // Update failed
     if (!isset($address)) {
         logData("Edit Address", "Address with id: " . $_POST["addressId"] . " could not be updated!", CRITICAL_LOG);
         header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');

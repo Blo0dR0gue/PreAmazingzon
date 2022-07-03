@@ -6,8 +6,8 @@ $(function () {
      * Add the click-event to the img drop zone that opens the file explorer
      */
     $("#dropZone").click(e => {
-        if (e.target === $("#dropZone")[0] || e.target === $("#imgRow")[0])   //Only, if we click the div and not a sub element.
-            $("#files").click();    //Open the file explorer
+        if (e.target === $("#dropZone")[0] || e.target === $("#imgRow")[0])   // Only, if we click the div and not a sub element.
+            $("#files").click();    // Open the file explorer
     });
 });
 
@@ -58,7 +58,7 @@ function getTemplate(templateSelector) {
         dataType: "html",
         async: false,
         success: function (data) {
-            //Gets the template fragment
+            // Gets the template fragment
             fragment.appendChild($(data).filter("div")[0]);
         }
     });
@@ -105,43 +105,42 @@ const main = getTemplate("#imgBoxTemplate");
  * JQuery does not have a formdata event :(
  */
 document.getElementById("prodForm").addEventListener("formdata", (e) => {
-    //The form data of the product form
+    // The form data of the product form
     const formData = e.formData;
 
-    //delete all uploaded files
+    // delete all uploaded files
     formData.delete("files[]");
 
-    //If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
+    // If Images, which has been uploaded are deleted. (Can happen, if we edit an image)
     if (DELETED_IMAGES_IDS.length > 0) {
-        //reset the from-data variable.
+        // reset the from-data variable.
         formData.delete("deletedImgIDs[]");
-        //Add them all to the formdata
+        // Add them all to the formdata
         DELETED_IMAGES_IDS.forEach(function (val) {
             formData.append("deletedImgIDs[]", val);
         })
     }
 
-    //if mainImgID is null, no main img is selected. set it to 0 which means the index 0 of the $_FILES array is chosen as main image.
+    // if mainImgID is null, no main img is selected. set it to 0 which means the index 0 of the $_FILES array is chosen as main image.
     if (mainImgID == null && lastMainImgElem == null && FILES.size > 0) {
         formData.set("mainImgID", Number(0).toString());
     } else if (mainImgID != null && FILES.size <= 0) {
         formData.set("mainImgID", mainImgID);
     }
 
-    //counter variable
+    // counter variable
     let index = 0;
 
     FILES.forEach(function (value, key) {
-        //if the current file is the mainImg, set the mainImgID formdata input to the counter variable, which is the index of this files in the array $_FILES.
+        // if the current file is the mainImg, set the mainImgID formdata input to the counter variable, which is the index of this files in the array $_FILES.
         if (mainImgID != null && key === mainImgID) {
             formData.set("mainImgID", index.toString());
         }
-        //Add the file to the files array ($_FILES)
+        // Add the file to the files array ($_FILES)
         formData.append("files[]", value, value.name);
 
         index++;
     });
-
 })
 
 /**
@@ -150,26 +149,26 @@ document.getElementById("prodForm").addEventListener("formdata", (e) => {
  * @param maxFileAmount The max amount of images, which can be uploaded.
  */
 function addImg(file, maxFileAmount) {
-    //If the file is not an image, skip
+    // If the file is not an image, skip
     if (!file || file["type"].split("/")[0] !== "image") return;
 
-    //If we reached the maxFilesAmount already, skip
+    // If we reached the maxFilesAmount already, skip
     if (FILES.size >= maxFileAmount) return;
-    //Disables the texts "click here or drop" text in the dropZone.
+    // Disables the texts "click here or drop" text in the dropZone.
     $("#dropTexts")[0].style.display = "none";
 
-    //Clone the template object
+    // Clone the template object
     let template = main.cloneNode(true);
 
-    //Select the image inside the template and set the src to the tmp url of the image.
+    // Select the image inside the template and set the src to the tmp url of the image.
     template.querySelector("div img").src = URL.createObjectURL(file);
 
-    //Select all buttons inside the template and set the data-id to the current nextImgID.
+    // Select all buttons inside the template and set the data-id to the current nextImgID.
     template.querySelectorAll("div button").forEach(function (elem) {
         elem.dataset.id = nextImgID.toString();
 
-        //If this is the first image, which is added to the drop zone (FILES array), set it to the main image.
-        //We check both, if the FILES map size is 0 and the container does not contain any imgBox,
+        // If this is the first image, which is added to the drop zone (FILES array), set it to the main image.
+        // We check both, if the FILES map size is 0 and the container does not contain any imgBox,
         // because in editMode the already uploaded images will not be added to the FILES map.
         if (elem.name === "setMainBtn" && FILES.size <= 0 && $("#imgRow").children().length === 0) {
             setMainImg(elem);
@@ -179,7 +178,7 @@ function addImg(file, maxFileAmount) {
     FILES.set(nextImgID.toString(), file);
     nextImgID++;
 
-    //Add the template to the DOM.
+    // Add the template to the DOM.
     $("#imgRow")[0].appendChild(template)
 }
 
@@ -201,37 +200,37 @@ function filesChanged(fileElem, maxFileAmount) {
  * @param isNewImg If this param is true, we delete an image, which is not uploaded yet.
  */
 function deleteImg(btnElem, isNewImg) {
-    //Get the intern image if from the button element
+    // Get the intern image if from the button element
     const _imgID = btnElem.dataset.id;
 
     const imgBox = btnElem.parentElement;
     const imgContainer = imgBox.parentElement;
 
-    //Remove the image box of this image from the DOM
+    // Remove the image box of this image from the DOM
     imgContainer.removeChild(imgBox);
 
     if (!isNewImg) {
-        //Relevant path by editing products. (Image is already uploaded)
+        // Relevant path by editing products. (Image is already uploaded)
 
         DELETED_IMAGES_IDS.push(_imgID);
 
-        //Get the setMain btn of the image, in which to delete btn was pressed.
+        // Get the setMain btn of the image, in which to delete btn was pressed.
         let deleteBtn = btnElem.nextElementSibling;
-        //It was the main image but was selected as one inside this script. This happens, because the element was created by php and not javascript.
+        // It was the main image but was selected as one inside this script. This happens, because the element was created by php and not javascript.
         if (deleteBtn.classList.contains("btn-success") && lastMainImgElem == null) {
             lastMainImgElem = btnElem;
         }
     } else {
-        //Delete the image from the FILES map, if it is not uploaded yet.
+        // Delete the image from the FILES map, if it is not uploaded yet.
         FILES.delete(_imgID);
     }
 
     if (lastMainImgElem != null && _imgID === lastMainImgElem.dataset.id) {
         if (FILES.size > 0 || $("#imgRow").children().length > 0) {
-            //If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
+            // If the img, which should be deleted is the current main img, update the references to the first elem in the FILES map.
             setMainImg($("button[name='setMainBtn']")[0]);
         } else {
-            //If no image is inside the dropArea, reset all variables.
+            // If no image is inside the dropArea, reset all variables.
             $("#mainImgID").value = null;
             lastMainImgElem = null;
             mainImgID = null;
