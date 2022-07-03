@@ -8,6 +8,8 @@ if (!defined("ROOT_DIR")) {
 // Initialise the session.
 session_start();
 
+logData("Logout", "User with id: " . $_SESSION["uid"] . " logged out.");
+
 // Clear all session variables.
 $_SESSION = array();
 
