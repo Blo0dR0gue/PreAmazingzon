@@ -11,9 +11,7 @@ require_once "modal_popup_content.inc.php";
 function show_popup(
     string $popup_title = "Error occurred",
     string $popup_text = "While executing the task an error occurred, please retry."
-): void
-{
-    ?>
+): void { ?>
 
     <script>
         // Open the popup by default

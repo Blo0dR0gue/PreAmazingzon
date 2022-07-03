@@ -17,5 +17,6 @@
         </div>
     </div>
 </div>
+
 <!-- The control js script -->
 <script src="<?= SCRIPT_DIR . "modal_confirm_popup.js" ?>"></script>
