@@ -1,5 +1,6 @@
 // script for the product detail page
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * Function for changing the image placed in the big image space.
  * By default, there is the main image.

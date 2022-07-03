@@ -135,6 +135,7 @@
             <div class="form-group">
                 <label for="pictures" class="form-label fs-5 mt-2">Product Images</label>
                 <!-- image drop zone -->
+                <!--suppress JSDeprecatedSymbols -->
                 <div id="dropZone" class="drop-zone rounded border-secondary p-3"
                      ondrop="dropHandler(event, <?= MAX_IMAGE_PER_PRODUCT ?>)" ondragover="dragOverHandler(event)">
                     <!-- prepare to show uploaded images in edit mode -->

@@ -320,7 +320,7 @@ class User
 
     /**
      * Updates the {@link User} inside the database.
-     * @return User|null The updated {@link User} or null, if an error occured.
+     * @return User|null The updated {@link User} or null, if an error occurred.
      */
     public function update(): ?User
     {

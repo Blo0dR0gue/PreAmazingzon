@@ -8,7 +8,7 @@ $dirs = explode("/", substr($_SERVER["PHP_SELF"], 1));
 $path = str_repeat(".." . DS, count($dirs) - 1);
 
 define("ROOT_DIR", empty(ROOT_PATH_OFFSET) ? $path : $path . ROOT_PATH_OFFSET . DS);
-define("SERVER_ROOT", $_SERVER["DOCUMENT_ROOT"]);
+define("SERVER_ROOT", $_SERVER["DOCUMENT_ROOT"]);   // TODO unused
 
 // define sub dirs constants
 // ./assets

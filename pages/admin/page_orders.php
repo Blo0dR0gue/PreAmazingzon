@@ -121,7 +121,8 @@ $orderStates = OrderStateController::getAll();
 
                         <!-- In which state is the order? -->
                         <td data-th="State" class="align-middle">
-                            <select class="form-select" name="stateSelector"
+                            <label for="stateSelector" class="visually-hidden">Set Order State</label>
+                            <select class="form-select" name="stateSelector" id="stateSelector"
                                     onchange="onOrderStateChange(this, <?= $order->getId() ?>, <?= $order->getOrderStateId(); ?>)">
                                 <?php foreach ($orderStates as $orderStateItem) { ?>
                                     <option value="<?= $orderStateItem->getId(); ?>"
