@@ -336,18 +336,20 @@ class Order
                                           paid = ?,
                                           orderState = ?,
                                           user = ?,
-                                          shippingAddress = ?");
+                                          shippingAddress = ?
+                                        WHERE id = ?;");
 
         $orderDateString = $this->orderDate->format("Y-m-d H:i:s");
         $deliveryDateString = $this->deliveryDate->format("Y-m-d H:i:s");
 
-        $stmt->bind_param("ssiiii",
+        $stmt->bind_param("ssiiiii",
                           $orderDateString,
                           $deliveryDateString,
                           $this->paid,
                           $this->orderStateId,
                           $this->userId,
-                          $this->shippingAddressId);
+                          $this->shippingAddressId,
+                          $this->id);
         if (!$stmt->execute()) {
             logData("Order Model", "Query execute error! (update)", CRITICAL_LOG);
             return null;
