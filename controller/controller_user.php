@@ -56,20 +56,19 @@ class UserController
      */
     public static function register(string $firstName, string $lastName, string $email, string $password, string $zip, string $city, string $street, string $number, int $roleId): ?User
     {
-
         if (self::emailAvailable($email)) {     // email unique
             // hash password
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             // create user
             $user = new User(0,
-                htmlspecialchars($firstName, ENT_QUOTES, "UTF-8"),
-                htmlspecialchars($lastName, ENT_QUOTES, "UTF-8"),
-                htmlspecialchars($email, ENT_QUOTES, "UTF-8"),
-                $passwordHash,
-                true,
-                $roleId,
-                null);
+                             htmlspecialchars($firstName, ENT_QUOTES, "UTF-8"),
+                             htmlspecialchars($lastName, ENT_QUOTES, "UTF-8"),
+                             htmlspecialchars($email, ENT_QUOTES, "UTF-8"),
+                             $passwordHash,
+                             true,
+                             $roleId,
+                             null);
             $user = $user->insert();
             if (!$user) {
                 return null;
@@ -135,8 +134,9 @@ class UserController
             $user->setEmail(htmlspecialchars($email, ENT_QUOTES, "UTF-8"));
             $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
 
-            if ($active != null)
+            if ($active != null) {
                 $user->setActive($active);
+            }
 
             if ($roleId != null) {
                 $user->setRoleId($roleId);

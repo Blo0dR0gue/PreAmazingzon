@@ -15,13 +15,17 @@ The project is designed to be executed in a local xampp installation or via Gitp
 For setting up the MySQL database there is an `install.sql` file located in the project root.
 To install the store, just copy the files and folders to the webroot.
 Inside the `assets/config` folder are the configuration files. <br>
+
 - The `config.php` file contains general configuration parameters.
-  - If the store is not located inside the webroot at least the configuration `ROOT_PATH_OFFSET` inside the `config.php` need to be set.
+    - If the store is not located inside the webroot at least the configuration `ROOT_PATH_OFFSET` inside
+      the `config.php` need to be set.
 - The `database_config.php` file contains the configuration for the database.
 
 ## Database installation via phpmyadmin
+
 Step-by-step setup:
-1. To set up the database login to your mysql server using phpmyadmin. 
+
+1. To set up the database login to your mysql server using phpmyadmin.
 2. Click on "Import" in the header.
 3. Click on "Browse".
 4. Select the `install.sql` file located in the project root.
