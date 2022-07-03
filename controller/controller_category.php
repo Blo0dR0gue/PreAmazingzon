@@ -67,7 +67,7 @@ class CategoryController
      * @param Product $product The {@link Product}.
      * @return string The category path.
      */
-    public static function getCategoryPathAsString(Product $product): string    // TODO unused?
+    public static function getCategoryPathAsString(Product $product): string
     {
         return implode(" > ", self::getCategoryPathByProduct($product));
     }

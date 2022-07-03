@@ -51,7 +51,6 @@ class OrderController
     public static function calculateDeliveryDate(): ?DateTime
     {
         $dtZone = new DateTimeZone(DATE_TIME_ZONE);
-        $dt = null; // TODO unused
         try {
             $dt = new DateTime('now', $dtZone);
             $dt->setTime(0, 0, 0, 0);
