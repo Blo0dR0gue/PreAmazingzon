@@ -124,7 +124,7 @@ class UserController
      * @param string $password The new password.
      * @param int|null $roleId The new user role or null, if the current one should be used.
      * @param int|null $defaultAddressId The new id of the default address or null, if the current one should be used.
-     * @return User|null The updated {@link User} or null, if an error occured.
+     * @return User|null The updated {@link User} or null, if an error occurred.
      */
     public static function update(User $user, string $firstName, string $lastName, string $email, string $password, int $roleId = null, int $defaultAddressId = null, bool $active = null): ?User
     {

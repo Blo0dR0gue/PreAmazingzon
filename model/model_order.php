@@ -193,7 +193,7 @@ class Order
     }
 
     /**
-     * Gets the create date of the {@link Order}.
+     * Gets the creation date of the {@link Order}.
      * @return DateTime The datetime object for the order data.
      */
     public function getOrderDate(): DateTime
@@ -263,7 +263,7 @@ class Order
 
     /**
      * Sets the state of the order.
-     * @param int $orderStateId The id of the {@link OrderState}. (From the databse)
+     * @param int $orderStateId The id of the {@link OrderState}. (From the database)
      */
     public function setOrderStateId(int $orderStateId): void
     {

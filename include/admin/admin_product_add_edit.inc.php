@@ -31,8 +31,8 @@
 
             <!-- category select -->
             <div class="form-group position-relative mb-1">
-                <label for="selectedRadio">Category</label>
-                <select class="form-select" name="cat">
+                <label for="cat">Category</label>
+                <select class="form-select" name="cat" id="cat">
                     <option value="-1" hidden>Select Category</option>
                     <!-- Add the category tree -->
                     <?php foreach (CategoryController::getCategoryTree() as $treeEntry): ?>

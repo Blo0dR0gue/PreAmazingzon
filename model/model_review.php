@@ -1,6 +1,6 @@
 <?php
 
-// Add databse
+// Add database
 require_once(INCLUDE_DIR . "database.inc.php");
 
 class Review

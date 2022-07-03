@@ -7,9 +7,7 @@ This project is created as part of the 'Web Engineering 2' lecture in summer sem
 Science course at DHBW Mannheim.
 The aim is the creation of a web-shop, named *Amazingzon*.
 
-<p align="center">
-  <img src="assets/images/screenshot_page_home.png" width="1200" alt="Home Page Image">
-</p>
+![Home Page Image](assets/images/screenshot_page_home.png)<br>
 
 ## Getting Started
 
@@ -23,13 +21,13 @@ Inside the `assets/config` folder are the configuration files. <br>
 
 ## Database installation via phpmyadmin
 Step-by-step setup:
-1. To setup the database login to your mysql server using phpmyadmin. 
+1. To set up the database login to your mysql server using phpmyadmin. 
 2. Click on "Import" in the header.
 3. Click on "Browse".
 4. Select the `install.sql` file located in the project root.
 5. Click on "Open".
 6. Click on "OK".
-7. The database with a default user will be created. (Database-Username: amazingzon, Password: sh7up#KT!)
+7. The database with a default user will be created. (Database-Username: `amazingzon`, Password: `sh7up#KT!`)
 
 ## Features
 
@@ -117,6 +115,7 @@ and the style guides of [SonarLint](https://www.sonarlint.org/).
 
 ## Screenshots
 
+![Home Page Image](assets/images/screenshot_page_home.png)<br>
 ![Login Page Image](assets/images/screenshot_page_login.png)<br>
 ![Product Page Image](assets/images/screenshot_page_product.png)
 

@@ -47,7 +47,7 @@ class ProductOrderController
      * @param int $productId The id of the product.
      * @return bool true, if the user bought this product at least once.
      */
-    public static function doesUserBoughtThisProduct(int $userId, int $productId): bool
+    public static function doesUserBoughtThisProduct(int $userId, int $productId): bool // TODO unused
     {
         return ProductOrder::doesUserBoughtThisProduct($userId, $productId);
     }

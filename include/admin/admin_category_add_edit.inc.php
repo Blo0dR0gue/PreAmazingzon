@@ -30,8 +30,8 @@
 
             <!-- super category select -->
             <div class="form-group position-relative mb-1">
-                <label for="selectedRadio">Super Category</label>
-                <select class="form-select" name="cat">
+                <label for="cat">Super Category</label>
+                <select class="form-select" name="cat" id="cat">
                     <!-- fill options -->
                     <option value="-1" hidden>Select Super Category - leave empty for root</option>
 

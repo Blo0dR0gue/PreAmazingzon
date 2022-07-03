@@ -2,7 +2,7 @@
 // config file for database related stuff
 
 /**
- * Databasename
+ * Database Name
  */
 const DB_DATABASE = "amazingzon";
 /**

@@ -46,12 +46,12 @@ class OrderController
 
     /**
      * Calculates the delivery date. We add 10 days to the order date.
-     * @return DateTime|null A new <a href="psi_element://DateTime">DateTime</a> object or null, if an error occured.
+     * @return DateTime|null A new <a href="psi_element://DateTime">DateTime</a> object or null, if an error occurred.
      */
     public static function calculateDeliveryDate(): ?DateTime
     {
         $dtZone = new DateTimeZone(DATE_TIME_ZONE);
-        $dt = null;
+        $dt = null; // TODO unused
         try {
             $dt = new DateTime('now', $dtZone);
             $dt->setTime(0, 0, 0, 0);

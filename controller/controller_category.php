@@ -51,7 +51,7 @@ class CategoryController
     /**
      * Gets all subcategories for a {@link Category}.
      * @param int $superId The id of the category.
-     * @return array|null A array with all sub {@link Category} objects or null, if an error occurred.
+     * @return array|null An array with all sub {@link Category} objects or null, if an error occurred.
      */
     public static function getSubCategories(int $superId): ?array
     {
@@ -67,7 +67,7 @@ class CategoryController
      * @param Product $product The {@link Product}.
      * @return string The category path.
      */
-    public static function getCategoryPathAsString(Product $product): string
+    public static function getCategoryPathAsString(Product $product): string    // TODO unused?
     {
         return implode(" > ", self::getCategoryPathByProduct($product));
     }

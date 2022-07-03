@@ -184,7 +184,7 @@ class Address
 
     /**
      * Gets the name of the city.
-     * @return string The citiy name.
+     * @return string The city name.
      */
     public function getCity(): string
     {

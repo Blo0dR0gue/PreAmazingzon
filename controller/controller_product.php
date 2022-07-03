@@ -158,21 +158,6 @@ class ProductController
         return $product;
     }
 
-    /**
-     * Deletes a product from the database and all its images.
-     * @param Product $product The product, which should be deleted
-     * @return bool true, if the product got deleted.
-     */
-    public static function delete(Product $product): bool
-    {
-        $productDeleted = $product->delete();
-
-        if ($productDeleted) {
-            self::deleteAllImages($product->getId());
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Deletes all images of the passed product id.
@@ -267,7 +252,7 @@ class ProductController
     }
 
     /**
-     * Sets/Updates the maint image for a product
+     * Sets/Updates the main image for a product
      * @param int|null $productID The id of the product.
      * @param string|null $newMainImgFileName The image name of the new main image.
      * @return bool true, if an error occurred.
@@ -418,7 +403,7 @@ class ProductController
      * @param int $length The length of the name.
      * @return string The random name.
      */
-    private static function generateRandomImageName($length = 10): string
+    private static function generateRandomImageName(int $length = 10): string
     {
         $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

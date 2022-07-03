@@ -168,7 +168,7 @@ class User
     }
 
     /**
-     * Gets the latname of the {@link User}.
+     * Gets the lastname of the {@link User}.
      * @return string The lastname.
      */
     public function getLastName(): string

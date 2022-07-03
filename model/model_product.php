@@ -588,7 +588,7 @@ class Product
     }
 
     /**
-     * Updates an {@link Product} inside the databse.
+     * Updates an {@link Product} inside the database.
      * @return Product|null The updated {@link Product} or null, if an error occurred.
      */
     public function update(): ?Product
@@ -621,22 +621,4 @@ class Product
         return self::getById($this->id);
     }
 
-    /**
-     * Deletes an {@link Product} from the database.
-     * @return bool true, if the {@link Product} got deleted.
-     */
-    public function delete(): bool
-    {
-        $stmt = getDB()->prepare("DELETE FROM product WHERE id = ?;");
-        $stmt->bind_param("i",
-                          $this->id);
-        if (!$stmt->execute()) {
-            logData("Product Model", "Query execute error! (delete)", CRITICAL_LOG);
-            return false;
-        }
-
-        $stmt->close();
-
-        return self::getById($this->id) == null;
-    }
 }
