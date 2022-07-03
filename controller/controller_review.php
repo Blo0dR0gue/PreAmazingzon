@@ -1,6 +1,5 @@
 <?php
-
-//Add the review model.
+//Add review model.
 require_once MODEL_DIR . "model_review.php";
 
 class ReviewController
@@ -128,5 +127,4 @@ class ReviewController
     {
         return $review->delete();
     }
-
 }

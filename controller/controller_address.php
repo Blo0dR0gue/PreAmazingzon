@@ -1,5 +1,5 @@
 <?php
-//Add the address model
+// Add address model
 require_once MODEL_DIR . "model_address.php";
 
 class AddressController
@@ -18,20 +18,6 @@ class AddressController
     {
         $address = new Address(0, $street, $number, $zip, $city, $userId);
         return $address->insert();
-    }
-
-    /**
-     * Gets an {@link Address} by the id.
-     * @param int|null $id The id of the required address.
-     * @return Address|null The {@link Address} object or null, if not found.
-     */
-    public static function getById(?int $id): ?Address
-    {
-        if ($id != null) {
-            return Address::getById($id);
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -55,6 +41,20 @@ class AddressController
         }
 
         return $address->update();
+    }
+
+    /**
+     * Gets an {@link Address} by the id.
+     * @param int|null $id The id of the required address.
+     * @return Address|null The {@link Address} object or null, if not found.
+     */
+    public static function getById(?int $id): ?Address
+    {
+        if ($id != null) {
+            return Address::getById($id);
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -1,6 +1,5 @@
 <?php
-
-//Add the order model.
+//Add order model.
 require_once MODEL_DIR . 'model_order.php';
 
 class OrderController
@@ -17,28 +16,6 @@ class OrderController
             return Order::getById($id);
         } catch (Exception $e) {
             logData("Order Controller", "Date could not be parsed! (get by id)", CRITICAL_LOG, $e->getTrace());
-            header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
-            die();
-        }
-    }
-
-    /**
-     * Creates a new {@link Order}.
-     * @param DateTime $orderDate The date of the order.
-     * @param DateTime $deliveryDate The delivery date for the order.
-     * @param bool $paid Is the order paid?
-     * @param int $orderStateId The state id for this order.
-     * @param int $userId The id of the user who created the order.
-     * @param int $shippingAddressId The id of the shipping address.
-     * @return Order|null A new {@link Order} object or null, if an error occurred.
-     */
-    public static function insert(DateTime $orderDate, DateTime $deliveryDate, bool $paid, int $orderStateId, int $userId, int $shippingAddressId): ?Order
-    {
-        $order = new Order(0, $orderDate, $deliveryDate, $paid, $orderStateId, $userId, $shippingAddressId);
-        try {
-            return $order->insert();
-        } catch (Exception $e) {
-            logData("Order Controller", "Date could not be parsed! (insert)", CRITICAL_LOG, $e->getTrace());
             header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
             die();
         }
@@ -119,6 +96,28 @@ class OrderController
     }
 
     /**
+     * Creates a new {@link Order}.
+     * @param DateTime $orderDate The date of the order.
+     * @param DateTime $deliveryDate The delivery date for the order.
+     * @param bool $paid Is the order paid?
+     * @param int $orderStateId The state id for this order.
+     * @param int $userId The id of the user who created the order.
+     * @param int $shippingAddressId The id of the shipping address.
+     * @return Order|null A new {@link Order} object or null, if an error occurred.
+     */
+    public static function insert(DateTime $orderDate, DateTime $deliveryDate, bool $paid, int $orderStateId, int $userId, int $shippingAddressId): ?Order
+    {
+        $order = new Order(0, $orderDate, $deliveryDate, $paid, $orderStateId, $userId, $shippingAddressId);
+        try {
+            return $order->insert();
+        } catch (Exception $e) {
+            logData("Order Controller", "Date could not be parsed! (insert)", CRITICAL_LOG, $e->getTrace());
+            header("LOCATION: " . PAGES_DIR . 'page_error.php?errorCode=500');
+            die();
+        }
+    }
+
+    /**
      * Deletes an order.
      * @param Order $order The order, which should be deleted.
      * @return bool true, if it was successfully.
@@ -133,5 +132,4 @@ class OrderController
             die();
         }
     }
-
 }

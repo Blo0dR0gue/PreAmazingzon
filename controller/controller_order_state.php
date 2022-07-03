@@ -1,6 +1,5 @@
 <?php
-
-//Add the order state model
+//Add order_state model
 require_once MODEL_DIR . 'model_order_state.php';
 
 class OrderStateController
@@ -34,5 +33,4 @@ class OrderStateController
     {
         return OrderState::getAll();
     }
-
 }

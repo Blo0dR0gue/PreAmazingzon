@@ -1,6 +1,5 @@
 <?php
-
-//Add the cart model.
+// Add cart model.
 require_once MODEL_DIR . "model_cart_product.php";
 
 class CartProductController
@@ -77,6 +76,21 @@ class CartProductController
     }
 
     /**
+     * Reduces the amount of a specific product in a cart.
+     * @param CartProduct $cartProduct The {@link CartProduct} in which the amount should be decreased.
+     * @param int $by The amount by how much it should be decreased.
+     * @return CartProduct|null The updated {@link CartProduct} or null, if an error occurred.
+     */
+    public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
+    {
+        if ($cartProduct->getAmount() - $by >= 1) {     // can not sell less than one
+            $cartProduct->setAmount($cartProduct->getAmount() - $by);
+            return $cartProduct->update();
+        }
+        return null;
+    }
+
+    /**
      * Decreases the amount of products in cart to the max in stock, if we have more items in cart than it is in the stock. If the stock is 0 delete the item from the cart.
      * @param CartProduct $cartProduct The cart-product-object
      * @return bool true, if the product got deleted from the cart
@@ -116,7 +130,6 @@ class CartProductController
                     $popupString
                 );
             }
-
         }
         return false;
     }
@@ -129,20 +142,5 @@ class CartProductController
     public static function delete(CartProduct $cartProduct): bool
     {
         return $cartProduct->delete();
-    }
-
-    /**
-     * Reduces the amount of a specific product in a cart.
-     * @param CartProduct $cartProduct The {@link CartProduct} in which the amount should be decreased.
-     * @param int $by The amount by how much it should be decreased.
-     * @return CartProduct|null The updated {@link CartProduct} or null, if an error occurred.
-     */
-    public static function decAmount(CartProduct $cartProduct, int $by = 1): ?CartProduct
-    {
-        if ($cartProduct->getAmount() - $by >= 1) {  // can not sell less than one
-            $cartProduct->setAmount($cartProduct->getAmount() - $by);
-            return $cartProduct->update();
-        }
-        return null;
     }
 }

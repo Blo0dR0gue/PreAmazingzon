@@ -1,6 +1,5 @@
 <?php
-
-//Add models
+// Add models
 require_once MODEL_DIR . "model_product.php";
 require_once MODEL_DIR . "model_category.php";
 
@@ -218,7 +217,6 @@ class ProductController
         } else {
             return Product::getAmountOfProductsInCategory(null, true);
         }
-
     }
 
     // region image related
@@ -247,7 +245,6 @@ class ProductController
                 $errors = true;
             }
         }
-
         return $errors;
     }
 

@@ -1,6 +1,5 @@
 <?php
-
-//Add the required category model
+// Add category model
 require_once MODEL_DIR . 'model_category.php';
 
 class CategoryController
@@ -90,7 +89,6 @@ class CategoryController
             $path[] = $tmpProductCat->getName();
             $tmpProductCat = Category::getById($tmpProductCat->getParentID());
         }
-
         return array_reverse($path);
     }
 

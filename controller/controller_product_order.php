@@ -1,6 +1,5 @@
 <?php
-
-//Add the product order model.
+//Add product_order model.
 require_once MODEL_DIR . "model_product_order.php";
 
 class ProductOrderController
@@ -51,5 +50,4 @@ class ProductOrderController
     {
         return ProductOrder::doesUserBoughtThisProduct($userId, $productId);
     }
-
 }

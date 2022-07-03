@@ -1,6 +1,5 @@
 <?php
-
-//Add the user model
+//Add user model
 require_once MODEL_DIR . "model_user.php";
 
 class UserController
@@ -24,7 +23,6 @@ class UserController
      */
     public static function login(User $user, string $password): bool
     {
-
         if ($user->isActive()) {    // only login active users
             if (password_verify($password, $user->getPasswordHash())) {     // valid credentials?
                 // save the login state
@@ -263,5 +261,4 @@ class UserController
     {
         return $user->delete();
     }
-
 }
