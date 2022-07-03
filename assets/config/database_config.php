@@ -5,6 +5,7 @@
  * Database Name
  */
 const DB_DATABASE = "amazingzon";
+
 /**
  * User which has access to the database
  */

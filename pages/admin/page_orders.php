@@ -13,10 +13,10 @@ $offset = ($page - 1) * LIMIT_OF_SHOWED_ITEMS;                                  
 $userCount = OrderController::getAmountOfUsers();                                 // Get the total amount of users
 $totalPages = ceil($userCount / LIMIT_OF_SHOWED_ITEMS);                      // Calculate the total amount of pages
 
-//Get the orders in range. (From an offset a specific amount)
+// Get the orders in range. (From an offset a specific amount)
 $orders = OrderController::getAllInRange($offset, LIMIT_OF_SHOWED_ITEMS);
 
-//Get all order states.
+// Get all order states.
 $orderStates = OrderStateController::getAll();
 ?>
 
@@ -61,7 +61,7 @@ $orderStates = OrderStateController::getAll();
         <!-- table body -->
         <tbody>
         <?php if (isset($orders) && count($orders) > 0) {
-            //Add each order to the table
+            // Add each order to the table
             foreach ($orders as $order) {
                 if ($order instanceof Order) {
                     $user = UserController::getById($order->getUserId());

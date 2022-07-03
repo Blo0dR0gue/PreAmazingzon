@@ -1,13 +1,13 @@
-//Load on start (JQuery)
+// Load on start (JQuery)
 $(function () {
-    //Check if the delivery address radio select has changed.
+    // Check if the delivery address radio select has changed.
     $("#checkoutForm input[type=radio][name='delivery']").on("change", function () {
-        //Update the visuals of the selected address
+        // Update the visuals of the selected address
         const dataSet = $("input[name='delivery']:checked").data();
         $("#selectedDeliveryName").text(dataSet["user"]);
         $("#selectedDeliveryStreet").text(dataSet["street"]);
         $("#selectedDeliveryCity").text(dataSet["city"]);
-        //Disable the no address text
+        // Disable the no address text
         $("#noDeliveryText").css("display", "none");
     });
 });

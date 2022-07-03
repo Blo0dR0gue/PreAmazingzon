@@ -1,5 +1,5 @@
 <?php
-//Is the cart product set and an CartProduct object
+// Is the cart product set and an CartProduct object
 if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     $product = ProductController::getByID($cartProduct->getProdId()); ?>
     <!-- shopping cart row -->
@@ -62,6 +62,6 @@ if (isset($cartProduct) && $cartProduct instanceof CartProduct) {
     // save price for super script calculating total
     $subtotal = $product->getPriceTotal($cartProduct->getAmount());
 } else {
-    //If product not found
+    // If product not found
     $subtotal = 0;
 } ?>
