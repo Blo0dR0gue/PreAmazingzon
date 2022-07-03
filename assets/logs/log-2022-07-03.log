@@ -1,0 +1,224 @@
+2022-07-03 11:32:03 - DEBUG    [Login] User with id: 1 logged in.
+2022-07-03 11:32:09 - DEBUG    [Logout] User with id: 1 logged out.
+2022-07-03 11:46:19 - DEBUG    [Register] A new user with id: 3 just created a account.
+2022-07-03 11:46:19 - DEBUG    [Login] User with id: 3 logged in.
+2022-07-03 11:58:26 - INFO     [Add Address] Address with id: 3 got created.
+2022-07-03 11:59:09 - INFO     [Delete Address] Address with id: 3 got deleted!
+2022-07-03 12:03:45 - INFO     [Add Address] Address with id: 4 got created.
+2022-07-03 12:05:40 - DEBUG    [Login] User with id: 3 logged in.
+2022-07-03 12:05:40 - DEBUG    [Profile] User with id: 3 got updated.
+2022-07-03 12:06:35 - WARNING  [Cart Product Model] No items got selected for product id: 8
+2022-07-03 12:06:35 - WARNING  [Cart Product Model] No items got selected for product id: 8
+2022-07-03 12:06:44 - WARNING  [Cart Product Model] No items got selected for product id: 6
+2022-07-03 12:06:44 - WARNING  [Cart Product Model] No items got selected for product id: 6
+2022-07-03 12:08:53 - INFO     [Checkout] Order with id: 1 created!
+2022-07-03 12:08:58 - NOTICE   [Cart Product Model] No items were found for user with id: 3!
+2022-07-03 12:09:05 - INFO     [Pay Order] Order with id: 1 got paid from user 3!
+2022-07-03 12:10:27 - NOTICE   [Cart Product Model] No items were found for user with id: 3!
+2022-07-03 12:11:05 - DEBUG    [Login] User with id: 1 logged in.
+2022-07-03 12:11:09 - NOTICE   [Address Model] No items were found for user with id: 1!
+2022-07-03 12:11:39 - NOTICE   [Address Model] No items were found for user with id: 1!
+2022-07-03 12:11:39 - INFO     [Add Address] Address with id: 5 got created.
+2022-07-03 12:12:09 - DEBUG    [Login] User with id: 1 logged in.
+2022-07-03 12:12:09 - DEBUG    [Profile] User with id: 1 got updated.
+2022-07-03 12:16:10 - INFO     [Change Order State] Order with id: 1 has now the status: sent
+2022-07-03 12:16:57 - INFO     [Toggle Product Activation] Product with id 13 now has the status: Disabled
+2022-07-03 12:16:59 - INFO     [Toggle Product Activation] Product with id 12 now has the status: Disabled
+2022-07-03 12:17:08 - INFO     [Toggle Product Activation] Product with id 11 now has the status: Disabled
+2022-07-03 12:17:10 - INFO     [Toggle Product Activation] Product with id 11 now has the status: Active
+2022-07-03 12:17:24 - NOTICE   [Category Model] Tree could not be created. No Categories found!
+2022-07-03 12:18:10 - NOTICE   [Category Model] Tree could not be created. No Categories found!
+2022-07-03 12:18:24 - INFO     [Edit Product] Product with id 8 got updated.
+2022-07-03 12:18:24 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 12:18:24 - INFO     [Edit Product] Main image got updated.
+2022-07-03 12:18:24 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 12:18:24 - INFO     [Edit Product] Update product with id: 8 done.
+2022-07-03 12:18:51 - NOTICE   [Category Model] Tree could not be created. No Categories found!
+2022-07-03 12:18:56 - DEBUG    [Detailed Product] User with id 3 tried to access inactive product with id: 12
+2022-07-03 12:19:40 - DEBUG    [Detailed Product] Product with id: 77 does not exist
+2022-07-03 12:22:35 - INFO     [Write Review] User with id 3 wrote the review 1.
+2022-07-03 12:24:31 - INFO     [Write Review] User with id 3 wrote the review 2.
+2022-07-03 12:24:44 - WARNING  [Cart Product Model] No items got selected for product id: 2
+2022-07-03 12:24:44 - WARNING  [Cart Product Model] No items got selected for product id: 2
+2022-07-03 12:24:48 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:24:48 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:25:28 - INFO     [Checkout] Order with id: 2 created!
+2022-07-03 12:26:27 - INFO     [Write Review] User with id: 3 just wrote the review with id: 3.
+2022-07-03 12:26:58 - INFO     [Change Order State] Order with id: 1 has now the status: canceled
+2022-07-03 12:27:56 - DEBUG    [Logout] User with id: 3 logged out.
+2022-07-03 12:32:19 - DEBUG    [Register] A new user with id: 4 just created a account.
+2022-07-03 12:32:19 - DEBUG    [Login] User with id: 4 logged in.
+2022-07-03 12:33:04 - INFO     [Add Address] Address with id: 7 got created.
+2022-07-03 12:33:20 - WARNING  [Cart Product Model] No items got selected for product id: 8
+2022-07-03 12:33:20 - WARNING  [Cart Product Model] No items got selected for product id: 8
+2022-07-03 12:33:25 - WARNING  [Cart Product Model] No items got selected for product id: 4
+2022-07-03 12:33:25 - WARNING  [Cart Product Model] No items got selected for product id: 4
+2022-07-03 12:33:34 - WARNING  [Cart Product Model] No items got selected for product id: 9
+2022-07-03 12:33:34 - WARNING  [Cart Product Model] No items got selected for product id: 9
+2022-07-03 12:33:38 - WARNING  [Cart Product Model] No items got selected for product id: 1
+2022-07-03 12:33:38 - WARNING  [Cart Product Model] No items got selected for product id: 1
+2022-07-03 12:34:06 - INFO     [Checkout] Order with id: 3 created!
+2022-07-03 12:34:18 - INFO     [Pay Order] Order with id: 3 got paid from user 4!
+2022-07-03 12:34:26 - WARNING  [Cart Product Model] No items got selected for product id: 7
+2022-07-03 12:34:26 - WARNING  [Cart Product Model] No items got selected for product id: 7
+2022-07-03 12:34:42 - WARNING  [Cart Product Model] No items got selected for product id: 10
+2022-07-03 12:34:42 - WARNING  [Cart Product Model] No items got selected for product id: 10
+2022-07-03 12:34:50 - NOTICE   [Order Model] No Items were found for user 1!
+2022-07-03 12:35:05 - INFO     [Change Order State] Order with id: 3 has now the status: delivered
+2022-07-03 12:35:27 - DEBUG    [Logout] User with id: 4 logged out.
+2022-07-03 12:35:40 - DEBUG    [Login] User with id: 2 logged in.
+2022-07-03 12:36:08 - WARNING  [Cart Product Model] No items got selected for product id: 1
+2022-07-03 12:36:08 - WARNING  [Cart Product Model] No items got selected for product id: 1
+2022-07-03 12:36:15 - WARNING  [Cart Product Model] No items got selected for product id: 14
+2022-07-03 12:36:15 - WARNING  [Cart Product Model] No items got selected for product id: 14
+2022-07-03 12:36:24 - INFO     [Checkout] Order with id: 4 created!
+2022-07-03 12:36:36 - INFO     [Change Order State] Order with id: 4 has now the status: sent
+2022-07-03 12:36:39 - INFO     [Pay Order] Order with id: 4 got paid from user 2!
+2022-07-03 12:36:49 - WARNING  [Cart Product Model] No items got selected for product id: 2
+2022-07-03 12:36:49 - WARNING  [Cart Product Model] No items got selected for product id: 2
+2022-07-03 12:36:54 - INFO     [Checkout] Order with id: 5 created!
+2022-07-03 12:37:01 - INFO     [Change Order State] Order with id: 5 has now the status: delivered
+2022-07-03 12:37:03 - INFO     [Pay Order] Order with id: 5 got paid from user 2!
+2022-07-03 12:37:08 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:37:08 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:37:14 - INFO     [Checkout] Order with id: 6 created!
+2022-07-03 12:37:20 - INFO     [Change Order State] Order with id: 6 has now the status: canceled
+2022-07-03 12:38:47 - INFO     [Add Address] Address with id: 8 got created.
+2022-07-03 12:38:54 - WARNING  [Cart Product Model] No items got selected for product id: 4
+2022-07-03 12:38:54 - WARNING  [Cart Product Model] No items got selected for product id: 4
+2022-07-03 12:38:58 - INFO     [Checkout] Order with id: 7 created!
+2022-07-03 12:39:03 - INFO     [Pay Order] Order with id: 7 got paid from user 2!
+2022-07-03 12:39:27 - WARNING  [Cart Product Model] No items got selected for product id: 11
+2022-07-03 12:39:27 - WARNING  [Cart Product Model] No items got selected for product id: 11
+2022-07-03 12:39:36 - INFO     [Checkout] Order with id: 8 created!
+2022-07-03 12:41:01 - INFO     [Write Review] User with id: 2 just wrote the review with id: 4.
+2022-07-03 12:41:09 - NOTICE   [Cart Product Model] No items were found for user with id: 2!
+2022-07-03 12:42:05 - INFO     [Write Review] User with id: 2 just wrote the review with id: 5.
+2022-07-03 12:42:24 - INFO     [Write Review] User with id: 2 just wrote the review with id: 6.
+2022-07-03 12:42:39 - INFO     [Delete Review] Review with id: 6deleted!
+2022-07-03 12:43:26 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:43:26 - WARNING  [Cart Product Model] No items got selected for product id: 3
+2022-07-03 12:43:31 - WARNING  [Cart Product Model] No items got selected for product id: 5
+2022-07-03 12:43:31 - WARNING  [Cart Product Model] No items got selected for product id: 5
+2022-07-03 12:43:42 - WARNING  [Cart Product Model] No items got selected for product id: 15
+2022-07-03 12:43:42 - WARNING  [Cart Product Model] No items got selected for product id: 15
+2022-07-03 12:45:14 - DEBUG    [Logout] User with id: 2 logged out.
+2022-07-03 12:46:49 - DEBUG    [Register] A new user with id: 5 just created a account.
+2022-07-03 12:46:49 - DEBUG    [Login] User with id: 5 logged in.
+2022-07-03 12:47:00 - INFO     [Toggle User Role] User with id 5 now has the role: admin
+2022-07-03 12:47:37 - INFO     [Toggle User Activation] User with id 5 now has the status: Disabled
+2022-07-03 12:48:43 - DEBUG    [Login] User with id: 4 logged in.
+2022-07-03 12:49:10 - INFO     [Write Review] User with id: 4 just wrote the review with id: 7.
+2022-07-03 12:50:33 - INFO     [Write Review] User with id: 4 just wrote the review with id: 8.
+2022-07-03 12:51:09 - WARNING  [Cart Product Model] No items got selected for product id: 2 and user id: 4
+2022-07-03 12:51:09 - WARNING  [Cart Product Model] No items got selected for product id: 2 and user id: 4
+2022-07-03 12:51:29 - INFO     [Checkout] Order with id: 9 created!
+2022-07-03 12:51:45 - NOTICE   [Order Model] No Items were found for id: 9
+2022-07-03 12:51:45 - INFO     [Delete Order] Order with id: 9 deleted!
+2022-07-03 12:52:56 - NOTICE   [Cart Product Model] No items were found for user with id: 4!
+2022-07-03 12:53:01 - WARNING  [Cart Product Model] No items got selected for product id: 7 and user id: 4
+2022-07-03 12:53:01 - WARNING  [Cart Product Model] No items got selected for product id: 7 and user id: 4
+2022-07-03 12:53:05 - WARNING  [Cart Product Model] No items got selected for product id: 1 and user id: 4
+2022-07-03 12:53:05 - WARNING  [Cart Product Model] No items got selected for product id: 1 and user id: 4
+2022-07-03 12:53:10 - WARNING  [Cart Product Model] No items got selected for product id: 8 and user id: 4
+2022-07-03 12:53:10 - WARNING  [Cart Product Model] No items got selected for product id: 8 and user id: 4
+2022-07-03 12:53:14 - DEBUG    [Logout] User with id: 4 logged out.
+2022-07-03 12:54:24 - NOTICE   [Category Model] Tree could not be created. No Categories found!
+2022-07-03 12:56:06 - INFO     [Add Category] Category with id 1got created.
+2022-07-03 12:56:49 - INFO     [Add Category] Category with id 2got created.
+2022-07-03 12:57:19 - INFO     [Add Category] Category with id 3got created.
+2022-07-03 12:57:46 - INFO     [Add Category] Category with id 4got created.
+2022-07-03 12:58:41 - INFO     [Add Category] Category with id 5got created.
+2022-07-03 12:59:16 - INFO     [Add Category] Category with id 6got created.
+2022-07-03 13:00:02 - INFO     [Add Category] Category with id 7got created.
+2022-07-03 13:00:43 - INFO     [Add Category] Category with id 8got created.
+2022-07-03 13:01:11 - INFO     [Add Category] Category with id 9got created.
+2022-07-03 13:01:44 - INFO     [Edit Product] Product with id 1 got updated.
+2022-07-03 13:01:44 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:01:44 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:01:44 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:01:44 - INFO     [Edit Product] Update product with id: 1 done.
+2022-07-03 13:02:06 - INFO     [Edit Product] Product with id 2 got updated.
+2022-07-03 13:02:06 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:02:06 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:02:06 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:02:06 - INFO     [Edit Product] Update product with id: 2 done.
+2022-07-03 13:02:13 - INFO     [Edit Product] Product with id 3 got updated.
+2022-07-03 13:02:13 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:02:13 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:02:13 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:02:13 - INFO     [Edit Product] Update product with id: 3 done.
+2022-07-03 13:02:21 - INFO     [Edit Product] Product with id 4 got updated.
+2022-07-03 13:02:21 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:02:21 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:02:21 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:02:21 - INFO     [Edit Product] Update product with id: 4 done.
+2022-07-03 13:02:43 - INFO     [Edit Product] Product with id 5 got updated.
+2022-07-03 13:02:43 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:02:43 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:02:43 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:02:43 - INFO     [Edit Product] Update product with id: 5 done.
+2022-07-03 13:02:57 - INFO     [Edit Product] Product with id 6 got updated.
+2022-07-03 13:02:57 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:02:57 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:02:57 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:02:57 - INFO     [Edit Product] Update product with id: 6 done.
+2022-07-03 13:03:08 - INFO     [Edit Product] Product with id 7 got updated.
+2022-07-03 13:03:08 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:03:08 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:03:08 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:03:08 - INFO     [Edit Product] Update product with id: 7 done.
+2022-07-03 13:03:16 - INFO     [Edit Product] Product with id 8 got updated.
+2022-07-03 13:03:16 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:03:16 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:03:16 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:03:16 - INFO     [Edit Product] Update product with id: 8 done.
+2022-07-03 13:03:28 - INFO     [Edit Product] Product with id 9 got updated.
+2022-07-03 13:03:28 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:03:28 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:03:28 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:03:28 - INFO     [Edit Product] Update product with id: 9 done.
+2022-07-03 13:03:44 - INFO     [Edit Product] Product with id 10 got updated.
+2022-07-03 13:03:44 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:03:44 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:03:44 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:03:44 - INFO     [Edit Product] Update product with id: 10 done.
+2022-07-03 13:03:56 - INFO     [Edit Product] Product with id 11 got updated.
+2022-07-03 13:03:56 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:03:56 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:03:56 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:03:56 - INFO     [Edit Product] Update product with id: 11 done.
+2022-07-03 13:04:07 - INFO     [Edit Product] Product with id 12 got updated.
+2022-07-03 13:04:07 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:04:07 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:04:07 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:04:07 - INFO     [Edit Product] Update product with id: 12 done.
+2022-07-03 13:04:12 - INFO     [Edit Product] Product with id 13 got updated.
+2022-07-03 13:04:12 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:04:12 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:04:12 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:04:12 - INFO     [Edit Product] Update product with id: 13 done.
+2022-07-03 13:04:15 - INFO     [Edit Product] Product with id 14 got updated.
+2022-07-03 13:04:15 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:04:15 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:04:15 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:04:15 - INFO     [Edit Product] Update product with id: 14 done.
+2022-07-03 13:04:19 - INFO     [Edit Product] Product with id 15 got updated.
+2022-07-03 13:04:19 - INFO     [Edit Product] Selected images got deleted.
+2022-07-03 13:04:19 - INFO     [Edit Product] Main image got updated.
+2022-07-03 13:04:19 - INFO     [Edit Product] Images got uploaded.
+2022-07-03 13:04:19 - INFO     [Edit Product] Update product with id: 15 done.
+2022-07-03 13:11:46 - INFO     [Add Product] Product with id 16 got created!
+2022-07-03 13:11:46 - INFO     [Add Product] Images got uploaded for product with id: 16
+2022-07-03 13:13:25 - WARNING  [Cart Product Model] No items got selected for product id: 16 and user id: 1
+2022-07-03 13:13:25 - WARNING  [Cart Product Model] No items got selected for product id: 16 and user id: 1
+2022-07-03 13:13:34 - INFO     [Checkout] Order with id: 10 created!
+2022-07-03 13:13:40 - INFO     [Pay Order] Order with id: 10 got paid from user 1!
+2022-07-03 13:14:55 - INFO     [Write Review] User with id: 1 just wrote the review with id: 9.
+2022-07-03 13:15:15 - INFO     [Change Order State] Order with id: 10 has now the status: delivered
+2022-07-03 13:15:37 - INFO     [Toggle User Role] User with id 2 now has the role: admin
+2022-07-03 13:15:39 - INFO     [Toggle User Role] User with id 2 now has the role: user
+2022-07-03 13:15:41 - INFO     [Toggle User Activation] User with id 2 now has the status: Disabled
+2022-07-03 13:15:43 - INFO     [Toggle User Activation] User with id 2 now has the status: Active
+2022-07-03 13:16:11 - DEBUG    [Login] Login failed for user with id: 5
+2022-07-03 13:17:02 - DEBUG    [Logout] User with id: 1 logged out.
