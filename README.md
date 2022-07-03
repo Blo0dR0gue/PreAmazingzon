@@ -104,10 +104,11 @@ Important values for testing are:
 
 **Predefined Users:**
 
-| Role        | Email/Username | Password   |
-|-------------|----------------|------------|
-| normal user | user@user.de   | sh7up#KT!  |
-| admin       | admin@admin.de | sh7up#KT!  |
+| Role        | Email/Username       | Password    |
+|-------------|----------------------|-------------|
+| normal user | user@user.de         | sh7up#KT!   |
+| admin       | admin@admin.de       | sh7up#KT!   |
+| normal user | tom.harris@gmail.com | pDGi5{7@    |
 
 ## Code Style
 
