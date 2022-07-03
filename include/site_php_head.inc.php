@@ -2,9 +2,9 @@
 // php head file included in all necessary files at the beginning
 
 // php error display
-ini_set("display_errors", "On"); //TODO set to off
-ini_set("display_startup_errors", "On"); //TODO set to off
-error_reporting(-1);    //TODO set to 0 to disable error reporting
+ini_set("display_errors", "Off");
+ini_set("display_startup_errors", "Off");
+error_reporting(0);
 
 // in this var you will get the absolute file path of the current file
 $current_file_path = __DIR__;

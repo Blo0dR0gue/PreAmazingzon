@@ -33,10 +33,11 @@ class UserController
                 $_SESSION["last_name"] = $user->getLastName();
                 $_SESSION["uid"] = $user->getId();
                 $_SESSION["isAdmin"] = $user->getRoleId() === UserRoleController::getAdminUserRole()->getId();
-
+                logData("Login", "User with id: " . $user->getId() . " logged in.", DEBUG_LOG);
                 return true;    // success
             }
         }
+        logData("Login", "Login failed for user with id: " . $user->getId(), DEBUG_LOG);
         return false;   // failure
     }
 
@@ -84,6 +85,7 @@ class UserController
             $user->setDefaultAddressId($address->getId());
             $user->update();
 
+            logData("Register", "A new user with id: " . $user->getId() . " just created a account.", DEBUG_LOG);
             return $user;
         }
         return null; // email not unique

@@ -28,9 +28,8 @@ Step-by-step setup:
 3. Click on "Browse".
 4. Select the `install.sql` file located in the project root.
 5. Click on "Open".
-6. Uncheck "Enable foreign key verification". (Foreign key verification is set up but to insert the test data it needs to be disabled. It is not possible to insert a user with an address which does not exist yet and vice versa)
-7. Click on "OK".
-8. The database with a default user will be created. (Database-Username: amazingzon, Password: sh7up#KT!)
+6. Click on "OK".
+7. The database with a default user will be created. (Database-Username: amazingzon, Password: sh7up#KT!)
 
 ## Features
 
