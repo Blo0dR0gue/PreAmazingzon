@@ -16,7 +16,7 @@
     <div>
         <div class="jumbotron text-center">
             <h1 class="display-2">Thank you for your order!</h1>
-            <p class="lead">Please check your orders inside your profile to see the invoice.</p>
+            <p class="lead">Please check your orders inside your profile to see the invoice and to pay the order.</p>
             <hr>
             <p class="text-muted">Having trouble? <a href="<?= PAGES_DIR . "page_about.php" ?>">Contact us</a></p>
             <p class="lead">
