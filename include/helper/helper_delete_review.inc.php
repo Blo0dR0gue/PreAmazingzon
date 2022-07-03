@@ -53,7 +53,7 @@ if (!$suc) {
     die();
 }
 
-logData("Delete Review", "Review with id: " . $_GET["id"] . "deleted!");
+logData("Delete Review", "Review with id: " . $_GET["id"] . " deleted!");
 
 //Go back to previous page, if it got set, else go back to the page_product_detail.php page
 if (isset($_SERVER["HTTP_REFERER"])) {

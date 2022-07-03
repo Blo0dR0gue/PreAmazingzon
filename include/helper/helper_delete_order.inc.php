@@ -40,7 +40,7 @@ if (!$suc) {
     die();
 }
 
-logData("Delete Order", "Order with id: " . $order->getId() . "deleted!");
+logData("Delete Order", "Order with id: " . $order->getId() . " deleted!");
 
 // Go back to previous page, if it got set, else go back to the page_users.php page
 if (isset($_SERVER["HTTP_REFERER"])) {
