@@ -5,7 +5,7 @@ if (isset($product) && $product instanceof Product): ?>
         <div class="card border-0 shadow w-100">
             <!-- main image -->
             <a href="<?= PAGES_DIR . "page_product_detail.php?id=" . $product->getId();
-            // TODO GLOBAL dont use manual queries, http_build_query instead      ?>"
+            // TODO GLOBAL dont use manual queries, http_build_query instead       ?>"
                class="d-flex justify-content-center align-items-center overflow-hidden" style="height: 250px">
                 <img src="<?= $product->getMainImg(); ?>" class="card-img-top mh-100 mw-100 w-auto" alt="main image"/>
             </a>
@@ -40,7 +40,7 @@ if (isset($product) && $product instanceof Product): ?>
                     <p class="small text-danger mb-2"><s><?= $product->getOriginalPriceFormatted() ?></s></p>
                     <!-- price -->
                     <h5 class="text-dark mb-0 ms-1">
-                        <?= $product->getPriceFormatted() // intentionally without shipping ?>
+                        <?= $product->getPriceFormatted() // intentionally without shipping  ?>
                     </h5>
                 </div>
 

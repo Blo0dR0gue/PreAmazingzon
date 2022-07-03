@@ -400,7 +400,7 @@ class Product
      */
     public function getPriceTotal(int $amount = 1): float
     {
-        return ($this->price + $this->shippingCost) * $amount ;
+        return ($this->price + $this->shippingCost) * $amount;
     }
 
     /**

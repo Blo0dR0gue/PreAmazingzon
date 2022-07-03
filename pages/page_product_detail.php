@@ -255,16 +255,19 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
                             <!-- Review text -->
                             <p class="mt-1 mb-0"><?= $review->getText(); ?></p>
-
                         </div>
 
                     <?php endforeach; ?>
 
                 <?php elseif (UserController::isCurrentSessionLoggedIn() && ProductOrder::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
                     <!-- There is no review and the user bought this item -->
-                    <h5 class='text-center text-muted my-3'><em>No reviews found. Be the first.</em></h5>
-                <?php elseif(UserController::isCurrentSessionLoggedIn()): ?>
-                    <h5 class='text-center text-muted my-3'><em>No reviews found. <br> You must have purchased the product at least once to write a review</em></h5>
+                    <h5 class='text-center text-muted my-3'>
+                        <em>No reviews found. Be the first.</em>
+                    </h5>
+                <?php elseif (UserController::isCurrentSessionLoggedIn()): ?>
+                    <h5 class='text-center text-muted my-3'>
+                        <em>No reviews found.<br>You must have purchased the product at least once to write a review</em>
+                    </h5>
                 <?php else: ?>
                     <h5 class='text-center text-muted my-3'><em>No reviews found. Login and be the first.</em></h5>
                 <?php endif; ?>

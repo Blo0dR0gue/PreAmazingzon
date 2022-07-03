@@ -150,7 +150,6 @@ class Order
         return $arr;
     }
 
-
     /**
      * Gets all orders from an offset to a limit.
      * @param int $offset The offset from where the first item should be selected.

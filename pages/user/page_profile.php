@@ -170,7 +170,7 @@ if (!$primaryAddress) { // user default address could not be found?
                 <?php if (count($addresses) > 0): ?>
                     <?php foreach ($addresses as $address): ?>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="address" id="<?=$address->getId()?>"
+                            <input class="form-check-input" type="radio" name="address" id="<?= $address->getId() ?>"
                                    data-user="<?= UserController::getFormattedName($user) ?>"
                                    data-street="<?= $address->getStreet() . " " . $address->getNumber() ?>"
                                    data-city="<?= $address->getCity() . ", " . $address->getZip() ?>"
@@ -178,11 +178,12 @@ if (!$primaryAddress) { // user default address could not be found?
                                    required
                                 <?php
                                 // Select the default address
-                                if (isset($primaryAddress) && $address->getId() === $primaryAddress->getId())
+                                if (isset($primaryAddress) && $address->getId() === $primaryAddress->getId()) {
                                     echo "checked";
+                                }
                                 ?>
                             >
-                            <label class="form-check-label" for="<?=$address->getId()?>">
+                            <label class="form-check-label" for="<?= $address->getId() ?>">
                                 <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $address->getStreet() . " " . $address->getNumber() .
                                 ", " . $address->getCity() . ", " . $address->getZip() ?>
                             </label>

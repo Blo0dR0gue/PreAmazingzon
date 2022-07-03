@@ -82,7 +82,8 @@
                 <!-- pay -->
                 <?php if (!$order->isPaid()) { ?>
                     <button class="col-5 btn btn-warning"
-                            onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay</button>
+                            onclick="onItemPayBtn(this, <?= $order->getId(); ?>, <?= $order->getUserId(); ?>)">Pay
+                    </button>
                 <?php } else { ?>
                     <button class="col-5 btn btn-success" disabled>Paid</button>
                 <?php } ?>
