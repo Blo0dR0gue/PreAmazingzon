@@ -164,7 +164,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
             <!-- RIGHT -->
             <div class="col-lg-9 right-side align-content-center h-100 pt-2">
                 <!-- Only allow to write a review, if the user is logged in, already bought this item once -->
-                <?php if (UserController::isCurrentSessionLoggedIn() && ProductOrder::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
+                <?php if (UserController::isCurrentSessionLoggedIn() && ProductOrderController::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
 
                     <div class="p-3 right-side align-content-center h-100">
                         <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse"
@@ -259,7 +259,7 @@ $avgRating = ReviewController::getAvgRating($product->getId());
 
                     <?php endforeach; ?>
 
-                <?php elseif (UserController::isCurrentSessionLoggedIn() && ProductOrder::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
+                <?php elseif (UserController::isCurrentSessionLoggedIn() && ProductOrderController::doesUserBoughtThisProduct($_SESSION["uid"], $product->getId())): ?>
                     <!-- There is no review and the user bought this item -->
                     <h5 class='text-center text-muted my-3'>
                         <em>No reviews found. Be the first.</em>
