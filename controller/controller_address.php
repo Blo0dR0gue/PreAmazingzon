@@ -44,12 +44,12 @@ class AddressController
      * @param int|null $userId The new user id. Set it to null to use the current user id of the address.
      * @return Address|null The updated Address or null, if an error occurred.
      */
-    public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address  // TODO unused?
+    public static function update(Address $address, string $street, string $zipCode, string $streetNumber, string $city, int $userId = null): ?Address
     {
-        $address->setStreet($street);
-        $address->setZip($zipCode);
-        $address->setNumber($streetNumber);
-        $address->setCity($city);
+        $address->setStreet(htmlspecialchars($street, ENT_QUOTES, "UTF-8"));
+        $address->setZip(htmlspecialchars($zipCode, ENT_QUOTES, "UTF-8"));
+        $address->setNumber(htmlspecialchars($streetNumber, ENT_QUOTES, "UTF-8"));
+        $address->setCity(htmlspecialchars($city, ENT_QUOTES, "UTF-8"));
         if ($userId != null) {
             $address->setUserId($userId);
         }
