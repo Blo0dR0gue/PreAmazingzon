@@ -52,7 +52,6 @@ if (!empty($_POST["type"])) {   // data set?
 
                         // Reset latest messages
                         $_GET["message"] = "";
-
                         $updatedUser = 1;
                     } else {
                         // Update failed.
@@ -64,13 +63,11 @@ if (!empty($_POST["type"])) {   // data set?
                     logData("Profile", "Address with id " . $address->getId() . " does not belong to user with id: " . $user->getId(), CRITICAL_LOG);
                     $addressNotUser = 1;
                 }
-
             } else {
                 // Address not found.
                 logData("Profile", "Address with id " . $_POST["address"] . " not found.", CRITICAL_LOG);
                 $addressError = 1;
             }
-
         } else {
             // E-Mail already used.
             logData("Profile", "E-Mail-Address: " . $_POST["email"] . " already used.");
@@ -86,7 +83,6 @@ if (!empty($_POST["type"])) {   // data set?
 
 <!-- Load form data -->
 <?php
-
 // get all addresses
 $addresses = AddressController::getAllByUser($user->getId());
 
@@ -95,7 +91,6 @@ $primaryAddress = AddressController::getById($user->getDefaultAddressId());
 if (!$primaryAddress) { // user default address could not be found?
     $addressInfo = 1;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -176,13 +171,11 @@ if (!$primaryAddress) { // user default address could not be found?
                                    data-city="<?= $address->getCity() . ", " . $address->getZip() ?>"
                                    value="<?= $address->getId(); ?>"
                                    required
-                                <?php
-                                // Select the default address
+                                <?php // Select the default address
                                 if (isset($primaryAddress) && $address->getId() === $primaryAddress->getId()) {
                                     echo "checked";
                                 }
-                                ?>
-                            >
+                                ?>>
                             <label class="form-check-label" for="<?= $address->getId() ?>">
                                 <?= "<b>" . UserController::getFormattedName($user) . "</b> " . $address->getStreet() . " " . $address->getNumber() .
                                 ", " . $address->getCity() . ", " . $address->getZip() ?>
@@ -196,8 +189,7 @@ if (!$primaryAddress) { // user default address could not be found?
                                        '<?= $address->getCity() ?>',
                                        '<?= $address->getStreet() ?>',
                                        '<?= $address->getNumber() ?>'
-                                       );"
-                            >
+                                       );">
                                 <em class="fa fa-pencil"></em>
                             </a>
 
@@ -208,7 +200,6 @@ if (!$primaryAddress) { // user default address could not be found?
                                        '<?= str_replace(DS, "/", INCLUDE_HELPER_DIR . "helper_delete_address.inc.php?addressId=" . $address->getId() . "&userId=" . $user->getId()); ?>')">
                                 <em class="fa fa-trash "></em>
                             </a>
-
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

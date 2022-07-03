@@ -170,14 +170,12 @@ $products = ProductController::getProductsInRange(false, $offset, LIMIT_OF_SHOWE
 
 <!-- Status messages -->
 <?php
-
 if (!empty($_GET["message"])) {
     show_popup(
         "Information",
         $_GET["message"]
     );
 }
-
 ?>
 
 </body>

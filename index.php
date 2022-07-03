@@ -1,8 +1,6 @@
 <!-- Main entry point of website  -->
 <?php require_once "include/site_php_head.inc.php" ?>
 
-<!-- TODO general: use http_build_query instead of '?id=' -->
-
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>

@@ -170,6 +170,7 @@ $totalProductPrice = 0;
 
 <!-- load custom form validation script -->
 <script src="<?= SCRIPT_DIR . "form_validation.js" ?>"></script>
+
 <!-- enable tooltips on this page (by default disabled for performance)-->
 <script src="<?= SCRIPT_DIR . "tooltip_enable.js" ?>"></script>
 

@@ -2,8 +2,7 @@
 
 <?php
 // Check if no user is logged-in or the logged-in user got blocked. If not redirect to root.
-UserController::redirectIfNotLoggedIn();
-?>
+UserController::redirectIfNotLoggedIn();?>
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -59,13 +58,14 @@ UserController::redirectIfNotLoggedIn();
                                 }
                                 $total += $subtotal;
                             }
-                        }
-                        ?>
+                        } ?>
                         </tbody>
                     </table>
+
                     <h5 class="text-center text-muted mb-5"><em><?php if (!$cartProducts) {
                                 echo "empty";
-                            } ?></em></h5>
+                            } ?></em>
+                    </h5>
 
                     <div class="float-end text-end">
                         <h1 class="mb-0">
