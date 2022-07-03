@@ -48,7 +48,7 @@ if (!empty($_POST["type"])) {   // data set?
                     if (isset($user)) {
                         UserController::login($user, $_POST["password"]);   // login user (update session infos)
 
-                        logData("Profile", "User with id: " . $user->getId() . "got updated.", DEBUG_LOG);
+                        logData("Profile", "User with id: " . $user->getId() . " got updated.", DEBUG_LOG);
 
                         // Reset latest messages
                         $_GET["message"] = "";
